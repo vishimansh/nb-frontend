@@ -9,7 +9,7 @@ import { ArrowLeft2 } from 'iconsax-react';
  * - 14px rounded corners (rounded-[14px])
  * - Clean white background (#FFFFFF)
  * - Subtle border (#D1D5DB)
- * - 20px Iconsax ArrowLeft2 icon in navy (#18253B)
+ * - 20px Iconsax ArrowLeft2 icon in navy (#1E213D)
  * - Micro-interaction active:scale-95 transition
  */
 export default function BackButton({
@@ -17,7 +17,7 @@ export default function BackButton({
   ariaLabel = 'पीछे जाएं',
   className = '',
   iconSize = 20,
-  iconColor = '#18253B',
+  iconColor = '#1E213D',
 }) {
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ export default function BackButton({
       type="button"
       onClick={handleClick}
       aria-label={ariaLabel}
-      className={`w-[46px] h-[46px] rounded-[14px] bg-white border border-[#D1D5DB] flex items-center justify-center shadow-2xs cursor-pointer active:scale-95 flex-shrink-0 transition-transform text-[#18253B] ${className}`}
+      className={`w-[46px] h-[46px] rounded-[14px] bg-white border border-[#D1D5DB] flex items-center justify-center shadow-2xs cursor-pointer active:scale-95 flex-shrink-0 transition-transform text-[#1E213D] ${className}`}
     >
       <ArrowLeft2 size={iconSize} color={iconColor} variant="Linear" />
     </button>

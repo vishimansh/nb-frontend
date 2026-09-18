@@ -194,13 +194,13 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
           {/* Category Tag Pill: 6px padding all sides, 6px gap, hug content, icon inside 20x20px circle, 16px medium label */}
           <div className="bg-white rounded-full p-[6px] flex items-center gap-[6px] shadow-md w-fit shrink-0">
             <div
-              style={{ backgroundColor: reel.category?.color || '#18253B' }}
+              style={{ backgroundColor: reel.category?.color || '#1E213D' }}
               className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] rounded-full flex items-center justify-center shrink-0"
             >
               {getCategoryIcon(reel.category?.id, '#FFFFFF', 16)}
             </div>
             <span
-              style={{ color: reel.category?.color || '#18253B' }}
+              style={{ color: reel.category?.color || '#1E213D' }}
               className="text-[16px] font-medium leading-none"
             >
               {reel.category?.label}
@@ -258,7 +258,7 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
                   e.stopPropagation();
                   setIsDescriptionExpanded(true);
                 }}
-                className="text-[#E39026] font-normal cursor-pointer hover:underline ml-1 inline-block"
+                className="text-[#EEEBDA] font-normal cursor-pointer hover:underline ml-1 inline-block"
               >
                 ...और पढ़ें
               </span>
@@ -289,7 +289,7 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
             onShareToast?.('पूरी न्यूज़ खुल रही है...');
           }}
           aria-label="पूरी न्यूज़ पढ़ें"
-          className="p-[12px] bg-[#18253B] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#22334D] transition-all w-fit"
+          className="p-[12px] bg-[#1E213D] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#22334D] transition-all w-fit"
         >
           <span className="text-[16px] font-medium text-white tracking-wide leading-none">
             पूरी न्यूज़ पढ़ें

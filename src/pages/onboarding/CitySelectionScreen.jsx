@@ -54,7 +54,7 @@ const CITY_NAME_TO_ID = {
 /**
  * Screen 6: City Selection Screen
  * Exact styling: h-[50px] rounded-[14px] search, h-[42px] rounded-[14px] chips,
- * warm golden-amber #F7C873 expand chip with dark navy #18253B text,
+ * warm golden-amber #F7C873 expand chip with dark navy #1E213D text,
  * and 56px rounded-[16px] bottom CTA button.
  */
 export default function CitySelectionScreen() {
@@ -114,7 +114,7 @@ export default function CitySelectionScreen() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#18253B] text-white text-[12px] px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-white/10"
+            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#1E213D] text-white text-[12px] px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-white/10"
           >
             <span>ℹ️</span>
             <span className="font-medium">{alertMessage}</span>
@@ -126,14 +126,14 @@ export default function CitySelectionScreen() {
       <div className="px-6 py-3 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F7F7F4]/90 backdrop-blur-sm z-10 flex-shrink-0">
         <div className="flex items-center gap-2">
           <BackButton onClick={() => navigate('/onboarding/select-state')} ariaLabel="पीछे जाएं" />
-          <h1 className="text-[22px] font-bold text-[#18253B] tracking-tight">
+          <h1 className="text-[22px] font-bold text-[#1E213D] tracking-tight">
             शहर चुनें
           </h1>
         </div>
 
         <button
           onClick={handleSkip}
-          className="text-[15px] font-semibold text-[#18253B] cursor-pointer hover:opacity-75 transition-opacity"
+          className="text-[15px] font-semibold text-[#1E213D] cursor-pointer hover:opacity-75 transition-opacity"
         >
           स्किप
         </button>
@@ -150,15 +150,15 @@ export default function CitySelectionScreen() {
 
       {/* Search Input Field: h-[50px] rounded-[14px] border-[#B0B7C3] */}
       <div className="px-6 py-2 flex-shrink-0">
-        <div className="h-[50px] bg-white rounded-[14px] border border-[#B0B7C3] flex items-center px-4 focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/10 transition-all shadow-2xs">
+        <div className="h-[50px] bg-white rounded-[14px] border border-[#B0B7C3] flex items-center px-4 focus-within:border-[#1E213D] focus-within:ring-2 focus-within:ring-[#1E213D]/10 transition-all shadow-2xs">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="अपना शहर खोजें"
-            className="text-[15px] font-normal text-[#18253B] placeholder:text-[#9CA3AF] bg-transparent outline-none flex-1 tracking-wide"
+            className="text-[15px] font-normal text-[#1E213D] placeholder:text-[#9CA3AF] bg-transparent outline-none flex-1 tracking-wide"
           />
-          <SearchNormal1 size={20} color="#18253B" className="w-5 h-5 flex-shrink-0" variant="Linear" />
+          <SearchNormal1 size={20} color="#1E213D" className="w-5 h-5 flex-shrink-0" variant="Linear" />
         </div>
       </div>
 
@@ -188,8 +188,8 @@ export default function CitySelectionScreen() {
 
           return (
             <div key={stateId} className="mb-4">
-              {/* State Header: text-[16px] font-bold text-[#18253B] mt-4 mb-3 */}
-              <h2 className="text-[16px] font-bold text-[#18253B] mt-4 mb-3 tracking-tight">
+              {/* State Header: text-[16px] font-bold text-[#1E213D] mt-4 mb-3 */}
+              <h2 className="text-[16px] font-bold text-[#1E213D] mt-4 mb-3 tracking-tight">
                 {stateData.stateName}
               </h2>
 
@@ -206,8 +206,8 @@ export default function CitySelectionScreen() {
                       onClick={() => toggleCity(stateId, city, isSingleStateMode)}
                       className={`px-4 py-2 rounded-[16px] text-[18px] font-medium cursor-pointer transition-all active:scale-95 flex items-center gap-2 ${
                         isSelected
-                          ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm'
-                          : 'bg-white text-[#18253B] border border-[#B0B7C3] hover:border-[#18253B]'
+                          ? 'bg-[#1E213D] text-white border border-[#1E213D] shadow-sm'
+                          : 'bg-white text-[#1E213D] border border-[#B0B7C3] hover:border-[#1E213D]'
                       }`}
                     >
                       {isSelected && <TickCircle size={18} color="#FFFFFF" variant="Bold" />}
@@ -228,8 +228,8 @@ export default function CitySelectionScreen() {
                         onClick={() => toggleCity(stateId, city, isSingleStateMode)}
                         className={`px-4 py-2 rounded-[16px] text-[18px] font-medium cursor-pointer transition-all active:scale-95 flex items-center gap-2 ${
                           isSelected
-                            ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm'
-                            : 'bg-white text-[#18253B] border border-[#B0B7C3] hover:border-[#18253B]'
+                            ? 'bg-[#1E213D] text-white border border-[#1E213D] shadow-sm'
+                            : 'bg-white text-[#1E213D] border border-[#B0B7C3] hover:border-[#1E213D]'
                         }`}
                       >
                         {isSelected && <TickCircle size={18} color="#FFFFFF" variant="Bold" />}
@@ -238,11 +238,11 @@ export default function CitySelectionScreen() {
                     );
                   })}
 
-                {/* Expand Chip ("और +"): px-4 py-2 rounded-[16px] bg-[#F7C873] text-[#18253B] */}
+                {/* Expand Chip ("और +"): px-4 py-2 rounded-[16px] bg-[#F7C873] text-[#1E213D] */}
                 {!showAll && stateData.expanded.length > 0 && !query && (
                   <button
                     onClick={() => toggleExpand(stateId)}
-                    className="px-4 py-2 rounded-[16px] bg-[#F7C873] text-[#18253B] text-[18px] font-semibold cursor-pointer shadow-xs active:scale-95 hover:brightness-95 transition-all flex items-center gap-1"
+                    className="px-4 py-2 rounded-[16px] bg-[#F7C873] text-[#1E213D] text-[18px] font-semibold cursor-pointer shadow-xs active:scale-95 hover:brightness-95 transition-all flex items-center gap-1"
                   >
                     <span>और +</span>
                   </button>
@@ -252,7 +252,7 @@ export default function CitySelectionScreen() {
                 {isExpanded && !query && (
                   <button
                     onClick={() => toggleExpand(stateId)}
-                    className="px-4 py-2 rounded-[16px] bg-[#E5E7EB] text-[#18253B] text-[18px] font-semibold cursor-pointer active:scale-95 hover:bg-gray-300 transition-all flex items-center gap-1"
+                    className="px-4 py-2 rounded-[16px] bg-[#E5E7EB] text-[#1E213D] text-[18px] font-semibold cursor-pointer active:scale-95 hover:bg-gray-300 transition-all flex items-center gap-1"
                   >
                     <span>कम -</span>
                   </button>
@@ -272,7 +272,7 @@ export default function CitySelectionScreen() {
       <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#F7F7F4] via-[#F7F7F4]/95 to-transparent pt-4 pb-8 px-6 z-20">
         <button
           onClick={handleSave}
-          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#1f304d] transition-colors"
+          className="w-full h-[56px] rounded-[16px] bg-[#1E213D] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#1f304d] transition-colors"
         >
           सेव करें
         </button>

@@ -52,7 +52,7 @@ export default function MenuScreen() {
       {/* Header Bar */}
       <div className="px-4 py-3 flex items-center gap-3 bg-[#F7F7F4] shrink-0 sticky top-[54px] z-20">
         <BackButton onClick={() => navigate('/feed')} ariaLabel="वापस जाएं" />
-        <h1 className="text-[22px] font-bold text-[#18253B] tracking-tight">मेनू</h1>
+        <h1 className="text-[22px] font-bold text-[#1E213D] tracking-tight">मेनू</h1>
       </div>
 
       {/* Vertically Scrollable Content Area */}
@@ -113,14 +113,14 @@ export default function MenuScreen() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-[#18253B] via-[#233550] to-[#0F172A] flex items-center justify-center text-white">
+                <div className="w-full h-full bg-gradient-to-br from-[#1E213D] via-[#233550] to-[#0F172A] flex items-center justify-center text-white">
                   <User size={26} color="#FFFFFF" variant="Bold" />
                 </div>
               )}
             </div>
 
             <div>
-              <span className="text-[17px] font-bold text-[#18253B] block leading-tight">
+              <span className="text-[17px] font-bold text-[#1E213D] block leading-tight">
                 {userProfile.name || 'हिमांशु विश्वकर्मा'}
               </span>
               <span className="text-[13px] text-[#64748B] font-medium mt-1 block">
@@ -133,7 +133,7 @@ export default function MenuScreen() {
           <button
             type="button"
             onClick={() => navigate('/profile', { state: { from: 'menu' } })}
-            className="w-10 h-10 rounded-[12px] bg-[#18253B] flex items-center justify-center text-white cursor-pointer active:scale-95 shadow-xs relative z-10 hover:bg-[#233550] transition-all shrink-0"
+            className="w-10 h-10 rounded-[12px] bg-[#1E213D] flex items-center justify-center text-white cursor-pointer active:scale-95 shadow-xs relative z-10 hover:bg-[#233550] transition-all shrink-0"
             title="प्रोफ़ाइल संपादित करें"
           >
             <Edit2 size={17} color="#FFFFFF" variant="Bold" />
@@ -160,7 +160,7 @@ export default function MenuScreen() {
             <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F6E0BB] flex items-center justify-center text-[#D48E28] shrink-0">
               <Folder2 size={16} color="#D48E28" variant="Bold" />
             </div>
-            <h2 className="text-[16px] font-bold text-[#18253B]">मेरी सामग्री</h2>
+            <h2 className="text-[16px] font-bold text-[#1E213D]">मेरी सामग्री</h2>
           </div>
 
           {/* Individual Rounded Action Rows */}
@@ -171,10 +171,10 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Location size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B]">
+                <span className="text-[14px] font-semibold text-[#1E213D]">
                   चुनी गई लोकेशन
                 </span>
               </div>
@@ -187,10 +187,10 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Notification size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B]">
+                <span className="text-[14px] font-semibold text-[#1E213D]">
                   नोटिफिकेशन
                 </span>
               </div>
@@ -203,10 +203,10 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Notification size={18} color="#FFFFFF" variant="Outline" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B]">
+                <span className="text-[14px] font-semibold text-[#1E213D]">
                   श्रेणी आधारित सूचनाएं
                 </span>
               </div>
@@ -219,10 +219,10 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <ArchiveBook size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B]">
+                <span className="text-[14px] font-semibold text-[#1E213D]">
                   सेव की गई खबरें
                 </span>
               </div>
@@ -240,7 +240,7 @@ export default function MenuScreen() {
                 <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F6E0BB] flex items-center justify-center text-[#D48E28] shrink-0">
                   <TickSquare size={16} color="#D48E28" variant="Bold" />
                 </div>
-                <h2 className="text-[16px] font-bold text-[#18253B]">चयनित श्रेणियां</h2>
+                <h2 className="text-[16px] font-bold text-[#1E213D]">चयनित श्रेणियां</h2>
               </div>
 
               <div
@@ -248,10 +248,10 @@ export default function MenuScreen() {
                 className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3 flex-1">
-                  <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                  <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                     <ListSearchIcon size={18} color="#FFFFFF" />
                   </div>
-                  <span className="text-[14px] font-semibold text-[#18253B]">
+                  <span className="text-[14px] font-semibold text-[#1E213D]">
                     पसंदीदा श्रेणियाँ चुनें
                   </span>
                 </div>
@@ -266,7 +266,7 @@ export default function MenuScreen() {
                   <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F6E0BB] flex items-center justify-center text-[#D48E28] shrink-0">
                     <TickSquare size={16} color="#D48E28" variant="Bold" />
                   </div>
-                  <h2 className="text-[16px] font-bold text-[#18253B]">चयनित श्रेणियां</h2>
+                  <h2 className="text-[16px] font-bold text-[#1E213D]">चयनित श्रेणियां</h2>
                 </div>
                 <button
                   type="button"
@@ -288,10 +288,10 @@ export default function MenuScreen() {
                       key={catId}
                       className="h-[56px] bg-[#F9FAFB] border border-[#F0F1F3] rounded-[16px] px-3.5 flex items-center gap-3 shadow-2xs"
                     >
-                      <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                      <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                         {IconComp && <IconComp size={18} color="#FFFFFF" variant="Bold" />}
                       </div>
-                      <span className="text-[14px] font-bold text-[#18253B] truncate">
+                      <span className="text-[14px] font-bold text-[#1E213D] truncate">
                         {meta.label}
                       </span>
                     </div>
@@ -306,7 +306,7 @@ export default function MenuScreen() {
         {selectedCategories.length > 0 && sortedUnselected.length > 0 && (
           <div className="bg-white rounded-[24px] border border-[#EBECEF] p-4 shadow-sm">
             <div className="mb-3.5">
-              <h2 className="text-[16px] font-bold text-[#18253B]">अन्य श्रेणियां</h2>
+              <h2 className="text-[16px] font-bold text-[#1E213D]">अन्य श्रेणियां</h2>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
               {sortedUnselected.map((catId) => {
@@ -319,10 +319,10 @@ export default function MenuScreen() {
                     key={catId}
                     className="h-[56px] bg-[#F9FAFB] border border-[#F0F1F3] rounded-[16px] px-3.5 flex items-center gap-3 shadow-2xs select-none"
                   >
-                    <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                    <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                       {IconComp && <IconComp size={18} color="#FFFFFF" variant="Bold" />}
                     </div>
-                    <span className="text-[14px] font-bold text-[#18253B] truncate">
+                    <span className="text-[14px] font-bold text-[#1E213D] truncate">
                       {meta.label}
                     </span>
                   </div>
@@ -338,7 +338,7 @@ export default function MenuScreen() {
             <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F6E0BB] flex items-center justify-center text-[#D48E28] shrink-0">
               <Setting2 size={16} color="#D48E28" variant="Bold" />
             </div>
-            <h2 className="text-[16px] font-bold text-[#18253B]">ऐप सेटिंग्स</h2>
+            <h2 className="text-[16px] font-bold text-[#1E213D]">ऐप सेटिंग्स</h2>
           </div>
 
           <div className="space-y-2.5">
@@ -348,10 +348,10 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Setting2 size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B]">
+                <span className="text-[14px] font-semibold text-[#1E213D]">
                   सेटिंग्स और प्राइवेसी
                 </span>
               </div>
@@ -364,10 +364,10 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#18253B] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#1E213D] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <ExclamationCircleIcon size={18} color="#FFFFFF" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B]">
+                <span className="text-[14px] font-semibold text-[#1E213D]">
                   ऐप की जानकारी
                 </span>
               </div>

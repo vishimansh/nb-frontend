@@ -58,7 +58,7 @@ export default function LiveUpdatesSection({ updates = [], className = "" }) {
             <span className="w-2.5 h-2.5 rounded-full bg-[#8E2323]" />
           </div>
 
-          <h3 className="text-[24px] font-bold text-[#18253B] leading-none tracking-tight">
+          <h3 className="text-[24px] font-bold text-[#1E213D] leading-none tracking-tight">
             लाइव अपडेट्स
           </h3>
         </div>
@@ -96,7 +96,7 @@ export default function LiveUpdatesSection({ updates = [], className = "" }) {
                   </span>
 
                   {/* Headline (16px bold) */}
-                  <h4 className="text-[16px] font-bold text-[#18253B] leading-[1.38] mt-2.5 tracking-tight">
+                  <h4 className="text-[16px] font-bold text-[#1E213D] leading-[1.38] mt-2.5 tracking-tight">
                     {heading}
                   </h4>
 

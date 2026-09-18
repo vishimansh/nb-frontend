@@ -4,12 +4,12 @@ import { Location, Edit } from 'iconsax-react';
 /**
  * Single-Tier State Chip Filter Bar
  * Styled exactly matching the City Screen chips:
- * - Active state chip: solid navy pill (bg-[#18253B]), rounded-full, h-[34px], px-4, text-[13px] font-medium, with leading white MapPin icon; clicking it opens state selection
- * - Inactive state chip: transparent pill, border-[#9CA3AF], rounded-full, h-[34px], px-4, text-[13px] font-medium text-[#18253B]
+ * - Active state chip: solid navy pill (bg-[#1E213D]), rounded-full, h-[34px], px-4, text-[13px] font-medium, with leading white MapPin icon; clicking it opens state selection
+ * - Inactive state chip: transparent pill, border-[#9CA3AF], rounded-full, h-[34px], px-4, text-[13px] font-medium text-[#1E213D]
  * - Horizontal scroll: When state names are half visible or overflow the available container width, smooth horizontal scrolling is enabled for the state chips
  * - Auto-scroll: Selected/active state chip automatically scrolls smoothly into view
  * - Input support: Native touch, trackpad, mouse wheel, and drag-to-scroll
- * - Trailing "✎ अपने राज्य चुनें": transparent pill, border-[#9CA3AF], rounded-full, h-[34px], px-4, text-[13px] font-medium text-[#18253B] with PencilSimple icon
+ * - Trailing "✎ अपने राज्य चुनें": transparent pill, border-[#9CA3AF], rounded-full, h-[34px], px-4, text-[13px] font-medium text-[#1E213D] with PencilSimple icon
  */
 export default function StateFilterBar({
   states = [],
@@ -97,7 +97,7 @@ export default function StateFilterBar({
                 ref={activeChipRef}
                 key={st.id}
                 type="button"
-                className="bg-[#18253B] text-white border border-[#18253B] rounded-full h-[34px] px-4 flex items-center gap-1.5 shrink-0 cursor-pointer shadow-xs active:scale-95 transition-all"
+                className="bg-[#1E213D] text-white border border-[#1E213D] rounded-full h-[34px] px-4 flex items-center gap-1.5 shrink-0 cursor-pointer shadow-xs active:scale-95 transition-all"
                 onClick={() => handleChipClick(st.id, true)}
                 title={`${st.name} - राज्य बदलें या चुनें`}
               >
@@ -114,9 +114,9 @@ export default function StateFilterBar({
               key={st.id}
               type="button"
               onClick={() => handleChipClick(st.id, false)}
-              className="bg-transparent border border-[#9CA3AF] rounded-full h-[34px] px-4 flex items-center justify-center cursor-pointer hover:border-[#18253B] shrink-0 transition-all active:scale-95"
+              className="bg-transparent border border-[#9CA3AF] rounded-full h-[34px] px-4 flex items-center justify-center cursor-pointer hover:border-[#1E213D] shrink-0 transition-all active:scale-95"
             >
-              <span className="text-[13px] font-medium text-[#18253B] leading-none whitespace-nowrap">
+              <span className="text-[13px] font-medium text-[#1E213D] leading-none whitespace-nowrap">
                 {st.name}
               </span>
             </button>
@@ -128,9 +128,9 @@ export default function StateFilterBar({
       <button
         type="button"
         onClick={onEditClick}
-        className="bg-transparent border border-[#9CA3AF] text-[#18253B] rounded-full h-[34px] px-4 flex items-center gap-1.5 text-[13px] font-medium shrink-0 cursor-pointer hover:border-[#18253B] active:scale-95 transition-all ml-1"
+        className="bg-transparent border border-[#9CA3AF] text-[#1E213D] rounded-full h-[34px] px-4 flex items-center gap-1.5 text-[13px] font-medium shrink-0 cursor-pointer hover:border-[#1E213D] active:scale-95 transition-all ml-1"
       >
-        <Edit size={13} color="#18253B" variant="Linear" className="shrink-0" />
+        <Edit size={13} color="#1E213D" variant="Linear" className="shrink-0" />
         <span className="leading-none whitespace-nowrap">अपने राज्य चुनें</span>
       </button>
     </div>

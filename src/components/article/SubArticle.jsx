@@ -89,7 +89,7 @@ export default function SubArticle({
     <section className={`sub-article flex flex-col ${className}`}>
       {/* Sub-Article Headline: 20px semibold */}
       {title && (
-        <h2 className="text-[20px] font-semibold text-[#18253B] leading-[1.38] tracking-tight mb-3 select-text">
+        <h2 className="text-[20px] font-semibold text-[#1E213D] leading-[1.38] tracking-tight mb-3 select-text">
           {title}
         </h2>
       )}

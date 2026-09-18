@@ -353,7 +353,7 @@ export default function PodcastCard({
                   e.stopPropagation();
                   setIsDescriptionExpanded(true);
                 }}
-                className="text-[#E39026] font-normal cursor-pointer hover:underline ml-1 inline-block"
+                className="text-[#EEEBDA] font-normal cursor-pointer hover:underline ml-1 inline-block"
               >
                 ...और पढ़ें
               </span>
@@ -386,7 +386,7 @@ export default function PodcastCard({
           type="button"
           onClick={handleTranscriptClick}
           aria-label="ट्रांसक्रिप्ट पढ़ें"
-          className="p-[12px] bg-[#18253B] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#22334D] transition-all w-fit"
+          className="p-[12px] bg-[#1E213D] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#22334D] transition-all w-fit"
         >
           <span className="text-[16px] font-medium text-white tracking-wide leading-none">
             ट्रांसक्रिप्ट पढ़ें

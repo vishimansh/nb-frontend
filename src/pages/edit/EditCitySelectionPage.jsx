@@ -128,7 +128,7 @@ export default function EditCitySelectionPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#18253B] text-white text-[12px] px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-white/10"
+            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#1E213D] text-white text-[12px] px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-white/10"
           >
             <span>ℹ️</span>
             <span className="font-medium">{alertMessage}</span>
@@ -140,12 +140,12 @@ export default function EditCitySelectionPage() {
       <div className="px-6 py-3 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F7F7F4]/90 backdrop-blur-sm z-10 shrink-0">
         <div className="flex items-center gap-2">
           <BackButton onClick={handleBackToStep1} ariaLabel="वापस राज्य चयन पर जाएं" />
-          <h1 className="text-[22px] font-bold text-[#18253B] tracking-tight">
+          <h1 className="text-[22px] font-bold text-[#1E213D] tracking-tight">
             शहर चुनें
           </h1>
         </div>
 
-        <span className="text-[13px] font-medium text-[#18253B]/70 bg-[#18253B]/5 px-2.5 py-1 rounded-full">
+        <span className="text-[13px] font-medium text-[#1E213D]/70 bg-[#1E213D]/5 px-2.5 py-1 rounded-full">
           {currentCities.length} शहर चुने गए
         </span>
       </div>
@@ -161,15 +161,15 @@ export default function EditCitySelectionPage() {
 
       {/* Search Input Field */}
       <div className="px-6 py-2 shrink-0">
-        <div className="h-[50px] bg-white rounded-[14px] border border-[#B0B7C3] flex items-center px-4 focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/10 transition-all shadow-2xs">
+        <div className="h-[50px] bg-white rounded-[14px] border border-[#B0B7C3] flex items-center px-4 focus-within:border-[#1E213D] focus-within:ring-2 focus-within:ring-[#1E213D]/10 transition-all shadow-2xs">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="अपना शहर खोजें"
-            className="text-[15px] font-normal text-[#18253B] placeholder:text-[#9CA3AF] bg-transparent outline-none flex-1 tracking-wide"
+            className="text-[15px] font-normal text-[#1E213D] placeholder:text-[#9CA3AF] bg-transparent outline-none flex-1 tracking-wide"
           />
-          <SearchNormal1 size={20} color="#18253B" className="shrink-0" variant="Linear" />
+          <SearchNormal1 size={20} color="#1E213D" className="shrink-0" variant="Linear" />
         </div>
       </div>
 
@@ -205,7 +205,7 @@ export default function EditCitySelectionPage() {
             return (
               <div key={stateId} className="mb-4">
                 {/* State Header */}
-                <h2 className="text-[16px] font-bold text-[#18253B] mt-4 mb-3 tracking-tight">
+                <h2 className="text-[16px] font-bold text-[#1E213D] mt-4 mb-3 tracking-tight">
                   {stateData.stateName}
                 </h2>
 
@@ -223,8 +223,8 @@ export default function EditCitySelectionPage() {
                         onClick={() => toggleDraftCity(stateId, city, isSingleStateMode)}
                         className={`px-4 py-2 rounded-[16px] text-[18px] font-medium cursor-pointer transition-all active:scale-95 flex items-center gap-2 ${
                           isSelected
-                            ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm'
-                            : 'bg-white text-[#18253B] border border-[#B0B7C3] hover:border-[#18253B]'
+                            ? 'bg-[#1E213D] text-white border border-[#1E213D] shadow-sm'
+                            : 'bg-white text-[#1E213D] border border-[#B0B7C3] hover:border-[#1E213D]'
                         }`}
                       >
                         {isSelected && <TickCircle size={18} color="#FFFFFF" variant="Bold" />}
@@ -246,8 +246,8 @@ export default function EditCitySelectionPage() {
                           onClick={() => toggleDraftCity(stateId, city, isSingleStateMode)}
                           className={`px-4 py-2 rounded-[16px] text-[18px] font-medium cursor-pointer transition-all active:scale-95 flex items-center gap-2 ${
                             isSelected
-                              ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm'
-                              : 'bg-white text-[#18253B] border border-[#B0B7C3] hover:border-[#18253B]'
+                              ? 'bg-[#1E213D] text-white border border-[#1E213D] shadow-sm'
+                              : 'bg-white text-[#1E213D] border border-[#B0B7C3] hover:border-[#1E213D]'
                           }`}
                         >
                           {isSelected && <TickCircle size={18} color="#FFFFFF" variant="Bold" />}
@@ -261,7 +261,7 @@ export default function EditCitySelectionPage() {
                     <button
                       type="button"
                       onClick={() => toggleExpand(stateId)}
-                      className="px-4 py-2 rounded-[16px] bg-[#F7C873] text-[#18253B] text-[18px] font-semibold cursor-pointer shadow-xs active:scale-95 hover:brightness-95 transition-all flex items-center gap-1"
+                      className="px-4 py-2 rounded-[16px] bg-[#F7C873] text-[#1E213D] text-[18px] font-semibold cursor-pointer shadow-xs active:scale-95 hover:brightness-95 transition-all flex items-center gap-1"
                     >
                       <span>और +</span>
                     </button>
@@ -272,7 +272,7 @@ export default function EditCitySelectionPage() {
                     <button
                       type="button"
                       onClick={() => toggleExpand(stateId)}
-                      className="px-4 py-2 rounded-[16px] bg-[#E5E7EB] text-[#18253B] text-[18px] font-semibold cursor-pointer active:scale-95 hover:bg-gray-300 transition-all flex items-center gap-1"
+                      className="px-4 py-2 rounded-[16px] bg-[#E5E7EB] text-[#1E213D] text-[18px] font-semibold cursor-pointer active:scale-95 hover:bg-gray-300 transition-all flex items-center gap-1"
                     >
                       <span>कम -</span>
                     </button>
@@ -294,7 +294,7 @@ export default function EditCitySelectionPage() {
         <button
           type="button"
           onClick={handleFinalSave}
-          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#1f304d] transition-colors"
+          className="w-full h-[56px] rounded-[16px] bg-[#1E213D] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#1f304d] transition-colors"
         >
           सेव करें
         </button>

@@ -44,13 +44,13 @@ export default function LoginScreen() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-[32px] font-semibold text-[#18253B] text-center tracking-tight leading-tight">
+        <h1 className="text-[32px] font-semibold text-[#1E213D] text-center tracking-tight leading-tight">
           लॉगिन करें
         </h1>
 
         {/* Value Proposition */}
         <p className="mt-2 text-[16px] font-medium text-center leading-relaxed whitespace-pre-line px-2">
-          <span className="text-[#E39026]">अपने शहर,</span>{" "}
+          <span className="text-[#EEEBDA]">अपने शहर,</span>{" "}
           <span className="text-[#6B7280]">
             {"अपनी पसंद की खबरें\nसबसे पहले पाएं"}
           </span>
@@ -58,13 +58,13 @@ export default function LoginScreen() {
 
         {/* Form Field Section */}
         <div className="mt-8">
-          <label className="block text-[14px] font-semibold text-[#18253B] mb-2 px-1">
+          <label className="block text-[14px] font-semibold text-[#1E213D] mb-2 px-1">
             लॉगिन करें
           </label>
 
           {/* Composite Phone Input */}
-          <div className="h-[56px] bg-white rounded-[16px] border border-[#B0B7C3] flex items-center px-4 focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/10 transition-all shadow-xs">
-            <span className="text-[17px] font-bold text-[#18253B] select-none">
+          <div className="h-[56px] bg-white rounded-[16px] border border-[#B0B7C3] flex items-center px-4 focus-within:border-[#1E213D] focus-within:ring-2 focus-within:ring-[#1E213D]/10 transition-all shadow-xs">
+            <span className="text-[17px] font-bold text-[#1E213D] select-none">
               +91
             </span>
             <div className="h-5 w-[1px] bg-[#B0B7C3] mx-3" />
@@ -76,7 +76,7 @@ export default function LoginScreen() {
               onKeyDown={(e) => e.key === 'Enter' && isComplete && handleProceed()}
               placeholder="मोबाइल नंबर डालें"
               maxLength={10}
-              className="text-[16px] font-medium text-[#18253B] placeholder:text-[#9CA3AF] bg-transparent outline-none flex-1 tracking-wide"
+              className="text-[16px] font-medium text-[#1E213D] placeholder:text-[#9CA3AF] bg-transparent outline-none flex-1 tracking-wide"
             />
           </div>
 
@@ -89,11 +89,11 @@ export default function LoginScreen() {
 
           {/* Trust Indicator Row */}
           <div className="mt-4 mb-7 flex items-start gap-3 px-1">
-            <div className="w-[28px] h-[28px] rounded-full bg-[#18253B] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
+            <div className="w-[28px] h-[28px] rounded-full bg-[#1E213D] flex items-center justify-center flex-shrink-0 mt-0.5 shadow-xs">
               <Lock size={14} color="#FFFFFF" variant="Linear" />
             </div>
             <div>
-              <p className="text-[13px] font-bold text-[#18253B] leading-none">
+              <p className="text-[13px] font-bold text-[#1E213D] leading-none">
                 आपकी निजी जानकारी सुरक्षित है
               </p>
               <p className="text-[11px] font-normal text-[#6B7280] leading-tight mt-1">
@@ -108,8 +108,8 @@ export default function LoginScreen() {
             disabled={!isComplete}
             className={`w-full h-[56px] rounded-[16px] text-[20px] font-medium flex items-center justify-center transition-all duration-200 ${
               isComplete
-                ? 'bg-[#18253B] text-white shadow-md active:scale-[0.99] cursor-pointer hover:bg-[#1f304d]'
-                : 'bg-[#18253B]/40 text-white/60 cursor-not-allowed'
+                ? 'bg-[#1E213D] text-white shadow-md active:scale-[0.99] cursor-pointer hover:bg-[#1f304d]'
+                : 'bg-[#1E213D]/40 text-white/60 cursor-not-allowed'
             }`}
           >
             आगे बढ़ें

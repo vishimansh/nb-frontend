@@ -62,8 +62,8 @@ export default function ArticleInlineImage({
 
         {/* Top-Left: Compact Location Tag (dot + city name) */}
         {resolvedLocation && (
-          <div className="absolute top-2.5 left-2.5 z-10 bg-[#18253B]/85 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-sm border border-white/10">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E39026] inline-block shrink-0" />
+          <div className="absolute top-2.5 left-2.5 z-10 bg-[#1E213D]/85 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-sm border border-white/10">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#EEEBDA] inline-block shrink-0" />
             <span>{resolvedLocation}</span>
           </div>
         )}
@@ -73,7 +73,7 @@ export default function ArticleInlineImage({
           type="button"
           onClick={handleShareClick}
           aria-label="शेयर करें"
-          className="w-7 h-7 rounded-full bg-[#18253B]/70 backdrop-blur-xs flex items-center justify-center text-white absolute top-2.5 right-2.5 z-10 cursor-pointer active:scale-90 shadow-sm border border-white/15 transition-transform"
+          className="w-7 h-7 rounded-full bg-[#1E213D]/70 backdrop-blur-xs flex items-center justify-center text-white absolute top-2.5 right-2.5 z-10 cursor-pointer active:scale-90 shadow-sm border border-white/15 transition-transform"
         >
           {/* WhatsApp / Share Glyph */}
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -83,7 +83,7 @@ export default function ArticleInlineImage({
 
         {/* Copy Feedback */}
         {copied && (
-          <div className="absolute top-11 right-2.5 bg-[#18253B] text-white text-[10px] px-2 py-0.5 rounded shadow-md z-20 animate-fade-in">
+          <div className="absolute top-11 right-2.5 bg-[#1E213D] text-white text-[10px] px-2 py-0.5 rounded shadow-md z-20 animate-fade-in">
             लिंक कॉपी हुआ!
           </div>
         )}

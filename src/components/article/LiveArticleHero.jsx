@@ -30,7 +30,7 @@ export default function LiveArticleHero({
     "सुप्रीम कोर्ट परिसर, नई दिल्ली में एक महत्वपूर्ण मामले की सुनवाई के दौरान संविधान पीठ।";
 
   return (
-    <div className="w-full h-[320px] aspect-[402/320] relative overflow-hidden bg-[#18253B] select-none shrink-0">
+    <div className="w-full h-[320px] aspect-[402/320] relative overflow-hidden bg-[#1E213D] select-none shrink-0">
       {/* 1. Full Hero Background Image (402px × 320px) */}
       <img
         src={hero?.imageUrl || supremeCourtImg}

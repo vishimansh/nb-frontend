@@ -73,7 +73,7 @@ export default function CategorySelectionScreen() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -16, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-[#18253B] text-white text-[12px] font-bold px-4 py-2 rounded-full shadow-xl flex items-center gap-1.5 border border-white/10"
+            className="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-[#1E213D] text-white text-[12px] font-bold px-4 py-2 rounded-full shadow-xl flex items-center gap-1.5 border border-white/10"
           >
             <span>ℹ️</span>
             <span>{toastMessage}</span>
@@ -84,7 +84,7 @@ export default function CategorySelectionScreen() {
       {/* Header Bar */}
       <div className="px-4 py-3 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F7F7F4]/90 backdrop-blur-sm sticky top-[54px] z-20 shrink-0">
         <BackButton onClick={() => navigate('/menu')} ariaLabel="वापस जाएं" />
-        <h1 className="text-[18px] font-bold text-[#18253B] tracking-tight mx-auto pr-[46px]">
+        <h1 className="text-[18px] font-bold text-[#1E213D] tracking-tight mx-auto pr-[46px]">
           श्रेणियां चुनें
         </h1>
       </div>
@@ -94,7 +94,7 @@ export default function CategorySelectionScreen() {
         <p className="text-[13px] text-[#6B7280] leading-relaxed max-w-[280px] mx-auto">
           होम स्क्रीन के लिए पसंदीदा श्रेणियां चुनें ताकि हम आपको बेहतर खबरें दिखा सकें
         </p>
-        <span className="text-[14px] font-bold text-[#E39026] mt-2 block">
+        <span className="text-[14px] font-bold text-[#EEEBDA] mt-2 block">
           3 से 7 श्रेणियाँ चुनें
         </span>
       </div>
@@ -114,7 +114,7 @@ export default function CategorySelectionScreen() {
               onClick={() => handleToggleCategory(catId)}
               className={`h-[60px] rounded-[18px] px-3 flex items-center justify-between transition-all duration-150 cursor-pointer active:scale-95 ${
                 isSelected
-                  ? 'bg-white border-2 border-[#E39026] shadow-xs'
+                  ? 'bg-white border-2 border-[#EEEBDA] shadow-xs'
                   : 'bg-white border border-[#E5E7EB] hover:border-[#D1D5DB]'
               }`}
             >
@@ -122,14 +122,14 @@ export default function CategorySelectionScreen() {
               <div
                 className={`w-10 h-10 rounded-[12px] flex items-center justify-center shrink-0 transition-colors ${
                   isSelected
-                    ? 'bg-[#E39026] text-white shadow-2xs'
-                    : 'bg-[#F3F4F6] text-[#18253B]'
+                    ? 'bg-[#EEEBDA] text-white shadow-2xs'
+                    : 'bg-[#F3F4F6] text-[#1E213D]'
                 }`}
               >
                 {IconComp && (
                   <IconComp
                     size={20}
-                    color={isSelected ? '#FFFFFF' : '#18253B'}
+                    color={isSelected ? '#FFFFFF' : '#1E213D'}
                     variant={isSelected ? 'Bold' : 'Linear'}
                   />
                 )}
@@ -139,7 +139,7 @@ export default function CategorySelectionScreen() {
               <span
                 className={`text-[14px] flex-1 ml-2.5 truncate ${
                   isSelected
-                    ? 'font-bold text-[#18253B]'
+                    ? 'font-bold text-[#1E213D]'
                     : 'font-medium text-[#4B5563]'
                 }`}
               >
@@ -150,7 +150,7 @@ export default function CategorySelectionScreen() {
               <div
                 className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-all ${
                   isSelected
-                    ? 'bg-[#E39026] text-white shadow-2xs'
+                    ? 'bg-[#EEEBDA] text-white shadow-2xs'
                     : 'border-2 border-[#D1D5DB]'
                 }`}
               >
@@ -176,8 +176,8 @@ export default function CategorySelectionScreen() {
       <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#F7F7F4] via-[#F7F7F4]/95 to-transparent pt-4 pb-8 px-4 z-20">
         {/* Low-Emphasis Info Strip */}
         <div className="p-2.5 rounded-[16px] bg-white border border-[#E5E7EB] mb-3 flex items-center justify-center gap-2 text-[12px] shadow-2xs">
-          <div className="w-6 h-6 rounded-[8px] bg-[#E39026]/10 text-[#E39026] flex items-center justify-center shrink-0">
-            <Bookmark size={14} color="#E39026" variant="Bold" />
+          <div className="w-6 h-6 rounded-[8px] bg-[#EEEBDA]/10 text-[#EEEBDA] flex items-center justify-center shrink-0">
+            <Bookmark size={14} color="#EEEBDA" variant="Bold" />
           </div>
           <span className="font-medium text-[#4B5563]">
             आप जब चाहें अपनी प्राथमिकताएं बदल सकते हैं
@@ -188,7 +188,7 @@ export default function CategorySelectionScreen() {
         <button
           type="button"
           onClick={handleSave}
-          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white text-[20px] font-medium shadow-md active:scale-[0.99] cursor-pointer flex items-center justify-center hover:bg-[#1f304d] transition-colors"
+          className="w-full h-[56px] rounded-[16px] bg-[#1E213D] text-white text-[20px] font-medium shadow-md active:scale-[0.99] cursor-pointer flex items-center justify-center hover:bg-[#1f304d] transition-colors"
         >
           सेव करें
         </button>

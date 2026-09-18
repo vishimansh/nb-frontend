@@ -57,7 +57,7 @@ export default function InfographicCard({
       <div className="flex items-center justify-between gap-2 mb-5">
         <div className="flex items-center gap-2.5 min-w-0">
           <span className="w-1.5 h-6 bg-[#C86414] rounded-full shrink-0" />
-          <h3 className="text-[22px] font-bold text-[#18253B] leading-none tracking-tight">
+          <h3 className="text-[22px] font-bold text-[#1E213D] leading-none tracking-tight">
             {resolvedTitle}
           </h3>
         </div>
@@ -93,7 +93,7 @@ export default function InfographicCard({
                     </div>
 
                     {/* Point Title */}
-                    <h4 className="text-[16px] font-bold text-[#18253B] leading-snug">
+                    <h4 className="text-[16px] font-bold text-[#1E213D] leading-snug">
                       {pt.title}
                     </h4>
                   </div>

@@ -4,7 +4,7 @@
     "isCityScoped": true,
     "titleTemplate": "नवभारत-{cityName}",
     "tag": "मुख्य दैनिक",
-    "tagStyle": "bg-[#FFF4E6] text-[#E39026] border border-[#FCD9B6]",
+    "tagStyle": "bg-[#FFF4E6] text-[#EEEBDA] border border-[#FCD9B6]",
     "type": "main_daily",
     "isInteractive": true
   },

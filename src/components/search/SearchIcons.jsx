@@ -3,7 +3,7 @@ import React from 'react';
 /**
  * Raja Bhoj Statue / Heritage Monument icon for City Trending Card
  */
-export function StatueHeritageIcon({ size = 18, color = '#E39026' }) {
+export function StatueHeritageIcon({ size = 18, color = '#EEEBDA' }) {
   return (
     <svg
       width={size}
@@ -37,7 +37,7 @@ export function StatueHeritageIcon({ size = 18, color = '#E39026' }) {
 /**
  * Clean silhouette vector of India Map for National Trending Card
  */
-export function IndiaMapOutlineIcon({ size = 18, color = '#18253B' }) {
+export function IndiaMapOutlineIcon({ size = 18, color = '#1E213D' }) {
   return (
     <svg
       width={size}

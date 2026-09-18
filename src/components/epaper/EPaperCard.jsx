@@ -51,7 +51,7 @@ export default function EPaperCard({
         {/* 3. Edition Title: protective leading and py to prevent Hindi matras from clipping */}
         <h3
           title={displayTitle}
-          className="text-[16px] font-bold text-[#18253B] mt-1.5 mb-[4px] py-[2px] truncate shrink-0 leading-[22px]"
+          className="text-[16px] font-bold text-[#1E213D] mt-1.5 mb-[4px] py-[2px] truncate shrink-0 leading-[22px]"
         >
           {displayTitle}
         </h3>
@@ -64,7 +64,7 @@ export default function EPaperCard({
           <button
             type="button"
             onClick={() => onRead && onRead(displayTitle)}
-            className="flex-1 h-7 rounded-[8px] text-[13px] font-bold flex items-center justify-center transition-all bg-[#18253B] text-white shadow-2xs hover:bg-[#101927] active:scale-98 cursor-pointer"
+            className="flex-1 h-7 rounded-[8px] text-[13px] font-bold flex items-center justify-center transition-all bg-[#1E213D] text-white shadow-2xs hover:bg-[#101927] active:scale-98 cursor-pointer"
           >
             पढ़ें →
           </button>
@@ -83,9 +83,9 @@ export default function EPaperCard({
           type="button"
           onClick={() => onShare && onShare(displayTitle)}
           aria-label={`${displayTitle} व्हाट्सएप पर शेयर करें`}
-          className="w-7 h-7 rounded-[8px] bg-white border border-[#D1D5DB] flex items-center justify-center text-[#18253B] shadow-2xs flex-shrink-0 cursor-pointer active:scale-95 transition-transform hover:border-[#18253B]/40 hover:bg-[#18253B]/5"
+          className="w-7 h-7 rounded-[8px] bg-white border border-[#D1D5DB] flex items-center justify-center text-[#1E213D] shadow-2xs flex-shrink-0 cursor-pointer active:scale-95 transition-transform hover:border-[#1E213D]/40 hover:bg-[#1E213D]/5"
         >
-          <Whatsapp size={14} color="#18253B" variant="Bold" />
+          <Whatsapp size={14} color="#1E213D" variant="Bold" />
         </button>
       </div>
     </article>

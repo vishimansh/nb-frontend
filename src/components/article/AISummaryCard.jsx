@@ -5,7 +5,7 @@ import React from 'react';
  * Key highlights card replicating the exact Figma export.
  * Features:
  * - Linear gradient from bottom-left pale peach (#FFF4E3) to top-right ice-blue (#E8F0FC)
- * - 24px extrabold headline in #18253B
+ * - 24px extrabold headline in #1E213D
  * - Sparkle subtitle in #64748B + amber ✦
  * - Subtle hairline divider
  * - 22px bold amber (#D9822B) tabular numbers (01 to 05)
@@ -36,7 +36,7 @@ export default function AISummaryCard({ points = [], aiSummary, className = "" }
   return (
     <div className={`rounded-[24px] bg-gradient-to-tr from-[#FFF4E3] via-[#F8FAFD] to-[#E8F0FC] border border-[#E4E9F2] p-6 shadow-xs select-none ${className}`}>
       {/* 1. Header: अब तक की मुख्य बातें */}
-      <h2 className="text-[24px] font-extrabold text-[#18253B] leading-tight tracking-tight">
+      <h2 className="text-[24px] font-extrabold text-[#1E213D] leading-tight tracking-tight">
         अब तक की मुख्य बातें
       </h2>
 

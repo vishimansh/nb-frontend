@@ -49,7 +49,7 @@ export default function StateFeedContent({
           <div className="w-16 h-16 rounded-full bg-[#F7F7F4] flex items-center justify-center text-[#94A3B8] mb-4">
             <DocumentText size={32} color="#94A3B8" variant="Linear" />
           </div>
-          <h3 className="text-[16px] font-bold text-[#18253B] mb-1">
+          <h3 className="text-[16px] font-bold text-[#1E213D] mb-1">
             {activeStateName} में कोई नई खबर नहीं
           </h3>
           <p className="text-[13px] text-[#6B7280] leading-relaxed">

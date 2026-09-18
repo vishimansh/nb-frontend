@@ -129,11 +129,11 @@ export default function DatePickerModal({
 
           {/* Sheet Header */}
           <div className="flex items-center justify-between mb-1">
-            <h2 className="text-[18px] font-bold text-[#18253B]">तारीख चुनें</h2>
+            <h2 className="text-[18px] font-bold text-[#1E213D]">तारीख चुनें</h2>
             <button
               type="button"
               onClick={onClose}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-[#6B7280] hover:text-[#18253B] hover:bg-[#F3F4F6] transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-[#6B7280] hover:text-[#1E213D] hover:bg-[#F3F4F6] transition-colors cursor-pointer"
             >
               <CloseCircle size={22} color="#6B7280" />
             </button>
@@ -148,21 +148,21 @@ export default function DatePickerModal({
             <button
               type="button"
               onClick={handlePrevMonth}
-              className="p-1 rounded-lg hover:bg-white text-[#18253B] transition-colors cursor-pointer"
+              className="p-1 rounded-lg hover:bg-white text-[#1E213D] transition-colors cursor-pointer"
             >
-              <ArrowLeft2 size={16} color="#18253B" />
+              <ArrowLeft2 size={16} color="#1E213D" />
             </button>
 
-            <span className="text-[14px] font-bold text-[#18253B]">
+            <span className="text-[14px] font-bold text-[#1E213D]">
               {HINDI_MONTHS[currentMonth]} {currentYear}
             </span>
 
             <button
               type="button"
               onClick={handleNextMonth}
-              className="p-1 rounded-lg hover:bg-white text-[#18253B] transition-colors cursor-pointer"
+              className="p-1 rounded-lg hover:bg-white text-[#1E213D] transition-colors cursor-pointer"
             >
-              <ArrowRight2 size={16} color="#18253B" />
+              <ArrowRight2 size={16} color="#1E213D" />
             </button>
           </div>
 
@@ -199,9 +199,9 @@ export default function DatePickerModal({
                   disabled={!isEligible}
                   className={`h-9 w-full rounded-xl text-[13px] flex items-center justify-center transition-all ${
                     active
-                      ? 'bg-[#18253B] text-white font-bold rounded-xl shadow-xs'
+                      ? 'bg-[#1E213D] text-white font-bold rounded-xl shadow-xs'
                       : isEligible
-                      ? 'bg-[#F8F9FA] text-[#18253B] font-semibold hover:bg-[#E39026]/10 cursor-pointer active:scale-95'
+                      ? 'bg-[#F8F9FA] text-[#1E213D] font-semibold hover:bg-[#EEEBDA]/10 cursor-pointer active:scale-95'
                       : 'text-[#CBD5E1] cursor-not-allowed pointer-events-none'
                   }`}
                 >

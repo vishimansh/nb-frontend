@@ -126,7 +126,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#18253B] w-full flex flex-col shadow-md flex-shrink-0 select-none">
+    <header className="sticky top-0 z-40 bg-[#1E213D] w-full flex flex-col shadow-md flex-shrink-0 select-none">
       {/* Status Bar Clearance (pt-[24px] + 18px text + pb-[24px] = 66px) */}
       <div className="h-[66px] w-full shrink-0 pointer-events-none" />
 
@@ -158,7 +158,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
           >
             <Notification size={28} color="#FFFFFF" variant="Linear" />
             <span
-              className="w-2.5 h-2.5 rounded-full bg-[#EF4444] absolute -top-0.5 -right-0.5 border-2 border-[#18253B]"
+              className="w-2.5 h-2.5 rounded-full bg-[#EF4444] absolute -top-0.5 -right-0.5 border-2 border-[#1E213D]"
               aria-label="नया नोटिफिकेशन"
             />
           </button>
@@ -200,7 +200,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
               onClick={() => handleTabClick(tab.id)}
               className={`w-[64px] min-w-[64px] max-w-[64px] h-[80px] min-h-[80px] max-h-[80px] flex flex-col items-center justify-center rounded-[8px] transition-all duration-200 ease-out shrink-0 select-none ${
                 isActive
-                  ? 'border border-[#E39026] bg-[#22334D] cursor-pointer'
+                  ? 'border border-[#EEEBDA] bg-[#22334D] cursor-pointer'
                   : isInert
                   ? 'border border-transparent bg-[#22334D] opacity-80 cursor-default'
                   : 'border border-transparent bg-[#22334D] hover:bg-[#22334D]/85 cursor-pointer active:scale-[0.96]'
@@ -209,7 +209,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-out ${
                   isActive
-                    ? 'bg-[#E39026] text-white shadow-xs'
+                    ? 'bg-[#EEEBDA] text-white shadow-xs'
                     : 'bg-transparent text-[#94A3B8]'
                 }`}
               >
@@ -225,7 +225,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
               <span
                 className={`text-[13.5px] mt-[8px] leading-tight tracking-tight truncate w-full text-center px-1 transition-colors duration-300 ease-out ${
                   isActive
-                    ? 'font-bold text-[#E39026]'
+                    ? 'font-bold text-[#EEEBDA]'
                     : 'font-normal text-[#CBD5E1]'
                 }`}
               >
@@ -282,7 +282,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                 }}
                 className={`relative w-[64px] min-w-[64px] max-w-[64px] h-[80px] min-h-[80px] max-h-[80px] flex flex-col items-center justify-center rounded-[8px] shrink-0 select-none group cursor-grab active:cursor-grabbing transition-colors duration-200 ${
                   isActive
-                    ? 'border border-[#E39026] bg-[#22334D]'
+                    ? 'border border-[#EEEBDA] bg-[#22334D]'
                     : isInert
                     ? 'border border-transparent bg-[#22334D] opacity-80 cursor-default'
                     : 'border border-transparent bg-[#22334D] hover:bg-[#22334D]/85'
@@ -291,7 +291,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-out ${
                     isActive
-                      ? 'bg-[#E39026] text-white shadow-xs'
+                      ? 'bg-[#EEEBDA] text-white shadow-xs'
                       : 'bg-transparent text-[#94A3B8]'
                   }`}
                 >
@@ -307,7 +307,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                 <span
                   className={`text-[13.5px] mt-[8px] leading-tight tracking-tight truncate w-full text-center px-1 transition-colors duration-300 ease-out ${
                     isActive
-                      ? 'font-bold text-[#E39026]'
+                      ? 'font-bold text-[#EEEBDA]'
                       : 'font-normal text-[#CBD5E1]'
                   }`}
                 >

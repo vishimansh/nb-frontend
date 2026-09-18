@@ -59,7 +59,7 @@ export default function SearchPage() {
       {
         id: "sn-4",
         isBreakingNews: false,
-        category: { id: "city", label: "शहर", color: "#E39026" },
+        category: { id: "city", label: "शहर", color: "#EEEBDA" },
         location: "भोपाल",
         headline: "भोपाल मेट्रो का सुभाष नगर से करोंद तक विस्तार तेज, दूसरे चरण के सर्वे और टेंडर प्रक्रिया पूरी",
         thumbnail: "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=400&q=80",
@@ -146,14 +146,14 @@ export default function SearchPage() {
         <BackButton ariaLabel="पीछे जाएं" />
 
         {/* Center Search Input Wrapper (No magnifying icon, clean text placeholder, 14px radius, 46px height) */}
-        <div className="h-[46px] bg-white rounded-[14px] border border-[#D1D5DB] px-4 flex items-center focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/10 shadow-2xs flex-1 transition-all">
+        <div className="h-[46px] bg-white rounded-[14px] border border-[#D1D5DB] px-4 flex items-center focus-within:border-[#1E213D] focus-within:ring-2 focus-within:ring-[#1E213D]/10 shadow-2xs flex-1 transition-all">
           <input
             type="text"
             placeholder="किसी खबर, विषय या शहर को खोजें"
             value={searchQuery}
             onFocus={() => setIsInputFocused(true)}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="text-[13.5px] font-medium text-[#18253B] placeholder-[#64748B] bg-transparent outline-none w-full"
+            className="text-[13.5px] font-medium text-[#1E213D] placeholder-[#64748B] bg-transparent outline-none w-full"
           />
           {searchQuery && (
             <button
@@ -163,20 +163,20 @@ export default function SearchPage() {
                 setIsInputFocused(false);
               }}
               aria-label="खोज साफ़ करें"
-              className="w-5 h-5 rounded-full flex items-center justify-center text-[#9CA3AF] hover:text-[#18253B] text-xs font-bold transition-colors cursor-pointer"
+              className="w-5 h-5 rounded-full flex items-center justify-center text-[#9CA3AF] hover:text-[#1E213D] text-xs font-bold transition-colors cursor-pointer"
             >
               ✕
             </button>
           )}
         </div>
 
-        {/* Right Voice Search Button (46px × 46px rounded-[14px] bg-[#18253B]) */}
+        {/* Right Voice Search Button (46px × 46px rounded-[14px] bg-[#1E213D]) */}
         <button
           type="button"
           onClick={handleVoiceSearch}
           aria-label="वॉइस सर्च"
-          className={`w-[46px] h-[46px] rounded-[14px] bg-[#18253B] flex items-center justify-center text-white shadow-xs cursor-pointer active:scale-95 flex-shrink-0 transition-all ${
-            isListening ? 'animate-pulse ring-2 ring-[#E39026]' : ''
+          className={`w-[46px] h-[46px] rounded-[14px] bg-[#1E213D] flex items-center justify-center text-white shadow-xs cursor-pointer active:scale-95 flex-shrink-0 transition-all ${
+            isListening ? 'animate-pulse ring-2 ring-[#EEEBDA]' : ''
           }`}
         >
           <Microphone2 size={20} color="#FFFFFF" variant="Linear" />
@@ -199,10 +199,10 @@ export default function SearchPage() {
 
               {/* Card Header Row */}
               <div className="flex items-center gap-2 relative z-10">
-                <div className="w-[30px] h-[30px] rounded-full bg-[#FFF9EE] border border-[#F7C873] flex items-center justify-center text-[#E39026] flex-shrink-0 shadow-2xs">
-                  <StatueHeritageIcon size={17} color="#E39026" />
+                <div className="w-[30px] h-[30px] rounded-full bg-[#FFF9EE] border border-[#F7C873] flex items-center justify-center text-[#EEEBDA] flex-shrink-0 shadow-2xs">
+                  <StatueHeritageIcon size={17} color="#EEEBDA" />
                 </div>
-                <h2 className="text-[15px] font-bold text-[#18253B] leading-none">{currentCity} में ट्रेंडिंग</h2>
+                <h2 className="text-[15px] font-bold text-[#1E213D] leading-none">{currentCity} में ट्रेंडिंग</h2>
               </div>
 
               {/* Chips Row */}
@@ -212,7 +212,7 @@ export default function SearchPage() {
                     key={chip.id}
                     type="button"
                     onClick={() => handleChipClick(chip.label)}
-                    className="h-[32px] px-3 rounded-full bg-white/95 backdrop-blur-[2px] border border-[#D5D7DA] flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] active:scale-95 transition-all text-[12px] font-medium text-[#18253B] hover:border-[#D97706] cursor-pointer shrink-0"
+                    className="h-[32px] px-3 rounded-full bg-white/95 backdrop-blur-[2px] border border-[#D5D7DA] flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] active:scale-95 transition-all text-[12px] font-medium text-[#1E213D] hover:border-[#D97706] cursor-pointer shrink-0"
                   >
                     <TrendUpArrowIcon size={13} color="#C87D2B" />
                     <span className="whitespace-nowrap pt-[1px]">{chip.label}</span>
@@ -232,10 +232,10 @@ export default function SearchPage() {
 
               {/* Card Header Row */}
               <div className="flex items-center gap-2 relative z-10">
-                <div className="w-[30px] h-[30px] rounded-full bg-white border border-[#D1D5DB] flex items-center justify-center text-[#18253B] flex-shrink-0 shadow-2xs">
-                  <IndiaMapOutlineIcon size={17} color="#18253B" />
+                <div className="w-[30px] h-[30px] rounded-full bg-white border border-[#D1D5DB] flex items-center justify-center text-[#1E213D] flex-shrink-0 shadow-2xs">
+                  <IndiaMapOutlineIcon size={17} color="#1E213D" />
                 </div>
-                <h2 className="text-[15px] font-bold text-[#18253B] leading-none">देश-प्रदेश में ट्रेंडिंग</h2>
+                <h2 className="text-[15px] font-bold text-[#1E213D] leading-none">देश-प्रदेश में ट्रेंडिंग</h2>
               </div>
 
               {/* Chips Row */}
@@ -245,9 +245,9 @@ export default function SearchPage() {
                     key={chip.id}
                     type="button"
                     onClick={() => handleChipClick(chip.label)}
-                    className="h-[32px] px-3 rounded-full bg-white/95 backdrop-blur-[2px] border border-[#D5D7DA] flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] active:scale-95 transition-all text-[12px] font-medium text-[#18253B] hover:border-[#18253B] cursor-pointer shrink-0"
+                    className="h-[32px] px-3 rounded-full bg-white/95 backdrop-blur-[2px] border border-[#D5D7DA] flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] active:scale-95 transition-all text-[12px] font-medium text-[#1E213D] hover:border-[#1E213D] cursor-pointer shrink-0"
                   >
-                    <TrendUpArrowIcon size={13} color="#18253B" />
+                    <TrendUpArrowIcon size={13} color="#1E213D" />
                     <span className="whitespace-nowrap pt-[1px]">{chip.label}</span>
                   </button>
                 ))}
@@ -259,10 +259,10 @@ export default function SearchPage() {
           <div className="w-[386px] min-w-[386px] max-w-[386px] mx-auto mt-4 bg-white border border-[#D1D5DB] rounded-[24px] px-2 pt-3.5 pb-4 shadow-2xs mb-24 flex flex-col items-center">
             {/* Header Row: 370px aligned with cards */}
             <div className="w-[370px] flex items-center gap-2 mb-3 px-1">
-              <div className="w-7 h-7 rounded-[9px] bg-[#FFF9EE] border border-[#F7C873] flex items-center justify-center text-[#E39026] shadow-2xs flex-shrink-0">
-                <DocumentText size={16} variant="Bold" color="#E39026" />
+              <div className="w-7 h-7 rounded-[9px] bg-[#FFF9EE] border border-[#F7C873] flex items-center justify-center text-[#EEEBDA] shadow-2xs flex-shrink-0">
+                <DocumentText size={16} variant="Bold" color="#EEEBDA" />
               </div>
-              <h2 className="text-[17px] font-bold text-[#18253B] leading-none">प्रमुख खबरें</h2>
+              <h2 className="text-[17px] font-bold text-[#1E213D] leading-none">प्रमुख खबरें</h2>
             </div>
 
             {/* News Card List: exactly 370px, exactly like home feed cards */}
@@ -284,7 +284,7 @@ export default function SearchPage() {
               onClick={() => {
                 setIsInputFocused(false);
               }}
-              className="text-[#18253B] font-medium hover:underline cursor-pointer"
+              className="text-[#1E213D] font-medium hover:underline cursor-pointer"
             >
               रद्द करें
             </button>
@@ -314,7 +314,7 @@ export default function SearchPage() {
                             <span className="text-[#4B5563]">
                               {item.slice(0, queryIndex)}
                             </span>
-                            <span className="font-bold text-[#18253B]">
+                            <span className="font-bold text-[#1E213D]">
                               {item.slice(queryIndex, queryIndex + searchQuery.length)}
                             </span>
                             <span className="text-[#4B5563]">
@@ -322,7 +322,7 @@ export default function SearchPage() {
                             </span>
                           </>
                         ) : (
-                          <span className="text-[#18253B]">{item}</span>
+                          <span className="text-[#1E213D]">{item}</span>
                         )}
                       </span>
                     </div>

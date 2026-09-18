@@ -143,9 +143,9 @@ export default function VideosPage() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-24 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-[#18253B]/95 text-white text-[13px] font-bold px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/15 backdrop-blur-md"
+            className="fixed top-24 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-[#1E213D]/95 text-white text-[13px] font-bold px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/15 backdrop-blur-md"
           >
-            <TickCircle size={17} color="#E39026" variant="Bold" />
+            <TickCircle size={17} color="#EEEBDA" variant="Bold" />
             <span className="leading-none">{toastMessage}</span>
           </motion.div>
         )}
@@ -166,7 +166,7 @@ export default function VideosPage() {
             aria-label="वीडियो मोड"
             className={`px-3.5 py-1 rounded-full text-[13px] font-bold transition-all duration-200 cursor-pointer ${
               mediaMode === 'video'
-                ? 'bg-white text-[#18253B] shadow-sm'
+                ? 'bg-white text-[#1E213D] shadow-sm'
                 : 'text-white/80 hover:text-white font-medium'
             }`}
           >
@@ -178,7 +178,7 @@ export default function VideosPage() {
             aria-label="पॉडकास्ट मोड"
             className={`px-3.5 py-1 rounded-full text-[13px] font-bold transition-all duration-200 cursor-pointer ${
               mediaMode === 'podcast'
-                ? 'bg-white text-[#18253B] shadow-sm'
+                ? 'bg-white text-[#1E213D] shadow-sm'
                 : 'text-white/80 hover:text-white font-medium'
             }`}
           >

@@ -40,7 +40,7 @@ export default function TranscriptOverlay() {
           {/* Panel Header */}
           <div className="flex items-center justify-between pb-2.5 border-b border-white/10 mb-2.5">
             <div className="flex items-center gap-2">
-              <DocumentText size={18} color="#E39026" variant="Bold" />
+              <DocumentText size={18} color="#EEEBDA" variant="Bold" />
               <span className="text-[15px] font-bold text-white leading-none tracking-wide">
                 एपिसोड ट्रांसक्रिप्ट
               </span>
@@ -58,7 +58,7 @@ export default function TranscriptOverlay() {
 
           {/* Episode Title & Host Sub-header */}
           <div className="mb-2">
-            <h4 className="text-[12px] font-semibold text-[#E39026] leading-tight">
+            <h4 className="text-[12px] font-semibold text-[#EEEBDA] leading-tight">
               {activePodcast.showName}
             </h4>
             <p className="text-[11px] text-white/60">होस्ट: {activePodcast.hostName}</p>

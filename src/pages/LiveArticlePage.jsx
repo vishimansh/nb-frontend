@@ -210,21 +210,21 @@ export default function LiveArticlePage() {
   };
 
   return (
-    <div className="w-full h-full bg-[#FDFDFD] text-[#18253B] font-sans antialiased relative overflow-hidden select-none flex flex-col">
+    <div className="w-full h-full bg-[#FDFDFD] text-[#1E213D] font-sans antialiased relative overflow-hidden select-none flex flex-col">
       {/* Hardware Status Bar Clearance (66px) - Uses the exact background of the article */}
       <div className="h-[66px] w-full bg-[#FDFDFD] shrink-0 z-30" />
 
       {/* TOI-Style Navabharat Yellow Reading Progress Bar (0% to 100% width) */}
       <div className="absolute top-[66px] inset-x-0 h-[4px] bg-black/5 z-40 pointer-events-none">
         <div
-          className="h-full bg-[#E39026] transition-[width] duration-75 ease-out"
+          className="h-full bg-[#EEEBDA] transition-[width] duration-75 ease-out"
           style={{ width: `${readProgress}%` }}
         />
       </div>
 
       {/* Toast Alert */}
       {toastMessage && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-[#18253B]/95 backdrop-blur-xs text-white text-[13px] font-medium px-4 py-2 rounded-full shadow-lg border border-white/10 animate-fadeIn pointer-events-none">
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-[#1E213D]/95 backdrop-blur-xs text-white text-[13px] font-medium px-4 py-2 rounded-full shadow-lg border border-white/10 animate-fadeIn pointer-events-none">
           {toastMessage}
         </div>
       )}
@@ -251,8 +251,8 @@ export default function LiveArticlePage() {
         <div className="px-4 pt-[16px] max-w-[402px] mx-auto pb-10">
           {/* Row 1: [📍 भोपाल] Pill + Metadata Timestamp (12px gap below) */}
           <div className="flex items-center justify-between gap-2 mb-[12px]">
-            <div className="flex items-center gap-1.5 bg-[#18253B] text-white text-[14px] font-medium p-[8px] rounded-full shadow-2xs leading-none">
-              <Location size={16} color="#E39026" variant="Bold" />
+            <div className="flex items-center gap-1.5 bg-[#1E213D] text-white text-[14px] font-medium p-[8px] rounded-full shadow-2xs leading-none">
+              <Location size={16} color="#EEEBDA" variant="Bold" />
               <span className="pr-1">{article.location || "भोपाल"}</span>
             </div>
 
@@ -270,7 +270,7 @@ export default function LiveArticlePage() {
           {/* Row 2: रिपोर्ट: रोहित शर्मा • भोपाल संवाददाता (16px gap if live count bar follows, 32px gap if normal) */}
           <div className={`flex items-center text-[12px] leading-tight ${isLive ? 'mb-[16px]' : 'mb-[32px]'}`}>
             <span className="text-[#D9822B] font-bold">रिपोर्ट:&nbsp;</span>
-            <span className="text-[#18253B] font-bold">{article.reporter?.name || "रोहित शर्मा"}</span>
+            <span className="text-[#1E213D] font-bold">{article.reporter?.name || "रोहित शर्मा"}</span>
             <span className="text-[#64748B] font-medium">&nbsp;• {article.reporter?.role || "भोपाल संवाददाता"}</span>
           </div>
 
@@ -286,7 +286,7 @@ export default function LiveArticlePage() {
 
           {/* 3. Article Headline & Subheading Typography (Headline -> Subheading: 32px) */}
           <div>
-            <h1 className="text-[28px] font-semibold text-[#18253B] leading-[1.3] tracking-tight mb-[32px]">
+            <h1 className="text-[28px] font-semibold text-[#1E213D] leading-[1.3] tracking-tight mb-[32px]">
               {article.headline || "सुप्रीम कोर्ट की सख्ती के बाद भोपाल में कार्रवाई तेज, रिहायशी इलाकों में चल रहे कारोबार पर संकट"}
             </h1>
             <p className="text-[20px] font-medium text-[#64748B] leading-[1.45]">
@@ -336,7 +336,7 @@ export default function LiveArticlePage() {
                       location={block.city || block.location || "भोपाल"}
                     />
                   ) : block.type === "heading" ? (
-                    <h2 className="text-[20px] font-semibold text-[#18253B] leading-[1.38] tracking-tight mb-3 select-text">
+                    <h2 className="text-[20px] font-semibold text-[#1E213D] leading-[1.38] tracking-tight mb-3 select-text">
                       {block.text || block.title}
                     </h2>
                   ) : block.type === "inlineImage" ? (
@@ -403,7 +403,7 @@ export default function LiveArticlePage() {
           {/* 9. Related News Section ("जुड़ी हुई खबरें") */}
           {article.relatedStories && article.relatedStories.length > 0 && (
             <section className="mb-4">
-              <h3 className="text-[20px] font-bold text-[#18253B] mb-3.5 px-0.5">
+              <h3 className="text-[20px] font-bold text-[#1E213D] mb-3.5 px-0.5">
                 जुड़ी हुई खबरें
               </h3>
 
