@@ -60,13 +60,13 @@ export default function ReaderStanceCard({ readerStance, onOpenComments, classNa
     <div className={`rounded-[24px] bg-gradient-to-b from-[#EBF3FC] via-[#F8FAFC] to-[#FFF7EC] border border-[#E2E8F0] p-5 shadow-xs ${className}`}>
       {/* Header: Title + Dark Navy Pill Badge (Screenshot 2 & 3) */}
       <div className="flex items-center justify-between mb-3">
-        <h3 className="text-[16px] font-bold text-[#1E213D]">
+        <h3 className="text-[16px] font-bold text-[#18253B]">
           {title}
         </h3>
         <button
           type="button"
           onClick={onOpenComments}
-          className="bg-[#1E213D] hover:bg-[#22334F] text-white text-[12px] font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs active:scale-95 transition-transform"
+          className="bg-[#18253B] hover:bg-[#22334F] text-white text-[12px] font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs active:scale-95 transition-transform"
         >
           <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
             <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" />
@@ -85,7 +85,7 @@ export default function ReaderStanceCard({ readerStance, onOpenComments, classNa
 
       {/* Big Stat Row: 64% and Subtitle */}
       <div className="mb-4">
-        <div className="text-[38px] font-black text-[#1E213D] leading-none tracking-tight">
+        <div className="text-[38px] font-black text-[#18253B] leading-none tracking-tight">
           {percentage}%
         </div>
         <p className="text-[13.5px] text-[#475569] font-medium mt-1">
@@ -95,7 +95,7 @@ export default function ReaderStanceCard({ readerStance, onOpenComments, classNa
 
       {/* Reader Themes Section: 👥 पाठकों की प्रमुख राय : */}
       <div className="mb-4">
-        <div className="text-[13px] font-semibold text-[#1E213D] flex items-center gap-1.5 mb-2.5">
+        <div className="text-[13px] font-semibold text-[#18253B] flex items-center gap-1.5 mb-2.5">
           <span className="text-[15px]">👥</span> पाठकों की प्रमुख राय :
         </div>
         <div className="flex flex-wrap gap-2">
@@ -133,13 +133,13 @@ export default function ReaderStanceCard({ readerStance, onOpenComments, classNa
               className="bg-white rounded-[16px] p-3.5 border border-[#F1F5F9] shadow-xs flex items-start gap-3 cursor-pointer hover:border-slate-300 transition-colors"
             >
               {/* Dark Navy Avatar Circle */}
-              <div className="w-10 h-10 rounded-full bg-[#1E213D] text-white flex items-center justify-center font-bold text-[14px] shrink-0">
+              <div className="w-10 h-10 rounded-full bg-[#18253B] text-white flex items-center justify-center font-bold text-[14px] shrink-0">
                 {initial}
               </div>
 
               {/* Comment Content */}
               <div className="flex-1 min-w-0">
-                <h5 className="text-[14px] font-bold text-[#1E213D] leading-tight">
+                <h5 className="text-[14px] font-bold text-[#18253B] leading-tight">
                   {c.name || c.userName}
                 </h5>
                 <p className="text-[12px] text-[#64748B] leading-snug mt-1 line-clamp-2">
@@ -154,7 +154,7 @@ export default function ReaderStanceCard({ readerStance, onOpenComments, classNa
                   e.stopPropagation();
                   toggleCommentLike(c.id, c.likes || c.likeCount || 0);
                 }}
-                className="flex flex-col items-center justify-center shrink-0 pt-0.5 text-[#64748B] hover:text-[#1E213D] active:scale-90 transition-transform cursor-pointer"
+                className="flex flex-col items-center justify-center shrink-0 pt-0.5 text-[#64748B] hover:text-[#18253B] active:scale-90 transition-transform cursor-pointer"
               >
                 <svg
                   className={`w-4 h-4 transition-colors ${

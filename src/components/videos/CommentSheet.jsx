@@ -98,7 +98,7 @@ export default function CommentSheet({
             <div className="w-10 h-1 bg-[#D1D5DB] rounded-full mx-auto absolute top-2 left-1/2 -translate-x-1/2" />
 
             {/* Title */}
-            <h2 className="text-[16px] font-bold text-[#1E213D] mt-2">
+            <h2 className="text-[16px] font-bold text-[#18253B] mt-2">
               {propTitle || 'टिप्पणियाँ'} · {commentCount}
             </h2>
 
@@ -107,7 +107,7 @@ export default function CommentSheet({
               type="button"
               onClick={handleClose}
               aria-label="बंद करें"
-              className="mt-2 text-[#6B7280] hover:text-[#1E213D] cursor-pointer active:scale-90 transition-transform flex items-center justify-center"
+              className="mt-2 text-[#6B7280] hover:text-[#18253B] cursor-pointer active:scale-90 transition-transform flex items-center justify-center"
             >
               <CloseCircle size={22} color="#6B7280" />
             </button>
@@ -134,14 +134,14 @@ export default function CommentSheet({
                     className="flex items-start justify-between gap-3"
                   >
                     {/* Left Avatar Placeholder */}
-                    <div className="w-9 h-9 rounded-full bg-[#1E213D] text-white font-bold text-[13px] flex items-center justify-center flex-shrink-0 shadow-2xs">
+                    <div className="w-9 h-9 rounded-full bg-[#18253B] text-white font-bold text-[13px] flex items-center justify-center flex-shrink-0 shadow-2xs">
                       {initial}
                     </div>
 
                     {/* Middle Content Block */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-baseline gap-2">
-                        <span className="text-[13px] font-bold text-[#1E213D] truncate">
+                        <span className="text-[13px] font-bold text-[#18253B] truncate">
                           {c.username}
                         </span>
                         <span className="text-[11px] text-[#9CA3AF] shrink-0">
@@ -204,7 +204,7 @@ export default function CommentSheet({
             className="p-3.5 border-t border-[#E5E7EB] bg-white flex items-center gap-2.5 shrink-0"
           >
             {/* User Avatar */}
-            <div className="w-8 h-8 rounded-full bg-[#1E213D] text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 rounded-full bg-[#18253B] text-white text-[11px] font-bold flex items-center justify-center flex-shrink-0">
               आप
             </div>
 
@@ -214,7 +214,7 @@ export default function CommentSheet({
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="अपनी टिप्पणी जोड़ें..."
-              className="flex-1 h-11 bg-[#F9FAFB] rounded-full border border-[#E5E7EB] px-4 text-[13px] text-[#1E213D] placeholder-[#9CA3AF] outline-none focus:border-[#1E213D] transition-colors"
+              className="flex-1 h-11 bg-[#F9FAFB] rounded-full border border-[#E5E7EB] px-4 text-[13px] text-[#18253B] placeholder-[#9CA3AF] outline-none focus:border-[#18253B] transition-colors"
             />
 
             {/* Send Button */}
@@ -223,7 +223,7 @@ export default function CommentSheet({
               disabled={!commentText.trim()}
               className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-150 flex-shrink-0 ${
                 commentText.trim()
-                  ? 'bg-[#EEEBDA] text-white cursor-pointer active:scale-95 shadow-sm'
+                  ? 'bg-[#E39026] text-white cursor-pointer active:scale-95 shadow-sm'
                   : 'bg-[#E5E7EB] text-[#9CA3AF] cursor-not-allowed pointer-events-none'
               }`}
             >

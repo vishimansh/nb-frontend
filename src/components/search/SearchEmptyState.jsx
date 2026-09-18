@@ -10,7 +10,7 @@ export default function SearchEmptyState() {
           ✕
         </div>
       </div>
-      <h3 className="text-[16px] font-bold text-[#1E213D]">कोई परिणाम नहीं मिला</h3>
+      <h3 className="text-[16px] font-bold text-[#18253B]">कोई परिणाम नहीं मिला</h3>
       <p className="text-[13px] text-[#6B7280] mt-1.5 max-w-[240px] leading-relaxed">
         कृपया अलग कीवर्ड डालकर देखें या शब्दों की स्पेलिंग जांचें।
       </p>

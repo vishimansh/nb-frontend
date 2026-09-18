@@ -94,7 +94,7 @@ export default function QuoteCard({
 
           {/* Name & Title */}
           <div className="flex flex-col min-w-0">
-            <h4 className="text-[16px] font-bold text-[#1E213D] truncate leading-tight">
+            <h4 className="text-[16px] font-bold text-[#18253B] truncate leading-tight">
               {name}
             </h4>
             <p className="text-[13px] text-[#64748B] truncate leading-tight mt-1">

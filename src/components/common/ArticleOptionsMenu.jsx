@@ -109,21 +109,21 @@ export default function ArticleOptionsMenu({
           <button
             type="button"
             onClick={handleWhatsApp}
-            className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#1E213D] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-t-[9px]"
+            className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#18253B] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-t-[9px]"
           >
-            <Whatsapp size={16} color="#1E213D" variant="Bold" className="shrink-0" />
+            <Whatsapp size={16} color="#18253B" variant="Bold" className="shrink-0" />
             <span>व्हाट्सएप</span>
           </button>
         ) : (
           <button
             type="button"
             onClick={handleSave}
-            className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#1E213D] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-t-[9px]"
+            className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#18253B] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-t-[9px]"
           >
             {isSaved ? (
               <ArchiveTick size={16} color="#10B981" variant="Bold" className="shrink-0" />
             ) : (
-              <ArchiveAdd size={16} color="#1E213D" variant="Linear" className="shrink-0" />
+              <ArchiveAdd size={16} color="#18253B" variant="Linear" className="shrink-0" />
             )}
             <span className={isSaved ? "text-[#10B981] font-semibold" : ""}>
               {isSaved ? 'खबर सेव हुई' : 'खबर सेव करें'}
@@ -138,12 +138,12 @@ export default function ArticleOptionsMenu({
         <button
           type="button"
           onClick={handleCopyLink}
-          className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#1E213D] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-b-[9px]"
+          className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#18253B] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-b-[9px]"
         >
           {copied ? (
             <TickCircle size={16} color="#10B981" variant="Bold" className="shrink-0" />
           ) : (
-            <Copy size={16} color="#1E213D" variant="Linear" className="shrink-0" />
+            <Copy size={16} color="#18253B" variant="Linear" className="shrink-0" />
           )}
           <span className={copied ? "text-[#10B981] font-semibold" : ""}>
             {copied ? 'लिंक कॉपी हुआ!' : 'लिंक कॉपी करें'}

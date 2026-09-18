@@ -28,8 +28,8 @@ export default function FeedScreen() {
       <div>
         <div className="flex items-center justify-between py-2 border-b border-[#E5E7EB]">
           <NavaBharatLogo className="scale-90 origin-left" />
-          <div className="w-8 h-8 rounded-full bg-[#1E213D]/5 flex items-center justify-center">
-            <Notification size={18} color="#1E213D" variant="Linear" />
+          <div className="w-8 h-8 rounded-full bg-[#18253B]/5 flex items-center justify-center">
+            <Notification size={18} color="#18253B" variant="Linear" />
           </div>
         </div>
 
@@ -39,7 +39,7 @@ export default function FeedScreen() {
             <ShieldTick size={18} color="#059669" variant="Bold" />
             <span className="text-xs font-bold uppercase tracking-wider">ऑनबोर्डिंग पूर्ण</span>
           </div>
-          <h2 className="text-lg font-bold text-[#1E213D]">
+          <h2 className="text-lg font-bold text-[#18253B]">
             होम फीड (प्रोटोटाइप जल्द आ रहा है)
           </h2>
           <p className="text-xs text-[#6B7280] mt-1 leading-relaxed">
@@ -49,15 +49,15 @@ export default function FeedScreen() {
 
         {/* User Selection Summary */}
         <div className="mt-4 space-y-3">
-          <h3 className="text-xs font-bold text-[#1E213D] uppercase tracking-wider px-1">
+          <h3 className="text-xs font-bold text-[#18253B] uppercase tracking-wider px-1">
             आपकी चुनी हुई प्राथमिकताएं
           </h3>
 
           {/* Phone & Notifications */}
           <div className="bg-white rounded-xl p-3 border border-[#E5E7EB] flex items-center justify-between text-xs">
             <div className="flex items-center gap-2">
-              <Call size={16} color="#1E213D" variant="Linear" />
-              <span className="font-semibold text-[#1E213D]">
+              <Call size={16} color="#18253B" variant="Linear" />
+              <span className="font-semibold text-[#18253B]">
                 {phoneNumber || '+91 9876543210'}
               </span>
             </div>
@@ -74,8 +74,8 @@ export default function FeedScreen() {
 
           {/* States Selected */}
           <div className="bg-white rounded-xl p-3 border border-[#E5E7EB]">
-            <div className="flex items-center gap-1.5 mb-2 text-xs font-bold text-[#1E213D]">
-              <Location size={16} color="#EEEBDA" variant="Bold" />
+            <div className="flex items-center gap-1.5 mb-2 text-xs font-bold text-[#18253B]">
+              <Location size={16} color="#E39026" variant="Bold" />
               <span>चुने गए राज्य (प्राथमिकता अनुसार)</span>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -83,9 +83,9 @@ export default function FeedScreen() {
                 selectedStates.map((st) => (
                   <span
                     key={st.id}
-                    className="inline-flex items-center gap-1.5 bg-[#1E213D]/5 border border-[#1E213D]/15 px-3 py-1 rounded-full text-xs font-medium text-[#1E213D]"
+                    className="inline-flex items-center gap-1.5 bg-[#18253B]/5 border border-[#18253B]/15 px-3 py-1 rounded-full text-xs font-medium text-[#18253B]"
                   >
-                    <span className="w-4 h-4 rounded-full bg-[#EEEBDA] text-white flex items-center justify-center text-[10px] font-bold">
+                    <span className="w-4 h-4 rounded-full bg-[#E39026] text-white flex items-center justify-center text-[10px] font-bold">
                       {st.priority}
                     </span>
                     <span>{st.name}</span>
@@ -99,7 +99,7 @@ export default function FeedScreen() {
 
           {/* Cities Selected */}
           <div className="bg-white rounded-xl p-3 border border-[#E5E7EB]">
-            <div className="text-xs font-bold text-[#1E213D] mb-2">
+            <div className="text-xs font-bold text-[#18253B] mb-2">
               चुने गए शहर ({selectedCities.length})
             </div>
             <div className="flex flex-wrap gap-1.5">
@@ -107,7 +107,7 @@ export default function FeedScreen() {
                 selectedCities.map((c, i) => (
                   <span
                     key={i}
-                    className="bg-[#1E213D] text-white px-3 py-1 rounded-full text-xs font-medium"
+                    className="bg-[#18253B] text-white px-3 py-1 rounded-full text-xs font-medium"
                   >
                     {c.city}
                   </span>
@@ -124,7 +124,7 @@ export default function FeedScreen() {
       <div className="mt-6">
         <button
           onClick={handleRestart}
-          className="w-full h-[56px] rounded-[16px] bg-[#1E213D] text-white font-bold text-[15px] shadow-md active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer hover:bg-[#1f304d] transition-colors"
+          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white font-bold text-[15px] shadow-md active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer hover:bg-[#1f304d] transition-colors"
         >
           <Refresh2 size={18} color="#FFFFFF" variant="Linear" />
           <span>प्रोटोटाइप रीसेट और दोबारा शुरू करें</span>

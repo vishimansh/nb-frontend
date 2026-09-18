@@ -58,7 +58,7 @@ export default function CityFilterHeader({ onOpenLocalityPicker, onOpenCityPicke
                 <button
                   key={city.id}
                   type="button"
-                  className="bg-[#1E213D] text-white border border-[#1E213D] rounded-full h-[34px] px-4 flex items-center gap-1.5 shrink-0 cursor-pointer shadow-xs active:scale-95 transition-all"
+                  className="bg-[#18253B] text-white border border-[#18253B] rounded-full h-[34px] px-4 flex items-center gap-1.5 shrink-0 cursor-pointer shadow-xs active:scale-95 transition-all"
                   onClick={handleCityPickerClick}
                   title={`${city.name} - शहर बदलें या चुनें`}
                 >
@@ -75,9 +75,9 @@ export default function CityFilterHeader({ onOpenLocalityPicker, onOpenCityPicke
                 key={city.id}
                 type="button"
                 onClick={() => setActiveCityId(city.id)}
-                className="bg-transparent border border-[#9CA3AF] rounded-full h-[34px] px-4 flex items-center justify-center cursor-pointer hover:border-[#1E213D] shrink-0 transition-all active:scale-95"
+                className="bg-transparent border border-[#9CA3AF] rounded-full h-[34px] px-4 flex items-center justify-center cursor-pointer hover:border-[#18253B] shrink-0 transition-all active:scale-95"
               >
-                <span className="text-[13px] font-medium text-[#1E213D] leading-none whitespace-nowrap">
+                <span className="text-[13px] font-medium text-[#18253B] leading-none whitespace-nowrap">
                   {city.name}
                 </span>
               </button>
@@ -89,9 +89,9 @@ export default function CityFilterHeader({ onOpenLocalityPicker, onOpenCityPicke
         <button
           type="button"
           onClick={handleLocalityPickerClick}
-          className="bg-transparent border border-[#9CA3AF] text-[#1E213D] rounded-full h-[34px] px-4 flex items-center gap-1.5 text-[13px] font-medium shrink-0 cursor-pointer hover:border-[#1E213D] active:scale-95 transition-all ml-1"
+          className="bg-transparent border border-[#9CA3AF] text-[#18253B] rounded-full h-[34px] px-4 flex items-center gap-1.5 text-[13px] font-medium shrink-0 cursor-pointer hover:border-[#18253B] active:scale-95 transition-all ml-1"
         >
-          <Edit size={13} color="#1E213D" variant="Linear" className="shrink-0" />
+          <Edit size={13} color="#18253B" variant="Linear" className="shrink-0" />
           <span className="leading-none whitespace-nowrap">आपके इलाके चुनें</span>
         </button>
       </div>
@@ -104,8 +104,8 @@ export default function CityFilterHeader({ onOpenLocalityPicker, onOpenCityPicke
           onClick={() => setZoneFilter(activeCityId, 'all')}
           className={`rounded-full h-[34px] px-4 text-[13px] font-medium flex items-center justify-center shrink-0 transition-all cursor-pointer ${
             activeZone === 'all'
-              ? 'bg-[#1E213D] text-white border border-[#1E213D] shadow-xs'
-              : 'bg-transparent text-[#1E213D] border border-[#9CA3AF] hover:border-[#1E213D]'
+              ? 'bg-[#18253B] text-white border border-[#18253B] shadow-xs'
+              : 'bg-transparent text-[#18253B] border border-[#9CA3AF] hover:border-[#18253B]'
           }`}
         >
           <span className="leading-none">सभी {currentCityData?.name || 'शहर'}</span>
@@ -123,8 +123,8 @@ export default function CityFilterHeader({ onOpenLocalityPicker, onOpenCityPicke
               onClick={() => setZoneFilter(activeCityId, zoneId)}
               className={`rounded-full h-[34px] px-4 text-[13px] font-medium flex items-center justify-center shrink-0 transition-all cursor-pointer ${
                 isSelected
-                  ? 'bg-[#1E213D] text-white border border-[#1E213D] shadow-xs'
-                  : 'bg-transparent text-[#1E213D] border border-[#9CA3AF] hover:border-[#1E213D]'
+                  ? 'bg-[#18253B] text-white border border-[#18253B] shadow-xs'
+                  : 'bg-transparent text-[#18253B] border border-[#9CA3AF] hover:border-[#18253B]'
               }`}
             >
               <span className="leading-none">{zoneName}</span>

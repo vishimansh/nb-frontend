@@ -68,7 +68,7 @@ const CATEGORY_ACCENT_COLORS = {
  */
 export default function CategorySectionHeader({ category, onCategoryClick, className = "" }) {
   const categoryKey = category.id || category.label;
-  const color = CATEGORY_ACCENT_COLORS[categoryKey] || category.color || '#1E213D';
+  const color = CATEGORY_ACCENT_COLORS[categoryKey] || category.color || '#18253B';
   const illustration = CATEGORY_ILLUSTRATIONS[categoryKey];
 
   return (
@@ -79,7 +79,7 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
           className="w-[3.5px] h-[24px] rounded-none shrink-0"
           style={{ backgroundColor: color }}
         />
-        <h2 className="text-[20px] font-bold text-[#1E213D] ml-[10px] leading-none flex items-center">
+        <h2 className="text-[20px] font-bold text-[#18253B] ml-[10px] leading-none flex items-center">
           {category.label}
         </h2>
       </div>
@@ -97,19 +97,19 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
         /* Faint Silhouette Graphic (opacity-15, themed silhouette watermark fallback) */
         <div className="absolute right-16 top-1/2 -translate-y-1/2 pointer-events-none opacity-15 overflow-hidden flex items-center z-0">
         {category.id === 'politics' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Parliament / Capitol dome silhouette */}
             <path d="M50 2 L52 8 L48 8 Z M45 8 H55 V12 H45 Z M30 12 H70 V15 H30 Z M33 15 H37 V26 H33 Z M42 15 H46 V26 H42 Z M54 15 H58 V26 H54 Z M63 15 H67 V26 H63 Z M25 26 H75 V29 H25 Z" />
           </svg>
         )}
         {category.id === 'entertainment' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Film clapper / camera reel */}
             <path d="M30 6 L45 6 L42 12 L27 12 Z M47 6 L62 6 L59 12 L44 12 Z M64 6 L79 6 L76 12 L61 12 Z M25 14 H80 V28 H25 Z M70 18 A4 4 0 1 1 70 24 A4 4 0 1 1 70 18" />
           </svg>
         )}
         {category.id === 'sports' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Sports runner / cricket bat & ball */}
             <circle cx="35" cy="10" r="4" />
             <path d="M32 15 L38 22 L45 28 M38 18 L46 14" stroke="currentColor" strokeWidth="2" fill="none" />
@@ -117,7 +117,7 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
           </svg>
         )}
         {category.id === 'business' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Growth chart bars */}
             <rect x="25" y="18" width="6" height="10" rx="1" />
             <rect x="37" y="14" width="6" height="14" rx="1" />
@@ -127,7 +127,7 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
           </svg>
         )}
         {category.id === 'tech' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Circuit / chip */}
             <rect x="40" y="7" width="20" height="16" rx="2" fill="none" stroke="currentColor" strokeWidth="2" />
             <line x1="45" y1="2" x2="45" y2="7" stroke="currentColor" strokeWidth="1.5" />
@@ -137,31 +137,31 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
           </svg>
         )}
         {category.id === 'education' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Graduation cap */}
             <path d="M50 6 L25 15 L50 24 L75 15 Z M35 19 V24 C35 27 65 27 65 24 V19" />
           </svg>
         )}
         {category.id === 'astro' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Crescent moon and stars */}
             <path d="M48 6 A10 10 0 0 0 58 24 A12 12 0 1 1 48 6 Z M68 8 L70 12 L74 12 L71 14 L72 18 L68 15 L64 18 L65 14 L62 12 L66 12 Z" />
           </svg>
         )}
         {category.id === 'health' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Heartbeat pulse */}
             <path d="M25 16 H40 L45 7 L52 25 L58 12 L63 18 L68 16 H78" stroke="currentColor" strokeWidth="2" fill="none" />
           </svg>
         )}
         {category.id === 'lifestyle' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Tree and leaves */}
             <path d="M50 6 C42 6 36 12 36 19 C36 24 40 27 46 28 L46 29 H54 L54 28 C60 27 64 24 64 19 C64 12 58 6 50 6 Z" />
           </svg>
         )}
         {category.id === 'auto' && (
-          <svg className="w-24 h-8 fill-current text-[#1E213D]" viewBox="0 0 100 30">
+          <svg className="w-24 h-8 fill-current text-[#18253B]" viewBox="0 0 100 30">
             {/* Sports car silhouette */}
             <path d="M25 21 L32 14 C36 11 43 10 52 10 L68 12 L75 17 L80 19 V24 H76 A5 5 0 0 1 66 24 H42 A5 5 0 0 1 32 24 H25 Z" />
           </svg>
@@ -169,7 +169,7 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
       </div>
       )}
 
-      {/* Trailing Link: और size is 16px bold/semibold in #1E213D with CaretRight icon */}
+      {/* Trailing Link: और size is 16px bold/semibold in #18253B with CaretRight icon */}
       <button
         type="button"
         onClick={(e) => {
@@ -179,10 +179,10 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
           }
         }}
         aria-label={`${category.label} की और खबरें देखें`}
-        className="text-[16px] font-bold text-[#1E213D] hover:text-black flex items-center gap-[6px] cursor-pointer z-10 transition-colors leading-none pr-0"
+        className="text-[16px] font-bold text-[#18253B] hover:text-black flex items-center gap-[6px] cursor-pointer z-10 transition-colors leading-none pr-0"
       >
         <span className="leading-none">और</span>
-        <ArrowRight2 size={16} color="#1E213D" variant="Linear" className="shrink-0" />
+        <ArrowRight2 size={16} color="#18253B" variant="Linear" className="shrink-0" />
       </button>
     </div>
   );

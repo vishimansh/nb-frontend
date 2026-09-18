@@ -46,7 +46,7 @@ export default function EditStateSelectionPage() {
               initial={{ opacity: 0, scale: 0.9, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: -10 }}
-              className="bg-[#1E213D] text-white text-[13px] px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 border border-white/10 pointer-events-auto"
+              className="bg-[#18253B] text-white text-[13px] px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 border border-white/10 pointer-events-auto"
             >
               <span>⚠️</span>
               <span className="font-medium">{alertMessage}</span>
@@ -59,12 +59,12 @@ export default function EditStateSelectionPage() {
       <div className="px-6 py-3 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F7F7F4]/90 backdrop-blur-sm z-10 shrink-0">
         <div className="flex items-center gap-2">
           <BackButton onClick={handleBack} ariaLabel="रद्द करें और वापस जाएं" />
-          <h1 className="text-[22px] font-bold text-[#1E213D] tracking-tight">
+          <h1 className="text-[22px] font-bold text-[#18253B] tracking-tight">
             राज्य चुनें
           </h1>
         </div>
 
-        <span className="text-[13px] font-medium text-[#1E213D]/70 bg-[#1E213D]/5 px-2.5 py-1 rounded-full">
+        <span className="text-[13px] font-medium text-[#18253B]/70 bg-[#18253B]/5 px-2.5 py-1 rounded-full">
           {currentStates.length}/3 चुने गए
         </span>
       </div>
@@ -100,7 +100,7 @@ export default function EditStateSelectionPage() {
         <button
           type="button"
           onClick={handleNext}
-          className="w-full h-[56px] rounded-[16px] bg-[#1E213D] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#1f304d] transition-colors"
+          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#1f304d] transition-colors"
         >
           सेव करें
         </button>

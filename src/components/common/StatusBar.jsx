@@ -16,7 +16,7 @@ function isDarkRoute(pathname) {
     return false;
   }
 
-  // Screens with dark navy (#1E213D) or black headers at the top
+  // Screens with dark navy (#18253B) or black headers at the top
   if (
     pathname === '/feed' ||
     pathname === '/city' ||
@@ -35,7 +35,7 @@ function isDarkRoute(pathname) {
  * Authentic iPhone 17 Pro Dynamic Island & Status Bar component
  * - Fixed 64px clearance with 9:41 time, hardware island, and system status indicators.
  * - Dynamically adapts: Black text & icons for white or light-shade backgrounds (#FFFFFF, #FDFDFD, #F7F7F4, #F7F7F8).
- * - White text & icons for dark background screens (#1E213D, #000000, #0F172A).
+ * - White text & icons for dark background screens (#18253B, #000000, #0F172A).
  */
 export default function StatusBar({ dark, className = "" }) {
   const location = useLocation();

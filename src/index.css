@@ -4,11 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --nb-navy: #1E213D;
-  --nb-yellow: #EEEBDA;
-}
-
 @layer base {
   * {
     font-feature-settings: "kern" 1;
@@ -20,7 +15,7 @@
     font-family: 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.5;
     background-color: #E5E7EB;
-    color: #1E213D;
+    color: #18253B;
     margin: 0;
     padding: 0;
   }

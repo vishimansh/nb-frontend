@@ -10,12 +10,12 @@ import card1Img from '../../assets/cards/card-1.png';
 
 export function NavaBharatThumbnail({ cityName = 'भोपाल', dateText = '28 अगस्त' }) {
   return (
-    <div className="w-full h-full bg-[#FDFCF7] text-[#1E213D] flex flex-col justify-between p-1.5 select-none overflow-hidden text-left relative font-serif">
+    <div className="w-full h-full bg-[#FDFCF7] text-[#18253B] flex flex-col justify-between p-1.5 select-none overflow-hidden text-left relative font-serif">
       {/* Top Paper Header Strip */}
-      <div className="border-b border-[#1E213D]/20 pb-0.5 shrink-0">
+      <div className="border-b border-[#18253B]/20 pb-0.5 shrink-0">
         <div className="flex items-center justify-between text-[6px] font-sans text-[#6B7280] font-medium tracking-tight leading-none">
           <span>वर्ष 75 • अंक 234</span>
-          <span className="font-bold text-[#EEEBDA]">{cityName}</span>
+          <span className="font-bold text-[#E39026]">{cityName}</span>
           <span>₹ 4.50</span>
         </div>
 
@@ -54,12 +54,12 @@ export function NavaBharatThumbnail({ cityName = 'भोपाल', dateText = '
       </div>
 
       {/* Bottom Barcode & Footer Strip */}
-      <div className="pt-0.5 mt-0.5 border-t border-[#1E213D]/20 flex items-center justify-between text-[5px] text-[#94A3B8] font-sans shrink-0 leading-none">
+      <div className="pt-0.5 mt-0.5 border-t border-[#18253B]/20 flex items-center justify-between text-[5px] text-[#94A3B8] font-sans shrink-0 leading-none">
         <div className="flex items-center gap-1">
-          <div className="w-8 h-1.5 bg-gradient-to-r from-[#1E213D] via-[#475569] to-[#1E213D] opacity-60 rounded-[1px]" />
+          <div className="w-8 h-1.5 bg-gradient-to-r from-[#18253B] via-[#475569] to-[#18253B] opacity-60 rounded-[1px]" />
           <span>ISSN 0971-8257</span>
         </div>
-        <span className="font-semibold text-[#1E213D]">Page 01</span>
+        <span className="font-semibold text-[#18253B]">Page 01</span>
       </div>
     </div>
   );
@@ -121,7 +121,7 @@ export function CentralChroniclesThumbnail({ dateText = '28 अगस्त' }) 
 
 export function SuruchiThumbnail({ dateText = '28 अगस्त' }) {
   return (
-    <div className="w-full h-full bg-gradient-to-br from-[#FAF5FF] via-[#F3E8FF] to-[#EDE9FE] text-[#1E213D] flex flex-col justify-between p-1.5 select-none overflow-hidden text-left relative font-sans">
+    <div className="w-full h-full bg-gradient-to-br from-[#FAF5FF] via-[#F3E8FF] to-[#EDE9FE] text-[#18253B] flex flex-col justify-between p-1.5 select-none overflow-hidden text-left relative font-sans">
       {/* Top Magazine Header */}
       <div className="border-b border-[#9333EA]/30 pb-0.5 shrink-0">
         <div className="flex items-center justify-between text-[5.5px] font-bold text-[#7E22CE] leading-none">

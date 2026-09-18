@@ -123,16 +123,16 @@ export default function OtpScreen() {
         </div>
 
         {/* Title */}
-        <h1 className="text-[32px] font-semibold text-[#1E213D] text-center tracking-tight leading-tight">
+        <h1 className="text-[32px] font-semibold text-[#18253B] text-center tracking-tight leading-tight">
           OTP दर्ज करें
         </h1>
 
         {/* Confirmation Copy */}
         <p className="mt-2 text-[14px] text-center leading-[1.5] text-[#6B7280] whitespace-pre-line px-2">
           {"आपके नंबर "}
-          <span className="text-[#EEEBDA] font-semibold">{displayPhone}</span>
+          <span className="text-[#E39026] font-semibold">{displayPhone}</span>
           {" पर "}
-          <span className="text-[#EEEBDA] font-semibold">6 अंकों</span>
+          <span className="text-[#E39026] font-semibold">6 अंकों</span>
           {" का\nOTP भेजा गया है"}
         </p>
 
@@ -144,7 +144,7 @@ export default function OtpScreen() {
           {otp.map((digit, idx) => (
             <div 
               key={idx} 
-              className="w-[48px] h-[64px] bg-white rounded-[12px] border border-[#B0B7C3] flex flex-col items-center justify-center relative focus-within:border-[#1E213D] focus-within:ring-2 focus-within:ring-[#1E213D]/20 transition-all shadow-2xs"
+              className="w-[48px] h-[64px] bg-white rounded-[12px] border border-[#B0B7C3] flex flex-col items-center justify-center relative focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/20 transition-all shadow-2xs"
             >
               <input
                 ref={(el) => (inputRefs.current[idx] = el)}
@@ -155,7 +155,7 @@ export default function OtpScreen() {
                 value={digit}
                 onChange={(e) => handleInputChange(idx, e.target.value)}
                 onKeyDown={(e) => handleKeyDown(idx, e)}
-                className="text-[22px] font-bold text-[#1E213D] text-center bg-transparent outline-none w-full h-full z-10 select-all"
+                className="text-[22px] font-bold text-[#18253B] text-center bg-transparent outline-none w-full h-full z-10 select-all"
               />
 
               {/* Interior Bottom Dash when empty */}
@@ -168,15 +168,15 @@ export default function OtpScreen() {
 
         {/* Resend Row */}
         <div className="mt-5 text-center text-[14px]">
-          <span className="text-[#1E213D] font-normal">OTP नहीं मिला? </span>
+          <span className="text-[#18253B] font-normal">OTP नहीं मिला? </span>
           {timer > 0 ? (
-            <span className="font-bold text-[#1E213D]">
+            <span className="font-bold text-[#18253B]">
               फिर से भेजें ({timer}s)
             </span>
           ) : (
             <button
               onClick={handleResend}
-              className="font-bold text-[#EEEBDA] hover:underline cursor-pointer"
+              className="font-bold text-[#E39026] hover:underline cursor-pointer"
             >
               फिर से भेजें
             </button>
@@ -190,8 +190,8 @@ export default function OtpScreen() {
             disabled={!isComplete}
             className={`w-full h-[56px] rounded-[16px] text-[20px] font-medium flex items-center justify-center transition-all duration-200 ${
               isComplete
-                ? 'bg-[#1E213D] text-white shadow-md active:scale-[0.99] cursor-pointer hover:bg-[#1f304d]'
-                : 'bg-[#1E213D]/40 text-white/60 cursor-not-allowed'
+                ? 'bg-[#18253B] text-white shadow-md active:scale-[0.99] cursor-pointer hover:bg-[#1f304d]'
+                : 'bg-[#18253B]/40 text-white/60 cursor-not-allowed'
             }`}
           >
             वेरिफ़ाई करें
@@ -201,10 +201,10 @@ export default function OtpScreen() {
 
       {/* Bottom Trust Notice - anchored at bottom */}
       <div className="w-full flex items-center justify-center gap-2 pb-2">
-        <div className="w-5 h-5 rounded-full bg-[#1E213D] flex items-center justify-center text-white shadow-2xs">
+        <div className="w-5 h-5 rounded-full bg-[#18253B] flex items-center justify-center text-white shadow-2xs">
           <Lock size={10} color="#FFFFFF" variant="Linear" />
         </div>
-        <span className="text-[12px] font-bold text-[#1E213D]">
+        <span className="text-[12px] font-bold text-[#18253B]">
           आपकी निजी जानकारी सुरक्षित है
         </span>
       </div>

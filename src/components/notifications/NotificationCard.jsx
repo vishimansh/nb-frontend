@@ -95,7 +95,7 @@ export default function NotificationCard({ notification, isTrending = false, cla
 
         {/* Headline: matching normal news feed card (14px medium, 17px line pitch, safe matra overflow) */}
         <h3
-          className="mt-[4px] pt-[1px] text-[14px] font-medium text-[#1E213D] leading-[17px] line-clamp-2 overflow-hidden text-ellipsis"
+          className="mt-[4px] pt-[1px] text-[14px] font-medium text-[#18253B] leading-[17px] line-clamp-2 overflow-hidden text-ellipsis"
           style={{
             display: '-webkit-box',
             WebkitLineClamp: 2,

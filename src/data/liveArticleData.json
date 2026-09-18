@@ -165,7 +165,7 @@
       {
         "id": "cm-1",
         "avatarInitial": "R",
-        "avatarColor": "#1E213D",
+        "avatarColor": "#18253B",
         "name": "राहुल शर्मा",
         "text": "यह एक बहुत जरूरी पहल है। हमारे शहर में ऐसी सुविधाओं की काफी समय से जरूरत थी...",
         "likeCount": 18
@@ -173,7 +173,7 @@
       {
         "id": "cm-2",
         "avatarInitial": "S",
-        "avatarColor": "#1E213D",
+        "avatarColor": "#18253B",
         "name": "स्नेहा चौहान",
         "text": "स्थानीय प्रशासन को भी अब इस दिशा में जल्दी काम करना चाहिए। युवाओं के लिए...",
         "likeCount": 12
@@ -181,7 +181,7 @@
       {
         "id": "cm-3",
         "avatarInitial": "A",
-        "avatarColor": "#1E213D",
+        "avatarColor": "#18253B",
         "name": "अमित वर्मा",
         "text": "अगर यह योजना सही तरीके से लागू होती है तो हमारे शहर की तस्वीर बदल सकती है...",
         "likeCount": 7
@@ -189,7 +189,7 @@
       {
         "id": "cm-4",
         "avatarInitial": "P",
-        "avatarColor": "#1E213D",
+        "avatarColor": "#18253B",
         "name": "पूजा मिश्रा",
         "text": "बहुत अच्छा कदम है। उम्मीद है कि इसे ज़मीन पर भी अच्छे से लागू किया जाएगा...",
         "likeCount": 6
@@ -219,7 +219,7 @@
     {
       "id": "sn-4",
       "headline": "भोपाल मेट्रो का सुभाष नगर से करोंद तक विस्तार तेज, दूसरे चरण के सर्वे और टेंडर प्रक्रिया पूरी",
-      "category": { "id": "city", "label": "शहर", "color": "#EEEBDA" },
+      "category": { "id": "city", "label": "शहर", "color": "#E39026" },
       "location": "भोपाल",
       "thumbnail": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=400&auto=format&fit=crop&q=80",
       "timestamp": "35 मिनट पहले",

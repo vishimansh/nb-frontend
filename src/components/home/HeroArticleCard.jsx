@@ -7,10 +7,10 @@ import ArticleOptionsMenu from '../common/ArticleOptionsMenu';
 /**
  * Hero Live Updates News Card
  * Pixel-accurately built to match the reference Figma design:
- * - 386px × 283px exact card footprint with 16px corner radius and #1E213D base
+ * - 386px × 283px exact card footprint with 16px corner radius and #18253B base
  * - 200px upper media banner with gradient overlay showing full pediment & dome
  * - "• लाइव अपडेट" pill on top-left (top: 10px, left: 10px, h: 24px, rounded-[7px], bg: #CA0000)
- * - "देश" category badge: rounded-[6px], bg: #1E213D with subtle border
+ * - "देश" category badge: rounded-[6px], bg: #18253B with subtle border
  * - Headline: 17px bold white, 2 lines, tight leading (22px)
  * - Meta row: "5 मिनट पहले • 2 मिनट पढ़ें" in light slate (#CBD5E1) + white WhatsApp & 3-dots
  * - 83px integrated live updates drawer:
@@ -18,7 +18,7 @@ import ArticleOptionsMenu from '../common/ArticleOptionsMenu';
  *   - Red dot & red rounded-[6px] time badge for latest update
  *   - Slate dots & slate rounded-[6px] time badges (#3D485B) for previous updates
  *   - 12px font-medium white update text
- *   - "सभी अपडेट देखें >" box: 82px wide × 52px tall, rounded-[12px], border-[#55647A], bg-[#1E213D]
+ *   - "सभी अपडेट देखें >" box: 82px wide × 52px tall, rounded-[12px], border-[#55647A], bg-[#18253B]
  */
 export default function HeroArticleCard({ story }) {
   const navigate = useNavigate();
@@ -45,10 +45,10 @@ export default function HeroArticleCard({ story }) {
   return (
     <article
       onClick={handleCardClick}
-      className={`w-[386px] min-w-[386px] max-w-[386px] rounded-[16px] select-none bg-[#1E213D] shadow-md flex flex-col mx-auto cursor-pointer transition-transform active:scale-[0.995] relative ${isMenuOpen ? 'z-30 overflow-visible' : 'overflow-hidden'}`}
+      className={`w-[386px] min-w-[386px] max-w-[386px] rounded-[16px] select-none bg-[#18253B] shadow-md flex flex-col mx-auto cursor-pointer transition-transform active:scale-[0.995] relative ${isMenuOpen ? 'z-30 overflow-visible' : 'overflow-hidden'}`}
     >
       {/* 1. Upper Media Banner (214px Height) */}
-      <div className="h-[214px] min-h-[214px] max-h-[214px] relative w-full bg-[#1E213D]">
+      <div className="h-[214px] min-h-[214px] max-h-[214px] relative w-full bg-[#18253B]">
         <div className="absolute inset-0 overflow-hidden">
           <img
             src={imageSrc}
@@ -67,9 +67,9 @@ export default function HeroArticleCard({ story }) {
         )}
 
         {/* Dark Scrim Gradient Overlay for Headline & Meta Block */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#1E213D] via-[#1E213D]/75 via-42% to-transparent pt-14 pb-[10px] px-[12px] flex flex-col justify-end z-10">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#18253B] via-[#18253B]/75 via-42% to-transparent pt-14 pb-[10px] px-[12px] flex flex-col justify-end z-10">
           {/* Category Pill */}
-          <span className="bg-[#1E213D]/90 border border-white/25 text-white text-[11px] font-bold px-[8px] py-[2.5px] rounded-[5px] w-fit mb-[7px] leading-none">
+          <span className="bg-[#18253B]/90 border border-white/25 text-white text-[11px] font-bold px-[8px] py-[2.5px] rounded-[5px] w-fit mb-[7px] leading-none">
             {story.category || 'देश'}
           </span>
 
@@ -122,7 +122,7 @@ export default function HeroArticleCard({ story }) {
 
       {/* 2. Lower Live Updates Drawer (96px Height with ample breathing room for Hindi matras) */}
       {story.liveUpdates && story.liveUpdates.length > 0 && (
-        <div className="h-[96px] min-h-[96px] max-h-[96px] bg-[#1E213D] px-[12px] flex items-center justify-between gap-[10px]">
+        <div className="h-[96px] min-h-[96px] max-h-[96px] bg-[#18253B] px-[12px] flex items-center justify-between gap-[10px]">
           {/* Timeline on Left: 3 rows with continuous connecting track */}
           <div className="relative flex-1 min-w-0 h-[72px] flex flex-col justify-between">
             {/* Continuous vertical timeline track running through dot centers at 2.75px from left */}
@@ -169,7 +169,7 @@ export default function HeroArticleCard({ story }) {
               e.stopPropagation();
               navigate('/article/live-bhopal-encroachment');
             }}
-            className="w-[86px] min-w-[86px] max-w-[86px] h-[54px] bg-[#1E213D] border border-[#55647A] px-[9px] rounded-[12px] text-white hover:bg-[#1F2E44] active:scale-[0.98] transition-all flex items-center justify-between cursor-pointer shrink-0 select-none"
+            className="w-[86px] min-w-[86px] max-w-[86px] h-[54px] bg-[#18253B] border border-[#55647A] px-[9px] rounded-[12px] text-white hover:bg-[#1F2E44] active:scale-[0.98] transition-all flex items-center justify-between cursor-pointer shrink-0 select-none"
           >
             <div className="flex flex-col text-left leading-[14px]">
               <span className="text-[11px] font-semibold text-white">सभी</span>
