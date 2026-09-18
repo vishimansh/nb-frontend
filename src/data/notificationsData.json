@@ -1,0 +1,74 @@
+{
+  "trending": [
+    {
+      "id": "notif-tr-1",
+      "thumbnail": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "business",
+      "location": "भोपाल",
+      "headline": "RBI ने रेपो रेट में नहीं किया बदलाव, कारोबारियों को ब्याज दरों में राहत का इंतजार",
+      "timestamp": "2026-09-15T23:35:00Z"
+    },
+    {
+      "id": "notif-tr-2",
+      "thumbnail": "https://images.unsplash.com/photo-1531415074868-036b107e775a?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "sports",
+      "location": null,
+      "headline": "राष्ट्रीय खेल प्रतियोगिताओं की तैयारियां तेज, खिलाड़ियों के प्रशिक्षण पर बढ़ा फोकस",
+      "timestamp": "2026-09-15T23:11:00Z"
+    },
+    {
+      "id": "notif-tr-3",
+      "thumbnail": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "politics",
+      "location": null,
+      "headline": "सरकार की अहम बैठक में कई मुद्दों पर चर्चा, नई योजनाओं को लेकर बनी रणनीति",
+      "timestamp": "2026-09-15T23:11:00Z"
+    }
+  ],
+  "today": [
+    {
+      "id": "notif-td-1",
+      "thumbnail": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "tech",
+      "headline": "भोपाल के स्टार्टअप्स में बढ़ा AI का इस्तेमाल, छोटे कारोबारों को मिल रही नई तकनीकी मदद",
+      "timestamp": "2026-09-15T21:55:00Z"
+    },
+    {
+      "id": "notif-td-2",
+      "thumbnail": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "entertainment",
+      "headline": "शहर में शुरू हुआ रंगारंग सांस्कृतिक उत्सव, शाम होते ही उमड़ी दर्शकों की भारी भीड़",
+      "timestamp": "2026-09-15T20:55:00Z"
+    },
+    {
+      "id": "notif-td-3",
+      "thumbnail": "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "politics",
+      "headline": "भोपाल में चुनावी तैयारियां तेज, निर्वाचन आयोग ने अधिकारियों के साथ की अहम बैठक",
+      "timestamp": "2026-09-15T17:55:00Z"
+    }
+  ],
+  "thisWeek": [
+    {
+      "id": "notif-tw-1",
+      "thumbnail": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "lifestyle",
+      "headline": "वीकेंड पर झील किनारे बढ़ी रौनक, शाम के खूबसूरत नजारों ने खींचा लोगों का ध्यान",
+      "timestamp": "2026-09-13T14:00:00Z"
+    },
+    {
+      "id": "notif-tw-2",
+      "thumbnail": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "education",
+      "headline": "बोर्ड परीक्षाओं की तैयारियां तेज, छात्रों ने अंतिम दौर की पढ़ाई पर किया फोकस",
+      "timestamp": "2026-09-12T10:00:00Z"
+    },
+    {
+      "id": "notif-tw-3",
+      "thumbnail": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "politics",
+      "headline": "अहम बैठक में विकास योजनाओं की समीक्षा, कई बड़े प्रस्तावों पर हुई चर्चा",
+      "timestamp": "2026-09-11T12:00:00Z"
+    }
+  ]
+}

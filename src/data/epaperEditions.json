@@ -1,0 +1,119 @@
+[
+  {
+    "id": "nb-city-daily",
+    "isCityScoped": true,
+    "titleTemplate": "नवभारत-{cityName}",
+    "tag": "मुख्य दैनिक",
+    "tagStyle": "bg-[#FFF4E6] text-[#E39026] border border-[#FCD9B6]",
+    "type": "main_daily",
+    "isInteractive": true
+  },
+  {
+    "id": "central-chronicles",
+    "isCityScoped": false,
+    "title": "Central Chronicles",
+    "tag": "English Daily",
+    "tagStyle": "bg-[#EEF4FF] text-[#3B82F6] border border-[#BFDBFE]",
+    "type": "english_daily",
+    "isInteractive": true
+  },
+  {
+    "id": "suruchi-patrika",
+    "isCityScoped": false,
+    "title": "सुरुचि पत्रिका",
+    "tag": "साप्ताहिक विशेषांक",
+    "tagStyle": "bg-[#FBF5FF] text-[#9333EA] border border-[#E9D5FF]",
+    "type": "weekly_special",
+    "isInteractive": true
+  },
+  {
+    "id": "dark-edition-01",
+    "isCityScoped": false,
+    "title": "Dark Edition 01",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-02",
+    "isCityScoped": false,
+    "title": "Dark Edition 02",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-03",
+    "isCityScoped": false,
+    "title": "Dark Edition 03",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-04",
+    "isCityScoped": false,
+    "title": "Dark Edition 04",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-05",
+    "isCityScoped": false,
+    "title": "Dark Edition 05",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-06",
+    "isCityScoped": false,
+    "title": "Dark Edition 06",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-07",
+    "isCityScoped": false,
+    "title": "Dark Edition 07",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-08",
+    "isCityScoped": false,
+    "title": "Dark Edition 08",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-09",
+    "isCityScoped": false,
+    "title": "Dark Edition 09",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  },
+  {
+    "id": "dark-edition-10",
+    "isCityScoped": false,
+    "title": "Dark Edition 10",
+    "tag": "Dark Edition Placeholder",
+    "tagStyle": "bg-[#F3F4F6] text-[#6B7280] border border-[#E5E7EB]",
+    "type": "placeholder",
+    "isInteractive": false
+  }
+]

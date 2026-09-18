@@ -1,0 +1,50 @@
+[
+  {
+    "id": "ad-toyota-video",
+    "isAd": true,
+    "format": "video",
+    "brandName": "Toyota India",
+    "brandLogo": "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=120&q=80",
+    "headline": "टोयोटा टैसर पर शानदार ऑफर",
+    "destinationUrl": "https://www.toyotabharat.com",
+    "likeCount": 234,
+    "isLiked": false,
+    "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": "ad-feather-grid",
+    "isAd": true,
+    "format": "grid",
+    "brandName": "Feather India",
+    "brandLogo": "https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?auto=format&fit=crop&w=120&q=80",
+    "headline": "फेदर के साथ, हर कदम बने स्टाइल स्टेटमेंट",
+    "destinationUrl": "https://featherindia.com",
+    "likeCount": 234,
+    "isLiked": false,
+    "backgroundTexture": "https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=800&q=80",
+    "gridImages": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=400&q=80",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80"
+    ]
+  },
+  {
+    "id": "ad-lumea-carousel",
+    "isAd": true,
+    "format": "carousel",
+    "brandName": "Lumea India",
+    "brandLogo": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=120&q=80",
+    "headline": "प्रकृति से प्रेरित, आपकी पहचान के लिए",
+    "destinationUrl": "https://lumeabotanicals.com",
+    "likeCount": 234,
+    "isLiked": false,
+    "carouselSlides": [
+      "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80"
+    ]
+  }
+]

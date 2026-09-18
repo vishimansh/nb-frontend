@@ -1,0 +1,25 @@
+{
+  "cityTrending": {
+    "scope": "city",
+    "cityName": "भोपाल",
+    "title": "भोपाल में ट्रेंडिंग",
+    "iconType": "statue",
+    "bgIllustration": "bhopal_skyline_amber.png",
+    "chips": [
+      { "id": "tc-1", "label": "भारी बारिश अलर्ट" },
+      { "id": "tc-2", "label": "भोपाल मेट्रो" },
+      { "id": "tc-3", "label": "तालाब ओवरफ्लो" }
+    ]
+  },
+  "nationalTrending": {
+    "scope": "national",
+    "title": "देश-प्रदेश में ट्रेंडिंग",
+    "iconType": "india_map",
+    "bgIllustration": "india_skyline_blue.png",
+    "chips": [
+      { "id": "tn-1", "label": "यूजीसी आंदोलन" },
+      { "id": "tn-2", "label": "नीति आयोग रिपोर्ट" },
+      { "id": "tn-3", "label": "रक्षाबंधन" }
+    ]
+  }
+}

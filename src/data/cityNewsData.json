@@ -1,0 +1,146 @@
+{
+  "cities": {
+    "bhopal": {
+      "id": "bhopal",
+      "name": "भोपाल",
+      "urbanZones": [
+        { "id": "mp_nagar", "name": "एम.पी. नगर" },
+        { "id": "arera_colony", "name": "अरेरा कॉलोनी" },
+        { "id": "new_market", "name": "न्यू मार्केट" },
+        { "id": "kolar", "name": "कोलार" },
+        { "id": "old_bhopal", "name": "पुराना भोपाल" },
+        { "id": "govindpura", "name": "गोविंदपुरा" },
+        { "id": "bairagarh", "name": "बैरागढ़" },
+        { "id": "ayodhya_nagar", "name": "अयोध्या नगर" }
+      ],
+      "ruralZones": [
+        { "id": "berasia", "name": "बैरसिया" },
+        { "id": "phanda", "name": "फंदा" },
+        { "id": "eetkhedi", "name": "ईंटखेड़ी" },
+        { "id": "tumda", "name": "तुमड़ा" },
+        { "id": "gunga", "name": "गुनगा" },
+        { "id": "parwalia_sadak", "name": "परवलिया सड़क" }
+      ]
+    },
+    "jaipur": {
+      "id": "jaipur",
+      "name": "जयपुर",
+      "urbanZones": [
+        { "id": "vaishali_nagar", "name": "वैशाली नगर" },
+        { "id": "malviya_nagar", "name": "मालवीय नगर" },
+        { "id": "c_scheme", "name": "सी-स्कीम" },
+        { "id": "mansarovar", "name": "मानसरोवर" }
+      ],
+      "ruralZones": [
+        { "id": "sanganer", "name": "सांगानेर ग्रामीण" },
+        { "id": "chomu", "name": "चौमूं" },
+        { "id": "bassi", "name": "बस्सी" }
+      ]
+    },
+    "nagpur": {
+      "id": "nagpur",
+      "name": "नागपुर",
+      "urbanZones": [
+        { "id": "dharampeth", "name": "धरमपेठ" },
+        { "id": "sitabuldi", "name": "सीताबर्डी" },
+        { "id": "sadar", "name": "सदर" },
+        { "id": "manewada", "name": "मानेवाड़ा" }
+      ],
+      "ruralZones": [
+        { "id": "kamptee", "name": "कामठी" },
+        { "id": "hingna", "name": "हिंगणा" },
+        { "id": "umred", "name": "उमरेड" }
+      ]
+    }
+  },
+  "articles": [
+    {
+      "id": "city-art-bhopal-1",
+      "cityId": "bhopal",
+      "zoneId": "mp_nagar",
+      "category": "लाइफस्टाइल",
+      "categoryColor": "#557E63",
+      "title": "रक्षाबंधन की तैयारियों से सजे भोपाल के बाजार, राखी और मिठाइयों की बढ़ी मांग",
+      "publishedAt": "20 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-bhopal-2",
+      "cityId": "bhopal",
+      "zoneId": "mp_nagar",
+      "category": "बिज़नेस",
+      "categoryColor": "#0D9488",
+      "title": "RBI ने रेपो रेट में नहीं किया बदलाव, भोपाल के कारोबारियों को ब्याज दरों में राहत का इंतजार",
+      "publishedAt": "20 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-bhopal-3",
+      "cityId": "bhopal",
+      "zoneId": "arera_colony",
+      "category": "विकास",
+      "categoryColor": "#16A34A",
+      "title": "अरेरा कॉलोनी में नई सीवेज लाइन का काम अगले सप्ताह से शुरू, नगर निगम ने जारी किया रूट डायवर्जन प्लान",
+      "publishedAt": "40 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f3?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-bhopal-4",
+      "cityId": "bhopal",
+      "zoneId": "phanda",
+      "category": "शिक्षा",
+      "categoryColor": "#5B6D8A",
+      "title": "फंदा ब्लॉक के 12 प्राथमिक विद्यालयों में स्मार्ट क्लासरूम तैयार, विद्यार्थियों को मिलेगा डिजिटल शिक्षण",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-bhopal-5",
+      "cityId": "bhopal",
+      "zoneId": "berasia",
+      "category": "कृषि",
+      "categoryColor": "#CA8A04",
+      "title": "बैरसिया कृषि उपज मंडी में सोयाबीन की बंपर आवक, समर्थन मूल्य पर खरीद को लेकर किसानों की मांग",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-jaipur-1",
+      "cityId": "jaipur",
+      "zoneId": "vaishali_nagar",
+      "category": "यातायात",
+      "categoryColor": "#DC2626",
+      "title": "वैशाली नगर में ट्रैफिक सिग्नल सुधार कार्य के चलते लगा जाम, वैकल्पिक मार्गों के उपयोग की अपील",
+      "publishedAt": "20 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-jaipur-2",
+      "cityId": "jaipur",
+      "zoneId": "malviya_nagar",
+      "category": "विकास",
+      "categoryColor": "#16A34A",
+      "title": "मालवीय नगर में आधुनिक खेल परिसर का लोकार्पण, युवाओं को मिलेंगी राष्ट्रीय स्तर की सुविधाएं",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1531415074868-036b107e775a?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-nagpur-1",
+      "cityId": "nagpur",
+      "zoneId": "dharampeth",
+      "category": "विकास",
+      "categoryColor": "#16A34A",
+      "title": "धरमपेठ में स्मार्ट स्ट्रीट लाइटिंग परियोजना का विस्तार, प्रमुख मार्गों पर लगाई गईं ऊर्जा कुशल एलईडी",
+      "publishedAt": "35 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80"
+    }
+  ]
+}

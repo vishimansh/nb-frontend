@@ -1,0 +1,214 @@
+[
+  {
+    "id": "reel-1",
+    "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "id": "business",
+      "label": "बिज़नेस",
+      "color": "#497877",
+      "icon": "TrendUp"
+    },
+    "isTrending": true,
+    "location": "भोपाल",
+    "headline": "RBI ने रेपो रेट में नहीं किया कोई बदलाव,",
+    "shortHook": "लगातार तीसरी बार...",
+    "fullDescription": "लगातार तीसरी बार दरें 5.50% पर बरकरार रखीं। महंगाई और आर्थिक हालात को देखते हुए RBI ने सतर्क रुख कायम रखा।",
+    "likeCount": 234,
+    "isLiked": false,
+    "commentCount": 48,
+    "comments": [
+      {
+        "id": "c-1",
+        "username": "अमित सिंह",
+        "timeAgo": "2 घंटे पहले",
+        "text": "मध्यम वर्ग के लिए ईएमआई का बोझ लगातार बना हुआ है। राहत की उम्मीद थी।",
+        "likeCount": 12,
+        "isLiked": false
+      },
+      {
+        "id": "c-2",
+        "username": "राजेश वर्मा",
+        "timeAgo": "1 घंटा पहले",
+        "text": "महंगाई दर नियंत्रित करने के लिए यह निर्णय आवश्यक प्रतीत होता है।",
+        "likeCount": 5,
+        "isLiked": false
+      }
+    ]
+  },
+  {
+    "id": "reel-2",
+    "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "id": "entertainment",
+      "label": "मनोरंजन",
+      "color": "#805D76",
+      "icon": "VideoPlay"
+    },
+    "isTrending": false,
+    "location": "जबलपुर",
+    "headline": "नर्मदा महोत्सव में जगमगाए घाट, सांस्कृतिक",
+    "shortHook": "प्रस्तुतियों ने बांधा ऐसा समां कि...",
+    "fullDescription": "प्रस्तुतियों ने बांधा ऐसा समां कि दर्शक मंत्रमुग्ध रह गए। भेड़ाघाट और ग्वारीघाट पर महाआरती के साथ शास्त्रीय संगीत व नृत्य की मनमोहक प्रस्तुतियां आयोजित की गईं।",
+    "likeCount": 892,
+    "isLiked": false,
+    "commentCount": 31,
+    "comments": [
+      {
+        "id": "c-3",
+        "username": "प्रिया तिवारी",
+        "timeAgo": "3 घंटे पहले",
+        "text": "जबलपुर भेड़ाघाट का दृश्य इस समय वाकई अद्भुत और देखने लायक है!",
+        "likeCount": 24,
+        "isLiked": true
+      }
+    ]
+  },
+  {
+    "id": "reel-3",
+    "videoUrl": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "id": "city",
+      "label": "शहर",
+      "color": "#3B82F6",
+      "icon": "Buildings"
+    },
+    "isTrending": true,
+    "location": "इंदौर",
+    "headline": "इंदौर मेट्रो का नया ट्रायल रन सफल,",
+    "shortHook": "सुपर कॉरिडोर से गांधी नगर तक...",
+    "fullDescription": "प्राथमिक कॉरिडोर पर आज सफल हाई-स्पीड ट्रायल रन संपन्न हुआ। सुरक्षा आयुक्त की अंतिम मंजूरी मिलते ही अगले महीने से आम जनता के लिए सेवाएं शुरू होंगी।",
+    "likeCount": 1450,
+    "isLiked": false,
+    "commentCount": 64,
+    "comments": [
+      {
+        "id": "c-4",
+        "username": "रोहित शर्मा",
+        "timeAgo": "45 मिनट पहले",
+        "text": "इंदौरवासियों के लिए शानदार सौगात! अब ट्रैफिक की समस्या काफी हद तक कम होगी।",
+        "likeCount": 42,
+        "isLiked": false
+      }
+    ]
+  },
+  {
+    "id": "reel-4",
+    "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "id": "sports",
+      "label": "खेल",
+      "color": "#F97316",
+      "icon": "Cup"
+    },
+    "isTrending": false,
+    "location": "ग्वालियर",
+    "headline": "ग्वालियर में अंतरराष्ट्रीय मैच की तैयारियां पूरी,",
+    "shortHook": "स्टेडियम में सुरक्षा के पुख्ता इंतजाम...",
+    "fullDescription": "नव-निर्मित श्रीमंत माधवराव सिंधिया क्रिकेट स्टेडियम में आगामी T20 मुकाबले के लिए टिकटों की बिक्री शुरू हो चुकी है। दर्शकों के लिए विशेष सुविधाएं उपलब्ध कराई गई हैं।",
+    "likeCount": 620,
+    "isLiked": false,
+    "commentCount": 19,
+    "comments": [
+      {
+        "id": "c-6",
+        "username": "समीर खान",
+        "timeAgo": "5 घंटे पहले",
+        "text": "नए स्टेडियम की सुविधाएं वर्ल्ड क्लास हैं। मैच का बेसब्री से इंतज़ार है।",
+        "likeCount": 18,
+        "isLiked": false
+      }
+    ]
+  },
+  {
+    "id": "reel-5",
+    "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "id": "city",
+      "label": "शहर",
+      "color": "#3B82F6",
+      "icon": "Buildings"
+    },
+    "isTrending": true,
+    "location": "रायपुर",
+    "headline": "नया रायपुर में ग्रीन एनर्जी कॉरिडोर का विस्तार,",
+    "shortHook": "500 एकड़ में सोलर पार्क का लोकार्पण...",
+    "fullDescription": "नवा रायपुर में पर्यावरण संरक्षण और हरित ऊर्जा को बढ़ावा देने के लिए राज्य सरकार ने आधुनिक सोलर पार्क परियोजना को हरी झंडी दिखाई।",
+    "likeCount": 512,
+    "isLiked": false,
+    "commentCount": 38,
+    "comments": []
+  },
+  {
+    "id": "reel-6",
+    "videoUrl": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "id": "business",
+      "label": "बिज़नेस",
+      "color": "#497877",
+      "icon": "TrendUp"
+    },
+    "isTrending": false,
+    "location": "भोपाल",
+    "headline": "मध्य प्रदेश में आईटी स्टार्टअप्स को 100 करोड़ का फंड,",
+    "shortHook": "युवा उद्यमियों के लिए विशेष प्रोत्साहन नीति...",
+    "fullDescription": "तकनीक और नवाचार के क्षेत्र में युवाओं को प्रोत्साहित करने हेतु राज्य उद्योग विभाग ने नई स्टार्टअप इंसेंटिव योजना की घोषणा की।",
+    "likeCount": 845,
+    "isLiked": false,
+    "commentCount": 52,
+    "comments": []
+  },
+  {
+    "id": "reel-7",
+    "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1596178060810-726605a96db4?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1596178060810-726605a96db4?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "id": "entertainment",
+      "label": "संस्कृति",
+      "color": "#805D76",
+      "icon": "VideoPlay"
+    },
+    "isTrending": false,
+    "location": "उज्जैन",
+    "headline": "महाकाल लोक में नए लाइट एंड साउंड शो का शुभारंभ,",
+    "shortHook": "शाम 7 बजे से श्रद्धालुओं के लिए विशेष प्रस्तुति...",
+    "fullDescription": "श्री महाकालेश्वर मंदिर परिसर में पौराणिक आख्यानों पर आधारित भव्य 3D मैपिंग और लाइट एंड साउंड शो शुरू किया गया है।",
+    "likeCount": 1120,
+    "isLiked": false,
+    "commentCount": 94,
+    "comments": []
+  },
+  {
+    "id": "reel-8",
+    "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
+    "posterThumbnail": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80",
+    "category": {
+      "id": "city",
+      "label": "शहर",
+      "color": "#3B82F6",
+      "icon": "Buildings"
+    },
+    "isTrending": true,
+    "location": "जबलपुर",
+    "headline": "मदन महल फ्लाईओवर का निर्माण अंतिम चरण में,",
+    "shortHook": "अगले माह से शुरू होगा यातायात...",
+    "fullDescription": "शहर के सबसे लंबे एलिवेटेड कॉरिडोर पर डामरीकरण का काम पूरा हो चुका है। सुरक्षा मानकों के निरीक्षण के बाद इसे जनता के लिए खोला जाएगा।",
+    "likeCount": 680,
+    "isLiked": false,
+    "commentCount": 27,
+    "comments": []
+  }
+]

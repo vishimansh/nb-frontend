@@ -1,0 +1,106 @@
+[
+  {
+    "id": "pod-1",
+    "audioUrl": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3",
+    "videoUrl": null,
+    "coverArtImage": "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80",
+    "showName": "अर्थ चर्चा के साथ रवि शर्मा",
+    "hostName": "रवि शर्मा",
+    "location": "भोपाल",
+    "isTrending": true,
+    "genre": {
+      "id": "business_startup",
+      "label": "बिज़नेस और स्टार्टअप",
+      "color": "#059669",
+      "icon": "TrendUp"
+    },
+    "shortDescription": "भारत की अर्थव्यवस्था, युवा और नए अवसरों पर खुली बातचीत...",
+    "fullTranscript": "नमस्कार, 'अर्थ चर्चा' के इस विशेष अंक में आप सभी का स्वागत है। आज हमारे साथ हैं जाने-माने अर्थशास्त्री डॉ. अरविंद मेहता। आज हम चर्चा करेंगे कि भारत की उभरती डिजिटल अर्थव्यवस्था में टियर-2 और टियर-3 शहरों के युवाओं के लिए क्या नए अवसर बन रहे हैं। विशेष रूप से मध्य प्रदेश और छत्तीसगढ़ के स्टार्टअप इकोसिस्टम में हालिया नीतिगत सुधारों का क्या प्रभाव पड़ा है...",
+    "likeCount": 234,
+    "isLiked": false,
+    "commentCount": 48,
+    "durationSeconds": 1420,
+    "comments": [
+      {
+        "id": "pc-1",
+        "username": "अमित सिंह",
+        "timeAgo": "1 घंटा पहले",
+        "text": "टियर-2 शहरों में स्टार्टअप्स के लिए फंड की पहुंच अभी भी सबसे बड़ी चुनौती है। बहुत सटीक विश्लेषण!",
+        "likeCount": 12,
+        "isLiked": false
+      },
+      {
+        "id": "pc-2",
+        "username": "प्रिया तिवारी",
+        "timeAgo": "30 मिनट पहले",
+        "text": "रवि जी का यह एपिसोड युवा उद्यमियों के लिए बेहद उपयोगी है।",
+        "likeCount": 7,
+        "isLiked": false
+      }
+    ]
+  },
+  {
+    "id": "pod-2",
+    "audioUrl": "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3",
+    "videoUrl": null,
+    "coverArtImage": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=800&q=80",
+    "showName": "संस्कृति संवाद: मालवा की धरोहर",
+    "hostName": "मीनाक्षी जोशी",
+    "location": "इंदौर",
+    "isTrending": false,
+    "genre": {
+      "id": "culture_stories",
+      "label": "संस्कृति और कहानियां",
+      "color": "#D97706",
+      "icon": "Book"
+    },
+    "shortDescription": "उज्जैन और इंदौर के ऐतिहासिक मंदिरों व लोक परंपराओं की अनकही गाथाएं...",
+    "fullTranscript": "मालवा की माटी की खुशबू और उसकी समृद्ध परंपराओं को समेटे इस कड़ी में हम बात करेंगे देवी अहिल्याबाई होलकर के उस ऐतिहासिक योगदान की जिसने भारतीय संस्कृति और तीर्थ स्थलों को नवजीवन दिया। कैसे एक छोटे से कस्बे से निकलकर उन्होंने पूरे देश के सांस्कृतिक मानचित्र को पुनर्परिभाषित किया...",
+    "likeCount": 412,
+    "isLiked": false,
+    "commentCount": 26,
+    "durationSeconds": 1840,
+    "comments": [
+      {
+        "id": "pc-3",
+        "username": "राजेश वर्मा",
+        "timeAgo": "2 घंटे पहले",
+        "text": "अहिल्याबाई होलकर के प्रशासन और न्यायप्रियता पर यह चर्चा अद्भुत है।",
+        "likeCount": 18,
+        "isLiked": true
+      }
+    ]
+  },
+  {
+    "id": "pod-3",
+    "audioUrl": "https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3",
+    "videoUrl": null,
+    "coverArtImage": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80",
+    "showName": "राजनीति की नब्ज",
+    "hostName": "अखिलेश श्रीवास्तव",
+    "location": "रायपुर",
+    "isTrending": true,
+    "genre": {
+      "id": "politics_talk",
+      "label": "राजनीति चर्चा",
+      "color": "#8B5CF6",
+      "icon": "Messages2"
+    },
+    "shortDescription": "आगामी विधानसभा सत्र के मुख्य एजेंडे और क्षेत्रीय समीकरणों का सटीक विश्लेषण...",
+    "fullTranscript": "सत्र के पहले दिन विपक्ष की क्या रणनीति रहने वाली है और सत्ता पक्ष किन विधेयकों को प्राथमिकता के साथ पारित कराने की तैयारी में है? वरिष्ठ राजनीतिक विश्लेषक संजय पुनेठा के साथ एक तीखी और तथ्यपरक बहस...",
+    "likeCount": 680,
+    "isLiked": true,
+    "commentCount": 89,
+    "durationSeconds": 960,
+    "comments": [
+      {
+        "id": "pc-4",
+        "username": "समीर खान",
+        "timeAgo": "4 घंटे पहले",
+        "text": "राजनीतिक विश्लेषण निष्पक्ष और गहराई से भरा हुआ है।",
+        "likeCount": 24,
+        "isLiked": false
+      }
+    ]
+  }
+]

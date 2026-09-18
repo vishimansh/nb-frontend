@@ -1,0 +1,82 @@
+{
+  "states": {
+    "mp": { "id": "mp", "name": "मध्य प्रदेश" },
+    "rj": { "id": "rj", "name": "राजस्थान" },
+    "mh": { "id": "mh", "name": "महाराष्ट्र" },
+    "cg": { "id": "cg", "name": "छत्तीसगढ़" },
+    "gj": { "id": "gj", "name": "गुजरात" },
+    "up": { "id": "up", "name": "उत्तर प्रदेश" }
+  },
+  "articles": [
+    {
+      "id": "state-art-1",
+      "stateId": "mp",
+      "category": "बिज़नेस",
+      "categoryColor": "#497877",
+      "title": "मध्य प्रदेश के 5 बड़े औद्योगिक क्षेत्रों में 1500 करोड़ के निवेश को मंजूरी, 25 हजार नए रोजगार के अवसर",
+      "publishedAt": "25 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-2",
+      "stateId": "mp",
+      "category": "राजनीति",
+      "categoryColor": "#B6783A",
+      "title": "विधानसभा का मानसून सत्र कल से, अनुपूरक बजट और 4 महत्वपूर्ण संशोधन विधेयक होंगे पेश",
+      "publishedAt": "50 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-3",
+      "stateId": "mp",
+      "category": "शिक्षा",
+      "categoryColor": "#5B6D8A",
+      "title": "प्रदेश के 360 पीएम श्री स्कूलों में आधुनिक कंप्यूटर लैब और रोबोटिक्स वर्कशॉप की होगी शुरुआत",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-4",
+      "stateId": "rj",
+      "category": "पर्यटन",
+      "categoryColor": "#E39026",
+      "title": "राजस्थान में आगामी पर्यटन सत्र के लिए नई हेरिटेज नीति घोषित, ऐतिहासिक हवेलियों को मिलेगा संरक्षण अनुदान",
+      "publishedAt": "30 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-5",
+      "stateId": "mh",
+      "category": "कृषि",
+      "categoryColor": "#557E63",
+      "title": "महाराष्ट्र के कपास उत्पादक किसानों के लिए विशेष राहत पैकेज, आधुनिक ड्रिप सिंचाई पर 80% सब्सिडी",
+      "publishedAt": "45 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-6",
+      "stateId": "cg",
+      "category": "विकास",
+      "categoryColor": "#16A34A",
+      "title": "छत्तीसगढ़ में बस्तर और सरगुजा संभाग के ग्रामीण क्षेत्रों में 50 नई पक्की सड़कों के निर्माण को स्वीकृति",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-7",
+      "stateId": "gj",
+      "category": "उद्योग",
+      "categoryColor": "#0D9488",
+      "title": "गुजरात सेमीकंडक्टर मिशन के तहत साणंद में अत्याधुनिक चिप परीक्षण इकाई का कार्य तीव्र गति से जारी",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80"
+    }
+  ]
+}

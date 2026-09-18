@@ -1,0 +1,582 @@
+{
+  "politics": [
+    {
+      "id": "pol-1",
+      "categoryId": "politics",
+      "title": "संसद के विशेष सत्र में पेश हो सकते हैं तीन बड़े विधेयक, विपक्षी दलों ने बुलाई रणनीतिक बैठक",
+      "publishedAt": "15 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "pol-2",
+      "categoryId": "politics",
+      "title": "विधानसभा चुनाव को लेकर राजनीतिक दलों का सघन प्रचार, वरिष्ठ नेताओं ने संभाला मोर्चा",
+      "publishedAt": "45 मिनट पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "pol-3",
+      "categoryId": "politics",
+      "title": "मंत्रिमंडल विस्तार की सुगबुगाहट तेज, नए चेहरों को मिल सकती है बड़ी जिम्मेदारी",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "pol-4",
+      "categoryId": "politics",
+      "title": "स्थानीय निकाय चुनाव में गठबंधन की संभावनाओं पर मंथन, समन्वय समिति की बैठक आज",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1575320181282-9afab399332c?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "pol-5",
+      "categoryId": "politics",
+      "title": "नीति आयोग की बैठक में राज्यों के विकास मॉडल पर चर्चा, मुख्यमंत्री ने रखे विशेष प्रस्ताव",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "5 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "pol-6",
+      "categoryId": "politics",
+      "title": "संसदीय कार्य मंत्रालय ने आगामी सत्र का संभावित एजेंडा जारी किया, कई अहम संशोधन शामिल",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "pol-7",
+      "categoryId": "politics",
+      "title": "विपक्षी दलों के मुख्यमंत्रियों का सम्मेलन, संघीय ढांचे और राजस्व वितरण पर रखी अपनी बात",
+      "publishedAt": "5 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "entertainment": [
+    {
+      "id": "ent-1",
+      "categoryId": "entertainment",
+      "title": "बॉक्स ऑफिस पर नई एक्शन थ्रिलर का धमाका, पहले वीकेंड पर पार किया 100 करोड़ का आंकड़ा",
+      "publishedAt": "20 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ent-2",
+      "categoryId": "entertainment",
+      "title": "प्रसिद्ध निर्देशक ने किया अपनी अगली पैन-इंडिया फिल्म का ऐलान, दिग्गज अभिनेता आएंगे नजर",
+      "publishedAt": "50 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ent-3",
+      "categoryId": "entertainment",
+      "title": "ओटीटी पर रिलीज हुई बहुचर्चित सस्पेंस सीरीज, सोशल मीडिया पर दर्शकों की जबरदस्त प्रतिक्रिया",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ent-4",
+      "categoryId": "entertainment",
+      "title": "म्यूजिक कॉन्सर्ट में उमड़ा प्रशंसकों का हुजूम, गायक ने प्रस्तुत किए अपने लोकप्रिय गीत",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ent-5",
+      "categoryId": "entertainment",
+      "title": "राष्ट्रीय फिल्म पुरस्कारों के लिए नामांकन सूची जारी, क्षेत्रीय सिनेमा का दिखा दबदबा",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ent-6",
+      "categoryId": "entertainment",
+      "title": "अंतर्राष्ट्रीय फिल्म फेस्टिवल में भारतीय सिनेमा को मिला विशेष सम्मान, जूरी ने सराहा",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ent-7",
+      "categoryId": "entertainment",
+      "title": "वेब सीरीज के दूसरे सीजन की रिलीज डेट घोषित, टीजर ने सोशल मीडिया पर मचाया तहलका",
+      "publishedAt": "6 घंटे पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "sports": [
+    {
+      "id": "spt-1",
+      "categoryId": "sports",
+      "title": "वर्ल्ड कप के अहम मुकाबले से पहले भारतीय टीम का नेट प्रैक्टिस, कप्तान ने दिए रणनीतिक संकेत",
+      "publishedAt": "10 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1531415074868-036b107e775a?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "spt-2",
+      "categoryId": "sports",
+      "title": "एशियाई चैंपियनशिप में युवा धावक ने जीता स्वर्ण पदक, देश का नाम किया रोशन",
+      "publishedAt": "30 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "spt-3",
+      "categoryId": "sports",
+      "title": "आईपीएल नीलामी से पहले टीमों ने जारी की रिटेंशन लिस्ट, कई बड़े खिलाड़ियों के बदले दल",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "spt-4",
+      "categoryId": "sports",
+      "title": "बैडमिंटन ओपन के फाइनल में पहुंची स्टार खिलाड़ी, खिताबी मुकाबले पर सभी की निगाहें",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "spt-5",
+      "categoryId": "sports",
+      "title": "राज्य स्तरीय फुटबॉल प्रतियोगिता का शानदार आगाज, पहले दिन 4 रोमांचक मुकाबले संपन्न",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "spo-6",
+      "categoryId": "sports",
+      "title": "राष्ट्रीय तीरंदाजी प्रतियोगिता में मध्य प्रदेश के खिलाड़ियों ने जीते तीन स्वर्ण पदक",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1531415074868-036b1c57e329?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "spo-7",
+      "categoryId": "sports",
+      "title": "महिला क्रिकेट प्रीमियर लीग की नीलामी सूची जारी, युवा प्रतिभाओं पर रहेगी सभी की नजर",
+      "publishedAt": "5 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "business": [
+    {
+      "id": "biz-1",
+      "categoryId": "business",
+      "title": "RBI ने रेपो रेट में नहीं किया कोई बदलाव, आम आदमी को नहीं मिली राहत, लगातार तीसरी बार यथावत रखीं दरें",
+      "publishedAt": "20 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "biz-2",
+      "categoryId": "business",
+      "title": "शेयर बाजार में रिकॉर्ड तेजी, सेंसेक्स 84 हजार के पार, आईटी और ऑटो शेयरों में जोरदार लिवाली",
+      "publishedAt": "40 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "biz-3",
+      "categoryId": "business",
+      "title": "जीएसटी संग्रह में 11 प्रतिशत की वृद्धि दर्ज, आर्थिक गतिविधियों में तेजी के मिले मजबूत संकेत",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "biz-4",
+      "categoryId": "business",
+      "title": "सोने और चांदी की कीमतों में गिरावट, जानिए आपके शहर में क्या हैं आज के ताजा भाव",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1610375461246-83df859d849d?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "biz-5",
+      "categoryId": "business",
+      "title": "स्टार्टअप्स के लिए आसान लोन योजना की घोषणा, छोटे उद्योगों को मिलेगा 50 लाख तक का संबल",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "bus-6",
+      "categoryId": "business",
+      "title": "जीएसटी संग्रह में इस महीने 12% की भारी बढ़ोतरी, विनिर्माण और सेवा क्षेत्र में तेजी",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "bus-7",
+      "categoryId": "business",
+      "title": "भारत में प्रत्यक्ष विदेशी निवेश (FDI) में उछाल, तकनीकी और ऊर्जा क्षेत्रों में सबसे ज्यादा निवेश",
+      "publishedAt": "6 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "tech": [
+    {
+      "id": "tch-1",
+      "categoryId": "tech",
+      "title": "नया 5G स्मार्टफोन भारत में हुआ लॉन्च, मिलेगा दमदार कैमरा और 5000mAh बैटरी का जबर्दस्त बैकअप",
+      "publishedAt": "25 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "tch-2",
+      "categoryId": "tech",
+      "title": "आर्टिफिशियल इंटेलिजेंस पर नया वैश्विक समझौता, डेटा प्राइवेसी और सुरक्षा पर बने कड़े नियम",
+      "publishedAt": "55 मिनट पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "tch-3",
+      "categoryId": "tech",
+      "title": "व्हाट्सएप में आया नया सुरक्षा फीचर, अब अज्ञात कॉल्स अपने आप हो जाएंगी साइलेंट",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1614680376593-902f749f7ffc?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "tch-4",
+      "categoryId": "tech",
+      "title": "भारतीय चिप विनिर्माण संयंत्र का शिलान्यास, सेमीकंडक्टर क्षेत्र में देश बनेगा आत्मनिर्भर",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "5 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "tch-5",
+      "categoryId": "tech",
+      "title": "साइबर फ्रॉड से बचने के लिए सरकारी एजेंसी ने जारी की चेतावनी, इन लिंक्स पर न करें क्लिक",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "tec-6",
+      "categoryId": "tech",
+      "title": "भारत में स्वदेशी 6G अनुसंधान लैब की शुरुआत, 2030 तक राष्ट्रव्यापी रोलआउट की तैयारी",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "tec-7",
+      "categoryId": "tech",
+      "title": "क्वांटम कंप्यूटिंग में भारतीय वैज्ञानिकों की बड़ी उपलब्धि, डेटा सुरक्षा में नए युग की शुरुआत",
+      "publishedAt": "5 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "education": [
+    {
+      "id": "edu-1",
+      "categoryId": "education",
+      "title": "बोर्ड परीक्षा के टाइम-टेबल की आधिकारिक घोषणा, प्रैक्टिकल और थ्योरी परीक्षाओं की तारीखें तय",
+      "publishedAt": "30 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "edu-2",
+      "categoryId": "education",
+      "title": "विश्वविद्यालय में नए शैक्षणिक सत्र से लागू होगी कौशल विकास नीति, छात्रों को मिलेगा इंटर्नशिप का मौका",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "edu-3",
+      "categoryId": "education",
+      "title": "सिविल सेवा परीक्षा के परिणाम घोषित, ग्रामीण क्षेत्र के होनहारों ने लहराया सफलता का परचम",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1532012164546-f432f2e3777a?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "edu-4",
+      "categoryId": "education",
+      "title": "स्कॉलरशिप के लिए ऑनलाइन आवेदन की अंतिम तिथि बढ़ी, पात्र छात्र 30 तारीख तक कर सकेंगे अप्लाई",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "edu-5",
+      "categoryId": "education",
+      "title": "शिक्षकों की भर्ती प्रक्रिया में बड़ा बदलाव, अब लिखित परीक्षा के साथ होगा डिजिटल दक्षता टेस्ट",
+      "publishedAt": "5 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "edu-6",
+      "categoryId": "education",
+      "title": "उच्च शिक्षा संस्थानों में नए कौशल आधारित पाठ्यक्रमों की शुरुआत, रोजगार को मिलेगा बढ़ावा",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "edu-7",
+      "categoryId": "education",
+      "title": "आईआईटी और एनआईटी में महिला शोधार्थियों के लिए विशेष फेलोशिप योजना का ऐलान",
+      "publishedAt": "6 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "astro": [
+    {
+      "id": "ast-1",
+      "categoryId": "astro",
+      "title": "आज का राशिफल: मेष और सिंह राशि वालों के लिए बन रहे धन लाभ के योग, जानिए अपना भाग्य",
+      "publishedAt": "15 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ast-2",
+      "categoryId": "astro",
+      "title": "गुरु का राशि परिवर्तन: इन 4 राशियों के शुरू होंगे अच्छे दिन, कार्यक्षेत्र में मिलेगी बड़ी तरक्की",
+      "publishedAt": "45 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1532968961962-8a0cb3a2d4f5?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ast-3",
+      "categoryId": "astro",
+      "title": "साप्ताहिक राशिफल: जानिए इस हफ्ते किन जातकों को बरतनी होगी सावधानी और किसे मिलेगा भाग्य का साथ",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ast-4",
+      "categoryId": "astro",
+      "title": "सूर्य ग्रहण का राशियों पर क्या पड़ेगा प्रभाव, किन उपायों से दूर होंगे सारे अनिष्टकारी दोष",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ast-5",
+      "categoryId": "astro",
+      "title": "वास्तु शास्त्र: घर की सुख-शांति के लिए मुख्य द्वार पर लगाएं ये शुभ प्रतीक, दूर होगी नकारात्मकता",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ast-6",
+      "categoryId": "astro",
+      "title": "मासिक राशिफल: जानें इस महीने किन 5 राशियों पर बरसेगी मां लक्ष्मी की विशेष कृपा",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1532968961962-8a0cb3a2d4f5?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "ast-7",
+      "categoryId": "astro",
+      "title": "शनि और गुरु का दुर्लभ संयोग, व्यापार और करियर में आएंगे ये 3 बड़े सकारात्मक बदलाव",
+      "publishedAt": "6 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "lifestyle": [
+    {
+      "id": "life-1",
+      "categoryId": "lifestyle",
+      "title": "सर्दियों में इनडोर प्लांट्स की देखभाल कैसे करें, घर को हरा-भरा रखने के 5 आसान टिप्स",
+      "publishedAt": "25 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "life-2",
+      "categoryId": "lifestyle",
+      "title": "भोपाल के पुराने बाजारों में हस्तशिल्प और कला का अनोखा संगम, युवाओं में बढ़ा आकर्षण",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "life-3",
+      "categoryId": "lifestyle",
+      "title": "सस्टेनेबल फैशन ट्रेंड: पुराने कपड़ों को रीसायकल कर ट्रेंडी आउटफिट बनाने के तरीके",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1445205170230-053b83016050?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "life-4",
+      "categoryId": "lifestyle",
+      "title": "आधुनिक लाइफस्टाइल में माइंडफुलनेस और ध्यान का महत्व, तनाव से मुक्ति के सरल उपाय",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "life-5",
+      "categoryId": "lifestyle",
+      "title": "हैंडमेड सिरेमिक और क्ले पॉटरी का बढ़ता क्रेज, घरों को दे रहे हैं विंटेज और एस्थेटिक लुक",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "life-6",
+      "categoryId": "lifestyle",
+      "title": "ऑर्गेनिक चाय और कॉफी का बढ़ता कल्चर, स्वास्थ्य और ताजगी दोनों का बेहतरीन मेल",
+      "publishedAt": "5 घंटे पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "life-7",
+      "categoryId": "lifestyle",
+      "title": "वीकेंड डेकोर मेकओवर: घर की बालकनी को बनाएं खूबसूरत और सुकून भरा कोना",
+      "publishedAt": "6 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "auto": [
+    {
+      "id": "auto-1",
+      "categoryId": "auto",
+      "title": "भारत में इलेक्ट्रिक एसयूवी का नया युग, एक चार्ज में 500 किमी तक की रेंज देने वाले मॉडल्स",
+      "publishedAt": "30 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "auto-2",
+      "categoryId": "auto",
+      "title": "सर्दियों में कार और बाइक के रखरखाव के 5 गोल्डन रूल्स, बैटरी और टायरों की लंबी उम्र",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "auto-3",
+      "categoryId": "auto",
+      "title": "ऑटो एक्सपो में प्रदर्शित हुई अगली पीढ़ी की हाइड्रोजन कारें, प्रदूषण मुक्त सफर का वादा",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "auto-4",
+      "categoryId": "auto",
+      "title": "सड़क सुरक्षा नियमों में नए कड़े प्रावधान, हाई-स्पीड एक्सप्रेसवे पर स्पीड डिटेक्शन कैमरे",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "auto-5",
+      "categoryId": "auto",
+      "title": "भारत में मिड-साइज प्रीमियम एसयूवी सेगमेंट में कड़ा मुकाबला, कौन सी गाड़ी आपके लिए बेस्ट?",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "5 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "auto-6",
+      "categoryId": "auto",
+      "title": "फास्ट चार्जिंग नेटवर्क का विस्तार, हाईवे पर हर 25 किमी पर मिलेंगे ईवी चार्जिंग स्टेशन",
+      "publishedAt": "5 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "auto-7",
+      "categoryId": "auto",
+      "title": "विंटेज और क्लासिक कारों की विशेष रैली, 1930 से 1970 के ऐतिहासिक मॉडल्स ने मोहा दिल",
+      "publishedAt": "6 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1508974239320-0a029497e820?auto=format&fit=crop&w=400&q=80"
+    }
+  ],
+  "health": [
+    {
+      "id": "hea-1",
+      "categoryId": "health",
+      "title": "मौसमी बदलाव में इम्यूनिटी बढ़ाने के घरेलू नुस्खे, आयुर्वेद विशेषज्ञों ने दिए महत्वपूर्ण सुझाव",
+      "publishedAt": "20 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "hea-2",
+      "categoryId": "health",
+      "title": "हार्ट हेल्थ: दिल को दुरुस्त रखने के लिए 30 मिनट की एरोबिक एक्सरसाइज और सही खानपान",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "hea-3",
+      "categoryId": "health",
+      "title": "बाल स्वास्थ्य और पोषण: बच्चों की सही ग्रोथ के लिए थाली में ये 5 पोषक तत्व जरूर शामिल करें",
+      "publishedAt": "2 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "hea-4",
+      "categoryId": "health",
+      "title": "स्क्रीन टाइम और आंखों की सेहत: कंप्यूटर विजन सिंड्रोम से बचने का 20-20-20 नियम",
+      "publishedAt": "3 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "hea-5",
+      "categoryId": "health",
+      "title": "योग और प्राणायाम से मानसिक शांति: रोजाना 15 मिनट भ्रामरी और अनुलोम-विलोम के फायदे",
+      "publishedAt": "4 घंटे पहले",
+      "readTime": "4 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "hea-6",
+      "categoryId": "health",
+      "title": "आयुष्मान भारत योजना के तहत नए सुपर स्पेशियलिटी अस्पतालों का पैनल में विस्तार",
+      "publishedAt": "5 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "hea-7",
+      "categoryId": "health",
+      "title": "पर्याप्त नींद और मेटाबॉलिज्म: अच्छी नींद से वजन नियंत्रित रखने में कैसे मिलती है मदद?",
+      "publishedAt": "6 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=400&q=80"
+    }
+  ]
+}
