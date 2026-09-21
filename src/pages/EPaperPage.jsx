@@ -82,19 +82,21 @@ export default function EPaperPage() {
       {/* 54px Light status bar clearance */}
       <div className="h-[54px] w-full shrink-0 bg-[#F7F7F4]" />
 
-      {/* Floating Action / Confirmation Toast */}
+      {/* Floating Action / Confirmation Toast: Centered vertically and horizontally */}
       <AnimatePresence>
         {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-[#18253B] text-white text-[13px] font-bold px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10"
-          >
-            <TickCircle size={17} color="#E39026" variant="Bold" />
-            <span className="leading-none">{toastMessage}</span>
-          </motion.div>
+          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="bg-[#2B2437] text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10 pointer-events-auto"
+            >
+              <TickCircle size={17} color="#F5B55C" variant="Bold" />
+              <span className="leading-none">{toastMessage}</span>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
@@ -104,7 +106,7 @@ export default function EPaperPage() {
         <div className="flex items-center gap-2.5">
           <BackButton onClick={handleBack} ariaLabel="वापस जाएं" />
           <div>
-            <h1 className="text-[20px] font-bold text-[#18253B] leading-tight">
+            <h1 className="text-[20px] font-bold text-[#2B2437] leading-tight">
               ई-पेपर
             </h1>
             <p className="text-[11px] font-medium text-[#6B7280] mt-0.5 leading-none">
@@ -117,7 +119,7 @@ export default function EPaperPage() {
         <button
           type="button"
           onClick={() => setIsDatePickerOpen(true)}
-          className="h-9 px-3 bg-[#18253B] rounded-full flex items-center gap-1.5 shadow-sm cursor-pointer active:scale-95 transition-transform hover:bg-[#101927]"
+          className="h-9 px-3 bg-[#2B2437] rounded-full flex items-center gap-1.5 shadow-sm cursor-pointer active:scale-95 transition-transform hover:bg-[#3D334E]"
         >
           <Calendar size={15} color="#FFFFFF" variant="Linear" />
           <span className="text-[12px] font-bold text-white leading-none">
@@ -137,13 +139,13 @@ export default function EPaperPage() {
               onClick={() => setSelectedCity(city.id)}
               className={`h-[38px] px-3.5 rounded-[12px] text-[13px] font-medium flex items-center justify-center relative transition-all cursor-pointer select-none active:scale-95 ${
                 isActive
-                  ? 'bg-[#18253B] text-white border-2 border-[#18253B] font-bold shadow-xs'
-                  : 'bg-white text-[#4B5563] border border-[#D1D5DB] hover:border-[#18253B]/40'
+                  ? 'bg-[#2B2437] text-white border-2 border-[#2B2437] font-bold shadow-xs'
+                  : 'bg-white text-[#4B5563] border border-[#D1D5DB] hover:border-[#2B2437]/40'
               }`}
             >
               {/* Active Dot Badge */}
               {isActive && (
-                <span className="w-2 h-2 rounded-full bg-[#E39026] absolute top-1.5 left-1.5 border border-[#18253B]" />
+                <span className="w-2 h-2 rounded-full bg-[#F5B55C] absolute top-1.5 left-1.5 border border-[#2B2437]" />
               )}
               <span>{city.name}</span>
             </button>
@@ -155,7 +157,7 @@ export default function EPaperPage() {
           <button
             type="button"
             onClick={() => setIsCityRowExpanded(true)}
-            className="bg-[#FFF4E6] text-[#E39026] border border-[#FCD9B6] h-[38px] px-3 rounded-[12px] text-[13px] font-bold cursor-pointer active:scale-95 transition-transform"
+            className="bg-[#FFF4E6] text-[#F5B55C] border border-[#FCD9B6] h-[38px] px-3 rounded-[12px] text-[13px] font-bold cursor-pointer active:scale-95 transition-transform"
           >
             और +
           </button>

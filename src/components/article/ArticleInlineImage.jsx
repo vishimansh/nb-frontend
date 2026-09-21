@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Whatsapp } from 'iconsax-react';
 
 /**
  * Block type 2 — Inline image (ArticleInlineImage)
@@ -62,8 +63,8 @@ export default function ArticleInlineImage({
 
         {/* Top-Left: Compact Location Tag (dot + city name) */}
         {resolvedLocation && (
-          <div className="absolute top-2.5 left-2.5 z-10 bg-[#18253B]/85 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-sm border border-white/10">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E39026] inline-block shrink-0" />
+          <div className="absolute top-2.5 left-2.5 z-10 bg-[#2B2437]/85 backdrop-blur-xs text-white text-[11px] font-medium px-2.5 py-0.5 rounded-full flex items-center gap-1.5 shadow-sm border border-white/10">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#F5B55C] inline-block shrink-0" />
             <span>{resolvedLocation}</span>
           </div>
         )}
@@ -73,17 +74,14 @@ export default function ArticleInlineImage({
           type="button"
           onClick={handleShareClick}
           aria-label="शेयर करें"
-          className="w-7 h-7 rounded-full bg-[#18253B]/70 backdrop-blur-xs flex items-center justify-center text-white absolute top-2.5 right-2.5 z-10 cursor-pointer active:scale-90 shadow-sm border border-white/15 transition-transform"
+          className="w-7 h-7 rounded-full bg-[#2B2437]/70 backdrop-blur-xs flex items-center justify-center text-white absolute top-2.5 right-2.5 z-10 cursor-pointer active:scale-90 shadow-sm border border-white/15 transition-transform"
         >
-          {/* WhatsApp / Share Glyph */}
-          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.04 3.67Z" />
-          </svg>
+          <Whatsapp size={15} color="#FFFFFF" variant="Bold" />
         </button>
 
         {/* Copy Feedback */}
         {copied && (
-          <div className="absolute top-11 right-2.5 bg-[#18253B] text-white text-[10px] px-2 py-0.5 rounded shadow-md z-20 animate-fade-in">
+          <div className="absolute top-11 right-2.5 bg-[#2B2437] text-white text-[10px] px-2 py-0.5 rounded shadow-md z-20 animate-fade-in">
             लिंक कॉपी हुआ!
           </div>
         )}

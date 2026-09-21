@@ -51,15 +51,15 @@ export default function BottomTabBar({ activeTab = 'home', activeTabId = 'home',
           >
             <Icon
               size={24}
-              color={isActive ? '#E39026' : '#6B7280'}
+              color={isActive ? '#2B2437' : '#6B7280'}
               variant={isActive ? 'Bold' : 'Linear'}
               className="transition-colors"
             />
             <span
-              className={`text-[14px] font-medium mt-[8px] leading-none ${
+              className={`text-[13px] font-medium mt-[6px] leading-none ${
                 isActive
-                  ? 'text-[#E39026]'
-                  : 'text-[#6B7280] group-hover:text-[#18253B]'
+                  ? 'text-[#2B2437] font-bold'
+                  : 'text-[#6B7280] group-hover:text-[#2B2437]'
               }`}
             >
               {tab.label}

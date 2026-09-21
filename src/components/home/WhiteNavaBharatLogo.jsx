@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
 import whiteLogo from '../../assets/nb-logo-white.png';
 import { useOnboarding } from '../../context/OnboardingContext';
 
@@ -41,12 +42,12 @@ function getGreetingData(userName) {
   // 2. Dynamic Time of Day Greetings with First Name (Single line, generous matras)
   if (hour >= 5 && hour < 12) {
     return {
-      title: firstName ? `सुप्रभात, ${firstName}!` : 'शुभ प्रभात!',
+      title: firstName ? `सुप्रभात, ${firstName}!` : 'सुप्रभात!',
     };
   }
   if (hour >= 12 && hour < 17) {
     return {
-      title: firstName ? `शुभ दोपहर, ${firstName}!` : 'शुभ दोपहर!',
+      title: firstName ? `दोपहर की खबरें पढ़ें, ${firstName}!` : 'दोपहर की खबरें पढ़ें!',
     };
   }
   if (hour >= 17 && hour < 21) {
@@ -55,7 +56,7 @@ function getGreetingData(userName) {
     };
   }
   return {
-    title: firstName ? `शुभ रात्रि, ${firstName}!` : 'शुभ रात्रि!',
+    title: firstName ? `नमस्कार, ${firstName}!` : 'नमस्कार!',
   };
 }
 
@@ -68,7 +69,10 @@ function getGreetingData(userName) {
  */
 export default function WhiteNavaBharatLogo({ className = "w-[164px] h-[40px]" }) {
   const { userProfile } = useOnboarding() || {};
-  const [showingGreeting, setShowingGreeting] = useState(false);
+  const location = useLocation();
+
+  // Initially show welcome message when user enters app or lands from another screen
+  const [showingGreeting, setShowingGreeting] = useState(true);
 
   // Compute greeting data
   const greeting = useMemo(() => {
@@ -79,30 +83,27 @@ export default function WhiteNavaBharatLogo({ className = "w-[164px] h-[40px]" }
     let hideTimer = null;
     let loopInterval = null;
 
-    // Initial transition after 1.8s of landing on the screen
-    const initialTimer = setTimeout(() => {
-      setShowingGreeting(true);
+    // 1. When user lands or navigates to screen: immediately show welcome message
+    setShowingGreeting(true);
 
-      // Keep greeting for 4.2 seconds, then transition back to logo
-      hideTimer = setTimeout(() => {
-        setShowingGreeting(false);
-      }, 4200);
-    }, 1800);
+    // 2. For a few seconds (3.5s) only show the welcome message, then show the logo
+    hideTimer = setTimeout(() => {
+      setShowingGreeting(false);
+    }, 3500);
 
-    // Periodic gentle transition every 32 seconds
+    // 3. Optional periodic gentle transition every 36 seconds
     loopInterval = setInterval(() => {
       setShowingGreeting(true);
-      hideTimer = setTimeout(() => {
+      setTimeout(() => {
         setShowingGreeting(false);
-      }, 4200);
-    }, 32000);
+      }, 3500);
+    }, 36000);
 
     return () => {
-      clearTimeout(initialTimer);
       clearTimeout(hideTimer);
       clearInterval(loopInterval);
     };
-  }, []);
+  }, [location.pathname]);
 
   // Manual toggle on user click / tap
   const handleToggle = () => {
@@ -116,7 +117,7 @@ export default function WhiteNavaBharatLogo({ className = "w-[164px] h-[40px]" }
       tabIndex={0}
       aria-label={showingGreeting ? greeting.title : "नवभारत"}
       title="टैप करके संदेश या लोगो देखें"
-      className="relative w-full min-w-[164px] max-w-[240px] h-[48px] overflow-hidden flex items-center justify-start select-none cursor-pointer group"
+      className="relative w-full min-w-[164px] max-w-[260px] h-[48px] overflow-hidden flex items-center justify-start select-none cursor-pointer group"
     >
       {/* 1. Official Nava Bharat White Logo */}
       <div
@@ -143,8 +144,8 @@ export default function WhiteNavaBharatLogo({ className = "w-[164px] h-[40px]" }
         }`}
       >
         <div className="flex items-center justify-start text-left w-full">
-          {/* Main Greeting: 18px bold white with leading-normal so matras are never clipped */}
-          <span className="text-[18px] font-bold text-white leading-normal tracking-normal truncate max-w-full drop-shadow-xs select-none">
+          {/* Main Greeting: bold white with leading-normal so matras are never clipped */}
+          <span className="text-[16px] sm:text-[17px] font-bold text-white leading-normal tracking-tight truncate max-w-full drop-shadow-xs select-none">
             {greeting.title}
           </span>
         </div>

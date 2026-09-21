@@ -16,50 +16,11 @@ import {
   CloseCircle,
   Warning2,
   ShieldTick,
+  Man,
+  Woman,
 } from 'iconsax-react';
 import { useOnboarding } from '../context/OnboardingContext';
 
-// Clean SVG Gender Symbols
-function MaleSymbol({ size = 18, color = 'currentColor' }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke={color}
-      strokeWidth="2.3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="shrink-0"
-    >
-      <circle cx="10" cy="14" r="5" />
-      <path d="M19 5l-5.4 5.4" />
-      <path d="M19 5h-5" />
-      <path d="M19 5v5" />
-    </svg>
-  );
-}
-
-function FemaleSymbol({ size = 18, color = 'currentColor' }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke={color}
-      strokeWidth="2.3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="shrink-0"
-    >
-      <circle cx="12" cy="9" r="5" />
-      <path d="M12 14v7" />
-      <path d="M9 18h6" />
-    </svg>
-  );
-}
 
 const TOP_CITIES = [
   'भोपाल',
@@ -310,19 +271,21 @@ export default function ProfileScreen() {
       {/* 54px Status Bar Clearance */}
       <div className="h-[54px] w-full shrink-0 bg-[#F7F7F4]" />
 
-      {/* Floating Success / Feedback Toast */}
+      {/* Floating Success / Feedback Toast: Centered vertically and horizontally */}
       <AnimatePresence>
         {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-[#18253B] text-white text-[13px] font-bold px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10"
-          >
-            <TickCircle size={17} color="#E39026" variant="Bold" />
-            <span>{toastMessage}</span>
-          </motion.div>
+          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="bg-[#2B2437] text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10 pointer-events-auto"
+            >
+              <TickCircle size={17} color="#F5B55C" variant="Bold" />
+              <span>{toastMessage}</span>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
@@ -330,7 +293,7 @@ export default function ProfileScreen() {
       <header className="px-4 py-3 bg-[#F7F7F4] flex items-center justify-between border-b border-[#E5E7EB]/80 shrink-0 z-10">
         <BackButton onClick={handleBack} ariaLabel="वापस जाएं" />
 
-        <h1 className="text-[18px] font-bold text-[#18253B] tracking-tight text-center flex-1 pr-[46px]">
+        <h1 className="text-[18px] font-bold text-[#2B2437] tracking-tight text-center flex-1 pr-[46px]">
           प्रोफाइल एडिट करें
         </h1>
       </header>
@@ -347,10 +310,10 @@ export default function ProfileScreen() {
 
         {/* Avatar Upload & Update Stack */}
         <div className="flex flex-col items-center justify-center shrink-0">
-          <div className="w-[110px] h-[110px] rounded-full p-1 ring-8 ring-[#F7C873]/25 bg-gradient-to-b from-[#F7C873]/40 to-[#E39026]/10 relative flex items-center justify-center shadow-inner">
+          <div className="w-[110px] h-[110px] rounded-full p-1 ring-8 ring-[#F5B55C]/25 bg-gradient-to-b from-[#F5B55C]/40 to-[#F5B55C]/10 relative flex items-center justify-center shadow-inner">
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="w-[96px] h-[96px] rounded-full bg-[#18253B] border-2 border-[#E39026] overflow-hidden flex items-center justify-center relative cursor-pointer active:scale-95 transition-transform"
+              className="w-[96px] h-[96px] rounded-full bg-[#2B2437] border-2 border-[#F5B55C] overflow-hidden flex items-center justify-center relative cursor-pointer active:scale-95 transition-transform"
             >
               {avatarUrl ? (
                 <img
@@ -369,7 +332,7 @@ export default function ProfileScreen() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#E39026] text-white flex items-center justify-center border-2 border-white shadow-md cursor-pointer active:scale-95 z-10"
+              className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#F5B55C] text-[#2B2437] flex items-center justify-center border-2 border-white shadow-md cursor-pointer active:scale-95 z-10"
               title="फ़ोटो बदलें"
             >
               <Camera size={16} color="#FFFFFF" variant="Bold" />
@@ -379,7 +342,7 @@ export default function ProfileScreen() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="text-[13px] font-bold text-[#18253B] mt-2.5 cursor-pointer hover:underline"
+            className="text-[13px] font-bold text-[#2B2437] mt-2.5 cursor-pointer hover:underline"
           >
             फ़ोटो बदलें
           </button>
@@ -398,51 +361,51 @@ export default function ProfileScreen() {
         <div className="mx-4 bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm p-4">
           {/* Header with Unified Amber Squircle Badge */}
           <div className="flex items-center gap-2.5 mb-3.5">
-            <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F6E0BB] flex items-center justify-center text-[#D48E28] shrink-0">
-              <User size={16} color="#D48E28" variant="Bold" />
+            <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
+              <User size={16} color="#F5B55C" variant="Bold" />
             </div>
-            <h2 className="text-[16px] font-bold text-[#18253B]">व्यक्तिगत जानकारी</h2>
+            <h2 className="text-[16px] font-bold text-[#2B2437]">व्यक्तिगत जानकारी</h2>
           </div>
 
           {/* Inner Gray Container */}
           <div className="bg-[#F9FAFB] rounded-[20px] p-4 space-y-4 border border-[#F1F3F5]">
             {/* Field: पूरा नाम */}
             <div>
-              <label className="text-[13px] font-bold text-[#18253B] block mb-1.5">
+              <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
                 पूरा नाम
               </label>
-              <div className="h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center gap-2.5 focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/10 shadow-2xs transition-all">
+              <div className="h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center gap-2.5 focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10 shadow-2xs transition-all">
                 <User size={18} color="#9CA3AF" />
                 <input
                   type="text"
                   placeholder="अपना नाम डालें"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="text-[14px] font-medium text-[#18253B] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
+                  className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
                 />
               </div>
             </div>
 
             {/* Field: मोबाइल नंबर with Dynamic Verification Badge */}
             <div>
-              <label className="text-[13px] font-bold text-[#18253B] block mb-1.5">
+              <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
                 मोबाइल नंबर
               </label>
-              <div className="h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center justify-between shadow-2xs focus-within:border-[#18253B] transition-all">
+              <div className="h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center justify-between shadow-2xs focus-within:border-[#2B2437] transition-all">
                 <div className="flex items-center gap-2.5 flex-1 mr-2">
                   <Call size={18} color="#9CA3AF" />
                   <input
                     type="tel"
                     value={phone}
                     onChange={handlePhoneChange}
-                    className="text-[14px] font-semibold text-[#18253B] outline-none bg-transparent w-full"
+                    className="text-[14px] font-semibold text-[#2B2437] outline-none bg-transparent w-full"
                   />
                 </div>
 
                 {/* Verification Badge Status */}
                 {isPhoneVerified ? (
-                  <div className="bg-[#FFF9EE] border border-[#F7C873] text-[#E39026] rounded-full px-2.5 py-1 flex items-center gap-1 shadow-2xs shrink-0 select-none">
-                    <TickCircle size={13} color="#E39026" variant="Bold" />
+                  <div className="bg-[#FFF9EE] border border-[#F5B55C] text-[#F5B55C] rounded-full px-2.5 py-1 flex items-center gap-1 shadow-2xs shrink-0 select-none">
+                    <TickCircle size={13} color="#F5B55C" variant="Bold" />
                     <span className="text-[11px] font-bold">वेरिफाइड</span>
                   </div>
                 ) : (
@@ -461,7 +424,7 @@ export default function ProfileScreen() {
 
             {/* Field: जन्मतिथि (Interactive & Smooth Trigger Box) */}
             <div>
-              <label className="text-[13px] font-bold text-[#18253B] block mb-1.5">
+              <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
                 जन्मतिथि
               </label>
               <button
@@ -470,10 +433,10 @@ export default function ProfileScreen() {
                 className="w-full h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center justify-between shadow-2xs cursor-pointer hover:border-gray-400 active:scale-[0.985] active:bg-[#F9FAFB] transition-all duration-150 text-left"
               >
                 <div className="flex items-center gap-2.5">
-                  <Calendar size={18} color={dob ? '#D48E28' : '#9CA3AF'} />
+                  <Calendar size={18} color={dob ? '#F5B55C' : '#9CA3AF'} />
                   <span
                     className={`text-[14px] ${
-                      dob ? 'text-[#18253B] font-semibold' : 'text-[#9CA3AF] font-medium'
+                      dob ? 'text-[#2B2437] font-semibold' : 'text-[#9CA3AF] font-medium'
                     }`}
                   >
                     {dob || 'अपनी जन्मतिथि चुनें'}
@@ -488,17 +451,17 @@ export default function ProfileScreen() {
         <div className="mx-4 bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm p-4">
           {/* Header with Unified Amber Squircle Badge */}
           <div className="flex items-center gap-2.5 mb-3.5">
-            <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F6E0BB] flex items-center justify-center text-[#D48E28] shrink-0">
-              <People size={16} color="#D48E28" variant="Bold" />
+            <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
+              <People size={16} color="#F5B55C" variant="Bold" />
             </div>
-            <h2 className="text-[16px] font-bold text-[#18253B]">आपके बारे में</h2>
+            <h2 className="text-[16px] font-bold text-[#2B2437]">आपके बारे में</h2>
           </div>
 
           {/* Inner Gray Container */}
           <div className="bg-[#F9FAFB] rounded-[20px] p-4 space-y-4 border border-[#F1F3F5]">
             {/* Field: जेंडर */}
             <div>
-              <label className="text-[13px] font-bold text-[#18253B] block mb-1.5">
+              <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
                 जेंडर
               </label>
               <div className="grid grid-cols-3 gap-2.5">
@@ -508,17 +471,17 @@ export default function ProfileScreen() {
                   onClick={() => setGender('male')}
                   className={`h-[46px] rounded-[14px] flex items-center justify-center gap-1.5 text-[14px] cursor-pointer transition-all active:scale-95 relative ${
                     gender === 'male'
-                      ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm font-bold'
-                      : 'bg-white text-[#4B5563] border border-[#D1D5DB] font-medium hover:border-[#18253B]/40'
+                      ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm font-bold'
+                      : 'bg-white text-[#4B5563] border border-[#D1D5DB] font-medium hover:border-[#2B2437]/40'
                   }`}
                 >
-                  <MaleSymbol
+                  <Man
                     size={17}
                     color={gender === 'male' ? '#FFFFFF' : '#4B5563'}
                   />
                   <span>पुरुष</span>
                   {gender === 'male' && (
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#E39026] absolute -top-1 -right-1 border-2 border-white shadow-2xs" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#F5B55C] absolute -top-1 -right-1 border-2 border-white shadow-2xs" />
                   )}
                 </button>
 
@@ -528,17 +491,17 @@ export default function ProfileScreen() {
                   onClick={() => setGender('female')}
                   className={`h-[46px] rounded-[14px] flex items-center justify-center gap-1.5 text-[14px] cursor-pointer transition-all active:scale-95 relative ${
                     gender === 'female'
-                      ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm font-bold'
-                      : 'bg-white text-[#4B5563] border border-[#D1D5DB] font-medium hover:border-[#18253B]/40'
+                      ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm font-bold'
+                      : 'bg-white text-[#4B5563] border border-[#D1D5DB] font-medium hover:border-[#2B2437]/40'
                   }`}
                 >
-                  <FemaleSymbol
+                  <Woman
                     size={17}
                     color={gender === 'female' ? '#FFFFFF' : '#4B5563'}
                   />
                   <span>महिला</span>
                   {gender === 'female' && (
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#E39026] absolute -top-1 -right-1 border-2 border-white shadow-2xs" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#F5B55C] absolute -top-1 -right-1 border-2 border-white shadow-2xs" />
                   )}
                 </button>
 
@@ -548,8 +511,8 @@ export default function ProfileScreen() {
                   onClick={() => setGender('other')}
                   className={`h-[46px] rounded-[14px] flex items-center justify-center gap-1.5 text-[14px] cursor-pointer transition-all active:scale-95 relative ${
                     gender === 'other'
-                      ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm font-bold'
-                      : 'bg-white text-[#4B5563] border border-[#D1D5DB] font-medium hover:border-[#18253B]/40'
+                      ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm font-bold'
+                      : 'bg-white text-[#4B5563] border border-[#D1D5DB] font-medium hover:border-[#2B2437]/40'
                   }`}
                 >
                   <User
@@ -558,7 +521,7 @@ export default function ProfileScreen() {
                   />
                   <span>अन्य</span>
                   {gender === 'other' && (
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#E39026] absolute -top-1 -right-1 border-2 border-white shadow-2xs" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#F5B55C] absolute -top-1 -right-1 border-2 border-white shadow-2xs" />
                   )}
                 </button>
               </div>
@@ -566,7 +529,7 @@ export default function ProfileScreen() {
 
             {/* Field: शहर (Interactive Trigger Box with Animated Chevron) */}
             <div>
-              <label className="text-[13px] font-bold text-[#18253B] block mb-1.5">
+              <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
                 शहर
               </label>
               <button
@@ -578,13 +541,13 @@ export default function ProfileScreen() {
                 className="w-full h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center justify-between shadow-2xs cursor-pointer hover:border-gray-400 active:scale-[0.985] active:bg-[#F9FAFB] transition-all duration-150 text-left"
               >
                 <div className="flex items-center gap-2.5 flex-1">
-                  <Location size={20} color="#18253B" variant="Bold" />
+                  <Location size={20} color="#2B2437" variant="Bold" />
                   <motion.span
                     key={city}
                     initial={{ opacity: 0, y: 3 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.25, ease: 'easeOut' }}
-                    className="text-[15px] font-semibold text-[#18253B]"
+                    className="text-[15px] font-semibold text-[#2B2437]"
                   >
                     {city}
                   </motion.span>
@@ -600,17 +563,17 @@ export default function ProfileScreen() {
 
             {/* Field: ईमेल आईडी */}
             <div>
-              <label className="text-[13px] font-bold text-[#18253B] block mb-1.5">
+              <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
                 ईमेल आईडी
               </label>
-              <div className="h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center gap-2.5 shadow-2xs focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/10 transition-all">
+              <div className="h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center gap-2.5 shadow-2xs focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10 transition-all">
                 <Sms size={18} color="#9CA3AF" />
                 <input
                   type="email"
                   placeholder="ईमेल आईडी डालें (वैकल्पिक)"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="text-[14px] font-medium text-[#18253B] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
+                  className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
                 />
               </div>
             </div>
@@ -626,7 +589,7 @@ export default function ProfileScreen() {
         <button
           type="button"
           onClick={handleSave}
-          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#233550] transition-colors"
+          className="w-full h-[56px] rounded-[16px] bg-[#2B2437] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#3D334E] transition-colors"
         >
           सेव करें
         </button>
@@ -655,15 +618,15 @@ export default function ProfileScreen() {
               {/* Drag Handle */}
               <div className="w-10 h-1 rounded-full bg-gray-300 mb-4" />
 
-              <div className="w-12 h-12 rounded-full bg-[#FFF9EE] border border-[#F7C873] flex items-center justify-center text-[#E39026] mb-3">
-                <ShieldTick size={24} color="#E39026" variant="Bold" />
+              <div className="w-12 h-12 rounded-full bg-[#FFF9EE] border border-[#F5B55C] flex items-center justify-center text-[#F5B55C] mb-3">
+                <ShieldTick size={24} color="#F5B55C" variant="Bold" />
               </div>
 
-              <h3 className="text-[18px] font-bold text-[#18253B] text-center">
+              <h3 className="text-[18px] font-bold text-[#2B2437] text-center">
                 मोबाइल नंबर वेरिफाई करें
               </h3>
               <p className="text-[13px] text-[#6B7280] text-center mt-1 max-w-[280px]">
-                हमने <span className="font-bold text-[#18253B]">{phone}</span> पर 4-अंकों का कोड भेजा है
+                हमने <span className="font-bold text-[#2B2437]">{phone}</span> पर 4-अंकों का कोड भेजा है
               </p>
 
               {/* 4-Cell OTP Input */}
@@ -678,7 +641,7 @@ export default function ProfileScreen() {
                     value={val}
                     onChange={(e) => handleOtpChange(idx, e.target.value)}
                     onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                    className="w-12 h-13 rounded-[14px] bg-[#F9FAFB] border-2 border-[#E5E7EB] text-center text-[20px] font-bold text-[#18253B] outline-none focus:border-[#E39026] focus:bg-white shadow-2xs transition-all"
+                    className="w-12 h-13 rounded-[14px] bg-[#F9FAFB] border-2 border-[#E5E7EB] text-center text-[20px] font-bold text-[#2B2437] outline-none focus:border-[#F5B55C] focus:bg-white shadow-2xs transition-all"
                   />
                 ))}
               </div>
@@ -687,7 +650,7 @@ export default function ProfileScreen() {
               <button
                 type="button"
                 onClick={() => setOtpValues(['1', '2', '3', '4'])}
-                className="text-xs text-[#E39026] font-semibold mb-4 hover:underline cursor-pointer"
+                className="text-xs text-[#F5B55C] font-semibold mb-4 hover:underline cursor-pointer"
               >
                 OTP भरें (1234)
               </button>
@@ -700,7 +663,7 @@ export default function ProfileScreen() {
                   <button
                     type="button"
                     onClick={() => setOtpTimer(30)}
-                    className="text-[#E39026] font-bold cursor-pointer hover:underline"
+                    className="text-[#F5B55C] font-bold cursor-pointer hover:underline"
                   >
                     OTP फिर से भेजें
                   </button>
@@ -711,7 +674,7 @@ export default function ProfileScreen() {
               <button
                 type="button"
                 onClick={handleVerifyOtp}
-                className="w-full h-[50px] rounded-[16px] bg-[#18253B] text-white text-[15px] font-bold active:scale-[0.99] cursor-pointer hover:bg-[#233550] shadow-md transition-all"
+                className="w-full h-[50px] rounded-[16px] bg-[#2B2437] text-white text-[15px] font-bold active:scale-[0.99] cursor-pointer hover:bg-[#3D334E] shadow-md transition-all"
               >
                 वेरिफाई करें
               </button>
@@ -753,7 +716,7 @@ export default function ProfileScreen() {
               {/* Header */}
               <div className="px-5 py-3 flex items-center justify-between border-b border-gray-100">
                 <div>
-                  <h3 className="text-[17px] font-bold text-[#18253B]">
+                  <h3 className="text-[17px] font-bold text-[#2B2437]">
                     अपनी जन्मतिथि चुनें
                   </h3>
                   <p className="text-[12px] text-[#6B7280] mt-0.5">
@@ -790,7 +753,7 @@ export default function ProfileScreen() {
                             onClick={() => setDraftDay(d)}
                             className={`w-full h-[36px] flex items-center justify-center rounded-[8px] text-[14px] cursor-pointer transition-all ${
                               isSelected
-                                ? 'bg-[#18253B] text-white font-bold shadow-xs'
+                                ? 'bg-[#2B2437] text-white font-bold shadow-xs'
                                 : 'text-[#4B5563] hover:bg-gray-50 font-medium'
                             }`}
                           >
@@ -819,7 +782,7 @@ export default function ProfileScreen() {
                             onClick={() => setDraftMonth(m)}
                             className={`w-full h-[36px] flex items-center justify-center rounded-[8px] text-[13px] cursor-pointer transition-all ${
                               isSelected
-                                ? 'bg-[#18253B] text-white font-bold shadow-xs'
+                                ? 'bg-[#2B2437] text-white font-bold shadow-xs'
                                 : 'text-[#4B5563] hover:bg-gray-50 font-medium'
                             }`}
                           >
@@ -848,7 +811,7 @@ export default function ProfileScreen() {
                             onClick={() => setDraftYear(y)}
                             className={`w-full h-[36px] flex items-center justify-center rounded-[8px] text-[14px] cursor-pointer transition-all ${
                               isSelected
-                                ? 'bg-[#18253B] text-white font-bold shadow-xs'
+                                ? 'bg-[#2B2437] text-white font-bold shadow-xs'
                                 : 'text-[#4B5563] hover:bg-gray-50 font-medium'
                             }`}
                           >
@@ -865,14 +828,14 @@ export default function ProfileScreen() {
               <div className="p-4 bg-white flex flex-col gap-3">
                 <div className="flex items-center justify-between px-2">
                   <span className="text-[13px] text-[#6B7280] font-medium">चुनी गई तिथि</span>
-                  <span className="text-[15px] font-bold text-[#D48E28]">
+                  <span className="text-[15px] font-bold text-[#F5B55C]">
                     {draftDay} {draftMonth} {draftYear}
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={handleConfirmDob}
-                  className="w-full h-[50px] rounded-[16px] bg-[#18253B] text-white text-[15px] font-bold active:scale-[0.99] cursor-pointer hover:bg-[#233550] shadow-md transition-all"
+                  className="w-full h-[50px] rounded-[16px] bg-[#2B2437] text-white text-[15px] font-bold active:scale-[0.99] cursor-pointer hover:bg-[#3D334E] shadow-md transition-all"
                 >
                   पुष्टि करें
                 </button>
@@ -917,7 +880,7 @@ export default function ProfileScreen() {
               {/* Header */}
               <div className="px-5 pb-3 pt-1 flex items-center justify-between border-b border-gray-100">
                 <div>
-                  <h3 className="text-[17px] font-bold text-[#18253B]">
+                  <h3 className="text-[17px] font-bold text-[#2B2437]">
                     अपना शहर चुनें
                   </h3>
                   <p className="text-[12px] text-[#6B7280]">
@@ -937,14 +900,14 @@ export default function ProfileScreen() {
 
               {/* Search Bar with Instant Clear */}
               <div className="p-4 border-b border-gray-100 bg-[#F9FAFB]">
-                <div className="h-[46px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center gap-2.5 shadow-2xs focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/10 transition-all">
+                <div className="h-[46px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center gap-2.5 shadow-2xs focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10 transition-all">
                   <SearchNormal1 size={17} color="#9CA3AF" />
                   <input
                     type="text"
                     placeholder="शहर खोजें..."
                     value={citySearchQuery}
                     onChange={(e) => setCitySearchQuery(e.target.value)}
-                    className="text-[14px] font-medium text-[#18253B] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
+                    className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
                     autoFocus
                   />
                   {citySearchQuery && (
@@ -975,7 +938,7 @@ export default function ProfileScreen() {
                             onClick={() => handleSelectCity(chip)}
                             className={`px-3.5 py-1.5 rounded-[12px] text-[13px] whitespace-nowrap cursor-pointer transition-all duration-200 shrink-0 flex items-center gap-1.5 ${
                               isSelected
-                                ? 'bg-[#18253B] text-white font-bold shadow-xs'
+                                ? 'bg-[#2B2437] text-white font-bold shadow-xs'
                                 : 'bg-white border border-[#E5E7EB] text-[#4B5563] font-medium hover:border-[#D1D5DB]'
                             }`}
                           >
@@ -1010,19 +973,19 @@ export default function ProfileScreen() {
                         onClick={() => handleSelectCity(cityName)}
                         className={`w-full h-[52px] px-3 rounded-[14px] flex items-center justify-between cursor-pointer transition-all duration-200 text-left ${
                           isSelected
-                            ? 'bg-[#FFF9EE] text-[#D48E28] font-bold border border-[#F6E0BB]/70 shadow-2xs'
-                            : 'hover:bg-gray-50 text-[#18253B] font-medium border border-transparent'
+                            ? 'bg-[#2B2437] text-white font-bold border border-[#2B2437] shadow-2xs'
+                            : 'hover:bg-gray-50 text-[#2B2437] font-medium border border-transparent'
                         }`}
                       >
                         <div className="flex items-center gap-3">
                           <div
                             className={`w-7 h-7 rounded-full flex items-center justify-center transition-colors duration-200 ${
-                              isSelected ? 'bg-[#FDF5E8]' : 'bg-gray-100'
+                              isSelected ? 'bg-white/20 text-white' : 'bg-gray-100 text-[#9CA3AF]'
                             }`}
                           >
                             <Location
                               size={16}
-                              color={isSelected ? '#D48E28' : '#9CA3AF'}
+                              color={isSelected ? '#FFFFFF' : '#9CA3AF'}
                               variant={isSelected ? 'Bold' : 'Linear'}
                             />
                           </div>
@@ -1035,10 +998,10 @@ export default function ProfileScreen() {
                             transition={{ type: 'spring', stiffness: 500, damping: 25 }}
                             className="flex items-center gap-1.5"
                           >
-                            <span className="text-[11px] font-bold text-[#D48E28] bg-[#FDF5E8] px-2 py-0.5 rounded-full border border-[#F6E0BB]">
+                            <span className="text-[11px] font-bold text-white bg-white/20 px-2 py-0.5 rounded-full border border-white/30">
                               चुना हुआ
                             </span>
-                            <TickCircle size={18} color="#D48E28" variant="Bold" />
+                            <TickCircle size={18} color="#FFFFFF" variant="Bold" />
                           </motion.div>
                         )}
                       </motion.button>

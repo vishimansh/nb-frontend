@@ -41,9 +41,9 @@ export default function SplashScreen() {
         {/* 16px vertical space below logo */}
         <div className="h-4" />
 
-        {/* Tagline: 20px, Medium 500, #18253B */}
+        {/* Tagline: 20px, Medium 500, #2B2437 */}
         <motion.p 
-          className="text-[20px] font-medium text-[#18253B] text-center tracking-tight"
+          className="text-[20px] font-medium text-[#2B2437] text-center tracking-tight"
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, delay: 0.1 }}

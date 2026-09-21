@@ -9,10 +9,17 @@ import FeedCard, { CATEGORY_PALETTES } from '../home/FeedCard';
  *   navy WhatsApp button, and 3-dot overflow menu
  * - Supports breaking news pill badge and city location tag
  */
-export default function SearchNewsCard({ story, onCategoryClick, className = "" }) {
+export default function SearchNewsCard({
+  story,
+  onCategoryClick,
+  className = "",
+  cardBg = "",
+  isSearchScreen = false,
+}) {
   const {
     id,
     isBreakingNews,
+    isSponsored = false,
     category,
     location,
     headline,
@@ -27,9 +34,16 @@ export default function SearchNewsCard({ story, onCategoryClick, className = "" 
       color: '#497877',
     };
 
-  const cardBgClass = isBreakingNews
+  // The breaking/live updates article in only search screen has the red bg (#FEDAD6)
+  const isRedBreaking = isSearchScreen && (isBreakingNews || story.isLive);
+
+  const cardBgClass = isRedBreaking
     ? 'bg-[#FEDAD6] border border-[#F8B4AF]'
-    : 'bg-[#F7F7F4] border border-[#E5E7EB]';
+    : cardBg
+    ? cardBg
+    : isSearchScreen
+    ? 'bg-[#F7F7F4] border border-[#E5E7EB]'
+    : 'bg-white border border-[#E5E7EB] shadow-2xs';
 
   return (
     <FeedCard
@@ -41,9 +55,10 @@ export default function SearchNewsCard({ story, onCategoryClick, className = "" 
       publishedAgo={timestamp}
       readTime={`${readTimeMinutes} मिनट पढ़ें`}
       isBreakingNews={isBreakingNews}
+      isSponsored={isSponsored}
       location={location}
       onCategoryClick={onCategoryClick}
-      className={`w-[370px] min-w-[370px] max-w-[370px] rounded-[8px] p-2 ${cardBgClass} ${className}`}
+      className={`w-[370px] min-w-[370px] max-w-[370px] rounded-[10px] p-2.5 ${cardBgClass} ${className}`}
     />
   );
 }

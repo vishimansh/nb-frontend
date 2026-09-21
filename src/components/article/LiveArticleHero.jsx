@@ -30,7 +30,7 @@ export default function LiveArticleHero({
     "सुप्रीम कोर्ट परिसर, नई दिल्ली में एक महत्वपूर्ण मामले की सुनवाई के दौरान संविधान पीठ।";
 
   return (
-    <div className="w-full h-[320px] aspect-[402/320] relative overflow-hidden bg-[#18253B] select-none shrink-0">
+    <div className="w-full h-[320px] aspect-[402/320] relative overflow-hidden bg-[#2B2437] select-none shrink-0">
       {/* 1. Full Hero Background Image (402px × 320px) */}
       <img
         src={hero?.imageUrl || supremeCourtImg}
@@ -66,7 +66,7 @@ export default function LiveArticleHero({
           className="w-[40px] h-[40px] rounded-[14px] bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white active:scale-90 transition-transform cursor-pointer shadow-xs"
         >
           {isBookmarked ? (
-            <ArchiveTick size={20} color="#F59E0B" variant="Bold" />
+            <ArchiveTick size={20} color="#F5B55C" variant="Bold" />
           ) : (
             <ArchiveAdd size={20} color="#FFFFFF" variant="Linear" />
           )}

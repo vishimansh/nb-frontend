@@ -2,8 +2,8 @@
   {
     "id": "reel-1",
     "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=800&q=80",
-    "backupPoster": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
+    "posterThumbnail": "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "business",
       "label": "बिज़नेस",
@@ -40,8 +40,8 @@
   {
     "id": "reel-2",
     "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?auto=format&fit=crop&w=800&q=80",
-    "backupPoster": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80",
+    "posterThumbnail": "https://images.unsplash.com/photo-1571536802807-30451e3955d8?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "entertainment",
       "label": "मनोरंजन",
@@ -70,8 +70,8 @@
   {
     "id": "reel-3",
     "videoUrl": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
-    "backupPoster": "https://images.unsplash.com/photo-1477959858617-67f30bc75b82?auto=format&fit=crop&w=800&q=80",
+    "posterThumbnail": "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1545459720-aac8509eb02c?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "city",
       "label": "शहर",
@@ -100,8 +100,8 @@
   {
     "id": "reel-4",
     "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=800&q=80",
-    "backupPoster": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80",
+    "posterThumbnail": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1587385789097-0197a7fbd179?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "sports",
       "label": "खेल",
@@ -130,8 +130,8 @@
   {
     "id": "reel-5",
     "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80",
-    "backupPoster": "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=800&q=80",
+    "posterThumbnail": "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "city",
       "label": "शहर",
@@ -151,8 +151,8 @@
   {
     "id": "reel-6",
     "videoUrl": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
-    "backupPoster": "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80",
+    "posterThumbnail": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "business",
       "label": "बिज़नेस",
@@ -172,8 +172,8 @@
   {
     "id": "reel-7",
     "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1596178060810-726605a96db4?auto=format&fit=crop&w=800&q=80",
-    "backupPoster": "https://images.unsplash.com/photo-1596178060810-726605a96db4?auto=format&fit=crop&w=800&q=80",
+    "posterThumbnail": "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "entertainment",
       "label": "संस्कृति",
@@ -193,8 +193,8 @@
   {
     "id": "reel-8",
     "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80",
-    "backupPoster": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=800&q=80",
+    "posterThumbnail": "https://images.unsplash.com/photo-1545459720-aac8509eb02c?auto=format&fit=crop&w=800&q=80",
+    "backupPoster": "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "city",
       "label": "शहर",

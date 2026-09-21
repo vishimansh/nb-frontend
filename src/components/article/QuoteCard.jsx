@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { User, QuoteUp } from "iconsax-react";
 
 /**
  * Block type 3 — Quote / opinion card (QuoteCard)
@@ -86,15 +87,13 @@ export default function QuoteCard({
             />
           ) : (
             <div className="w-12 h-12 rounded-full bg-[#F1F5F9] border border-[#E2E8F0] flex items-center justify-center text-[#94A3B8] shrink-0">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-              </svg>
+              <User size={24} color="#94A3B8" variant="Bold" />
             </div>
           )}
 
           {/* Name & Title */}
           <div className="flex flex-col min-w-0">
-            <h4 className="text-[16px] font-bold text-[#18253B] truncate leading-tight">
+            <h4 className="text-[16px] font-bold text-[#2B2437] truncate leading-tight">
               {name}
             </h4>
             <p className="text-[13px] text-[#64748B] truncate leading-tight mt-1">
@@ -103,15 +102,9 @@ export default function QuoteCard({
           </div>
         </div>
 
-        {/* Decorative Oversized Gold/Tan Quotation-mark Glyph (Figma Screenshot 2) */}
-        <div className="shrink-0 text-[#E0BA78] flex items-center justify-end select-none pr-1">
-          <svg
-            className="w-10 h-10 fill-current opacity-90"
-            viewBox="0 0 40 40"
-            fill="none"
-          >
-            <path d="M12.5 12C9.5 14.5 7.5 18 7.5 22.5C7.5 25.5 9.5 27.5 12.5 27.5C15 27.5 17 25.5 17 23C17 20.5 15 18.5 12.5 18.5C12 18.5 11.5 18.6 11 18.8C11.5 16 13.5 13.5 15.5 12.5L12.5 12ZM27.5 12C24.5 14.5 22.5 18 22.5 22.5C22.5 25.5 24.5 27.5 27.5 27.5C30 27.5 32 25.5 32 23C32 20.5 30 18.5 27.5 18.5C27 18.5 26.5 18.6 26 18.8C26.5 16 28.5 13.5 30.5 12.5L27.5 12Z" />
-          </svg>
+        {/* Decorative Oversized Gold/Tan Quotation-mark Glyph */}
+        <div className="shrink-0 text-[#E0BA78] flex items-center justify-end select-none pr-1 opacity-90">
+          <QuoteUp size={36} color="#E0BA78" variant="Bold" />
         </div>
       </div>
     </div>

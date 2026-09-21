@@ -126,7 +126,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#18253B] w-full flex flex-col shadow-md flex-shrink-0 select-none">
+    <header className="sticky top-0 z-40 bg-[#2B2437] w-full flex flex-col shadow-md flex-shrink-0 select-none">
       {/* Status Bar Clearance (pt-[24px] + 18px text + pb-[24px] = 66px) */}
       <div className="h-[66px] w-full shrink-0 pointer-events-none" />
 
@@ -143,7 +143,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
         </button>
 
         {/* Center-Left: Official Nava Bharat White Vector Logo / Dynamic Greeting */}
-        <div className="flex items-center flex-1 min-w-0 max-w-[240px] justify-start pl-2">
+        <div className="flex items-center flex-1 min-w-0 max-w-[260px] justify-start pl-2">
           <WhiteNavaBharatLogo className="w-[164px] h-[40px] object-contain" />
         </div>
 
@@ -158,7 +158,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
           >
             <Notification size={28} color="#FFFFFF" variant="Linear" />
             <span
-              className="w-2.5 h-2.5 rounded-full bg-[#EF4444] absolute -top-0.5 -right-0.5 border-2 border-[#18253B]"
+              className="w-2.5 h-2.5 rounded-full bg-[#EF4444] absolute -top-0.5 -right-0.5 border-2 border-[#2B2437]"
               aria-label="नया नोटिफिकेशन"
             />
           </button>
@@ -200,23 +200,23 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
               onClick={() => handleTabClick(tab.id)}
               className={`w-[64px] min-w-[64px] max-w-[64px] h-[80px] min-h-[80px] max-h-[80px] flex flex-col items-center justify-center rounded-[8px] transition-all duration-200 ease-out shrink-0 select-none ${
                 isActive
-                  ? 'border border-[#E39026] bg-[#22334D] cursor-pointer'
+                  ? 'border border-[#F5B55C] bg-[#3D334E] cursor-pointer'
                   : isInert
-                  ? 'border border-transparent bg-[#22334D] opacity-80 cursor-default'
-                  : 'border border-transparent bg-[#22334D] hover:bg-[#22334D]/85 cursor-pointer active:scale-[0.96]'
+                  ? 'border border-transparent bg-[#3D334E] opacity-80 cursor-default'
+                  : 'border border-transparent bg-[#3D334E] hover:bg-[#3D334E]/85 cursor-pointer active:scale-[0.96]'
               }`}
             >
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-out ${
                   isActive
-                    ? 'bg-[#E39026] text-white shadow-xs'
+                    ? 'bg-[#F5B55C] text-[#2B2437] shadow-xs'
                     : 'bg-transparent text-[#94A3B8]'
                 }`}
               >
                 {Icon && (
                   <Icon
                     size={22}
-                    color={isActive ? '#FFFFFF' : '#94A3B8'}
+                    color={isActive ? '#2B2437' : '#94A3B8'}
                     variant="Linear"
                   />
                 )}
@@ -225,7 +225,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
               <span
                 className={`text-[13.5px] mt-[8px] leading-tight tracking-tight truncate w-full text-center px-1 transition-colors duration-300 ease-out ${
                   isActive
-                    ? 'font-bold text-[#E39026]'
+                    ? 'font-bold text-[#F5B55C]'
                     : 'font-normal text-[#CBD5E1]'
                 }`}
               >
@@ -282,23 +282,23 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                 }}
                 className={`relative w-[64px] min-w-[64px] max-w-[64px] h-[80px] min-h-[80px] max-h-[80px] flex flex-col items-center justify-center rounded-[8px] shrink-0 select-none group cursor-grab active:cursor-grabbing transition-colors duration-200 ${
                   isActive
-                    ? 'border border-[#E39026] bg-[#22334D]'
+                    ? 'border border-[#F5B55C] bg-[#3D334E]'
                     : isInert
-                    ? 'border border-transparent bg-[#22334D] opacity-80 cursor-default'
-                    : 'border border-transparent bg-[#22334D] hover:bg-[#22334D]/85'
+                    ? 'border border-transparent bg-[#3D334E] opacity-80 cursor-default'
+                    : 'border border-transparent bg-[#3D334E] hover:bg-[#3D334E]/85'
                 }`}
               >
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-out ${
                     isActive
-                      ? 'bg-[#E39026] text-white shadow-xs'
+                      ? 'bg-[#F5B55C] text-[#2B2437] shadow-xs'
                       : 'bg-transparent text-[#94A3B8]'
                   }`}
                 >
                   {Icon && (
                     <Icon
                       size={22}
-                      color={isActive ? '#FFFFFF' : '#94A3B8'}
+                      color={isActive ? '#2B2437' : '#94A3B8'}
                       variant="Linear"
                     />
                   )}
@@ -307,7 +307,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                 <span
                   className={`text-[13.5px] mt-[8px] leading-tight tracking-tight truncate w-full text-center px-1 transition-colors duration-300 ease-out ${
                     isActive
-                      ? 'font-bold text-[#E39026]'
+                      ? 'font-bold text-[#F5B55C]'
                       : 'font-normal text-[#CBD5E1]'
                   }`}
                 >

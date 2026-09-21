@@ -50,7 +50,7 @@ export default function NotificationsScreen() {
       <div className="w-full flex justify-end px-6 py-2 relative z-30">
         <button
           onClick={handleSkip}
-          className="text-[16px] font-medium text-[#18253B] cursor-pointer hover:opacity-75 transition-opacity"
+          className="text-[16px] font-medium text-[#2B2437] cursor-pointer hover:opacity-75 transition-opacity"
         >
           स्किप
         </button>
@@ -61,15 +61,15 @@ export default function NotificationsScreen() {
         {/* Layer 0: Text Content Block (Headline, Subtext, Eyebrow) */}
         <div className="w-full flex flex-col items-center relative z-0">
           {/* Eyebrow Capsule Badge: 16px Semibold */}
-          <div className="bg-[#18253B] text-white p-2 rounded-full flex items-center gap-2 shadow-xs">
-            <div className="w-5 h-5 bg-[#E39026] rounded-full flex items-center justify-center text-white flex-shrink-0">
+          <div className="bg-[#2B2437] text-white p-2 rounded-full flex items-center gap-2 shadow-xs">
+            <div className="w-5 h-5 bg-[#F5B55C] rounded-full flex items-center justify-center text-white flex-shrink-0">
               <Notification size={14} color="#FFFFFF" variant="Linear" />
             </div>
             <span className="text-[16px] font-semibold tracking-wide">नवभारत अपडेट</span>
           </div>
 
           {/* Display Headline: 32px, Semibold, leading-[1.15] */}
-          <h1 className="mt-3 text-[32px] font-semibold leading-[1.15] text-[#18253B] text-center whitespace-pre-line px-6">
+          <h1 className="mt-3 text-[32px] font-semibold leading-[1.15] text-[#2B2437] text-center whitespace-pre-line px-6">
             {"खबर आते ही,\nआपको पता चले।"}
           </h1>
 
@@ -166,14 +166,14 @@ export default function NotificationsScreen() {
       <div className="px-6 pb-9 pt-1 bg-[#F7F7F4] relative z-30">
         <button
           onClick={handleEnable}
-          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center transition-all cursor-pointer hover:bg-[#1f304d]"
+          className="w-full h-[56px] rounded-[16px] bg-[#2B2437] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center transition-all cursor-pointer hover:bg-[#3D334E]"
         >
           नोटिफिकेशन चालू करें
         </button>
 
         <button
           onClick={handleSkip}
-          className="w-full mt-2.5 text-[16px] font-medium text-[#18253B] cursor-pointer text-center hover:opacity-75 transition-opacity"
+          className="w-full mt-2.5 text-[16px] font-medium text-[#2B2437] cursor-pointer text-center hover:opacity-75 transition-opacity"
         >
           अभी नहीं
         </button>

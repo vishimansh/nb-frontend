@@ -8,7 +8,7 @@ export default function ArticleTile({ article, categoryOverride, onCategoryClick
   const isSponsored = article.isSponsored || article.categoryId === 'sponsored';
   const category = categoryOverride || CATEGORY_PALETTES[article.categoryId] || {
     label: 'समाचार',
-    color: '#18253B',
+    color: '#2B2437',
   };
 
   return (

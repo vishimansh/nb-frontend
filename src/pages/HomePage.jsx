@@ -73,8 +73,39 @@ export default function HomePage() {
     }
   };
 
+  const edgeTouchStartX = useRef(null);
+  const edgeTouchStartY = useRef(null);
+
+  const handleTouchStart = (e) => {
+    const touch = e.touches[0];
+    // Detect swipe beginning near left bezel (first 50px)
+    if (touch && touch.clientX <= 50) {
+      edgeTouchStartX.current = touch.clientX;
+      edgeTouchStartY.current = touch.clientY;
+    } else {
+      edgeTouchStartX.current = null;
+      edgeTouchStartY.current = null;
+    }
+  };
+
+  const handleTouchEnd = (e) => {
+    if (edgeTouchStartX.current === null) return;
+    const diffX = e.changedTouches[0].clientX - edgeTouchStartX.current;
+    const diffY = e.changedTouches[0].clientY - (edgeTouchStartY.current || 0);
+    // Swiped right by > 50px predominantly horizontally
+    if (diffX > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      navigate('/menu');
+    }
+    edgeTouchStartX.current = null;
+    edgeTouchStartY.current = null;
+  };
+
   return (
-    <div className="w-full h-full bg-[#F7F7F4] flex flex-col relative overflow-hidden select-none">
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="w-full h-full bg-[#F7F7F4] flex flex-col relative overflow-hidden select-none"
+    >
       {/* 1. Fixed Top Navigation Shell (Sticky Top) */}
       <TopNavShell activeCategory={activeCategory} onSelectCategory={handleCategorySelect} />
 

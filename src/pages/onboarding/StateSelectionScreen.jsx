@@ -27,12 +27,12 @@ export default function StateSelectionScreen() {
       {/* Toast Alert for Max 3 States: Centered vertically and horizontally */}
       <AnimatePresence>
         {alertMessage && (
-          <div className="absolute inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
+          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: -10 }}
-              className="bg-[#18253B] text-white text-[13px] px-5 py-2.5 rounded-full shadow-xl flex items-center gap-2 border border-white/10 pointer-events-auto"
+              className="bg-[#2B2437] text-white text-[13px] px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10 pointer-events-auto"
             >
               <span>⚠️</span>
               <span className="font-medium">{alertMessage}</span>
@@ -43,12 +43,12 @@ export default function StateSelectionScreen() {
 
       {/* Top Header Bar */}
       <div className="px-6 py-3 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F7F7F4]/90 backdrop-blur-sm z-10 flex-shrink-0">
-        <h1 className="text-[22px] font-bold text-[#18253B] tracking-tight">
+        <h1 className="text-[22px] font-bold text-[#2B2437] tracking-tight">
           राज्य चुनें
         </h1>
         <button
           onClick={handleSkip}
-          className="text-[15px] font-semibold text-[#18253B] cursor-pointer hover:opacity-75 transition-opacity"
+          className="text-[15px] font-semibold text-[#2B2437] cursor-pointer hover:opacity-75 transition-opacity"
         >
           स्किप
         </button>
@@ -84,7 +84,7 @@ export default function StateSelectionScreen() {
       <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#F7F7F4] via-[#F7F7F4]/95 to-transparent pt-4 pb-8 px-6 z-20">
         <button
           onClick={handleSave}
-          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#1f304d] transition-colors"
+          className="w-full h-[56px] rounded-[16px] bg-[#2B2437] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#3D334E] transition-colors"
         >
           सेव करें
         </button>

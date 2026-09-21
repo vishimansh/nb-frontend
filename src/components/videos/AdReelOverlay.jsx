@@ -87,7 +87,7 @@ export default function AdReelOverlay({
           type="button"
           onClick={handleCtaClick}
           aria-label="और जानें"
-          className="p-[12px] bg-[#18253B] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#22334D] transition-all w-fit"
+          className="p-[12px] bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
         >
           <span className="text-[16px] font-medium text-white tracking-wide leading-none">
             और जानें

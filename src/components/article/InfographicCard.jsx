@@ -1,4 +1,5 @@
 import React from "react";
+import { LampOn } from "iconsax-react";
 import pt1Illustration from "../../assets/illustrations/infographic_pt1.png";
 import pt2Illustration from "../../assets/illustrations/infographic_pt2.png";
 import pt3Illustration from "../../assets/illustrations/infographic_pt3.png";
@@ -57,7 +58,7 @@ export default function InfographicCard({
       <div className="flex items-center justify-between gap-2 mb-5">
         <div className="flex items-center gap-2.5 min-w-0">
           <span className="w-1.5 h-6 bg-[#C86414] rounded-full shrink-0" />
-          <h3 className="text-[22px] font-bold text-[#18253B] leading-none tracking-tight">
+          <h3 className="text-[22px] font-bold text-[#2B2437] leading-none tracking-tight">
             {resolvedTitle}
           </h3>
         </div>
@@ -93,7 +94,7 @@ export default function InfographicCard({
                     </div>
 
                     {/* Point Title */}
-                    <h4 className="text-[16px] font-bold text-[#18253B] leading-snug">
+                    <h4 className="text-[16px] font-bold text-[#2B2437] leading-snug">
                       {pt.title}
                     </h4>
                   </div>
@@ -126,14 +127,7 @@ export default function InfographicCard({
         <div className="bg-[#FDF6ED] border border-[#FCECD8] rounded-[16px] p-3.5 mt-5 flex items-center gap-3">
           {/* Bulb Icon + Heading */}
           <div className="flex items-center gap-1.5 shrink-0">
-            {/* Custom Lightbulb Icon */}
-            <svg
-              className="w-5 h-5 text-[#B45309] shrink-0"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7zm-2 18h4v1c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-1zm2-16c2.76 0 5 2.24 5 5 0 1.63-.8 3.06-2.02 3.94l-.98.71V16H10v-2.35l-.98-.71C7.8 12.06 7 10.63 7 9c0-2.76 2.24-5 5-5z" />
-            </svg>
+            <LampOn size={20} color="#B45309" variant="Bold" className="shrink-0" />
             <span className="text-[15px] font-bold text-[#B45309] leading-none">
               {resolvedBigPicture.heading || resolvedBigPicture.title || "बड़ी तस्वीर"}
             </span>

@@ -10,7 +10,7 @@ export default function StateEmptyState({ onSelectStateClick }) {
       </div>
 
       {/* Headline */}
-      <h2 className="text-[17px] font-bold text-[#18253B] text-center">
+      <h2 className="text-[17px] font-bold text-[#2B2437] text-center">
         आपने कोई राज्य नहीं चुना है
       </h2>
 
@@ -23,7 +23,7 @@ export default function StateEmptyState({ onSelectStateClick }) {
       <button
         type="button"
         onClick={onSelectStateClick}
-        className="h-12 px-6 rounded-[16px] bg-[#18253B] text-white font-bold text-[14px] shadow-md active:scale-95 hover:bg-[#22334D] transition-all cursor-pointer"
+        className="h-12 px-6 rounded-[16px] bg-[#2B2437] text-white font-bold text-[14px] shadow-md active:scale-95 hover:bg-[#3D334E] transition-all cursor-pointer"
       >
         राज्य चुनें
       </button>

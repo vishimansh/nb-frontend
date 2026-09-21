@@ -6,7 +6,6 @@ import {
   Whatsapp,
   VolumeHigh,
   VolumeCross,
-  Location,
   TrendUp,
   Book,
   Messages2,
@@ -15,6 +14,7 @@ import {
   Award,
   Coffee,
   ExportSquare,
+  Flash,
 } from 'iconsax-react';
 import { useVideo } from '../../context/VideoContext';
 
@@ -284,8 +284,19 @@ export default function PodcastCard({
         onClick={(e) => e.stopPropagation()}
         className="absolute bottom-[48px] left-[16px] right-20 z-30 flex flex-col gap-[16px] pointer-events-auto text-left"
       >
-        {/* Tag Row: Genre Pill + Trending + Location */}
+        {/* Tag Row: Trending + Genre Pill */}
         <div className="flex items-center gap-2.5 flex-wrap">
+          {/* Trending Tag: circular badge matching genre pill height (32px) */}
+          {podcast.isTrending && (
+            <div
+              className="w-8 h-8 rounded-full bg-[#C05621] flex items-center justify-center text-white shrink-0 shadow-md"
+              title="ट्रेंडिंग"
+              aria-label="ट्रेंडिंग"
+            >
+              <Flash size={18} color="#FFFFFF" variant="Bold" />
+            </div>
+          )}
+
           {/* Genre Badge Pill: 6px padding all sides, 6px gap, hug content, icon inside 20x20px circle, 16px medium label */}
           <div className="bg-white rounded-full p-[6px] flex items-center gap-[6px] shadow-md w-fit shrink-0">
             <div
@@ -301,34 +312,6 @@ export default function PodcastCard({
               {podcast.genre?.label}
             </span>
           </div>
-
-          {/* Trending Tag Pill: icon 16px and text 16px medium */}
-          {podcast.isTrending && (
-            <div className="flex items-center gap-1 text-[#FF6B6B] drop-shadow">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="shrink-0"
-              >
-                <path d="M12 2c-.3 1.8-1.5 3.5-3 4.5-2 1.3-3.5 3.5-3.5 6 0 4.1 3.4 7.5 7.5 7.5s7.5-3.4 7.5-7.5c0-3.3-2.2-6.2-5-7.2.2 1.5-.4 3.1-1.6 4.1-1.5-2-1.9-5.1-1.9-7.4z" />
-              </svg>
-              <span className="text-[16px] font-medium leading-none text-[#FF6B6B]">
-                ट्रेंडिंग
-              </span>
-            </div>
-          )}
-
-          {/* Location Indicator: icon 16px and text 16px medium */}
-          {podcast.location && (
-            <div className="flex items-center gap-1 text-white/90 drop-shadow">
-              <Location size={16} color="#FFFFFF" variant="Bold" />
-              <span className="text-[16px] font-medium leading-none text-white">
-                {podcast.location}
-              </span>
-            </div>
-          )}
         </div>
 
         {/* Description & Show Name Stack: completely 16px regular matching ReelItem */}
@@ -353,7 +336,7 @@ export default function PodcastCard({
                   e.stopPropagation();
                   setIsDescriptionExpanded(true);
                 }}
-                className="text-[#E39026] font-normal cursor-pointer hover:underline ml-1 inline-block"
+                className="text-[#F5B55C] font-normal cursor-pointer hover:underline ml-1 inline-block"
               >
                 ...और पढ़ें
               </span>
@@ -386,7 +369,7 @@ export default function PodcastCard({
           type="button"
           onClick={handleTranscriptClick}
           aria-label="ट्रांसक्रिप्ट पढ़ें"
-          className="p-[12px] bg-[#18253B] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#22334D] transition-all w-fit"
+          className="p-[12px] bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
         >
           <span className="text-[16px] font-medium text-white tracking-wide leading-none">
             ट्रांसक्रिप्ट पढ़ें

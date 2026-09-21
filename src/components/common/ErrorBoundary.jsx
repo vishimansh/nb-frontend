@@ -21,7 +21,7 @@ export class ErrorBoundary extends React.Component {
           <div className="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-xl font-bold mb-3">
             ⚠️
           </div>
-          <h2 className="text-[16px] font-bold text-[#18253B]">कुछ गलत हो गया</h2>
+          <h2 className="text-[16px] font-bold text-[#2B2437]">कुछ गलत हो गया</h2>
           <p className="text-xs text-gray-500 mt-1 max-w-xs">
             {this.state.error?.message || 'अज्ञात त्रुटि'}
           </p>
@@ -30,7 +30,7 @@ export class ErrorBoundary extends React.Component {
               this.setState({ hasError: false, error: null });
               window.location.href = '/feed';
             }}
-            className="mt-4 px-4 py-2 bg-[#18253B] text-white text-xs font-semibold rounded-xl active:scale-95"
+            className="mt-4 px-4 py-2 bg-[#2B2437] text-white text-xs font-semibold rounded-xl active:scale-95"
           >
             होम स्क्रीन पर जाएं
           </button>

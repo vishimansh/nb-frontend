@@ -59,19 +59,21 @@ export default function SettingsPrivacyScreen() {
       {/* 54px Light status bar clearance */}
       <div className="h-[54px] w-full shrink-0 bg-[#F7F7F4]" />
 
-      {/* Floating Feedback Toast */}
+      {/* Floating Feedback Toast: Centered vertically and horizontally */}
       <AnimatePresence>
         {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-[#18253B] text-white text-[13px] font-bold px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10"
-          >
-            <TickCircle size={17} color="#E39026" variant="Bold" />
-            <span className="leading-normal">{toastMessage}</span>
-          </motion.div>
+          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="bg-[#2B2437] text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10 pointer-events-auto"
+            >
+              <TickCircle size={17} color="#F5B55C" variant="Bold" />
+              <span className="leading-normal">{toastMessage}</span>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
@@ -80,7 +82,7 @@ export default function SettingsPrivacyScreen() {
         <BackButton onClick={handleBack} ariaLabel="वापस जाएं" />
 
         {/* Page Title (Corrected from Figma bug) */}
-        <h1 className="text-[18px] font-bold text-[#18253B] tracking-tight text-center flex-1 pr-[46px] leading-normal">
+        <h1 className="text-[18px] font-bold text-[#2B2437] tracking-tight text-center flex-1 pr-[46px] leading-normal">
           सेटिंग्स और प्राइवेसी
         </h1>
       </header>
@@ -91,10 +93,10 @@ export default function SettingsPrivacyScreen() {
         <div className="mx-4 mt-4 bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm p-4">
           {/* Section Header */}
           <div className="flex items-center gap-2 mb-3.5">
-            <div className="w-7 h-7 rounded-[8px] bg-[#FFF9EE] border border-[#F7C873] flex items-center justify-center text-[#E39026] shrink-0">
-              <Monitor size={16} color="#E39026" variant="Bold" />
+            <div className="w-7 h-7 rounded-[8px] bg-[#FFF9EE] border border-[#F5B55C] flex items-center justify-center text-[#F5B55C] shrink-0">
+              <Monitor size={16} color="#F5B55C" variant="Bold" />
             </div>
-            <h2 className="text-[16px] font-bold text-[#18253B] leading-snug">डिसप्ले सेटिंग्स</h2>
+            <h2 className="text-[16px] font-bold text-[#2B2437] leading-snug">डिसप्ले सेटिंग्स</h2>
           </div>
 
           {/* Inner Stack */}
@@ -106,12 +108,12 @@ export default function SettingsPrivacyScreen() {
             >
               <div className="flex items-center">
                 {/* Dark Navy Icon Box */}
-                <div className="w-10 h-10 rounded-xl bg-[#18253B] text-white flex items-center justify-center font-bold text-[15px] mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437] text-white flex items-center justify-center font-bold text-[15px] mr-3 flex-shrink-0 shadow-2xs">
                   Aa
                 </div>
                 {/* Text Block */}
                 <div className="flex flex-col">
-                  <span className="text-[14px] font-bold text-[#18253B] leading-snug">फ़ॉन्ट साइज़</span>
+                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug">फ़ॉन्ट साइज़</span>
                   <span className="text-[11px] text-[#6B7280] leading-tight">खबरों का टेक्स्ट आकार बदलें</span>
                 </div>
               </div>
@@ -130,10 +132,10 @@ export default function SettingsPrivacyScreen() {
             >
               <div className="flex items-center">
                 {/* Dark Navy Icon Box */}
-                <div className="w-10 h-10 rounded-xl bg-[#18253B] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <Sun1 size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-bold text-[#18253B] leading-snug">ऐप मोड</span>
+                <span className="text-[14px] font-bold text-[#2B2437] leading-snug">ऐप मोड</span>
               </div>
 
               {/* Right Segmented Switcher */}
@@ -142,12 +144,12 @@ export default function SettingsPrivacyScreen() {
                 <div
                   className={`text-[11px] font-bold px-3 py-1 rounded-full relative flex items-center gap-1.5 transition-colors ${
                     selectedAppMode === 'system'
-                      ? 'bg-[#18253B] text-white shadow-xs'
+                      ? 'bg-[#2B2437] text-white shadow-xs'
                       : 'text-[#6B7280]'
                   }`}
                 >
                   {selectedAppMode === 'system' && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#E39026] shrink-0" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
                   )}
                   <span className="leading-tight">सिस्टम</span>
                 </div>
@@ -156,7 +158,7 @@ export default function SettingsPrivacyScreen() {
                 <div
                   className={`text-[11px] font-medium px-2 py-1 leading-tight ${
                     selectedAppMode === 'light'
-                      ? 'bg-[#18253B] text-white rounded-full'
+                      ? 'bg-[#2B2437] text-white rounded-full'
                       : 'text-[#6B7280]'
                   }`}
                 >
@@ -170,7 +172,7 @@ export default function SettingsPrivacyScreen() {
                 <div
                   className={`text-[11px] font-medium px-2 py-1 leading-tight ${
                     selectedAppMode === 'dark'
-                      ? 'bg-[#18253B] text-white rounded-full'
+                      ? 'bg-[#2B2437] text-white rounded-full'
                       : 'text-[#6B7280]'
                   }`}
                 >
@@ -185,10 +187,10 @@ export default function SettingsPrivacyScreen() {
         <div className="mx-4 mt-4 bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm p-4">
           {/* Section Header */}
           <div className="flex items-center gap-2 mb-3.5">
-            <div className="w-7 h-7 rounded-[8px] bg-[#FFF9EE] border border-[#F7C873] flex items-center justify-center text-[#E39026] shrink-0">
-              <ShieldSecurity size={16} color="#E39026" variant="Bold" />
+            <div className="w-7 h-7 rounded-[8px] bg-[#FFF9EE] border border-[#F5B55C] flex items-center justify-center text-[#F5B55C] shrink-0">
+              <ShieldSecurity size={16} color="#F5B55C" variant="Bold" />
             </div>
-            <h2 className="text-[16px] font-bold text-[#18253B] leading-snug">गोपनीयता और नियम</h2>
+            <h2 className="text-[16px] font-bold text-[#2B2437] leading-snug">गोपनीयता और नियम</h2>
           </div>
 
           {/* Inner Stack */}
@@ -196,11 +198,11 @@ export default function SettingsPrivacyScreen() {
             {/* 1. Personalized Ads Tile (Interactive Toggle) */}
             <div className="h-[64px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between">
               <div className="flex items-center flex-1 mr-3">
-                <div className="w-10 h-10 rounded-xl bg-[#18253B] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <VolumeHigh size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[14px] font-bold text-[#18253B] leading-snug">व्यक्तिगत विज्ञापन</span>
+                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug">व्यक्तिगत विज्ञापन</span>
                   <span className="text-[11px] text-[#6B7280] leading-tight">आपकी रुचि के अनुसार प्रासंगिक विज्ञापन दिखाएं</span>
                 </div>
               </div>
@@ -212,7 +214,7 @@ export default function SettingsPrivacyScreen() {
                 aria-checked={personalizedAdsEnabled}
                 onClick={() => setPersonalizedAdsEnabled((prev) => !prev)}
                 className={`w-12 h-7 rounded-full transition-colors duration-200 ease-in-out cursor-pointer p-0.5 flex items-center shrink-0 ${
-                  personalizedAdsEnabled ? 'bg-[#E39026] justify-end' : 'bg-[#D1D5DB] justify-start'
+                  personalizedAdsEnabled ? 'bg-[#2B2437] justify-end' : 'bg-[#D1D5DB] justify-start'
                 }`}
               >
                 <motion.div
@@ -229,10 +231,10 @@ export default function SettingsPrivacyScreen() {
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
             >
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#18253B] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <InfoCircle size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B] leading-none">हमारे बारे में</span>
+                <span className="text-[14px] font-semibold text-[#2B2437] leading-none">हमारे बारे में</span>
               </div>
               <ArrowRight2 size={14} color="#9CA3AF" />
             </div>
@@ -243,10 +245,10 @@ export default function SettingsPrivacyScreen() {
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
             >
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#18253B] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <Lock size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B] leading-none">प्राइवेसी पॉलिसी</span>
+                <span className="text-[14px] font-semibold text-[#2B2437] leading-none">प्राइवेसी पॉलिसी</span>
               </div>
               <ArrowRight2 size={14} color="#9CA3AF" />
             </div>
@@ -257,10 +259,10 @@ export default function SettingsPrivacyScreen() {
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
             >
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#18253B] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <DocumentText size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B] leading-none">नियम एवं शर्तें</span>
+                <span className="text-[14px] font-semibold text-[#2B2437] leading-none">नियम एवं शर्तें</span>
               </div>
               <ArrowRight2 size={14} color="#9CA3AF" />
             </div>
@@ -271,10 +273,10 @@ export default function SettingsPrivacyScreen() {
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
             >
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#18253B] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <Star1 size={18} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[14px] font-semibold text-[#18253B] leading-none">ऐप को रेट करें</span>
+                <span className="text-[14px] font-semibold text-[#2B2437] leading-none">ऐप को रेट करें</span>
               </div>
               <ArrowRight2 size={14} color="#9CA3AF" />
             </div>
@@ -335,7 +337,7 @@ export default function SettingsPrivacyScreen() {
               </div>
 
               {/* Title */}
-              <h3 className="text-[17px] font-bold text-[#18253B] leading-snug mb-2">
+              <h3 className="text-[17px] font-bold text-[#2B2437] leading-snug mb-2">
                 क्या आप वाकई खाता हटाना चाहते हैं?
               </h3>
 

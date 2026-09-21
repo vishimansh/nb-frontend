@@ -5,8 +5,8 @@ export default function NotificationSectionHeader({
   title,
   icon: Icon = DocumentText,
   badgeBg = '#FFF9EE',
-  badgeBorder = '#F7C873',
-  iconColor = '#E39026',
+  badgeBorder = '#F5B55C',
+  iconColor = '#F5B55C',
   className = '',
 }) {
   return (
@@ -20,7 +20,7 @@ export default function NotificationSectionHeader({
       </div>
 
       {/* Bold Title: 17px matching search screen */}
-      <h2 className="text-[17px] font-bold text-[#18253B] leading-none">{title}</h2>
+      <h2 className="text-[17px] font-bold text-[#2B2437] leading-none">{title}</h2>
     </div>
   );
 }

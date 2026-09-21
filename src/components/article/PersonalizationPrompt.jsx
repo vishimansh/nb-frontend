@@ -30,8 +30,8 @@ export default function PersonalizationPrompt({ onFeedback, className = "" }) {
           onClick={() => handleChoice("more")}
           className={`flex-1 py-2.5 px-6 rounded-[10px] text-[14px] font-bold transition-all active:scale-95 text-center ${
             selected === "more"
-              ? "bg-[#D9822B] text-white ring-2 ring-white/40 shadow-sm"
-              : "bg-[#D9822B] hover:bg-[#C77422] text-white shadow-xs"
+              ? "bg-[#F5B55C] text-[#2B2437] ring-2 ring-white/40 shadow-sm"
+              : "bg-[#F5B55C] hover:bg-[#FFB760] text-[#2B2437] shadow-xs"
           }`}
         >
           ज्यादा

@@ -10,7 +10,7 @@ import { useCity } from '../context/CityContext';
  * - Header with clean arrow & "इलाके चुनें — {cityName}"
  * - Subtitle: "अपनी पसंद के इलाके चुनें ताकि आपको वहां की खबरें प्राथमिकता से मिलें"
  * - Universal 2 groups with dividers: {cityName} शहर & {cityName} ग्रामीण
- * - Saffron/Amber fill bg-[#E39026] text-white with white checkmark for selected chips
+ * - Saffron/Amber fill bg-[#F5B55C] text-[#2B2437] with white checkmark for selected chips
  * - Sticky bottom navy "सेव करें" button
  */
 export default function LocalityPickerPage() {
@@ -63,7 +63,7 @@ export default function LocalityPickerPage() {
           <div className="px-4 pb-3 flex items-center gap-3 border-b border-[#E5E7EB]">
             <BackButton onClick={handleBack} ariaLabel="वापस जाएं" />
 
-            <h1 className="text-[20px] font-bold text-[#18253B] leading-none">
+            <h1 className="text-[20px] font-bold text-[#2B2437] leading-none">
               इलाके चुनें — {cityName}
             </h1>
           </div>
@@ -78,7 +78,7 @@ export default function LocalityPickerPage() {
         <div className="w-full pb-8 pt-1">
           {/* Group 1: {cityName} शहर (Urban Localities) */}
           <div className="w-full">
-            <h2 className="text-[15px] font-bold text-[#18253B] px-4 mt-4 mb-2.5">
+            <h2 className="text-[15px] font-bold text-[#2B2437] px-4 mt-4 mb-2.5">
               {cityName} शहर
             </h2>
             <div className="flex flex-wrap gap-2.5 px-4">
@@ -92,8 +92,8 @@ export default function LocalityPickerPage() {
                     onClick={() => handleToggle(zone.id)}
                     className={`h-[40px] px-4 rounded-[14px] text-[13px] font-medium flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 select-none ${
                       isSelected
-                        ? 'bg-[#E39026] text-white border border-[#E39026] shadow-sm'
-                        : 'bg-white text-[#18253B] border border-[#D1D5DB] hover:border-[#18253B]'
+                        ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm'
+                        : 'bg-white text-[#2B2437] border border-[#D1D5DB] hover:border-[#2B2437]'
                     }`}
                   >
                     {isSelected && <TickCircle size={14} color="#FFFFFF" variant="Bold" />}
@@ -109,7 +109,7 @@ export default function LocalityPickerPage() {
 
           {/* Group 2: {cityName} ग्रामीण (Rural Localities) */}
           <div className="w-full">
-            <h2 className="text-[15px] font-bold text-[#18253B] px-4 mb-2.5">
+            <h2 className="text-[15px] font-bold text-[#2B2437] px-4 mb-2.5">
               {cityName} ग्रामीण
             </h2>
             <div className="flex flex-wrap gap-2.5 px-4">
@@ -123,8 +123,8 @@ export default function LocalityPickerPage() {
                     onClick={() => handleToggle(zone.id)}
                     className={`h-[40px] px-4 rounded-[14px] text-[13px] font-medium flex items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 select-none ${
                       isSelected
-                        ? 'bg-[#E39026] text-white border border-[#E39026] shadow-sm'
-                        : 'bg-white text-[#18253B] border border-[#D1D5DB] hover:border-[#18253B]'
+                        ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm'
+                        : 'bg-white text-[#2B2437] border border-[#D1D5DB] hover:border-[#2B2437]'
                     }`}
                   >
                     {isSelected && <TickCircle size={14} color="#FFFFFF" variant="Bold" />}
@@ -145,7 +145,7 @@ export default function LocalityPickerPage() {
         <button
           type="button"
           onClick={handleSave}
-          className="h-[56px] w-full rounded-[16px] bg-[#18253B] text-white font-medium text-[20px] shadow-md active:scale-[0.99] hover:bg-[#22334D] transition-all flex items-center justify-center cursor-pointer"
+          className="h-[56px] w-full rounded-[16px] bg-[#2B2437] text-white font-medium text-[20px] shadow-md active:scale-[0.99] hover:bg-[#3D334E] transition-all flex items-center justify-center cursor-pointer"
         >
           सेव करें
         </button>

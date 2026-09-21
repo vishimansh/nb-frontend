@@ -29,7 +29,7 @@ export default function NotificationsFeedPage() {
       {/* 1. Fixed Header with 54px Status Bar Clearance */}
       <div className="px-4 py-3 bg-[#F7F7F4] flex items-center justify-between border-b border-[#E5E7EB] sticky top-0 z-30 pt-[54px]">
         <BackButton ariaLabel="वापस जाएं" />
-        <h1 className="text-[18px] font-bold text-[#18253B] text-center flex-1 pr-[46px]">
+        <h1 className="text-[18px] font-bold text-[#2B2437] text-center flex-1 pr-[46px]">
           नोटिफिकेशन
         </h1>
       </div>
@@ -61,8 +61,8 @@ export default function NotificationsFeedPage() {
               title="आज की सूचनाएं"
               icon={DocumentText}
               badgeBg="#FFF9EE"
-              badgeBorder="#F7C873"
-              iconColor="#E39026"
+              badgeBorder="#F5B55C"
+              iconColor="#F5B55C"
             />
             <div className="w-full flex flex-col items-center space-y-2">
               {today.map((item) => (
@@ -80,7 +80,7 @@ export default function NotificationsFeedPage() {
               icon={DocumentText}
               badgeBg="#EEF2F6"
               badgeBorder="#CBD5E1"
-              iconColor="#18253B"
+              iconColor="#2B2437"
             />
             <div className="w-full flex flex-col items-center space-y-2">
               {thisWeek.map((item) => (

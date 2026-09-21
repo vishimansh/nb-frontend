@@ -77,7 +77,7 @@ const DEFAULT_ADS = [
  * 5. Le Rendez-Vous Bhopal: French Indian Art Festival
  * 6. PawSaath: Bhopal's Biggest Ever Food Drive
  */
-export default function NativeFeedAd({ ad, className = "" }) {
+export default function NativeFeedAd({ ad, className = "", onClick }) {
   const adId = ad?.id;
   const adInfo = AD_CARDS[adId] || {
     image: ad?.imageKey && AD_CARDS[`ad-${ad.imageKey}`]
@@ -89,8 +89,10 @@ export default function NativeFeedAd({ ad, className = "" }) {
 
   const adImage = adInfo.image || DEFAULT_ADS[0];
 
-  const handleClick = () => {
-    alert(`${adInfo.brand}: अधिक जानकारी के लिए टैप किया गया`);
+  const handleClick = (e) => {
+    if (onClick) {
+      onClick(adInfo, e);
+    }
   };
 
   return (

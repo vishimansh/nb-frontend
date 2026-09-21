@@ -135,19 +135,21 @@ export default function VideosPage() {
 
   return (
     <div className="w-full h-full relative overflow-hidden bg-black select-none flex flex-col font-sans">
-      {/* Toast Notification */}
+      {/* Toast Notification: Centered vertically and horizontally */}
       <AnimatePresence>
         {toastMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="fixed top-24 left-1/2 -translate-x-1/2 z-50 pointer-events-none bg-[#18253B]/95 text-white text-[13px] font-bold px-4 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/15 backdrop-blur-md"
-          >
-            <TickCircle size={17} color="#E39026" variant="Bold" />
-            <span className="leading-none">{toastMessage}</span>
-          </motion.div>
+          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="bg-[#2B2437]/95 text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/15 backdrop-blur-md pointer-events-auto"
+            >
+              <TickCircle size={17} color="#F5B55C" variant="Bold" />
+              <span className="leading-none">{toastMessage}</span>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
@@ -164,10 +166,10 @@ export default function VideosPage() {
             type="button"
             onClick={() => switchMediaMode('video')}
             aria-label="वीडियो मोड"
-            className={`px-3.5 py-1 rounded-full text-[13px] font-bold transition-all duration-200 cursor-pointer ${
+            className={`px-[18px] py-1.5 rounded-full text-[16px] font-semibold transition-all duration-200 cursor-pointer ${
               mediaMode === 'video'
-                ? 'bg-white text-[#18253B] shadow-sm'
-                : 'text-white/80 hover:text-white font-medium'
+                ? 'bg-white text-[#2B2437] shadow-sm'
+                : 'text-white/80 hover:text-white'
             }`}
           >
             वीडियो
@@ -176,18 +178,18 @@ export default function VideosPage() {
             type="button"
             onClick={() => switchMediaMode('podcast')}
             aria-label="पॉडकास्ट मोड"
-            className={`px-3.5 py-1 rounded-full text-[13px] font-bold transition-all duration-200 cursor-pointer ${
+            className={`px-[18px] py-1.5 rounded-full text-[16px] font-semibold transition-all duration-200 cursor-pointer ${
               mediaMode === 'podcast'
-                ? 'bg-white text-[#18253B] shadow-sm'
-                : 'text-white/80 hover:text-white font-medium'
+                ? 'bg-white text-[#2B2437] shadow-sm'
+                : 'text-white/80 hover:text-white'
             }`}
           >
             पॉडकास्ट
           </button>
         </div>
 
-        {/* Right Action: Empty balanced spacer to ensure symmetry */}
-        <div className="w-8 h-8 shrink-0 pointer-events-none" />
+        {/* Right Action: Empty balanced spacer to ensure symmetry with BackButton */}
+        <div className="w-[46px] h-[46px] shrink-0 pointer-events-none" />
       </div>
 
       {/* Vertical Snap-Scroll Feed Container (Full-Bleed 100% viewport) */}

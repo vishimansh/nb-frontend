@@ -57,7 +57,17 @@ export default function App() {
                   <Route path="/state" element={<StatePage />} />
                   <Route path="/edit/select-state" element={<EditStateSelectionPage />} />
                   <Route path="/edit/select-city" element={<EditCitySelectionPage />} />
-                  <Route path="/menu" element={<MenuScreen />} />
+                  <Route
+                    path="/menu"
+                    element={
+                      <div className="w-full h-full relative overflow-hidden bg-[#2B2437]">
+                        <div className="absolute inset-0 pointer-events-none select-none filter brightness-[0.88]" aria-hidden="true">
+                          <HomePage />
+                        </div>
+                        <MenuScreen />
+                      </div>
+                    }
+                  />
                   <Route path="/menu/categories" element={<CategorySelectionScreen />} />
                   <Route path="/profile" element={<ProfileScreen />} />
                   <Route path="/epaper" element={<EPaperPage />} />

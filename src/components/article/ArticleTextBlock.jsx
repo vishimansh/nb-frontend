@@ -28,7 +28,7 @@ export default function ArticleTextBlock({
   return (
     <p className="text-[18px] text-[#334155] leading-[1.72] font-normal tracking-normal mb-4 last:mb-0 select-text">
       {isLead && resolvedLocation && (
-        <strong className="font-bold text-[#18253B]">
+        <strong className="font-bold text-[#2B2437]">
           {resolvedLocation}:&nbsp;
         </strong>
       )}

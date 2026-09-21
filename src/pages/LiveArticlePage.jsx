@@ -17,6 +17,7 @@ import PersonalizationPrompt from "../components/article/PersonalizationPrompt";
 import ReaderStanceCard from "../components/article/ReaderStanceCard";
 import CommentSheet from "../components/videos/CommentSheet";
 import SearchNewsCard from "../components/search/SearchNewsCard";
+import NativeFeedAd from "../components/home/NativeFeedAd";
 
 /**
  * Editorial Placement Rules:
@@ -144,6 +145,80 @@ export default function LiveArticlePage() {
     [article.bodyBlocks]
   );
 
+  // Interleaved items for "जुड़ी हुई खबरें": editorial articles, sponsored articles, and native feed AD cards
+  const interleavedRelatedItems = useMemo(() => {
+    const stories = article.relatedStories || [];
+    if (!stories.length) return [];
+
+    const sponsoredStories = [
+      {
+        id: "sp-1",
+        headline: "टाटा मोटर्स ने पेश की नई नेक्सन ईवी: 489 किमी रेंज और अल्ट्रा-फास्ट चार्जिंग का नया मानक",
+        category: { id: "auto", label: "ऑटो", color: "#596776" },
+        location: "ऑटो",
+        thumbnail: "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=400&auto=format&fit=crop&q=80",
+        timestamp: "प्रायोजित",
+        readTimeMinutes: 2,
+        isSponsored: true,
+      },
+      {
+        id: "sp-2",
+        headline: "एसबीआई का नया डिजिटल होम लोन समाधान: न्यूनतम ब्याज दर और तत्काल सैद्धांतिक मंजूरी",
+        category: { id: "business", label: "बिज़नेस", color: "#497877" },
+        location: "बैंकिंग",
+        thumbnail: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&auto=format&fit=crop&q=80",
+        timestamp: "प्रायोजित",
+        readTimeMinutes: 3,
+        isSponsored: true,
+      },
+    ];
+
+    const feedAdBanners = [
+      {
+        id: "feed-ad-concert",
+        ad: { id: "ad-concert" },
+        brand: "terra × SCENE",
+      },
+      {
+        id: "feed-ad-hospital",
+        ad: { id: "ad-hospital" },
+        brand: "Bhopal Children's Hospital",
+      },
+    ];
+
+    const items = [];
+    let spIdx = 0;
+    let adIdx = 0;
+
+    stories.forEach((story, idx) => {
+      // Add regular editorial story
+      items.push({ itemType: 'story', id: story.id || `rel-${idx}`, data: story });
+
+      // After 1st editorial story: Sponsored article 1
+      if (idx === 0 && spIdx < sponsoredStories.length) {
+        items.push({ itemType: 'story', id: sponsoredStories[spIdx].id, data: sponsoredStories[spIdx] });
+        spIdx++;
+      }
+      // After 2nd editorial story: Feed AD card 1
+      else if (idx === 1 && adIdx < feedAdBanners.length) {
+        items.push({ itemType: 'feed-ad', id: feedAdBanners[adIdx].id, data: feedAdBanners[adIdx] });
+        adIdx++;
+      }
+      // After 3rd editorial story: Sponsored article 2
+      else if (idx === 2 && spIdx < sponsoredStories.length) {
+        items.push({ itemType: 'story', id: sponsoredStories[spIdx].id, data: sponsoredStories[spIdx] });
+        spIdx++;
+      }
+      // After 4th editorial story: Feed AD card 2
+      else if (idx === 3 && adIdx < feedAdBanners.length) {
+        items.push({ itemType: 'feed-ad', id: feedAdBanners[adIdx].id, data: feedAdBanners[adIdx] });
+        adIdx++;
+      }
+    });
+
+    return items;
+  }, [article.relatedStories]);
+
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
@@ -210,22 +285,24 @@ export default function LiveArticlePage() {
   };
 
   return (
-    <div className="w-full h-full bg-[#FDFDFD] text-[#18253B] font-sans antialiased relative overflow-hidden select-none flex flex-col">
+    <div className="w-full h-full bg-[#F7F7F4] text-[#2B2437] font-sans antialiased relative overflow-hidden select-none flex flex-col">
       {/* Hardware Status Bar Clearance (66px) - Uses the exact background of the article */}
-      <div className="h-[66px] w-full bg-[#FDFDFD] shrink-0 z-30" />
+      <div className="h-[66px] w-full bg-[#F7F7F4] shrink-0 z-30" />
 
-      {/* TOI-Style Navabharat Yellow Reading Progress Bar (0% to 100% width) */}
+      {/* Article Reading Completion Bar (0% to 100% width) */}
       <div className="absolute top-[66px] inset-x-0 h-[4px] bg-black/5 z-40 pointer-events-none">
         <div
-          className="h-full bg-[#E39026] transition-[width] duration-75 ease-out"
+          className="h-full bg-[#2B2437] transition-[width] duration-75 ease-out"
           style={{ width: `${readProgress}%` }}
         />
       </div>
 
-      {/* Toast Alert */}
+      {/* Toast Alert: Centered vertically and horizontally */}
       {toastMessage && (
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-[#18253B]/95 backdrop-blur-xs text-white text-[13px] font-medium px-4 py-2 rounded-full shadow-lg border border-white/10 animate-fadeIn pointer-events-none">
-          {toastMessage}
+        <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
+          <div className="bg-[#2B2437]/95 backdrop-blur-xs text-white text-[13px] font-medium px-5 py-2.5 rounded-full shadow-2xl border border-white/10 animate-fadeIn pointer-events-auto">
+            {toastMessage}
+          </div>
         </div>
       )}
 
@@ -251,15 +328,15 @@ export default function LiveArticlePage() {
         <div className="px-4 pt-[16px] max-w-[402px] mx-auto pb-10">
           {/* Row 1: [📍 भोपाल] Pill + Metadata Timestamp (12px gap below) */}
           <div className="flex items-center justify-between gap-2 mb-[12px]">
-            <div className="flex items-center gap-1.5 bg-[#18253B] text-white text-[14px] font-medium p-[8px] rounded-full shadow-2xs leading-none">
-              <Location size={16} color="#E39026" variant="Bold" />
+            <div className="flex items-center gap-1.5 bg-[#2B2437] text-white text-[14px] font-medium p-[8px] rounded-full shadow-2xs leading-none">
+              <Location size={16} color="#F5B55C" variant="Bold" />
               <span className="pr-1">{article.location || "भोपाल"}</span>
             </div>
 
             {/* Normal: "20 मिनट पहले • 3 मिनट पढ़ें" | Live: "आखिरी अपडेट: 20 मिनट पहले • 3 मिनट पढ़ें" */}
             <div className="text-[12px] font-medium flex items-center gap-1.5">
               {isLive ? (
-                <span className="text-[#D9822B]">आखिरी अपडेट: {article.lastUpdated || "20 मिनट पहले"}</span>
+                <span className="text-[#F5B55C]">आखिरी अपडेट: {article.lastUpdated || "20 मिनट पहले"}</span>
               ) : (
                 <span className="text-[#64748B]">{article.publishedAgo || article.lastUpdated || "20 मिनट पहले"}</span>
               )}
@@ -269,8 +346,8 @@ export default function LiveArticlePage() {
 
           {/* Row 2: रिपोर्ट: रोहित शर्मा • भोपाल संवाददाता (16px gap if live count bar follows, 32px gap if normal) */}
           <div className={`flex items-center text-[12px] leading-tight ${isLive ? 'mb-[16px]' : 'mb-[32px]'}`}>
-            <span className="text-[#D9822B] font-bold">रिपोर्ट:&nbsp;</span>
-            <span className="text-[#18253B] font-bold">{article.reporter?.name || "रोहित शर्मा"}</span>
+            <span className="text-[#F5B55C] font-bold">रिपोर्ट:&nbsp;</span>
+            <span className="text-[#2B2437] font-bold">{article.reporter?.name || "रोहित शर्मा"}</span>
             <span className="text-[#64748B] font-medium">&nbsp;• {article.reporter?.role || "भोपाल संवाददाता"}</span>
           </div>
 
@@ -286,7 +363,7 @@ export default function LiveArticlePage() {
 
           {/* 3. Article Headline & Subheading Typography (Headline -> Subheading: 32px) */}
           <div>
-            <h1 className="text-[28px] font-semibold text-[#18253B] leading-[1.3] tracking-tight mb-[32px]">
+            <h1 className="text-[28px] font-semibold text-[#2B2437] leading-[1.3] tracking-tight mb-[32px]">
               {article.headline || "सुप्रीम कोर्ट की सख्ती के बाद भोपाल में कार्रवाई तेज, रिहायशी इलाकों में चल रहे कारोबार पर संकट"}
             </h1>
             <p className="text-[20px] font-medium text-[#64748B] leading-[1.45]">
@@ -336,7 +413,7 @@ export default function LiveArticlePage() {
                       location={block.city || block.location || "भोपाल"}
                     />
                   ) : block.type === "heading" ? (
-                    <h2 className="text-[20px] font-semibold text-[#18253B] leading-[1.38] tracking-tight mb-3 select-text">
+                    <h2 className="text-[20px] font-semibold text-[#2B2437] leading-[1.38] tracking-tight mb-3 select-text">
                       {block.text || block.title}
                     </h2>
                   ) : block.type === "inlineImage" ? (
@@ -401,27 +478,44 @@ export default function LiveArticlePage() {
           <div className="w-full h-[1px] bg-[#E5E7EB] my-[24px]" />
 
           {/* 9. Related News Section ("जुड़ी हुई खबरें") */}
-          {article.relatedStories && article.relatedStories.length > 0 && (
+          {interleavedRelatedItems && interleavedRelatedItems.length > 0 && (
             <section className="mb-4">
-              <h3 className="text-[20px] font-bold text-[#18253B] mb-3.5 px-0.5">
+              <h3 className="text-[20px] font-bold text-[#2B2437] mb-3.5 px-0.5">
                 जुड़ी हुई खबरें
               </h3>
 
-              <div className="flex flex-col gap-2.5 items-center">
-                {article.relatedStories.map((story, idx) => (
-                  <div
-                    key={story.id || idx}
-                    onClick={() => {
-                      if (scrollRef.current) {
-                        scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
-                      }
-                      navigate(`/article/${story.id}`);
-                    }}
-                    className="cursor-pointer active:scale-[0.99] transition-transform w-full flex justify-center"
-                  >
-                    <SearchNewsCard story={story} />
-                  </div>
-                ))}
+              <div className="flex flex-col gap-3 items-center w-full">
+                {interleavedRelatedItems.map((item) => {
+                  if (item.itemType === 'feed-ad') {
+                    return (
+                      <div key={item.id} className="w-full flex justify-center my-0.5">
+                        <NativeFeedAd
+                          ad={item.data.ad}
+                          onClick={(adInfo) => {
+                            showToast(`${adInfo.brand || "विज्ञापन"}: अधिक जानकारी जल्द उपलब्ध होगी`);
+                          }}
+                          className="w-[370px] min-w-[370px] max-w-[370px]"
+                        />
+                      </div>
+                    );
+                  }
+
+                  const story = item.data;
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => {
+                        if (scrollRef.current) {
+                          scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
+                        }
+                        navigate(`/article/${story.id}`);
+                      }}
+                      className="cursor-pointer active:scale-[0.99] transition-transform w-full flex justify-center"
+                    >
+                      <SearchNewsCard story={story} />
+                    </div>
+                  );
+                })}
               </div>
             </section>
           )}
@@ -430,45 +524,21 @@ export default function LiveArticlePage() {
 
 
 
-      {/* 10. Reused Comment Sheet */}
+      {/* 10. Dynamic Comment Sheet */}
       <CommentSheet
         isOpen={isCommentsOpen}
         onClose={() => setIsCommentsOpen(false)}
-        title="भोपाल बड़ा तालाब अतिक्रमण"
-        comments={[
-          {
-            id: "c1",
-            username: "राहुल शर्मा",
-            text: "यह एक बहुत जरूरी पहल है। हमारे शहर में ऐसी सुविधाओं की काफी समय से ज़रूरत थी...",
-            timeAgo: "22 मिनट पहले",
-            likes: 18,
+        title={article.headline || "पाठकों की प्रतिक्रियाएं"}
+        comments={
+          article.readerStance?.previewComments?.map((c, i) => ({
+            id: c.id || `c-${i}`,
+            username: c.name || c.userName || "पाठक",
+            text: c.text || c.comment || "",
+            timeAgo: c.timeAgo || `${(i + 1) * 15} मिनट पहले`,
+            likes: c.likes || c.likeCount || 0,
             isLiked: false,
-          },
-          {
-            id: "c2",
-            username: "स्नेहा चौहान",
-            text: "स्थानीय प्रशासन को भी अब इस दिशा में जल्दी काम करना चाहिए। युवाओं के लिए...",
-            timeAgo: "35 मिनट पहले",
-            likes: 12,
-            isLiked: true,
-          },
-          {
-            id: "c3",
-            username: "अमित वर्मा",
-            text: "अगर यह योजना सही तरीके से लागू होती है तो हमारे शहर की तस्वीर बदल सकती है...",
-            timeAgo: "1 घंटा पहले",
-            likes: 7,
-            isLiked: false,
-          },
-          {
-            id: "c4",
-            username: "पूजा मिश्रा",
-            text: "बहुत अच्छा कदम है। उम्मीद है कि इसे ज़मीन पर भी अच्छे से लागू किया जाएगा...",
-            timeAgo: "2 घंटे पहले",
-            likes: 6,
-            isLiked: false,
-          },
-        ]}
+          })) || []
+        }
       />
     </div>
   );

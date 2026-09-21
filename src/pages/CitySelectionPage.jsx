@@ -108,18 +108,21 @@ export default function CitySelectionPage() {
 
   return (
     <div className="w-full h-full bg-[#F7F7F4] flex flex-col pt-[50px] relative overflow-hidden select-none">
-      {/* Toast Alert */}
+      {/* Toast Alert: Centered vertically and horizontally */}
       <AnimatePresence>
         {alertMessage && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#18253B] text-white text-[12px] px-4 py-2 rounded-full shadow-lg flex items-center gap-2 border border-white/10"
-          >
-            <span>ℹ️</span>
-            <span className="font-medium">{alertMessage}</span>
-          </motion.div>
+          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="bg-[#2B2437] text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10 pointer-events-auto"
+            >
+              <span>ℹ️</span>
+              <span className="font-medium">{alertMessage}</span>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
@@ -127,13 +130,13 @@ export default function CitySelectionPage() {
       <div className="px-6 py-3 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F7F7F4]/90 backdrop-blur-sm z-10 shrink-0">
         <div className="flex items-center gap-2">
           <BackButton onClick={handleBack} ariaLabel="वापस जाएं" />
-          <h1 className="text-[22px] font-bold text-[#18253B] tracking-tight">
+          <h1 className="text-[22px] font-bold text-[#2B2437] tracking-tight">
             शहर चुनें
           </h1>
         </div>
 
         {/* Selected Cities Counter Pill */}
-        <span className="text-[13px] font-medium text-[#18253B]/70 bg-[#18253B]/5 px-2.5 py-1 rounded-full">
+        <span className="text-[13px] font-medium text-[#2B2437]/70 bg-[#2B2437]/5 px-2.5 py-1 rounded-full">
           {selectedCities.length} शहर चुने गए
         </span>
       </div>
@@ -149,15 +152,15 @@ export default function CitySelectionPage() {
 
       {/* Search Input Field */}
       <div className="px-6 py-2 shrink-0">
-        <div className="h-[50px] bg-white rounded-[14px] border border-[#B0B7C3] flex items-center px-4 focus-within:border-[#18253B] focus-within:ring-2 focus-within:ring-[#18253B]/10 transition-all shadow-2xs">
+        <div className="h-[50px] bg-white rounded-[14px] border border-[#B0B7C3] flex items-center px-4 focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10 transition-all shadow-2xs">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="अपना शहर खोजें"
-            className="text-[15px] font-normal text-[#18253B] placeholder:text-[#9CA3AF] bg-transparent outline-none flex-1 tracking-wide"
+            className="text-[15px] font-normal text-[#2B2437] placeholder:text-[#9CA3AF] bg-transparent outline-none flex-1 tracking-wide"
           />
-          <SearchNormal1 size={20} color="#18253B" className="shrink-0" variant="Linear" />
+          <SearchNormal1 size={20} color="#2B2437" className="shrink-0" variant="Linear" />
         </div>
       </div>
 
@@ -188,7 +191,7 @@ export default function CitySelectionPage() {
           return (
             <div key={stateId} className="mb-4">
               {/* State Header */}
-              <h2 className="text-[16px] font-bold text-[#18253B] mt-4 mb-3 tracking-tight">
+              <h2 className="text-[16px] font-bold text-[#2B2437] mt-4 mb-3 tracking-tight">
                 {stateData.stateName}
               </h2>
 
@@ -206,8 +209,8 @@ export default function CitySelectionPage() {
                       onClick={() => toggleCity(stateId, city, isSingleStateMode)}
                       className={`px-4 py-2 rounded-[16px] text-[18px] font-medium cursor-pointer transition-all active:scale-95 flex items-center gap-2 ${
                         isSelected
-                          ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm'
-                          : 'bg-white text-[#18253B] border border-[#B0B7C3] hover:border-[#18253B]'
+                          ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm'
+                          : 'bg-white text-[#2B2437] border border-[#B0B7C3] hover:border-[#2B2437]'
                       }`}
                     >
                       {isSelected && <TickCircle size={18} color="#FFFFFF" variant="Bold" />}
@@ -229,8 +232,8 @@ export default function CitySelectionPage() {
                         onClick={() => toggleCity(stateId, city, isSingleStateMode)}
                         className={`px-4 py-2 rounded-[16px] text-[18px] font-medium cursor-pointer transition-all active:scale-95 flex items-center gap-2 ${
                           isSelected
-                            ? 'bg-[#18253B] text-white border border-[#18253B] shadow-sm'
-                            : 'bg-white text-[#18253B] border border-[#B0B7C3] hover:border-[#18253B]'
+                            ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm'
+                            : 'bg-white text-[#2B2437] border border-[#B0B7C3] hover:border-[#2B2437]'
                         }`}
                       >
                         {isSelected && <TickCircle size={18} color="#FFFFFF" variant="Bold" />}
@@ -244,7 +247,7 @@ export default function CitySelectionPage() {
                   <button
                     type="button"
                     onClick={() => toggleExpand(stateId)}
-                    className="px-4 py-2 rounded-[16px] bg-[#F7C873] text-[#18253B] text-[18px] font-semibold cursor-pointer shadow-xs active:scale-95 hover:brightness-95 transition-all flex items-center gap-1"
+                    className="px-4 py-2 rounded-[16px] bg-[#F5B55C] text-[#2B2437] text-[18px] font-semibold cursor-pointer shadow-xs active:scale-95 hover:brightness-95 transition-all flex items-center gap-1"
                   >
                     <span>और +</span>
                   </button>
@@ -255,7 +258,7 @@ export default function CitySelectionPage() {
                   <button
                     type="button"
                     onClick={() => toggleExpand(stateId)}
-                    className="h-[42px] px-4 rounded-[14px] bg-[#E5E7EB] text-[#18253B] text-[15px] font-medium cursor-pointer active:scale-95 hover:bg-gray-300 transition-all"
+                    className="h-[42px] px-4 rounded-[14px] bg-[#E5E7EB] text-[#2B2437] text-[15px] font-medium cursor-pointer active:scale-95 hover:bg-gray-300 transition-all"
                   >
                     कम -
                   </button>
@@ -276,7 +279,7 @@ export default function CitySelectionPage() {
         <button
           type="button"
           onClick={handleSave}
-          className="w-full h-[56px] rounded-[16px] bg-[#18253B] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#1f304d] transition-colors"
+          className="w-full h-[56px] rounded-[16px] bg-[#2B2437] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#3D334E] transition-colors"
         >
           सेव करें
         </button>

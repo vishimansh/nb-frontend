@@ -5,7 +5,7 @@ import React from 'react';
  * Key highlights card replicating the exact Figma export.
  * Features:
  * - Linear gradient from bottom-left pale peach (#FFF4E3) to top-right ice-blue (#E8F0FC)
- * - 24px extrabold headline in #18253B
+ * - 24px extrabold headline in #2B2437
  * - Sparkle subtitle in #64748B + amber ✦
  * - Subtle hairline divider
  * - 22px bold amber (#D9822B) tabular numbers (01 to 05)
@@ -36,13 +36,13 @@ export default function AISummaryCard({ points = [], aiSummary, className = "" }
   return (
     <div className={`rounded-[24px] bg-gradient-to-tr from-[#FFF4E3] via-[#F8FAFD] to-[#E8F0FC] border border-[#E4E9F2] p-6 shadow-xs select-none ${className}`}>
       {/* 1. Header: अब तक की मुख्य बातें */}
-      <h2 className="text-[24px] font-extrabold text-[#18253B] leading-tight tracking-tight">
+      <h2 className="text-[24px] font-extrabold text-[#2B2437] leading-tight tracking-tight">
         अब तक की मुख्य बातें
       </h2>
 
       {/* 2. Subtitle: ✦ AI सारांश • नवभारत द्वारा समीक्षित */}
       <div className="text-[12px] font-medium text-[#64748B] flex items-center gap-1.5 mt-1.5 mb-4">
-        <span className="text-[#D9822B] text-[13px] leading-none">✦</span>
+        <span className="text-[#F5B55C] text-[13px] leading-none">✦</span>
         <span>AI सारांश • नवभारत द्वारा समीक्षित</span>
       </div>
 
@@ -55,7 +55,7 @@ export default function AISummaryCard({ points = [], aiSummary, className = "" }
           const num = String(index + 1).padStart(2, '0');
           return (
             <div key={index} className="flex items-start gap-[10px]">
-              <span className="text-[22px] font-bold text-[#D9822B] shrink-0 font-sans tracking-tight leading-none pt-0.5 tabular-nums">
+              <span className="text-[22px] font-bold text-[#F5B55C] shrink-0 font-sans tracking-tight leading-none pt-0.5 tabular-nums">
                 {num}
               </span>
               <p className="text-[16px] font-medium text-[#334155] leading-[1.45] tracking-normal">
