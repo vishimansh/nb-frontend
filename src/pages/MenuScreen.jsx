@@ -312,7 +312,7 @@ export default function MenuScreen() {
                       <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
                         {IconComp && <IconComp size={18} color="#FFFFFF" variant="Bold" />}
                       </div>
-                      <span className="text-[14px] font-bold text-[#2B2437] truncate">
+                      <span className="text-[14px] font-semibold text-[#2B2437] truncate">
                         {meta.label}
                       </span>
                     </div>
@@ -343,7 +343,7 @@ export default function MenuScreen() {
                     <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
                       {IconComp && <IconComp size={18} color="#FFFFFF" variant="Bold" />}
                     </div>
-                    <span className="text-[14px] font-bold text-[#2B2437] truncate">
+                    <span className="text-[14px] font-semibold text-[#2B2437] truncate">
                       {meta.label}
                     </span>
                   </div>
