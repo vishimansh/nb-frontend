@@ -39,9 +39,35 @@ export default function StatePage() {
     navigate('/edit/select-state');
   };
 
-  const activeStateObj = selectedStates.find((s) => s.id === activeStateId);
+  const activeStateObj = selectedStates.find((s) => s.id === activeStateId) || selectedStates[0];
   const activeStateName = activeStateObj?.name || 'राज्य';
-  const filteredArticles = stateNewsData.articles.filter((a) => a.stateId === activeStateId);
+  const effectiveStateId = activeStateObj?.id || 'mp';
+  let filteredArticles = stateNewsData.articles.filter((a) => a.stateId === effectiveStateId);
+
+  if (filteredArticles.length === 0) {
+    filteredArticles = [
+      {
+        id: `state-gen-${effectiveStateId}-1`,
+        stateId: effectiveStateId,
+        category: 'विकास',
+        categoryColor: '#16A34A',
+        title: `${activeStateName} में आगामी वित्तीय वर्ष के लिए बजट प्राथमिकताओं पर कैबिनेट की अहम बैठक संपन्न`,
+        publishedAt: '30 मिनट पहले',
+        readTime: '3 मिनट पढ़ें',
+        imageUrl: 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80',
+      },
+      {
+        id: `state-gen-${effectiveStateId}-2`,
+        stateId: effectiveStateId,
+        category: 'प्रशासन',
+        categoryColor: '#B6783A',
+        title: `${activeStateName} में सुशासन और जन कल्याणकारी योजनाओं की जमीनी समीक्षा के लिए जिलाधिकारियों को निर्देश`,
+        publishedAt: '1 घंटा पहले',
+        readTime: '2 मिनट पढ़ें',
+        imageUrl: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=400&q=80',
+      },
+    ];
+  }
 
   return (
     <div className="w-full h-full bg-[#F7F7F4] flex flex-col relative overflow-hidden select-none">

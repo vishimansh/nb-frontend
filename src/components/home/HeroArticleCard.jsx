@@ -112,6 +112,14 @@ export default function HeroArticleCard({ story }) {
                 onClose={() => setIsMenuOpen(false)}
                 articleId={story?.id}
                 headline={story?.title}
+                articleData={{
+                  id: story?.id || story?.title,
+                  headline: story?.title,
+                  thumbnail: imageSrc,
+                  category: story?.category || 'देश',
+                  publishedAgo: story?.publishedAt || '5 मिनट पहले',
+                  readTime: story?.readTime || '2 मिनट पढ़ें',
+                }}
               />
             </div>
           </div>

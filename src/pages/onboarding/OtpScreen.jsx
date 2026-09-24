@@ -12,13 +12,24 @@ import { useOnboarding } from '../../context/OnboardingContext';
  */
 export default function OtpScreen() {
   const navigate = useNavigate();
-  const { phoneNumber } = useOnboarding();
+  const { phoneNumber, setUserProfile } = useOnboarding();
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timer, setTimer] = useState(30);
   const inputRefs = useRef([]);
 
-  const displayPhone = phoneNumber || '+91 9876543210';
+  const displayPhone = phoneNumber || '+91 98XXXXXXXX';
+
+  const completeVerification = () => {
+    if (setUserProfile && phoneNumber) {
+      setUserProfile((prev) => ({
+        ...prev,
+        phone: phoneNumber,
+        isPhoneVerified: true,
+      }));
+    }
+    navigate('/onboarding/select-state');
+  };
 
   useEffect(() => {
     if (inputRefs.current[0]) {
@@ -54,7 +65,7 @@ export default function OtpScreen() {
     // Auto-verify when 6 digits filled
     if (char && index === 5 && newOtp.every((d) => d !== '')) {
       setTimeout(() => {
-        navigate('/onboarding/select-state');
+        completeVerification();
       }, 300);
     }
   };
@@ -85,7 +96,7 @@ export default function OtpScreen() {
     if (pastedData.length === 6) {
       inputRefs.current[5]?.focus();
       setTimeout(() => {
-        navigate('/onboarding/select-state');
+        completeVerification();
       }, 300);
     } else {
       inputRefs.current[Math.min(pastedData.length, 5)]?.focus();
@@ -104,7 +115,7 @@ export default function OtpScreen() {
 
   const handleVerify = () => {
     if (isComplete) {
-      navigate('/onboarding/select-state');
+      completeVerification();
     }
   };
 

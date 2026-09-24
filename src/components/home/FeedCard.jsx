@@ -25,14 +25,14 @@ export const CATEGORY_PALETTES = {
   entertainment: { label: 'मनोरंजन', color: '#805D76', icon: VideoPlay },
   sports: { label: 'खेल', color: '#557E63', icon: Activity },
   business: { label: 'बिज़नेस', color: '#497877', icon: TrendUp },
-  tech: { label: 'टेक्नोलॉजी', color: '#5B69A3', icon: Cpu },
-  education: { label: 'शिक्षा', color: '#5B6D8A', icon: Teacher },
+  tech: { label: 'टेक्नोलॉजी', color: '#2B2437', icon: Cpu },
+  education: { label: 'शिक्षा', color: '#2B2437', icon: Teacher },
   astro: { label: 'ज्योतिष', color: '#71668C', icon: Moon },
   health: { label: 'स्वास्थ्य', color: '#B3746E', icon: Heart },
   lifestyle: { label: 'लाइफस्टाइल', color: '#77856E', icon: Tree },
   auto: { label: 'ऑटो', color: '#596776', icon: Car },
   city: { label: 'शहर', color: '#F5B55C', icon: Location },
-  state: { label: 'राज्य', color: '#0284C7', icon: Buildings },
+  state: { label: 'राज्य', color: '#2B2437', icon: Buildings },
   country: { label: 'देश', color: '#2B2437', icon: DocumentText },
   'top-news': { label: 'टॉप न्यूज़', color: '#F5B55C', icon: DocumentText },
   'top_news': { label: 'टॉप न्यूज़', color: '#F5B55C', icon: DocumentText },
@@ -174,12 +174,13 @@ export default function FeedCard({
       ? 'bg-[#FEDAD6] border border-[#F8B4AF]'
       : 'bg-white';
   const defaultRoundedClass = className.includes('rounded-') ? '' : 'rounded-[8px]';
-  const defaultPaddingClass = className.includes('p-') || className.includes('px-') || className.includes('py-') ? '' : 'p-2';
+  const defaultPaddingClass = className.includes('p-') || className.includes('px-') || className.includes('py-') ? '' : 'px-2 py-1.5';
+  const defaultMinHeightClass = className.includes('min-h-') || className.includes('h-') ? '' : 'min-h-[108px]';
 
   return (
     <article
       onClick={handleCardClick}
-      className={`${defaultWidthClass} min-h-[120px] ${defaultBgClass} ${defaultPaddingClass} flex flex-col justify-between select-none mx-auto cursor-pointer transition-colors relative ${defaultRoundedClass} ${isMenuOpen ? 'z-30 overflow-visible' : 'overflow-visible'} ${className}`}
+      className={`${defaultWidthClass} ${defaultMinHeightClass} ${defaultBgClass} ${defaultPaddingClass} flex flex-col justify-between select-none mx-auto cursor-pointer transition-colors relative ${defaultRoundedClass} ${isMenuOpen ? 'z-30 overflow-visible' : 'overflow-visible'} ${className}`}
     >
       {/* Top Section: Left Text Column + Right Thumbnail */}
       <div className="flex items-start justify-between w-full min-h-[69px] gap-2">
@@ -233,7 +234,7 @@ export default function FeedCard({
 
           {/* Headline: 14px medium with protective leading and pt-[1px] for Hindi matras */}
           <h3
-            className="mt-[6px] pt-[1px] text-[14px] font-medium text-[#2B2437] leading-[17px] line-clamp-3 overflow-hidden text-ellipsis"
+            className="mt-[4px] pt-[1px] text-[14px] font-medium text-[#2B2437] leading-[17px] line-clamp-3 overflow-hidden text-ellipsis"
             style={{
               display: '-webkit-box',
               WebkitLineClamp: 3,
@@ -256,9 +257,9 @@ export default function FeedCard({
         </div>
       </div>
 
-      {/* 0.64px Hairline Divider: #2B2437 at 8% opacity (8px gap above and below) */}
+      {/* 0.64px Hairline Divider: #2B2437 at 8% opacity (4px gap above and below) */}
       <div
-        className="w-full my-[8px]"
+        className="w-full my-[4px]"
         style={{
           height: '0.64px',
           backgroundColor: 'rgba(24, 37, 59, 0.08)',
@@ -274,8 +275,8 @@ export default function FeedCard({
           <span>{readTime}</span>
         </div>
 
-        {/* Right Action Icons (32px gap between icons) */}
-        <div className="flex items-center gap-[32px] relative">
+        {/* Right Action Icons (24px gap between icons) */}
+        <div className="flex items-center gap-[24px] relative">
           {/* WhatsApp / Share Icon: 18px × 18px dark navy circle */}
           <button
             type="button"
@@ -302,6 +303,14 @@ export default function FeedCard({
             onClose={() => setIsMenuOpen(false)}
             articleId={id}
             headline={headline}
+            articleData={{
+              id: id || headline,
+              headline,
+              thumbnail,
+              category,
+              publishedAgo,
+              readTime,
+            }}
           />
         </div>
       </div>

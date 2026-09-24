@@ -10,21 +10,50 @@ export function OnboardingProvider({ children }) {
   const [phoneNumber, setPhoneNumber] = useState('');
 
   // 3. Selected regional states with priority order
-  // Initial default on first load: Madhya Pradesh (Priority 1)
-  const [selectedStates, setSelectedStates] = useState([
-    { id: 'mp', name: 'मध्य प्रदेश', priority: 1, landmark: 'सांची स्तूप' },
-    { id: 'rj', name: 'राजस्थान', priority: 2, landmark: 'हवा महल' },
-    { id: 'mh', name: 'महाराष्ट्र', priority: 3, landmark: 'गेटवे ऑफ इंडिया' },
-  ]);
+  const [selectedStates, setSelectedStatesState] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nb_selected_states');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {}
+    return [];
+  });
+
+  const setSelectedStates = (action) => {
+    setSelectedStatesState((prev) => {
+      const next = typeof action === 'function' ? action(prev) : action;
+      try {
+        localStorage.setItem('nb_selected_states', JSON.stringify(next));
+      } catch (e) {}
+      return next;
+    });
+  };
 
   // 4. Selected cities / districts
-  const [selectedCities, setSelectedCities] = useState([
-    { stateId: 'mp', city: 'भोपाल' },
-    { stateId: 'rj', city: 'जयपुर' },
-    { stateId: 'mh', city: 'नागपुर' },
-  ]);
+  const [selectedCities, setSelectedCitiesState] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nb_selected_cities');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {}
+    return [];
+  });
 
-  // 5. User selected categories for Menu & Home feed with localStorage persistence
+  const setSelectedCities = (action) => {
+    setSelectedCitiesState((prev) => {
+      const next = typeof action === 'function' ? action(prev) : action;
+      try {
+        localStorage.setItem('nb_selected_cities', JSON.stringify(next));
+      } catch (e) {}
+      return next;
+    });
+  };
+
+  // 5. User selected categories for Menu & Home feed with localStorage persistence (Default: 7 categories)
   const DEFAULT_CATEGORIES = [
     'politics',
     'entertainment',
@@ -33,9 +62,6 @@ export function OnboardingProvider({ children }) {
     'tech',
     'education',
     'astro',
-    'health',
-    'lifestyle',
-    'auto',
   ];
 
   const [selectedCategories, setSelectedCategoriesState] = useState(() => {
@@ -44,7 +70,7 @@ export function OnboardingProvider({ children }) {
       if (saved !== null) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
+          return parsed.length > 7 ? parsed.slice(0, 7) : parsed;
         }
       }
     } catch (e) {}
@@ -64,25 +90,39 @@ export function OnboardingProvider({ children }) {
       const saved = localStorage.getItem('nb_user_profile');
       if (saved) {
         const parsed = JSON.parse(saved);
+        // Clear mock placeholder data from previous prototypes if present
+        if (parsed.name === 'हिमांशु विश्वकर्मा' || parsed.phone === '+91 9826012345') {
+          localStorage.removeItem('nb_user_profile');
+          return {
+            name: '',
+            phone: '',
+            isPhoneVerified: false,
+            dob: '',
+            gender: '',
+            city: '',
+            email: '',
+            avatarUrl: null,
+          };
+        }
         return {
-          name: parsed.name ?? '',
-          phone: parsed.phone || '+91 3425895426',
-          isPhoneVerified: parsed.isPhoneVerified ?? true,
-          dob: parsed.dob ?? '',
-          gender: parsed.gender || 'male',
-          city: parsed.city || 'भोपाल',
-          email: parsed.email ?? '',
+          name: parsed.name || '',
+          phone: parsed.phone || '',
+          isPhoneVerified: parsed.isPhoneVerified ?? false,
+          dob: parsed.dob || '',
+          gender: parsed.gender || '',
+          city: parsed.city || '',
+          email: parsed.email || '',
           avatarUrl: parsed.avatarUrl ?? null,
         };
       }
     } catch (e) {}
     return {
       name: '',
-      phone: '+91 3425895426',
-      isPhoneVerified: true,
+      phone: '',
+      isPhoneVerified: false,
       dob: '',
-      gender: 'male',
-      city: 'भोपाल',
+      gender: '',
+      city: '',
       email: '',
       avatarUrl: null,
     };
@@ -182,8 +222,21 @@ export function OnboardingProvider({ children }) {
     }
   };
 
-  // Active state for State News Screen
-  const [activeStateId, setActiveStateId] = useState('mp');
+  // Active state for State News Screen with localStorage persistence
+  const [activeStateId, setActiveStateIdState] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nb_active_state_id');
+      if (saved) return saved;
+    } catch (e) {}
+    return selectedStates[0]?.id || 'mp';
+  });
+
+  const setActiveStateId = (id) => {
+    setActiveStateIdState(id);
+    try {
+      localStorage.setItem('nb_active_state_id', id);
+    } catch (e) {}
+  };
 
   // Atomic cascade editing drafts (null when not in edit mode)
   const [draftStates, setDraftStates] = useState(null);
@@ -306,26 +359,23 @@ export function OnboardingProvider({ children }) {
   const resetOnboarding = () => {
     setNotificationsEnabled(false);
     setPhoneNumber('');
-    setSelectedStates([
-      { id: 'mp', name: 'मध्य प्रदेश', priority: 1, landmark: 'सांची स्तूप' },
-      { id: 'rj', name: 'राजस्थान', priority: 2, landmark: 'हवा महल' },
-      { id: 'mh', name: 'महाराष्ट्र', priority: 3, landmark: 'गेटवे ऑफ इंडिया' },
-    ]);
-    setSelectedCities([
-      { stateId: 'mp', city: 'भोपाल' },
-      { stateId: 'rj', city: 'जयपुर' },
-      { stateId: 'mh', city: 'नागपुर' },
-    ]);
+    setSelectedStates([]);
+    setSelectedCities([]);
     setActiveStateId('mp');
-    setSelectedCategoriesState(['politics', 'entertainment', 'sports']);
+    setSelectedCategoriesState(DEFAULT_CATEGORIES);
     setUserProfileState({
-      name: null,
-      phone: '+91 9876543210',
+      name: '',
+      phone: '',
+      isPhoneVerified: false,
+      dob: '',
+      gender: '',
+      city: '',
+      email: '',
       avatarUrl: null,
     });
     try {
-      localStorage.removeItem('nb_selected_categories');
-      localStorage.removeItem('nb_user_profile');
+      localStorage.clear();
+      sessionStorage.clear();
     } catch (e) {}
     setDraftStates(null);
     setDraftCities(null);

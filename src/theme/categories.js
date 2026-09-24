@@ -33,7 +33,7 @@ export const NOTIFICATION_CATEGORIES = {
   tech: {
     id: 'tech',
     label: 'टेक्नोलॉजी',
-    color: '#5267A8',
+    color: '#2B2437',
     icon: Cpu,
   },
   entertainment: {
@@ -51,7 +51,7 @@ export const NOTIFICATION_CATEGORIES = {
   education: {
     id: 'education',
     label: 'शिक्षा',
-    color: '#526D8D',
+    color: '#2B2437',
     icon: Teacher,
   },
   astro: {
@@ -74,9 +74,20 @@ export const NOTIFICATION_CATEGORIES = {
   },
 };
 
+const LEGACY_CATEGORY_MAP = {
+  business_startup: 'business',
+  politics_talk: 'politics',
+  culture_stories: 'lifestyle',
+  news_analysis: 'politics',
+  health_wellness: 'health',
+  entertainment_interview: 'entertainment',
+  sports_talk: 'sports',
+};
+
 export function getCategoryMeta(categoryId) {
+  const normalizedId = LEGACY_CATEGORY_MAP[categoryId] || categoryId;
   return (
-    NOTIFICATION_CATEGORIES[categoryId] || {
+    NOTIFICATION_CATEGORIES[normalizedId] || {
       id: categoryId || 'general',
       label: 'समाचार',
       color: '#497877',
@@ -85,4 +96,6 @@ export function getCategoryMeta(categoryId) {
   );
 }
 
+export const APP_NEWS_CATEGORIES = NOTIFICATION_CATEGORIES;
+export const PODCAST_CATEGORIES = NOTIFICATION_CATEGORIES;
 export default NOTIFICATION_CATEGORIES;

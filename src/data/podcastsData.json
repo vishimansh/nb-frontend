@@ -8,10 +8,16 @@
     "hostName": "रवि शर्मा",
     "location": "भोपाल",
     "isTrending": true,
+    "category": {
+      "id": "business",
+      "label": "बिज़नेस",
+      "color": "#287A78",
+      "icon": "TrendUp"
+    },
     "genre": {
-      "id": "business_startup",
-      "label": "बिज़नेस और स्टार्टअप",
-      "color": "#059669",
+      "id": "business",
+      "label": "बिज़नेस",
+      "color": "#287A78",
       "icon": "TrendUp"
     },
     "shortDescription": "भारत की अर्थव्यवस्था, युवा और नए अवसरों पर खुली बातचीत...",
@@ -48,11 +54,17 @@
     "hostName": "मीनाक्षी जोशी",
     "location": "इंदौर",
     "isTrending": false,
+    "category": {
+      "id": "lifestyle",
+      "label": "लाइफस्टाइल",
+      "color": "#71866C",
+      "icon": "Coffee"
+    },
     "genre": {
-      "id": "culture_stories",
-      "label": "संस्कृति और कहानियां",
-      "color": "#D97706",
-      "icon": "Book"
+      "id": "lifestyle",
+      "label": "लाइफस्टाइल",
+      "color": "#71866C",
+      "icon": "Coffee"
     },
     "shortDescription": "उज्जैन और इंदौर के ऐतिहासिक मंदिरों व लोक परंपराओं की अनकही गाथाएं...",
     "fullTranscript": "मालवा की माटी की खुशबू और उसकी समृद्ध परंपराओं को समेटे इस कड़ी में हम बात करेंगे देवी अहिल्याबाई होलकर के उस ऐतिहासिक योगदान की जिसने भारतीय संस्कृति और तीर्थ स्थलों को नवजीवन दिया। कैसे एक छोटे से कस्बे से निकलकर उन्होंने पूरे देश के सांस्कृतिक मानचित्र को पुनर्परिभाषित किया...",
@@ -80,11 +92,17 @@
     "hostName": "अखिलेश श्रीवास्तव",
     "location": "रायपुर",
     "isTrending": true,
+    "category": {
+      "id": "politics",
+      "label": "राजनीति",
+      "color": "#C87528",
+      "icon": "Judge"
+    },
     "genre": {
-      "id": "politics_talk",
-      "label": "राजनीति चर्चा",
-      "color": "#8B5CF6",
-      "icon": "Messages2"
+      "id": "politics",
+      "label": "राजनीति",
+      "color": "#C87528",
+      "icon": "Judge"
     },
     "shortDescription": "आगामी विधानसभा सत्र के मुख्य एजेंडे और क्षेत्रीय समीकरणों का सटीक विश्लेषण...",
     "fullTranscript": "सत्र के पहले दिन विपक्ष की क्या रणनीति रहने वाली है और सत्ता पक्ष किन विधेयकों को प्राथमिकता के साथ पारित कराने की तैयारी में है? वरिष्ठ राजनीतिक विश्लेषक संजय पुनेठा के साथ एक तीखी और तथ्यपरक बहस...",
@@ -99,6 +117,82 @@
         "timeAgo": "4 घंटे पहले",
         "text": "राजनीतिक विश्लेषण निष्पक्ष और गहराई से भरा हुआ है।",
         "likeCount": 24,
+        "isLiked": false
+      }
+    ]
+  },
+  {
+    "id": "pod-4",
+    "audioUrl": "https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3",
+    "videoUrl": null,
+    "coverArtImage": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+    "showName": "टेक वार्ता: AI और भविष्य",
+    "hostName": "आलोक वर्मा",
+    "location": "भोपाल",
+    "isTrending": true,
+    "category": {
+      "id": "tech",
+      "label": "टेक्नोलॉजी",
+      "color": "#2B2437",
+      "icon": "Cpu"
+    },
+    "genre": {
+      "id": "tech",
+      "label": "टेक्नोलॉजी",
+      "color": "#2B2437",
+      "icon": "Cpu"
+    },
+    "shortDescription": "आर्टिफिशियल इंटेलिजेंस और डिजिटल क्रांति से बदलता भारतीय परिदृश्य...",
+    "fullTranscript": "नमस्कार, टेक वार्ता के इस अंक में हम बात करेंगे कि आर्टिफिशियल इंटेलिजेंस कैसे भारतीय उद्योगों, शिक्षा और स्वास्थ्य के क्षेत्र में क्रांतिकारी बदलाव ला रही है...",
+    "likeCount": 356,
+    "isLiked": false,
+    "commentCount": 34,
+    "durationSeconds": 1120,
+    "comments": [
+      {
+        "id": "pc-5",
+        "username": "हर्षित शर्मा",
+        "timeAgo": "2 घंटे पहले",
+        "text": "एआई पर यह चर्चा बेहद ज्ञानवर्धक रही।",
+        "likeCount": 9,
+        "isLiked": false
+      }
+    ]
+  },
+  {
+    "id": "pod-5",
+    "audioUrl": "https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3",
+    "videoUrl": null,
+    "coverArtImage": "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=800&q=80",
+    "showName": "खेल मंच: ग्राउंड रिपोर्ट",
+    "hostName": "सुनील यादव",
+    "location": "ग्वालियर",
+    "isTrending": false,
+    "category": {
+      "id": "sports",
+      "label": "खेल",
+      "color": "#557E63",
+      "icon": "Activity"
+    },
+    "genre": {
+      "id": "sports",
+      "label": "खेल",
+      "color": "#557E63",
+      "icon": "Activity"
+    },
+    "shortDescription": "टूर्नामेंट विश्लेषण, उभरते युवा खिलाड़ी और भारतीय खेलों का नया अध्याय...",
+    "fullTranscript": "मैदान से सीधी रिपोर्ट और युवा एथलीटों के संघर्ष की दास्तान। कैसे छोटे शहरों की प्रतिभाएं राष्ट्रीय और अंतरराष्ट्रीय स्तर पर भारत का परचम लहरा रही हैं...",
+    "likeCount": 512,
+    "isLiked": false,
+    "commentCount": 42,
+    "durationSeconds": 1350,
+    "comments": [
+      {
+        "id": "pc-6",
+        "username": "विकास तोमर",
+        "timeAgo": "3 घंटे पहले",
+        "text": "मध्य प्रदेश के युवा खिलाड़ियों का प्रदर्शन शानदार रहा है।",
+        "likeCount": 15,
         "isLiked": false
       }
     ]

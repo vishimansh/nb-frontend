@@ -36,7 +36,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
     { id: 'state', label: 'राज्य', icon: Buildings, isFixed: true },
   ];
 
-  // Draggable categories in user custom order
+  // Draggable categories in user custom order (default: 7 categories)
   const fallbackCategories = [
     'politics',
     'entertainment',
@@ -45,9 +45,6 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
     'tech',
     'education',
     'astro',
-    'health',
-    'lifestyle',
-    'auto',
   ];
 
   const categoryIds = (

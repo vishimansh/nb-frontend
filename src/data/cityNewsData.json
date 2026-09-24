@@ -4,52 +4,452 @@
       "id": "bhopal",
       "name": "भोपाल",
       "urbanZones": [
-        { "id": "mp_nagar", "name": "एम.पी. नगर" },
-        { "id": "arera_colony", "name": "अरेरा कॉलोनी" },
-        { "id": "new_market", "name": "न्यू मार्केट" },
-        { "id": "kolar", "name": "कोलार" },
-        { "id": "old_bhopal", "name": "पुराना भोपाल" },
-        { "id": "govindpura", "name": "गोविंदपुरा" },
-        { "id": "bairagarh", "name": "बैरागढ़" },
-        { "id": "ayodhya_nagar", "name": "अयोध्या नगर" }
+        {
+          "id": "mp_nagar",
+          "name": "एम.पी. नगर"
+        },
+        {
+          "id": "arera_colony",
+          "name": "अरेरा कॉलोनी"
+        },
+        {
+          "id": "new_market",
+          "name": "न्यू मार्केट"
+        },
+        {
+          "id": "kolar",
+          "name": "कोलार"
+        },
+        {
+          "id": "old_bhopal",
+          "name": "पुराना भोपाल"
+        },
+        {
+          "id": "govindpura",
+          "name": "गोविंदपुरा"
+        },
+        {
+          "id": "bairagarh",
+          "name": "बैरागढ़"
+        },
+        {
+          "id": "ayodhya_nagar",
+          "name": "अयोध्या नगर"
+        }
       ],
       "ruralZones": [
-        { "id": "berasia", "name": "बैरसिया" },
-        { "id": "phanda", "name": "फंदा" },
-        { "id": "eetkhedi", "name": "ईंटखेड़ी" },
-        { "id": "tumda", "name": "तुमड़ा" },
-        { "id": "gunga", "name": "गुनगा" },
-        { "id": "parwalia_sadak", "name": "परवलिया सड़क" }
+        {
+          "id": "berasia",
+          "name": "बैरसिया"
+        },
+        {
+          "id": "phanda",
+          "name": "फंदा"
+        },
+        {
+          "id": "eetkhedi",
+          "name": "ईंटखेड़ी"
+        },
+        {
+          "id": "tumda",
+          "name": "तुमड़ा"
+        },
+        {
+          "id": "gunga",
+          "name": "गुनगा"
+        },
+        {
+          "id": "parwalia_sadak",
+          "name": "परवलिया सड़क"
+        }
       ]
     },
     "jaipur": {
       "id": "jaipur",
       "name": "जयपुर",
       "urbanZones": [
-        { "id": "vaishali_nagar", "name": "वैशाली नगर" },
-        { "id": "malviya_nagar", "name": "मालवीय नगर" },
-        { "id": "c_scheme", "name": "सी-स्कीम" },
-        { "id": "mansarovar", "name": "मानसरोवर" }
+        {
+          "id": "vaishali_nagar",
+          "name": "वैशाली नगर"
+        },
+        {
+          "id": "malviya_nagar",
+          "name": "मालवीय नगर"
+        },
+        {
+          "id": "c_scheme",
+          "name": "सी-स्कीम"
+        },
+        {
+          "id": "mansarovar",
+          "name": "मानसरोवर"
+        }
       ],
       "ruralZones": [
-        { "id": "sanganer", "name": "सांगानेर ग्रामीण" },
-        { "id": "chomu", "name": "चौमूं" },
-        { "id": "bassi", "name": "बस्सी" }
+        {
+          "id": "sanganer",
+          "name": "सांगानेर ग्रामीण"
+        },
+        {
+          "id": "chomu",
+          "name": "चौमूं"
+        },
+        {
+          "id": "bassi",
+          "name": "बस्सी"
+        }
       ]
     },
     "nagpur": {
       "id": "nagpur",
       "name": "नागपुर",
       "urbanZones": [
-        { "id": "dharampeth", "name": "धरमपेठ" },
-        { "id": "sitabuldi", "name": "सीताबर्डी" },
-        { "id": "sadar", "name": "सदर" },
-        { "id": "manewada", "name": "मानेवाड़ा" }
+        {
+          "id": "dharampeth",
+          "name": "धरमपेठ"
+        },
+        {
+          "id": "sitabuldi",
+          "name": "सीताबर्डी"
+        },
+        {
+          "id": "sadar",
+          "name": "सदर"
+        },
+        {
+          "id": "manewada",
+          "name": "मानेवाड़ा"
+        }
       ],
       "ruralZones": [
-        { "id": "kamptee", "name": "कामठी" },
-        { "id": "hingna", "name": "हिंगणा" },
-        { "id": "umred", "name": "उमरेड" }
+        {
+          "id": "kamptee",
+          "name": "कामठी"
+        },
+        {
+          "id": "hingna",
+          "name": "हिंगणा"
+        },
+        {
+          "id": "umred",
+          "name": "उमरेड"
+        }
+      ]
+    },
+    "indore": {
+      "id": "indore",
+      "name": "इंदौर",
+      "urbanZones": [
+        {
+          "id": "vijay_nagar",
+          "name": "विजय नगर"
+        },
+        {
+          "id": "palasia",
+          "name": "पलासिया"
+        },
+        {
+          "id": "chhappan_dukan",
+          "name": "56 दुकान"
+        },
+        {
+          "id": "rajwada",
+          "name": "राजवाड़ा"
+        },
+        {
+          "id": "bhanwarkuan",
+          "name": "भंवरकुआं"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "rau",
+          "name": "राऊ"
+        },
+        {
+          "id": "mhow",
+          "name": "महू"
+        },
+        {
+          "id": "sanwer",
+          "name": "सांवेर"
+        }
+      ]
+    },
+    "gwalior": {
+      "id": "gwalior",
+      "name": "ग्वालियर",
+      "urbanZones": [
+        {
+          "id": "lashkar",
+          "name": "लश्कर"
+        },
+        {
+          "id": "city_center",
+          "name": "सिटी सेंटर"
+        },
+        {
+          "id": "morar",
+          "name": "मुरार"
+        },
+        {
+          "id": "thatipur",
+          "name": "थाटीपुर"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "dabra",
+          "name": "डबरा"
+        },
+        {
+          "id": "ghatigaon",
+          "name": "घाटीगांव"
+        }
+      ]
+    },
+    "jabalpur": {
+      "id": "jabalpur",
+      "name": "जबलपुर",
+      "urbanZones": [
+        {
+          "id": "madan_mahal",
+          "name": "मदन महल"
+        },
+        {
+          "id": "wright_town",
+          "name": "राइट टाउन"
+        },
+        {
+          "id": "sadar",
+          "name": "सदर"
+        },
+        {
+          "id": "gorakhpur",
+          "name": "गोरखपुर"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "bhedaghat",
+          "name": "भेड़ाघाट"
+        },
+        {
+          "id": "sihora",
+          "name": "सिहोरा"
+        }
+      ]
+    },
+    "jodhpur": {
+      "id": "jodhpur",
+      "name": "जोधपुर",
+      "urbanZones": [
+        {
+          "id": "sardarpura",
+          "name": "सरदारपुरा"
+        },
+        {
+          "id": "ratanada",
+          "name": "रातानाडा"
+        },
+        {
+          "id": "shastri_nagar",
+          "name": "शास्त्री नगर"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "mandore",
+          "name": "मंडोर"
+        },
+        {
+          "id": "luni",
+          "name": "लूणी"
+        }
+      ]
+    },
+    "mumbai": {
+      "id": "mumbai",
+      "name": "मुंबई",
+      "urbanZones": [
+        {
+          "id": "bandra",
+          "name": "बांद्रा"
+        },
+        {
+          "id": "nariman_point",
+          "name": "नरीमन पॉइंट"
+        },
+        {
+          "id": "dadar",
+          "name": "दादर"
+        },
+        {
+          "id": "andheri",
+          "name": "अंधेरी"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "vasai",
+          "name": "वसई"
+        },
+        {
+          "id": "virar",
+          "name": "विरार"
+        }
+      ]
+    },
+    "pune": {
+      "id": "pune",
+      "name": "पुणे",
+      "urbanZones": [
+        {
+          "id": "kothrud",
+          "name": "कोथरुड"
+        },
+        {
+          "id": "shivaji_nagar",
+          "name": "शिवाजी नगर"
+        },
+        {
+          "id": "hinjawadi",
+          "name": "हिंजवड़ी"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "hadapsar",
+          "name": "हड़पसर"
+        },
+        {
+          "id": "baramati",
+          "name": "बारामती"
+        }
+      ]
+    },
+    "raipur": {
+      "id": "raipur",
+      "name": "रायपुर",
+      "urbanZones": [
+        {
+          "id": "pandri",
+          "name": "पंडरी"
+        },
+        {
+          "id": "telibandha",
+          "name": "तेलीबांधा"
+        },
+        {
+          "id": "shankar_nagar",
+          "name": "शंकर नगर"
+        },
+        {
+          "id": "nava_raipur",
+          "name": "नवा रायपुर"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "abhanpur",
+          "name": "अभनपुर"
+        },
+        {
+          "id": "arang",
+          "name": "आरंग"
+        }
+      ]
+    },
+    "bilaspur": {
+      "id": "bilaspur",
+      "name": "बिलासपुर",
+      "urbanZones": [
+        {
+          "id": "vyapar_vihar",
+          "name": "व्यापार विहार"
+        },
+        {
+          "id": "civil_lines",
+          "name": "सिविल लाइन्स"
+        },
+        {
+          "id": "torwa",
+          "name": "तोरवा"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "kota_cg",
+          "name": "कोटा"
+        },
+        {
+          "id": "takhatpur",
+          "name": "तखतपुर"
+        }
+      ]
+    },
+    "ahmedabad": {
+      "id": "ahmedabad",
+      "name": "अहमदाबाद",
+      "urbanZones": [
+        {
+          "id": "ashram_road",
+          "name": "आश्रम रोड"
+        },
+        {
+          "id": "bodakdev",
+          "name": "बोडकदेव"
+        },
+        {
+          "id": "satellite",
+          "name": "सेटेलाइट"
+        },
+        {
+          "id": "maninagar",
+          "name": "मणिनगर"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "sanand",
+          "name": "साणंद"
+        },
+        {
+          "id": "dholka",
+          "name": "धोलका"
+        }
+      ]
+    },
+    "surat": {
+      "id": "surat",
+      "name": "सूरत",
+      "urbanZones": [
+        {
+          "id": "athwa",
+          "name": "अठवा"
+        },
+        {
+          "id": "vesu",
+          "name": "वेसू"
+        },
+        {
+          "id": "ring_road",
+          "name": "रिंग रोड"
+        },
+        {
+          "id": "adajan",
+          "name": "अडाजण"
+        }
+      ],
+      "ruralZones": [
+        {
+          "id": "kamrej",
+          "name": "कामरेज"
+        },
+        {
+          "id": "bardoli",
+          "name": "बारडोली"
+        }
       ]
     }
   },
@@ -141,6 +541,160 @@
       "publishedAt": "35 मिनट पहले",
       "readTime": "2 मिनट पढ़ें",
       "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-indore-1",
+      "cityId": "indore",
+      "zoneId": "vijay_nagar",
+      "category": "विकास",
+      "categoryColor": "#16A34A",
+      "title": "इंदौर मेट्रो के दूसरे चरण का ट्रायल रन अगले माह, बीआरटीएस कॉरिडोर पर यातायात प्रबंधन में बड़ा सुधार",
+      "publishedAt": "15 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f3?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-indore-2",
+      "cityId": "indore",
+      "zoneId": "chhappan_dukan",
+      "category": "लाइफस्टाइल",
+      "categoryColor": "#557E63",
+      "title": "56 दुकान और सराफा चौपाटी पर स्वच्छता नवाचार, ज़ीरो-वेस्ट मॉडल देखने पहुंची केंद्रीय टीम",
+      "publishedAt": "40 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-indore-3",
+      "cityId": "indore",
+      "zoneId": "rajwada",
+      "category": "व्यापार",
+      "categoryColor": "#0D9488",
+      "title": "राजवाड़ा और क्लॉथ मार्केट में कपड़ा कारोबारियों की भारी ग्राहकी, आगामी त्योहारी सीजन की अग्रिम बुकिंग",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-gwalior-1",
+      "cityId": "gwalior",
+      "zoneId": "city_center",
+      "category": "विकास",
+      "categoryColor": "#16A34A",
+      "title": "ग्वालियर में नए एलिवेटेड कॉरिडोर और स्मार्ट बस शेल्टर्स के निर्माण को हरी झंडी",
+      "publishedAt": "25 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-gwalior-2",
+      "cityId": "gwalior",
+      "zoneId": "lashkar",
+      "category": "संस्कृति",
+      "categoryColor": "#805D76",
+      "title": "तानसेन संगीत समारोह की तैयारियां जोरों पर, देश-विदेश के शीर्ष शास्त्रीय गायक-वादक होंगे शामिल",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-jabalpur-1",
+      "cityId": "jabalpur",
+      "zoneId": "madan_mahal",
+      "category": "पर्यटन",
+      "categoryColor": "#F5B55C",
+      "title": "भेड़ाघाट और धुआंधार में विश्व धरोहर संरक्षण विकास कार्य तेज, नाइट केबल कार परियोजना की तैयारी",
+      "publishedAt": "30 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-raipur-1",
+      "cityId": "raipur",
+      "zoneId": "telibandha",
+      "category": "विकास",
+      "categoryColor": "#16A34A",
+      "title": "तेलीबांधा मरीन ड्राइव पर इको-पार्क विस्तार और शाम के समय लेजर फाउंटेन शो की शुरुआत",
+      "publishedAt": "20 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f3?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-raipur-2",
+      "cityId": "raipur",
+      "zoneId": "nava_raipur",
+      "category": "शिक्षा",
+      "categoryColor": "#5B6D8A",
+      "title": "नवा रायपुर में आईआईआईटी और एम्स के संयुक्त रिसर्च सेंटर का उद्घाटन, हेल्थ-टेक में नए आयाम",
+      "publishedAt": "50 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-bilaspur-1",
+      "cityId": "bilaspur",
+      "zoneId": "vyapar_vihar",
+      "category": "व्यापार",
+      "categoryColor": "#0D9488",
+      "title": "व्यापार विहार में नया लॉजिस्टिक हब स्थापित होगा, न्यायधानी के थोक बाजार को मिलेगी आधुनिक सुविधा",
+      "publishedAt": "35 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-mumbai-1",
+      "cityId": "mumbai",
+      "zoneId": "nariman_point",
+      "category": "यातायात",
+      "categoryColor": "#EA580C",
+      "title": "मुंबई कोस्टल रोड के दूसरे चरण से मरीन ड्राइव से वर्ली की दूरी 12 मिनट में तय, नागरिकों को बड़ी राहत",
+      "publishedAt": "10 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-pune-1",
+      "cityId": "pune",
+      "zoneId": "hinjawadi",
+      "category": "आईटी",
+      "categoryColor": "#497877",
+      "title": "हिंजवड़ी आईटी पार्क में मेट्रो लाइन-3 का कार्य 80% पूर्ण, ट्रैफिक जाम से मिलेगी स्थायी मुक्ति",
+      "publishedAt": "25 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-ahmedabad-1",
+      "cityId": "ahmedabad",
+      "zoneId": "ashram_road",
+      "category": "विकास",
+      "categoryColor": "#16A34A",
+      "title": "साबरमती रिवरफ्रंट फेज-3 को पर्यावरण मंजूरी, आधुनिक बायोडायवर्सिटी पार्क और वाटर स्पोर्ट्स होंगे शुरू",
+      "publishedAt": "15 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1519455953755-af066f52f1a6?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-surat-1",
+      "cityId": "surat",
+      "zoneId": "vesu",
+      "category": "व्यापार",
+      "categoryColor": "#0D9488",
+      "title": "सूरत डायमंड बोर्स में रिकॉर्ड अंतरराष्ट्रीय व्यापार, दुनिया भर के खरीदारों की आमद बढ़ी",
+      "publishedAt": "30 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "city-art-jodhpur-1",
+      "cityId": "jodhpur",
+      "zoneId": "sardarpura",
+      "category": "संस्कृति",
+      "categoryColor": "#805D76",
+      "title": "मेहरानगढ़ में मारवाड़ महोत्सव का भव्य शुभारंभ, लोक कलाकारों की प्रस्तुतियां देख पर्यटक मंत्रमुग्ध",
+      "publishedAt": "45 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=400&q=80"
     }
   ]
 }

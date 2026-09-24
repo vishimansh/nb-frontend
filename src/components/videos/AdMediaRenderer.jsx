@@ -3,7 +3,13 @@ import VideoAdMedia from './VideoAdMedia';
 import GridAdMedia from './GridAdMedia';
 import CarouselAdMedia from './CarouselAdMedia';
 
-export default function AdMediaRenderer({ ad, isCurrentReel, isMuted }) {
+export default function AdMediaRenderer({
+  ad,
+  isCurrentReel,
+  isMuted,
+  isPaused,
+  onTogglePlayPause,
+}) {
   switch (ad.format) {
     case 'video':
       return (
@@ -11,6 +17,8 @@ export default function AdMediaRenderer({ ad, isCurrentReel, isMuted }) {
           ad={ad}
           isCurrentReel={isCurrentReel}
           isMuted={isMuted}
+          isPaused={isPaused}
+          onTogglePlayPause={onTogglePlayPause}
         />
       );
     case 'grid':
@@ -26,3 +34,4 @@ export default function AdMediaRenderer({ ad, isCurrentReel, isMuted }) {
       return null;
   }
 }
+

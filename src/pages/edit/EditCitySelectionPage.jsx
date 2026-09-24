@@ -5,51 +5,7 @@ import { SearchNormal1, TickCircle, InfoCircle } from 'iconsax-react';
 import BackButton from '../../components/common/BackButton';
 import { useOnboarding } from '../../context/OnboardingContext';
 import { useCity } from '../../context/CityContext';
-import { CITIES_BY_STATE } from '../../data/onboardingData';
-
-const CITY_NAME_TO_ID = {
-  'भोपाल': 'bhopal',
-  'जयपुर': 'jaipur',
-  'नागपुर': 'nagpur',
-  'इंदौर': 'indore',
-  'ग्वालियर': 'gwalior',
-  'जबलपुर': 'jabalpur',
-  'उज्जैन': 'ujjain',
-  'सतना': 'satna',
-  'सागर': 'sagar',
-  'रीवा': 'rewa',
-  'छिंदवाड़ा': 'chhindwara',
-  'रतलाम': 'ratlam',
-  'खंडवा': 'khandwa',
-  'जोधपुर': 'jodhpur',
-  'कोटा': 'kota',
-  'अजमेर': 'ajmer',
-  'उदयपुर': 'udaipur',
-  'बीकानेर': 'bikaner',
-  'भीलवाड़ा': 'bhilwara',
-  'अलवर': 'alwar',
-  'सीकर': 'sikar',
-  'मुंबई': 'mumbai',
-  'पुणे': 'pune',
-  'नाशिक': 'nashik',
-  'ठाणे': 'thane',
-  'औरंगाबाद': 'aurangabad',
-  'कोल्हापुर': 'kolhapur',
-  'अहमदाबाद': 'ahmedabad',
-  'सूरत': 'surat',
-  'वडोदरा': 'vadodara',
-  'राजकोट': 'rajkot',
-  'भावनगर': 'bhavnagar',
-  'जामनगर': 'jamnagar',
-  'गांधीनगर': 'gandhinagar',
-  'रायपुर': 'raipur',
-  'बिलासपुर': 'bilaspur',
-  'दुर्ग': 'durg',
-  'भिलाई': 'bhilai',
-  'जगदलपुर': 'jagdalpur',
-  'कोरबा': 'korba',
-  'रायगढ़': 'raigarh',
-};
+import { CITIES_BY_STATE, CITY_NAME_TO_ID } from '../../data/onboardingData';
 
 /**
  * Atomic Cascade Edit Flow - Step 2: Edit Cities (/edit/select-city)

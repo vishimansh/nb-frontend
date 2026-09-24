@@ -7,6 +7,8 @@ export default function AdReelOverlay({
   isMuted,
   onToggleMute,
   onActionToast,
+  isPaused = false,
+  onTogglePlayPause,
 }) {
   const [isLiked, setIsLiked] = useState(ad.isLiked || false);
   const [likeCount, setLikeCount] = useState(ad.likeCount || 234);
@@ -101,6 +103,7 @@ export default function AdReelOverlay({
         onClick={(e) => e.stopPropagation()}
         className="absolute right-[16px] bottom-[48px] z-30 flex flex-col items-center gap-[24px] pointer-events-auto"
       >
+
         {/* Like Button */}
         <div className="flex flex-col items-center">
           <button

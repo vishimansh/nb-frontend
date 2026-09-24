@@ -1,11 +1,29 @@
 {
   "states": {
-    "mp": { "id": "mp", "name": "मध्य प्रदेश" },
-    "rj": { "id": "rj", "name": "राजस्थान" },
-    "mh": { "id": "mh", "name": "महाराष्ट्र" },
-    "cg": { "id": "cg", "name": "छत्तीसगढ़" },
-    "gj": { "id": "gj", "name": "गुजरात" },
-    "up": { "id": "up", "name": "उत्तर प्रदेश" }
+    "mp": {
+      "id": "mp",
+      "name": "मध्य प्रदेश"
+    },
+    "rj": {
+      "id": "rj",
+      "name": "राजस्थान"
+    },
+    "mh": {
+      "id": "mh",
+      "name": "महाराष्ट्र"
+    },
+    "cg": {
+      "id": "cg",
+      "name": "छत्तीसगढ़"
+    },
+    "gj": {
+      "id": "gj",
+      "name": "गुजरात"
+    },
+    "up": {
+      "id": "up",
+      "name": "उत्तर प्रदेश"
+    }
   },
   "articles": [
     {
@@ -77,6 +95,66 @@
       "publishedAt": "2 घंटे पहले",
       "readTime": "3 मिनट पढ़ें",
       "imageUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-cg-2",
+      "stateId": "cg",
+      "category": "कृषि",
+      "categoryColor": "#557E63",
+      "title": "छत्तीसगढ़ में धान खरीद के नए नियम लागू, किसानों के खातों में 48 घंटे में सीधे पहुंचेगी राशि",
+      "publishedAt": "40 मिनट पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-gj-2",
+      "stateId": "gj",
+      "category": "ऊर्जा",
+      "categoryColor": "#CA8A04",
+      "title": "कच्छ के खावड़ा में एशिया के सबसे बड़े हाइब्रिड रिन्यूएबल पार्क से 2000 मेगावाट अतिरिक्त बिजली का उत्पादन शुरू",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-rj-2",
+      "stateId": "rj",
+      "category": "जल संसाधन",
+      "categoryColor": "#0D9488",
+      "title": "ईआरसीपी (ERCP) परियोजना के तहत 13 जिलों में पाइपलाइन बिछाने का काम तेज, पेयजल संकट से मिलेगी मुक्ति",
+      "publishedAt": "50 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f3?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-mh-2",
+      "stateId": "mh",
+      "category": "बुनियादी ढांचा",
+      "categoryColor": "#16A34A",
+      "title": "समृद्धि महामार्ग से जुड़े 6 नए ग्रीनफील्ड एक्सप्रेसवे को मंजूरी, विदर्भ और मराठवाड़ा में तेज होगी कनेक्टिविटी",
+      "publishedAt": "1.5 घंटे पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-up-1",
+      "stateId": "up",
+      "category": "एक्सप्रेसवे",
+      "categoryColor": "#16A34A",
+      "title": "गंगा एक्सप्रेसवे का निर्माण 85% पूरा, आगामी कुंभ मेले से पहले हल्के वाहनों के लिए खोलने की तैयारी",
+      "publishedAt": "30 मिनट पहले",
+      "readTime": "3 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1541888946425-d0fbb186c5f3?auto=format&fit=crop&w=400&q=80"
+    },
+    {
+      "id": "state-art-up-2",
+      "stateId": "up",
+      "category": "पर्यटन",
+      "categoryColor": "#F5B55C",
+      "title": "अयोध्या, काशी और मथुरा में श्रद्धालुओं की रिकॉर्ड आवक, हेरिटेज कॉरिडोर पर इलेक्ट्रिक बसों का संचालन शुरू",
+      "publishedAt": "1 घंटा पहले",
+      "readTime": "2 मिनट पढ़ें",
+      "imageUrl": "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=400&q=80"
     }
   ]
 }

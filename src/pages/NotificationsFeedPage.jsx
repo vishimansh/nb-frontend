@@ -78,9 +78,9 @@ export default function NotificationsFeedPage() {
             <NotificationSectionHeader
               title="इस हफ्ते की सूचनाएं"
               icon={DocumentText}
-              badgeBg="#EEF2F6"
-              badgeBorder="#CBD5E1"
-              iconColor="#2B2437"
+              badgeBg="#2B2437"
+              badgeBorder="#2B2437"
+              iconColor="#FFFFFF"
             />
             <div className="w-full flex flex-col items-center space-y-2">
               {thisWeek.map((item) => (

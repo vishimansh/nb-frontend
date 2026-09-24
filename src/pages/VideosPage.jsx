@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TickCircle } from 'iconsax-react';
+import { TickCircle, DocumentText } from 'iconsax-react';
 import BackButton from '../components/common/BackButton';
 import { useVideo } from '../context/VideoContext';
+import { useAdvertiser } from '../context/AdvertiserContext';
 import rawReelAdsData from '../data/reelAdsData.json';
 import { mergeReelsWithAds } from '../utils/feedInjector';
 import ReelItem from '../components/videos/ReelItem';
@@ -27,14 +28,34 @@ export default function VideosPage() {
     isMuted,
     toggleMuted,
   } = useVideo();
+  const { campaigns = [] } = useAdvertiser();
 
   const containerRef = useRef(null);
   const [toastMessage, setToastMessage] = useState(null);
+  const [adPausedMap, setAdPausedMap] = useState({});
 
-  // Guaranteed merge ensuring all 3 ad formats are cleanly inserted
+  // Guaranteed merge ensuring all ad formats (including live advertiser video campaigns) are cleanly inserted
   const mergedFeed = useMemo(() => {
-    return mergeReelsWithAds(rawReelsData, rawReelAdsData, { cadence: 2 });
-  }, [rawReelsData]);
+    const liveVideoCampaigns = campaigns.filter(
+      (c) => c.status === 'live' && c.format === 'video_ad'
+    );
+    const customAds = liveVideoCampaigns.map((cmp) => ({
+      id: cmp.id,
+      isAd: true,
+      format: 'video',
+      brandName: cmp.businessName,
+      brandLogo: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=120&q=80',
+      headline: `${cmp.businessName} - प्रायोजित वीडियो`,
+      destinationUrl: cmp.details?.destinationUrl || 'https://navabharat.com',
+      likeCount: 194,
+      isLiked: false,
+      videoUrl: cmp.details?.uploadedCreativeUrl?.startsWith('blob') ? cmp.details.uploadedCreativeUrl : 'https://vjs.zencdn.net/v/oceans.mp4',
+      posterThumbnail: cmp.details?.uploadedCreativeUrl || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
+    }));
+
+    const allAds = [...customAds, ...rawReelAdsData];
+    return mergeReelsWithAds(rawReelsData, allAds, { cadence: 2 });
+  }, [rawReelsData, campaigns]);
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -153,43 +174,70 @@ export default function VideosPage() {
         )}
       </AnimatePresence>
 
-      {/* Unified Top Navigation Overlay: pt-[59px] px-4 (8px below Dynamic Island) */}
+      {/* Unified Top Navigation Overlay: pt-[59px] px-3.5 sm:px-4 (8px below Dynamic Island) */}
       <div
-        className={`absolute top-0 inset-x-0 z-30 ${topNavPt} px-4 flex items-center justify-between pointer-events-none transition-all duration-200`}
+        className={`absolute top-0 inset-x-0 w-full z-30 ${topNavPt} px-3.5 sm:px-4 pointer-events-none transition-all duration-200`}
       >
-        {/* Left Action: Standardized boxed back button */}
-        <BackButton onClick={handleBack} ariaLabel="वापस जाएं" className="pointer-events-auto shadow-md" />
+        {/* Uniform Height Row Container: locks all 3 elements onto the exact same Y-axis line */}
+        <div className="relative w-full h-[40px] flex items-center justify-between pointer-events-none">
+          {/* Left Action: Standardized back button */}
+          <BackButton
+            onClick={handleBack}
+            ariaLabel="वापस जाएं"
+            className="!w-[40px] !h-[40px] !rounded-[13px] pointer-events-auto shadow-md relative z-10"
+            iconSize={19}
+          />
 
-        {/* Center Action: Segmented Dual-Mode Toggle Capsule [ वीडियो | पॉडकास्ट ] (Mathematically centered on screen) */}
-        <div className="absolute left-1/2 -translate-x-1/2 pointer-events-auto flex items-center bg-black/50 backdrop-blur-md border border-white/20 rounded-full p-1 shadow-lg">
-          <button
-            type="button"
-            onClick={() => switchMediaMode('video')}
-            aria-label="वीडियो मोड"
-            className={`px-[18px] py-1.5 rounded-full text-[16px] font-semibold transition-all duration-200 cursor-pointer ${
-              mediaMode === 'video'
-                ? 'bg-white text-[#2B2437] shadow-sm'
-                : 'text-white/80 hover:text-white'
-            }`}
-          >
-            वीडियो
-          </button>
-          <button
-            type="button"
-            onClick={() => switchMediaMode('podcast')}
-            aria-label="पॉडकास्ट मोड"
-            className={`px-[18px] py-1.5 rounded-full text-[16px] font-semibold transition-all duration-200 cursor-pointer ${
-              mediaMode === 'podcast'
-                ? 'bg-white text-[#2B2437] shadow-sm'
-                : 'text-white/80 hover:text-white'
-            }`}
-          >
-            पॉडकास्ट
-          </button>
+          {/* Center Action: TRUE HORIZONTAL & VERTICAL MIDDLE Dual-Mode Toggle Capsule */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-auto h-[40px] flex items-center bg-black/60 backdrop-blur-md border border-white/25 rounded-full p-[3px] shadow-xl"
+            >
+              <button
+                type="button"
+                onClick={() => switchMediaMode('video')}
+                aria-label="वीडियो मोड"
+                className={`h-full px-3.5 sm:px-4 rounded-full text-[13.5px] font-semibold transition-all duration-200 cursor-pointer flex items-center justify-center ${
+                  mediaMode === 'video'
+                    ? 'bg-white text-[#2B2437] font-bold shadow-md'
+                    : 'text-white/85 hover:text-white'
+                }`}
+              >
+                वीडियो
+              </button>
+              <button
+                type="button"
+                onClick={() => switchMediaMode('podcast')}
+                aria-label="पॉडकास्ट मोड"
+                className={`h-full px-3.5 sm:px-4 rounded-full text-[13.5px] font-semibold transition-all duration-200 cursor-pointer flex items-center justify-center ${
+                  mediaMode === 'podcast'
+                    ? 'bg-white text-[#2B2437] font-bold shadow-md'
+                    : 'text-white/85 hover:text-white'
+                }`}
+              >
+                पॉडकास्ट
+              </button>
+            </motion.div>
+          </div>
+
+          {/* Right Action: 'News Padhein' (न्यूज़ पढ़ें) button - only in video reel, not podcasts */}
+          {mediaMode === 'video' ? (
+            <button
+              type="button"
+              onClick={() => navigate('/feed')}
+              aria-label="न्यूज़ पढ़ें (ताज़ा खबरें देखें)"
+              className="h-[40px] px-3.5 rounded-full bg-[#2B2437] hover:bg-[#3D334E] text-white border border-[#4D4060]/80 shadow-[0_4px_18px_rgba(43,36,55,0.45)] flex items-center gap-1.5 pointer-events-auto active:scale-95 transition-all text-[13px] font-bold cursor-pointer shrink-0 relative z-10"
+            >
+              <DocumentText size={16} color="#F5B55C" variant="Bold" />
+              <span className="leading-none whitespace-nowrap text-white font-bold tracking-wide">न्यूज़ पढ़ें</span>
+            </button>
+          ) : (
+            <div className="w-[40px] h-[40px] shrink-0 pointer-events-none relative z-10" />
+          )}
         </div>
-
-        {/* Right Action: Empty balanced spacer to ensure symmetry with BackButton */}
-        <div className="w-[46px] h-[46px] shrink-0 pointer-events-none" />
       </div>
 
       {/* Vertical Snap-Scroll Feed Container (Full-Bleed 100% viewport) */}
@@ -202,9 +250,15 @@ export default function VideosPage() {
               const isCurrent = index === videoCurrentIndex;
 
               if (item.isAd) {
+                const adKey = item.instanceId || item.id;
+                const isAdPaused = Boolean(adPausedMap[adKey]);
+                const toggleAdPause = () => {
+                  setAdPausedMap((prev) => ({ ...prev, [adKey]: !prev[adKey] }));
+                };
+
                 return (
                   <div
-                    key={item.instanceId || item.id}
+                    key={adKey}
                     className="h-full w-full snap-start relative flex-shrink-0 flex items-center justify-center overflow-hidden bg-black select-none"
                   >
                     <div className="w-full h-full relative">
@@ -212,12 +266,16 @@ export default function VideosPage() {
                         ad={item}
                         isCurrentReel={isCurrent}
                         isMuted={isMuted}
+                        isPaused={isAdPaused}
+                        onTogglePlayPause={toggleAdPause}
                       />
                       <AdReelOverlay
                         ad={item}
                         isMuted={isMuted}
                         onToggleMute={toggleMuted}
                         onActionToast={showToast}
+                        isPaused={isAdPaused}
+                        onTogglePlayPause={toggleAdPause}
                       />
                     </div>
                   </div>

@@ -5,51 +5,7 @@ import { SearchNormal1, TickCircle } from 'iconsax-react';
 import BackButton from '../components/common/BackButton';
 import { useCity } from '../context/CityContext';
 import { useOnboarding } from '../context/OnboardingContext';
-import { CITIES_BY_STATE, STATES_DATA } from '../data/onboardingData';
-
-const CITY_NAME_TO_ID = {
-  'भोपाल': 'bhopal',
-  'जयपुर': 'jaipur',
-  'नागपुर': 'nagpur',
-  'इंदौर': 'indore',
-  'ग्वालियर': 'gwalior',
-  'जबलपुर': 'jabalpur',
-  'उज्जैन': 'ujjain',
-  'सतना': 'satna',
-  'सागर': 'sagar',
-  'रीवा': 'rewa',
-  'छिंदवाड़ा': 'chhindwara',
-  'रतलाम': 'ratlam',
-  'खंडवा': 'khandwa',
-  'जोधपुर': 'jodhpur',
-  'कोटा': 'kota',
-  'अजमेर': 'ajmer',
-  'उदयपुर': 'udaipur',
-  'बीकानेर': 'bikaner',
-  'भीलवाड़ा': 'bhilwara',
-  'अलवर': 'alwar',
-  'सीकर': 'sikar',
-  'मुंबई': 'mumbai',
-  'पुणे': 'pune',
-  'नाशिक': 'nashik',
-  'ठाणे': 'thane',
-  'औरंगाबाद': 'aurangabad',
-  'कोल्हापुर': 'kolhapur',
-  'अहमदाबाद': 'ahmedabad',
-  'सूरत': 'surat',
-  'वडोदरा': 'vadodara',
-  'राजकोट': 'rajkot',
-  'भावनगर': 'bhavnagar',
-  'जामनगर': 'jamnagar',
-  'गांधीनगर': 'gandhinagar',
-  'रायपुर': 'raipur',
-  'बिलासपुर': 'bilaspur',
-  'दुर्ग': 'durg',
-  'भिलाई': 'bhilai',
-  'जगदलपुर': 'jagdalpur',
-  'कोरबा': 'korba',
-  'रायगढ़': 'raigarh',
-};
+import { CITIES_BY_STATE, STATES_DATA, CITY_NAME_TO_ID } from '../data/onboardingData';
 
 export default function CitySelectionPage() {
   const navigate = useNavigate();

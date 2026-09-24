@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { Location } from "iconsax-react";
 
-import liveArticleData from "../data/liveArticleData.json";
 import { getArticleDataById, isArticleLive } from "../data/articleDataResolver";
+import { useSavedArticles } from "../context/SavedArticlesContext";
 import LiveArticleHero from "../components/article/LiveArticleHero";
 import UpdateCountBar from "../components/article/UpdateCountBar";
 import AISummaryCard from "../components/article/AISummaryCard";
@@ -219,7 +219,24 @@ export default function LiveArticlePage() {
     return items;
   }, [article.relatedStories]);
 
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const { isArticleSaved, toggleSaveArticle } = useSavedArticles();
+
+  const articleHeadline =
+    article.headline ||
+    article.hero?.caption ||
+    article.subheading ||
+    "सुप्रीम कोर्ट का अहम फैसला, राज्यों को नागरिक डेटा सुरक्षा पर सख्त दिशानिर्देश";
+
+  const articleCardData = useMemo(() => ({
+    id: article.id || id,
+    headline: articleHeadline,
+    thumbnail: article.hero?.imageUrl || null,
+    category: article.category || "देश",
+    publishedAgo: article.publishedAgo || article.lastUpdated || "20 मिनट पहले",
+    readTime: article.readTime || "3 मिनट पढ़ें",
+  }), [article, id, articleHeadline]);
+
+  const isBookmarked = isArticleSaved(article.id || id);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const [readProgress, setReadProgress] = useState(0);
@@ -252,11 +269,8 @@ export default function LiveArticlePage() {
   };
 
   const handleToggleBookmark = () => {
-    setIsBookmarked((prev) => {
-      const next = !prev;
-      showToast(next ? "खबर सुरक्षित कर ली गई है" : "खबर हटा दी गई है");
-      return next;
-    });
+    const nextSaved = toggleSaveArticle(articleCardData);
+    showToast(nextSaved ? "खबर सुरक्षित कर ली गई है" : "खबर हटा दी गई है");
   };
 
   const handleShare = async () => {
@@ -322,6 +336,7 @@ export default function LiveArticlePage() {
           onToggleBookmark={handleToggleBookmark}
           onShare={handleShare}
           articleId={id}
+          articleData={articleCardData}
         />
 
         {/* Content Body Container (1. Proportional Hero Container -> Metadata Row: 16px) */}

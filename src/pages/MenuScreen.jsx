@@ -15,8 +15,10 @@ import {
   InfoCircle,
   Logout,
   SearchNormal1,
+  Shop,
 } from 'iconsax-react';
 import { useOnboarding } from '../context/OnboardingContext';
+import { useAdvertiser } from '../context/AdvertiserContext';
 import {
   CANONICAL_CATEGORY_ORDER,
   CATEGORY_METADATA,
@@ -28,6 +30,7 @@ import profileSkyline from '../assets/illustrations/profile_skyline_bhopal.png';
 export default function MenuScreen() {
   const navigate = useNavigate();
   const { selectedCategories = [], userProfile = {} } = useOnboarding();
+  const { campaigns = [], advertiserAuth = {}, isBusinessProfileSaved } = useAdvertiser();
   const [isExiting, setIsExiting] = useState(false);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
@@ -57,12 +60,15 @@ export default function MenuScreen() {
     touchStartY.current = null;
   };
 
-  // Mask phone number: +91 98••••••42
-  const rawPhone = userProfile.phone || '+91 9876543210';
-  const cleanPhone = rawPhone.replace(/\s+/g, '');
-  const prefix = cleanPhone.slice(0, 5); // "+9198"
-  const suffix = cleanPhone.slice(-2); // "42"
-  const maskedPhone = `${prefix.slice(0, 3)} ${prefix.slice(3)}••••••${suffix}`;
+  // Mask phone number: +91 98••••••42 if available
+  const rawPhone = userProfile.phone || '';
+  let maskedPhone = '';
+  if (rawPhone && rawPhone.length >= 6) {
+    const cleanPhone = rawPhone.replace(/\s+/g, '');
+    const prefix = cleanPhone.slice(0, 5);
+    const suffix = cleanPhone.slice(-2);
+    maskedPhone = `${prefix.slice(0, 3)} ${prefix.slice(3)}••••••${suffix}`;
+  }
 
   // Sort selected categories in canonical order
   const sortedSelected = CANONICAL_CATEGORY_ORDER.filter((id) =>
@@ -142,10 +148,10 @@ export default function MenuScreen() {
 
             <div>
               <span className="text-[17px] font-bold text-[#2B2437] block leading-tight">
-                {userProfile.name || 'हिमांशु विश्वकर्मा'}
+                {userProfile.name || 'नमस्ते, पाठक'}
               </span>
               <span className="text-[13px] text-[#64748B] font-medium mt-1 block">
-                {maskedPhone}
+                {maskedPhone || 'प्रोफ़ाइल सेट करें'}
               </span>
             </div>
           </div>
@@ -174,6 +180,32 @@ export default function MenuScreen() {
           <ArrowRight2 size={18} color="#F5B55C" className="absolute right-4" />
         </button>
 
+        {/* Advertiser Flow Entry Action */}
+        <button
+          type="button"
+          onClick={() => {
+            const isAuthenticated = advertiserAuth?.isAuthenticated && advertiserAuth?.otpVerified;
+            if (!isAuthenticated) {
+              navigate('/advertise/intro');
+            } else if (!isBusinessProfileSaved) {
+              navigate('/advertise/business-profile');
+            } else {
+              navigate('/advertise/dashboard');
+            }
+          }}
+          className="w-full mt-2.5 h-[52px] rounded-[18px] bg-white border border-[#2B2437] flex items-center justify-between px-4 shadow-sm active:scale-[0.99] cursor-pointer hover:bg-[#2B2437]/5 transition-all text-left"
+        >
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+              <Shop size={18} color="#FFFFFF" variant="Bold" />
+            </div>
+            <span className="text-[15px] font-bold text-[#2B2437]">
+              ऐप में विज्ञापन चलाएं
+            </span>
+          </div>
+          <ArrowRight2 size={18} color="#2B2437" className="shrink-0 ml-2" />
+        </button>
+
         {/* 3. "मेरी सामग्री" (My Content) Section Card */}
         <div className="bg-white rounded-[24px] border border-[#EBECEF] p-4 shadow-sm">
           {/* Section Header with badge */}
@@ -186,6 +218,29 @@ export default function MenuScreen() {
 
           {/* Individual Rounded Action Rows */}
           <div className="space-y-2.5">
+            {/* Conditional Row: मेरे विज्ञापन (Mere Vigyapan) - shown ONLY when user has created ads */}
+            {campaigns.length > 0 && (
+              <div
+                onClick={() => navigate('/advertise/dashboard')}
+                className="h-[56px] px-3.5 bg-[#FFFBF0] rounded-[14px] border border-[#FDE68A] flex items-center justify-between hover:bg-[#FFF8E6] active:scale-[0.99] transition-all cursor-pointer"
+              >
+                <div className="flex items-center gap-3 flex-1 mr-2">
+                  <div className="w-9 h-9 rounded-[10px] bg-[#E39026] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                    <Shop size={18} color="#FFFFFF" variant="Bold" />
+                  </div>
+                  <div>
+                    <span className="text-[14px] font-bold text-[#2B2437] block leading-tight">
+                      मेरे विज्ञापन
+                    </span>
+                    <span className="text-[11px] text-[#B45309] font-medium block">
+                      {campaigns.length} सक्रिय / दर्ज विज्ञापन
+                    </span>
+                  </div>
+                </div>
+                <ArrowRight2 size={16} color="#E39026" />
+              </div>
+            )}
+
             {/* Row 1: चुनी गई लोकेशन */}
             <div
               onClick={() => navigate('/state')}
@@ -234,7 +289,7 @@ export default function MenuScreen() {
               <ArrowRight2 size={16} color="#9CA3AF" />
             </div>
 
-            {/* Row 3: सेव की गई खबरें */}
+            {/* Row 4: सेव की गई खबरें */}
             <div
               onClick={() => navigate('/saved')}
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"

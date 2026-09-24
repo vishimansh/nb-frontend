@@ -10,16 +10,15 @@ import {
   VideoPlay,
   Buildings,
   Cup,
-  ExportSquare,
   Flash,
 } from 'iconsax-react';
 import { useVideo } from '../../context/VideoContext';
+import { getCategoryMeta } from '../../theme/categories';
 
 function getCategoryIcon(catId, color = '#FFFFFF', size = 16) {
-  if (catId === 'business') return <TrendUp size={size} color={color} variant="Linear" />;
-  if (catId === 'entertainment') return <VideoPlay size={size} color={color} variant="Linear" />;
-  if (catId === 'sports') return <Cup size={size} color={color} variant="Linear" />;
-  return <Buildings size={size} color={color} variant="Linear" />;
+  const meta = getCategoryMeta(catId);
+  const IconComp = meta?.icon || Buildings;
+  return <IconComp size={size} color={color} variant="Linear" />;
 }
 
 function getCollapsedExcerpt(hookOrDesc, headline) {
@@ -39,29 +38,91 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
     toggleLike,
   } = useVideo();
 
+  const videoRef = useRef(null);
+  const [isPausedByUser, setIsPausedByUser] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [showHeartAnimation, setShowHeartAnimation] = useState(false);
+  const [showPlayFlash, setShowPlayFlash] = useState(false);
   const lastTapRef = useRef(0);
+  const singleTapTimeoutRef = useRef(null);
 
-  // Reset expansion state cleanly when swiped away
+  // Synchronize video playback with active snap-scroll state and user pause
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isActive && !isPausedByUser && !isCommentSheetOpen) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Fallback if browser restrictions apply
+        });
+      }
+    } else {
+      video.pause();
+    }
+  }, [isActive, isPausedByUser, isCommentSheetOpen]);
+
+  // Keep muted state synced
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
+
+  // Reset state cleanly when swiped away
   useEffect(() => {
     if (!isActive) {
+      setIsPausedByUser(false);
+      setShowPlayFlash(false);
       setIsDescriptionExpanded(false);
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
     }
   }, [isActive]);
+
+  const togglePlayPause = () => {
+    const video = videoRef.current;
+    if (!video) {
+      setIsPausedByUser((prev) => !prev);
+      return;
+    }
+
+    if (video.paused) {
+      video.play().catch(() => {});
+      setIsPausedByUser(false);
+      setShowPlayFlash(true);
+      setTimeout(() => setShowPlayFlash(false), 450);
+    } else {
+      video.pause();
+      setIsPausedByUser(true);
+    }
+  };
 
   const handleMediaTap = (e) => {
     e.stopPropagation();
     if (isCommentSheetOpen) return;
 
-    // Detect double-tap to like
     const now = Date.now();
     if (now - lastTapRef.current < 300) {
+      // Double-tap detected: cancel pending pause and toggle like
+      if (singleTapTimeoutRef.current) {
+        clearTimeout(singleTapTimeoutRef.current);
+        singleTapTimeoutRef.current = null;
+      }
       if (!reel.isLiked) {
         toggleLike(reel.id);
       }
       setShowHeartAnimation(true);
       setTimeout(() => setShowHeartAnimation(false), 700);
+    } else {
+      // Single tap: toggle play / pause
+      singleTapTimeoutRef.current = setTimeout(() => {
+        togglePlayPause();
+        singleTapTimeoutRef.current = null;
+      }, 280);
     }
     lastTapRef.current = now;
   };
@@ -83,24 +144,79 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
 
   return (
     <div className="h-full w-full snap-start relative flex-shrink-0 flex items-center justify-center overflow-hidden bg-black select-none">
-      {/* 1. Fast-Loading Image Surface */}
+      {/* 1. Fast-Loading Video/Image Surface */}
       <div
         onClick={handleMediaTap}
         className="w-full h-full absolute inset-0 cursor-pointer z-0 bg-black"
       >
-        <img
-          src={reel.posterThumbnail || reel.backupPoster}
-          alt={reel.headline}
-          loading="eager"
-          decoding="async"
-          className="w-full h-full object-cover absolute inset-0 z-0"
-          onError={(e) => {
-            if (reel.backupPoster && e.target.src !== reel.backupPoster) {
-              e.target.src = reel.backupPoster;
-            }
-          }}
-        />
+        {reel.videoUrl ? (
+          <video
+            ref={videoRef}
+            src={reel.videoUrl}
+            poster={reel.posterThumbnail || reel.backupPoster}
+            muted={isMuted}
+            playsInline
+            loop
+            preload="auto"
+            className="w-full h-full object-cover absolute inset-0 z-0"
+          />
+        ) : (
+          <img
+            src={reel.posterThumbnail || reel.backupPoster}
+            alt={reel.headline}
+            loading="eager"
+            decoding="async"
+            className="w-full h-full object-cover absolute inset-0 z-0"
+            onError={(e) => {
+              if (reel.backupPoster && e.target.src !== reel.backupPoster) {
+                e.target.src = reel.backupPoster;
+              }
+            }}
+          />
+        )}
       </div>
+
+      {/* Center Play/Pause Option: prominent interactive button when paused */}
+      <AnimatePresence>
+        {isPausedByUser && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.75 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.75 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+            onClick={(e) => {
+              e.stopPropagation();
+              togglePlayPause();
+            }}
+            className="absolute inset-0 flex items-center justify-center z-20 cursor-pointer pointer-events-auto"
+          >
+            <button
+              type="button"
+              aria-label="चलाएं (Play)"
+              className="w-[76px] h-[76px] rounded-full bg-black/65 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.6)] active:scale-90 hover:scale-105 transition-transform cursor-pointer"
+            >
+              <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[24px] border-l-white border-b-[15px] border-b-transparent ml-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Center Play Flash Animation on Resume */}
+      <AnimatePresence>
+        {showPlayFlash && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1.15 }}
+            exit={{ opacity: 0, scale: 1.3 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
+          >
+            <div className="w-[76px] h-[76px] rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-2xl">
+              <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[24px] border-l-white border-b-[15px] border-b-transparent ml-1.5 drop-shadow" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* 2. Top and Bottom Gradient Scrims (Curated for authentic contrast) */}
       <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/85 via-black/30 to-transparent pointer-events-none z-10" />
@@ -131,6 +247,7 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
         onClick={(e) => e.stopPropagation()}
         className="absolute right-[16px] bottom-[48px] z-30 flex flex-col items-center gap-[24px] pointer-events-auto"
       >
+
         {/* Like Button */}
         <div className="flex flex-col items-center">
           <button
@@ -274,22 +391,6 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
             </p>
           )}
         </div>
-
-        {/* Action Button: "पूरी न्यूज़ पढ़ें ↗" below description in bottom-left corner */}
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation();
-            onShareToast?.('पूरी न्यूज़ खुल रही है...');
-          }}
-          aria-label="पूरी न्यूज़ पढ़ें"
-          className="p-[12px] bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
-        >
-          <span className="text-[16px] font-medium text-white tracking-wide leading-none">
-            पूरी न्यूज़ पढ़ें
-          </span>
-          <ExportSquare size={16} color="#FFFFFF" variant="Linear" />
-        </button>
       </div>
     </div>
   );

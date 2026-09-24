@@ -12,13 +12,20 @@ import { useOnboarding } from '../../context/OnboardingContext';
  */
 export default function StateSelectionScreen() {
   const navigate = useNavigate();
-  const { selectedStates, toggleState, alertMessage } = useOnboarding();
+  const { selectedStates, toggleState, alertMessage, showAlert, setSelectedStates } = useOnboarding();
 
   const handleSave = () => {
+    if (selectedStates.length === 0) {
+      if (showAlert) showAlert('कृपया कम से कम एक राज्य चुनें या स्किप करें');
+      return;
+    }
     navigate('/onboarding/select-city');
   };
 
   const handleSkip = () => {
+    if (selectedStates.length === 0 && setSelectedStates) {
+      setSelectedStates([{ id: 'mp', name: 'मध्य प्रदेश', priority: 1, landmark: 'सांची स्तूप' }]);
+    }
     navigate('/onboarding/select-city');
   };
 

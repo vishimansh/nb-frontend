@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import homeFeedData from '../data/homeFeedData.json';
 import categoryFeedData from '../data/categoryFeedData.json';
@@ -14,6 +14,7 @@ import CityFilterHeader from '../components/city/CityFilterHeader';
 import CityFeedContent from '../components/city/CityFeedContent';
 import { useFeed } from '../context/FeedContext';
 import { useOnboarding } from '../context/OnboardingContext';
+import { useAdvertiser } from '../context/AdvertiserContext';
 import { CANONICAL_CATEGORY_ORDER } from '../theme/categoryMeta';
 
 export default function HomePage() {
@@ -30,8 +31,29 @@ export default function HomePage() {
   }, [activeCategory, navigate]);
 
   const { heroStory, topStories, categories, ads } = homeFeedData;
+  const { campaigns = [] } = useAdvertiser();
 
-  // Active category list in custom user order (synced with draggable category tabs)
+  const liveFeedCampaign = campaigns.find((c) => c.status === 'live' && c.format === 'feed_banner');
+  const liveHeroCampaign = campaigns.find((c) => c.status === 'live' && c.format === 'hero_banner');
+
+  const displayStories = useMemo(() => {
+    if (!liveFeedCampaign) return topStories;
+    return topStories.map((story) => {
+      if (story.id === 'top-sponsored') {
+        return {
+          ...story,
+          title: `${liveFeedCampaign.businessName} - विशेष ऑफर एवं सेवाएं उपलब्ध`,
+          imageUrl: liveFeedCampaign.details?.uploadedCreativeUrl || story.imageUrl,
+          isCustomAd: true,
+          categoryLabel: liveFeedCampaign.businessCategory || 'स्पॉन्सर्ड',
+          destinationUrl: liveFeedCampaign.details?.destinationUrl,
+        };
+      }
+      return story;
+    });
+  }, [topStories, liveFeedCampaign]);
+
+  // Active category list in custom user order (synced with draggable category tabs, default: 7 categories)
   const fallbackCategories = [
     'politics',
     'entertainment',
@@ -40,9 +62,6 @@ export default function HomePage() {
     'tech',
     'education',
     'astro',
-    'health',
-    'lifestyle',
-    'auto',
   ];
 
   const activeCategoryIds = (
@@ -123,6 +142,45 @@ export default function HomePage() {
         ) : activeCategory === 'top_news' ? (
           /* Full Mixed Home Feed */
           <div className="pb-24">
+            {/* Hero Banner Ad (Format: hero_banner) */}
+            {liveHeroCampaign && (
+              <div className="flex justify-center my-2">
+                <div
+                  onClick={() => {
+                    const dest = liveHeroCampaign.details?.destinationUrl || 'https://navabharat.com';
+                    window.open(dest.startsWith('http') ? dest : `https://${dest}`, '_blank');
+                  }}
+                  className="w-[386px] h-[120px] rounded-[16px] bg-[#2B2437] border border-[#E39026]/40 p-3.5 shadow-md flex items-center justify-between text-white cursor-pointer active:scale-[0.99] transition-transform select-none"
+                >
+                  <div className="flex-1 pr-3 flex flex-col justify-between h-full">
+                    <div>
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <span className="bg-[#E39026] text-[#2B2437] text-[10px] font-extrabold px-2 py-0.5 rounded">
+                          प्रायोजित
+                        </span>
+                        <span className="text-[11.5px] font-bold text-[#E39026]">
+                          {liveHeroCampaign.businessCategory}
+                        </span>
+                      </div>
+                      <h3 className="text-[14px] font-bold text-white line-clamp-2 leading-snug">
+                        {liveHeroCampaign.businessName}
+                      </h3>
+                    </div>
+                    <span className="text-[11px] text-[#CBD5E1] font-medium">
+                      {liveHeroCampaign.details?.ctaText || 'अधिक जानें'} →
+                    </span>
+                  </div>
+                  <div className="w-[110px] h-[80px] rounded-[10px] overflow-hidden shrink-0 bg-gray-800">
+                    <img
+                      src={liveHeroCampaign.details?.uploadedCreativeUrl || "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80"}
+                      alt={liveHeroCampaign.businessName}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* 1. Self-Promo Ad Banner (386×120) */}
             <div className="flex justify-center my-2">
               <SelfPromoBanner />
@@ -135,17 +193,29 @@ export default function HomePage() {
 
             {/* 3. Top News Block (5 Standard Cards + 1 Sponsored Card) */}
             <section aria-label="प्रमुख समाचार" className="my-2 space-y-2 flex flex-col items-center">
-              {topStories.map((story) => (
+              {displayStories.map((story) => (
                 <FeedCard
                   key={story.id}
                   id={story.id}
-                  category={CATEGORY_PALETTES[story.categoryId]}
+                  category={
+                    story.isCustomAd
+                      ? { label: story.categoryLabel || 'स्पॉन्सर्ड', color: '#2B2437' }
+                      : CATEGORY_PALETTES[story.categoryId]
+                  }
                   headline={story.title}
                   thumbnail={story.imageUrl}
                   publishedAgo={story.publishedAt}
                   readTime={story.readTime}
                   onCategoryClick={goToCategory}
                   isSponsored={story.isSponsored || story.categoryId === 'sponsored'}
+                  onClick={
+                    story.isCustomAd && story.destinationUrl
+                      ? () => {
+                          const dest = story.destinationUrl;
+                          window.open(dest.startsWith('http') ? dest : `https://${dest}`, '_blank');
+                        }
+                      : undefined
+                  }
                 />
               ))}
             </section>

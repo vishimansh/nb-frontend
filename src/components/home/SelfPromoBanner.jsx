@@ -1,13 +1,30 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import promoPoster from '../../assets/ads/self-promo-ad.png';
+import { useAdvertiser } from '../../context/AdvertiserContext';
 
 /**
  * Self-Promo Ad Banner (386px × 120px)
  * Renders the official promotion poster: "अपने व्यवसाय को अपने शहर में पहुँचाएं"
+ *
+ * Smart routing logic:
+ *  - Not logged in → /advertise/intro  (onboarding: phone → OTP)
+ *  - Logged in + no business profile → /advertise/business-profile  (mandatory setup)
+ *  - Logged in + profile saved → /advertise/dashboard  (returning advertiser)
  */
 export default function SelfPromoBanner() {
+  const navigate = useNavigate();
+  const { advertiserAuth, isBusinessProfileSaved } = useAdvertiser();
+
   const handleClick = () => {
-    alert('नवभारत विज्ञापन पोर्टल: अपना स्थानीय विज्ञापन बुक करें');
+    const isAuthenticated = advertiserAuth?.isAuthenticated && advertiserAuth?.otpVerified;
+    if (!isAuthenticated) {
+      navigate('/advertise/intro');
+    } else if (!isBusinessProfileSaved) {
+      navigate('/advertise/business-profile');
+    } else {
+      navigate('/advertise/dashboard');
+    }
   };
 
   return (

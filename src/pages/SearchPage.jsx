@@ -69,7 +69,7 @@ export default function SearchPage() {
       {
         id: "sn-5",
         isBreakingNews: false,
-        category: { id: "education", label: "शिक्षा", color: "#5B6D8A" },
+        category: { id: "education", label: "शिक्षा", color: "#2B2437" },
         location: "भोपाल",
         headline: "मध्य प्रदेश के 500 से अधिक सीएम राइज स्कूलों में स्मार्ट क्लास और रोबोटिक्स लैब शुरू",
         thumbnail: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=400&q=80",
@@ -186,10 +186,10 @@ export default function SearchPage() {
       {/* 2. Body Viewport: Landing State vs Active Autocomplete */}
       {!isInputFocused && searchQuery.length === 0 ? (
         <div className="flex-1 overflow-y-auto scrollbar-none">
-          {/* Section 1 & 2: Visual Trending Cards (370px × 120px) */}
+          {/* Section 1 & 2: Visual Trending Cards (370px × 132px) */}
           <div className="w-full flex flex-col items-center pt-2.5 space-y-2.5">
-            {/* City Trending Card: 370px × 120px */}
-            <div className="w-[370px] h-[120px] min-h-[120px] max-h-[120px] rounded-[20px] bg-white border border-[#E5E7EB] p-3 px-3.5 relative overflow-hidden shadow-2xs flex flex-col justify-center gap-[18px]">
+            {/* City Trending Card: 370px × 132px */}
+            <div className="w-[370px] h-[132px] min-h-[132px] max-h-[132px] rounded-[20px] bg-white border border-[#E5E7EB] p-3.5 relative overflow-hidden shadow-2xs flex flex-col justify-center gap-[30px]">
               {/* Background Silhouette Artwork: Redesigned Warm Amber Bhopal Skyline (Raja Bhoj, Taj-ul-Masajid & Cable Bridge) */}
               <img
                 src={bhopalSkyline}
@@ -212,7 +212,7 @@ export default function SearchPage() {
                     key={chip.id}
                     type="button"
                     onClick={() => handleChipClick(chip.label)}
-                    className="h-[32px] px-3 rounded-full bg-white/95 backdrop-blur-[2px] border border-[#D5D7DA] flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] active:scale-95 transition-all text-[12px] font-medium text-[#2B2437] hover:border-[#2B2437] cursor-pointer shrink-0"
+                    className="h-[32px] p-2 rounded-full bg-white/95 backdrop-blur-[2px] border border-[#D5D7DA] flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] active:scale-95 transition-all text-[12px] font-medium text-[#2B2437] hover:border-[#2B2437] cursor-pointer shrink-0"
                   >
                     <TrendUpArrowIcon size={16} color="#F5B55C" />
                     <span className="whitespace-nowrap pt-[1px]">{chip.label}</span>
@@ -221,8 +221,8 @@ export default function SearchPage() {
               </div>
             </div>
 
-            {/* National Trending Card: 370px × 120px */}
-            <div className="w-[370px] h-[120px] min-h-[120px] max-h-[120px] rounded-[20px] bg-white border border-[#E5E7EB] p-3 px-3.5 relative overflow-hidden shadow-2xs flex flex-col justify-center gap-[18px]">
+            {/* National Trending Card: 370px × 132px */}
+            <div className="w-[370px] h-[132px] min-h-[132px] max-h-[132px] rounded-[20px] bg-white border border-[#E5E7EB] p-3.5 relative overflow-hidden shadow-2xs flex flex-col justify-center gap-[30px]">
               {/* Background Silhouette Artwork: Redesigned Slate-Blue National Heritage Skyline (India Gate, Gopuram, Qutub Minar, Taj Mahal, Chakra) */}
               <img
                 src={indiaSkyline}
@@ -232,8 +232,8 @@ export default function SearchPage() {
 
               {/* Card Header Row */}
               <div className="flex items-center gap-2 relative z-10">
-                <div className="w-[30px] h-[30px] rounded-full bg-white border border-[#D1D5DB] flex items-center justify-center text-[#2B2437] flex-shrink-0 shadow-2xs">
-                  <IndiaMapOutlineIcon size={17} color="#2B2437" />
+                <div className="w-[30px] h-[30px] rounded-full bg-[#2B2437] border border-[#2B2437] flex items-center justify-center text-white flex-shrink-0 shadow-2xs">
+                  <IndiaMapOutlineIcon size={17} color="#FFFFFF" />
                 </div>
                 <h2 className="text-[15px] font-bold text-[#2B2437] leading-none">देश-प्रदेश में ट्रेंडिंग</h2>
               </div>
@@ -245,7 +245,7 @@ export default function SearchPage() {
                     key={chip.id}
                     type="button"
                     onClick={() => handleChipClick(chip.label)}
-                    className="h-[32px] px-3 rounded-full bg-white/95 backdrop-blur-[2px] border border-[#D5D7DA] flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] active:scale-95 transition-all text-[12px] font-medium text-[#2B2437] hover:border-[#2B2437] cursor-pointer shrink-0"
+                    className="h-[32px] p-2 rounded-full bg-white/95 backdrop-blur-[2px] border border-[#D5D7DA] flex items-center gap-1.5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] active:scale-95 transition-all text-[12px] font-medium text-[#2B2437] hover:border-[#2B2437] cursor-pointer shrink-0"
                   >
                     <TrendUpArrowIcon size={16} color="#2B2437" />
                     <span className="whitespace-nowrap pt-[1px]">{chip.label}</span>

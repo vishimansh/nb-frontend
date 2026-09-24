@@ -58,7 +58,7 @@ export default function SearchNewsCard({
       isSponsored={isSponsored}
       location={location}
       onCategoryClick={onCategoryClick}
-      className={`w-[370px] min-w-[370px] max-w-[370px] rounded-[10px] p-2.5 ${cardBgClass} ${className}`}
+      className={`w-[370px] min-w-[370px] max-w-[370px] min-h-[108px] rounded-[10px] px-2.5 py-[6px] ${cardBgClass} ${className}`}
     />
   );
 }

@@ -5,64 +5,14 @@ import { SearchNormal1, TickCircle, InfoCircle } from 'iconsax-react';
 import BackButton from '../../components/common/BackButton';
 import { useOnboarding } from '../../context/OnboardingContext';
 import { useCity } from '../../context/CityContext';
-import { CITIES_BY_STATE, STATES_DATA } from '../../data/onboardingData';
-
-const CITY_NAME_TO_ID = {
-  'भोपाल': 'bhopal',
-  'जयपुर': 'jaipur',
-  'नागपुर': 'nagpur',
-  'इंदौर': 'indore',
-  'ग्वालियर': 'gwalior',
-  'जबलपुर': 'jabalpur',
-  'उज्जैन': 'ujjain',
-  'सतना': 'satna',
-  'सागर': 'sagar',
-  'रीवा': 'rewa',
-  'छिंदवाड़ा': 'chhindwara',
-  'रतलाम': 'ratlam',
-  'खंडवा': 'khandwa',
-  'जोधपुर': 'jodhpur',
-  'कोटा': 'kota',
-  'अजमेर': 'ajmer',
-  'उदयपुर': 'udaipur',
-  'बीकानेर': 'bikaner',
-  'भीलवाड़ा': 'bhilwara',
-  'अलवर': 'alwar',
-  'सीकर': 'sikar',
-  'मुंबई': 'mumbai',
-  'पुणे': 'pune',
-  'नाशिक': 'nashik',
-  'ठाणे': 'thane',
-  'औरंगाबाद': 'aurangabad',
-  'कोल्हापुर': 'kolhapur',
-  'अहमदाबाद': 'ahmedabad',
-  'सूरत': 'surat',
-  'वडोदरा': 'vadodara',
-  'राजकोट': 'rajkot',
-  'भावनगर': 'bhavnagar',
-  'जामनगर': 'jamnagar',
-  'गांधीनगर': 'gandhinagar',
-  'रायपुर': 'raipur',
-  'बिलासपुर': 'bilaspur',
-  'दुर्ग': 'durg',
-  'भिलाई': 'bhilai',
-  'जगदलपुर': 'jagdalpur',
-  'कोरबा': 'korba',
-  'रायगढ़': 'raigarh',
-};
-
-/**
- * Screen 6: City Selection Screen
- * Exact styling: h-[50px] rounded-[14px] search, h-[42px] rounded-[14px] chips,
- * warm golden-amber #F7C873 expand chip with dark navy #2B2437 text,
- * and 56px rounded-[16px] bottom CTA button.
- */
+import { CITIES_BY_STATE, STATES_DATA, TOP_CITIES_BY_STATE, CITY_NAME_TO_ID } from '../../data/onboardingData';
 export default function CitySelectionScreen() {
   const navigate = useNavigate();
   const { updateSavedCities } = useCity();
   const {
     selectedStates,
     selectedCities,
+    setSelectedCities,
     toggleCity,
     alertMessage,
     showAlert,
@@ -86,7 +36,18 @@ export default function CitySelectionScreen() {
   const isSingleStateMode = displayStateIds.length === 1;
 
   const handleSave = () => {
-    const newSavedCities = selectedCities.map((c) => {
+    let citiesToSave = selectedCities;
+    if (!citiesToSave || citiesToSave.length === 0) {
+      citiesToSave = displayStateIds.slice(0, 3).map((sId) => {
+        const topCities = TOP_CITIES_BY_STATE[sId] || CITIES_BY_STATE[sId]?.primary || [];
+        return { stateId: sId, city: topCities[0] || 'भोपाल' };
+      });
+      if (setSelectedCities) {
+        setSelectedCities(citiesToSave);
+      }
+    }
+
+    const newSavedCities = citiesToSave.map((c) => {
       const cityId = CITY_NAME_TO_ID[c.city] || c.city.toLowerCase().replace(/\s+/g, '_');
       const stateData = CITIES_BY_STATE[c.stateId];
       return {
@@ -95,6 +56,7 @@ export default function CitySelectionScreen() {
         state: stateData?.stateName || 'मध्य प्रदेश',
       };
     });
+
     if (newSavedCities.length > 0) {
       updateSavedCities(newSavedCities);
     }
@@ -102,6 +64,30 @@ export default function CitySelectionScreen() {
   };
 
   const handleSkip = () => {
+    let citiesToSave = selectedCities;
+    if (!citiesToSave || citiesToSave.length === 0) {
+      citiesToSave = displayStateIds.slice(0, 3).map((sId) => {
+        const topCities = TOP_CITIES_BY_STATE[sId] || CITIES_BY_STATE[sId]?.primary || [];
+        return { stateId: sId, city: topCities[0] || 'भोपाल' };
+      });
+      if (setSelectedCities) {
+        setSelectedCities(citiesToSave);
+      }
+    }
+
+    const newSavedCities = citiesToSave.map((c) => {
+      const cityId = CITY_NAME_TO_ID[c.city] || c.city.toLowerCase().replace(/\s+/g, '_');
+      const stateData = CITIES_BY_STATE[c.stateId];
+      return {
+        id: cityId,
+        name: c.city,
+        state: stateData?.stateName || 'मध्य प्रदेश',
+      };
+    });
+
+    if (newSavedCities.length > 0) {
+      updateSavedCities(newSavedCities);
+    }
     navigate('/feed');
   };
 

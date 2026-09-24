@@ -12,6 +12,7 @@ export default function LiveArticleHero({
   onToggleBookmark,
   isBookmarked: propBookmarked,
   articleId,
+  articleData,
 }) {
   const [localBookmarked, setLocalBookmarked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -88,6 +89,14 @@ export default function LiveArticleHero({
             onClose={() => setIsMenuOpen(false)}
             articleId={articleId}
             headline={caption}
+            articleData={articleData || {
+              id: articleId || caption,
+              headline: caption,
+              thumbnail: hero?.imageUrl || supremeCourtImg,
+              category: 'देश',
+              publishedAgo: 'अभी-अभी',
+              readTime: '3 मिनट पढ़ें',
+            }}
             showWhatsApp={true}
           />
         </div>

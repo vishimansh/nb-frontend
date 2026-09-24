@@ -1,69 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArchiveAdd, ArchiveTick, Copy, TickCircle, Whatsapp } from 'iconsax-react';
+import { useSavedArticles } from '../../context/SavedArticlesContext';
 
 /**
  * ArticleOptionsMenu
  * Floating action popover appearing over/under the 3-dot icon on news article cards and article screens.
- * Options:
- * - When showWhatsApp is false (Feed Cards):
- *   1. खबर सेव करें (Save Article)
- *   2. लिंक कॉपी करें (Copy Link)
- * - When showWhatsApp is true (Article Screen):
- *   1. व्हाट्सएप पर शेयर (WhatsApp Share)
- *   2. लिंक कॉपी करें (Copy Link)
+ * Seamlessly connects to SavedArticlesContext so saved articles appear on /saved.
  */
 export default function ArticleOptionsMenu({
   isOpen,
   onClose,
   articleId,
   headline,
+  articleData,
   showWhatsApp = false,
   className = "",
 }) {
-  const [isSaved, setIsSaved] = useState(false);
+  const { isArticleSaved, toggleSaveArticle } = useSavedArticles();
   const [copied, setCopied] = useState(false);
-
-  // Sync saved status from localStorage
-  useEffect(() => {
-    if (!isOpen) return;
-    try {
-      const savedArticles = JSON.parse(localStorage.getItem('nb_saved_articles') || '[]');
-      const targetId = String(articleId || headline);
-      setIsSaved(savedArticles.includes(targetId));
-    } catch {
-      // Fallback
-    }
-  }, [isOpen, articleId, headline]);
 
   if (!isOpen) return null;
 
+  const targetId = articleId || headline || articleData?.id;
+  const isSaved = isArticleSaved(targetId);
+
   const handleSave = (e) => {
     e.stopPropagation();
-    try {
-      const targetId = String(articleId || headline);
-      const savedArticles = JSON.parse(localStorage.getItem('nb_saved_articles') || '[]');
-      let updated;
-      if (savedArticles.includes(targetId)) {
-        updated = savedArticles.filter((id) => id !== targetId);
-        setIsSaved(false);
-      } else {
-        updated = [...savedArticles, targetId];
-        setIsSaved(true);
-      }
-      localStorage.setItem('nb_saved_articles', JSON.stringify(updated));
-    } catch {
-      setIsSaved(!isSaved);
-    }
+    const payload = articleData || {
+      id: targetId,
+      headline: headline || 'शीर्षक',
+      category: 'टॉप न्यूज़',
+      publishedAgo: 'अभी-अभी',
+      readTime: '3 मिनट पढ़ें',
+    };
+    toggleSaveArticle(payload);
+
     setTimeout(() => {
       onClose();
-    }, 700);
+    }, 500);
   };
 
   const handleWhatsApp = (e) => {
     e.stopPropagation();
     try {
       const url = window.location.href;
-      const text = encodeURIComponent(`${headline || 'नवभारत'} - नवभारत\n${url}`);
+      const text = encodeURIComponent(`${headline || articleData?.headline || 'नवभारत'} - नवभारत\n${url}`);
       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
     } catch {
       // Fallback
@@ -74,7 +55,7 @@ export default function ArticleOptionsMenu({
   const handleCopyLink = async (e) => {
     e.stopPropagation();
     try {
-      const url = `${window.location.origin}/article/${articleId || 'live-bhopal-encroachment'}`;
+      const url = `${window.location.origin}/article/${articleId || articleData?.id || 'live-bhopal-encroachment'}`;
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(url);
       }
@@ -85,7 +66,7 @@ export default function ArticleOptionsMenu({
     setTimeout(() => {
       setCopied(false);
       onClose();
-    }, 800);
+    }, 700);
   };
 
   return (
@@ -102,50 +83,54 @@ export default function ArticleOptionsMenu({
       {/* Floating Popover Container (Positioned below the 3-dots icon) */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`absolute top-[calc(100%+8px)] right-0 z-50 bg-white rounded-[10px] shadow-xl border border-[#E5E7EB] py-1 w-[148px] flex flex-col select-none transition-all duration-150 ${className}`}
+        className={`absolute top-[calc(100%+8px)] right-0 z-50 bg-white rounded-[12px] shadow-xl border border-[#E5E7EB] py-1.5 w-[156px] flex flex-col select-none transition-all duration-150 ${className}`}
       >
-        {/* Option 1: WhatsApp (if showWhatsApp) or खबर सेव करें */}
-        {showWhatsApp ? (
-          <button
-            type="button"
-            onClick={handleWhatsApp}
-            className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#2B2437] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-t-[9px]"
-          >
-            <Whatsapp size={16} color="#2B2437" variant="Bold" className="shrink-0" />
-            <span>व्हाट्सएप</span>
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={handleSave}
-            className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#2B2437] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-t-[9px]"
-          >
-            {isSaved ? (
-              <ArchiveTick size={16} color="#10B981" variant="Bold" className="shrink-0" />
-            ) : (
-              <ArchiveAdd size={16} color="#2B2437" variant="Linear" className="shrink-0" />
-            )}
-            <span className={isSaved ? "text-[#10B981] font-semibold" : ""}>
-              {isSaved ? 'खबर सेव हुई' : 'खबर सेव करें'}
-            </span>
-          </button>
+        {/* Option 1: खबर सेव करें / खबर सेव हुई */}
+        <button
+          type="button"
+          onClick={handleSave}
+          className="w-full flex items-center gap-2.5 px-3 py-2 text-[12.5px] font-medium text-[#2B2437] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-t-[10px]"
+        >
+          {isSaved ? (
+            <ArchiveTick size={16} color="#E39026" variant="Bold" className="shrink-0" />
+          ) : (
+            <ArchiveAdd size={16} color="#2B2437" variant="Linear" className="shrink-0" />
+          )}
+          <span className={isSaved ? "text-[#E39026] font-bold" : ""}>
+            {isSaved ? 'सेव से हटाएं' : 'खबर सेव करें'}
+          </span>
+        </button>
+
+        {/* Option 2: WhatsApp (if showWhatsApp) */}
+        {showWhatsApp && (
+          <>
+            <div className="h-[1px] bg-[#F1F5F9] mx-2" />
+            <button
+              type="button"
+              onClick={handleWhatsApp}
+              className="w-full flex items-center gap-2.5 px-3 py-2 text-[12.5px] font-medium text-[#2B2437] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer"
+            >
+              <Whatsapp size={16} color="#2B2437" variant="Bold" className="shrink-0" />
+              <span>व्हाट्सएप</span>
+            </button>
+          </>
         )}
 
         {/* Hairline Divider */}
         <div className="h-[1px] bg-[#F1F5F9] mx-2" />
 
-        {/* Option 2: लिंक कॉपी करें */}
+        {/* Option 3: लिंक कॉपी करें */}
         <button
           type="button"
           onClick={handleCopyLink}
-          className="w-full flex items-center gap-2 px-3 py-2 text-[12.5px] font-medium text-[#2B2437] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-b-[9px]"
+          className="w-full flex items-center gap-2.5 px-3 py-2 text-[12.5px] font-medium text-[#2B2437] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-b-[10px]"
         >
           {copied ? (
-            <TickCircle size={16} color="#10B981" variant="Bold" className="shrink-0" />
+            <TickCircle size={16} color="#2B2437" variant="Bold" className="shrink-0" />
           ) : (
             <Copy size={16} color="#2B2437" variant="Linear" className="shrink-0" />
           )}
-          <span className={copied ? "text-[#10B981] font-semibold" : ""}>
+          <span className={copied ? "text-[#2B2437] font-bold" : ""}>
             {copied ? 'लिंक कॉपी हुआ!' : 'लिंक कॉपी करें'}
           </span>
         </button>

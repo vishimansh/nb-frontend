@@ -17,27 +17,12 @@ import {
   Flash,
 } from 'iconsax-react';
 import { useVideo } from '../../context/VideoContext';
+import { getCategoryMeta } from '../../theme/categories';
 
 function getGenreIcon(genreId, color = '#FFFFFF', size = 12) {
-  const props = { size, color, variant: 'Linear' };
-  switch (genreId) {
-    case 'business_startup':
-      return <TrendUp {...props} />;
-    case 'culture_stories':
-      return <Book {...props} />;
-    case 'politics_talk':
-      return <Messages2 {...props} />;
-    case 'news_analysis':
-      return <SearchStatus {...props} />;
-    case 'entertainment_interview':
-      return <Microphone {...props} />;
-    case 'sports_talk':
-      return <Award {...props} />;
-    case 'lifestyle':
-      return <Coffee {...props} />;
-    default:
-      return <TrendUp {...props} />;
-  }
+  const meta = getCategoryMeta(genreId);
+  const IconComp = meta?.icon || TrendUp;
+  return <IconComp size={size} color={color} variant="Linear" />;
 }
 
 function getCollapsedExcerpt(hookOrDesc, headline) {
@@ -144,7 +129,10 @@ export default function PodcastCard({
     openTranscript(podcast.id);
   };
 
-  const genreColor = podcast.genre?.color || '#059669';
+  const catObj = podcast.category || podcast.genre || {};
+  const catMeta = getCategoryMeta(catObj.id);
+  const categoryLabel = catObj.label || catMeta.label;
+  const categoryColor = catObj.color || catMeta.color;
 
   return (
     <div className="h-full w-full snap-start relative flex-shrink-0 flex items-center justify-center overflow-hidden bg-black select-none">
@@ -172,19 +160,18 @@ export default function PodcastCard({
       <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/85 via-black/30 to-transparent pointer-events-none z-10" />
       <div className="absolute bottom-0 inset-x-0 h-80 bg-gradient-to-t from-black/95 via-black/60 via-45% to-transparent pointer-events-none z-10" />
 
-      {/* 3. Center Pause Indicator (Persistent white || bars with drop shadow) */}
+      {/* 3. Center Play Indicator when Paused */}
       <AnimatePresence>
         {isPausedByUser && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
+            initial={{ opacity: 0, scale: 0.75 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.15 }}
+            exit={{ opacity: 0, scale: 0.75 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
             className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
           >
-            <div className="flex items-center gap-2 drop-shadow-[0_4px_14px_rgba(0,0,0,0.75)]">
-              <div className="w-[7px] h-[30px] bg-white rounded-full shadow-lg" />
-              <div className="w-[7px] h-[30px] bg-white rounded-full shadow-lg" />
+            <div className="w-[76px] h-[76px] rounded-full bg-black/65 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.6)]">
+              <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[24px] border-l-white border-b-[15px] border-b-transparent ml-1.5 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" />
             </div>
           </motion.div>
         )}
@@ -297,19 +284,19 @@ export default function PodcastCard({
             </div>
           )}
 
-          {/* Genre Badge Pill: 6px padding all sides, 6px gap, hug content, icon inside 20x20px circle, 16px medium label */}
+          {/* Category Badge Pill: exact same 10 news categories of the app */}
           <div className="bg-white rounded-full p-[6px] flex items-center gap-[6px] shadow-md w-fit shrink-0">
             <div
-              style={{ backgroundColor: genreColor }}
+              style={{ backgroundColor: categoryColor }}
               className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] rounded-full flex items-center justify-center shrink-0"
             >
-              {getGenreIcon(podcast.genre?.id, '#FFFFFF', 12)}
+              {getGenreIcon(catObj.id, '#FFFFFF', 12)}
             </div>
             <span
-              style={{ color: genreColor }}
+              style={{ color: categoryColor }}
               className="text-[16px] font-medium leading-none"
             >
-              {podcast.genre?.label}
+              {categoryLabel}
             </span>
           </div>
         </div>
