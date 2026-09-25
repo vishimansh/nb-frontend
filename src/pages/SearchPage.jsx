@@ -32,12 +32,12 @@ export const TRENDING_ILLUSTRATION_CONFIG = {
   // "देश-प्रदेश में ट्रेंडिंग" (National Trending) Card
   national: {
     right: '0px',             // e.g., '0px', '-15px', '10px', 'auto'
-    bottom: '40px',           // e.g., '0px', '-10px', '5px', 'auto'
+    bottom: '22px',           // Anchors the base lower to show more monument height
     top: 'auto',              // e.g., 'auto', '10px', '0px'
     left: 'auto',             // e.g., 'auto', '0px'
-    height: '92px',           // illustration height (e.g. '96px', '110px', '80px')
-    maxWidth: '300px',        // max width constraint
-    opacity: 0.8,             // Overall opacity: 0.0 (invisible) to 1.0 (fully opaque)
+    height: '118px',          // Scaled up from 92px to compensate for tall aspect ratio & fine line-art
+    maxWidth: '340px',        // Allows India Gate, Qutub Minar & Gopuram to span clearly
+    opacity: 0.95,            // Higher opacity makes fine blue line-art pop as strongly as amber fills
     maskImage: 'none',        // Fade gradient mask: e.g. 'linear-gradient(to right, transparent 0%, black 50%)' to fade the left portion
     objectPosition: 'bottom right', // CSS object-position
     transform: 'none',        // e.g., 'translate(0px, 0px) scale(1)'
