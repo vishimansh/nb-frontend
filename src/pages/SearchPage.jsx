@@ -10,6 +10,40 @@ import { StatueHeritageIcon, IndiaMapOutlineIcon, TrendUpArrowIcon } from '../co
 import bhopalSkyline from '../assets/illustrations/bhopal_skyline_amber.png';
 import indiaSkyline from '../assets/illustrations/india_skyline_blue.png';
 
+/**
+ * Position, sizing & opacity controls for the background illustrations
+ * in the "मेरे शहर में ट्रेंडिंग" and "देश-प्रदेश में ट्रेंडिंग" cards.
+ * Adjust these values to shift, resize, or reposition the illustrations.
+ */
+export const TRENDING_ILLUSTRATION_CONFIG = {
+  // "मेरे शहर में ट्रेंडिंग" (City Trending) Card
+  city: {
+    right: '0px',             // e.g., '0px', '-15px', '10px', 'auto'
+    bottom: '40px',           // e.g., '0px', '-10px', '5px', 'auto'
+    top: 'auto',              // e.g., 'auto', '10px', '0px'
+    left: 'auto',             // e.g., 'auto', '0px'
+    height: '92px',           // illustration height (e.g. '100px', '115px', '85px')
+    maxWidth: '300px',        // max width constraint
+    opacity: 0.8,             // Overall opacity: 0.0 (invisible) to 1.0 (fully opaque)
+    maskImage: 'none',        // Fade gradient mask: e.g. 'linear-gradient(to right, transparent 0%, black 50%)' to fade the left portion
+    objectPosition: 'bottom right', // CSS object-position
+    transform: 'none',        // e.g., 'translate(0px, 0px) scale(1)'
+  },
+  // "देश-प्रदेश में ट्रेंडिंग" (National Trending) Card
+  national: {
+    right: '0px',             // e.g., '0px', '-15px', '10px', 'auto'
+    bottom: '40px',           // e.g., '0px', '-10px', '5px', 'auto'
+    top: 'auto',              // e.g., 'auto', '10px', '0px'
+    left: 'auto',             // e.g., 'auto', '0px'
+    height: '92px',           // illustration height (e.g. '96px', '110px', '80px')
+    maxWidth: '300px',        // max width constraint
+    opacity: 0.8,             // Overall opacity: 0.0 (invisible) to 1.0 (fully opaque)
+    maskImage: 'none',        // Fade gradient mask: e.g. 'linear-gradient(to right, transparent 0%, black 50%)' to fade the left portion
+    objectPosition: 'bottom right', // CSS object-position
+    transform: 'none',        // e.g., 'translate(0px, 0px) scale(1)'
+  },
+};
+
 export default function SearchPage() {
   const navigate = useNavigate();
   const onboarding = useOnboarding();
@@ -175,9 +209,8 @@ export default function SearchPage() {
           type="button"
           onClick={handleVoiceSearch}
           aria-label="वॉइस सर्च"
-          className={`w-[46px] h-[46px] rounded-[14px] bg-[#2B2437] flex items-center justify-center text-white shadow-xs cursor-pointer active:scale-95 flex-shrink-0 transition-all ${
-            isListening ? 'animate-pulse ring-2 ring-[#F5B55C]' : ''
-          }`}
+          className={`w-[46px] h-[46px] rounded-[14px] bg-[#2B2437] flex items-center justify-center text-white shadow-xs cursor-pointer active:scale-95 flex-shrink-0 transition-all ${isListening ? 'animate-pulse ring-2 ring-[#F5B55C]' : ''
+            }`}
         >
           <Microphone2 size={20} color="#FFFFFF" variant="Linear" />
         </button>
@@ -194,7 +227,21 @@ export default function SearchPage() {
               <img
                 src={bhopalSkyline}
                 alt="Bhopal Skyline"
-                className="absolute right-0 bottom-0 h-[100px] w-auto max-w-[285px] object-contain object-bottom pointer-events-none select-none z-0 opacity-80"
+                style={{
+                  position: 'absolute',
+                  right: TRENDING_ILLUSTRATION_CONFIG.city.right,
+                  bottom: TRENDING_ILLUSTRATION_CONFIG.city.bottom,
+                  top: TRENDING_ILLUSTRATION_CONFIG.city.top,
+                  left: TRENDING_ILLUSTRATION_CONFIG.city.left,
+                  height: TRENDING_ILLUSTRATION_CONFIG.city.height,
+                  maxWidth: TRENDING_ILLUSTRATION_CONFIG.city.maxWidth,
+                  opacity: TRENDING_ILLUSTRATION_CONFIG.city.opacity,
+                  maskImage: TRENDING_ILLUSTRATION_CONFIG.city.maskImage,
+                  WebkitMaskImage: TRENDING_ILLUSTRATION_CONFIG.city.maskImage,
+                  objectPosition: TRENDING_ILLUSTRATION_CONFIG.city.objectPosition,
+                  transform: TRENDING_ILLUSTRATION_CONFIG.city.transform,
+                }}
+                className="w-auto object-contain pointer-events-none select-none z-0"
               />
 
               {/* Card Header Row */}
@@ -227,7 +274,21 @@ export default function SearchPage() {
               <img
                 src={indiaSkyline}
                 alt="India Skyline"
-                className="absolute right-0 bottom-0 h-[96px] w-auto max-w-[290px] object-contain object-bottom pointer-events-none select-none z-0 opacity-80"
+                style={{
+                  position: 'absolute',
+                  right: TRENDING_ILLUSTRATION_CONFIG.national.right,
+                  bottom: TRENDING_ILLUSTRATION_CONFIG.national.bottom,
+                  top: TRENDING_ILLUSTRATION_CONFIG.national.top,
+                  left: TRENDING_ILLUSTRATION_CONFIG.national.left,
+                  height: TRENDING_ILLUSTRATION_CONFIG.national.height,
+                  maxWidth: TRENDING_ILLUSTRATION_CONFIG.national.maxWidth,
+                  opacity: TRENDING_ILLUSTRATION_CONFIG.national.opacity,
+                  maskImage: TRENDING_ILLUSTRATION_CONFIG.national.maskImage,
+                  WebkitMaskImage: TRENDING_ILLUSTRATION_CONFIG.national.maskImage,
+                  objectPosition: TRENDING_ILLUSTRATION_CONFIG.national.objectPosition,
+                  transform: TRENDING_ILLUSTRATION_CONFIG.national.transform,
+                }}
+                className="w-auto object-contain pointer-events-none select-none z-0"
               />
 
               {/* Card Header Row */}

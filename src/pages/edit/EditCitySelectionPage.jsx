@@ -109,12 +109,10 @@ export default function EditCitySelectionPage() {
         </span>
       </div>
 
-      {/* Dynamic Subtitle */}
+      {/* Subtitle */}
       <div className="px-6 pt-3 pb-2 shrink-0">
-        <p className="text-[13px] font-normal text-[#6B7280] leading-[1.4] whitespace-pre-line">
-          {isSingleStateMode
-            ? "आप अपने राज्य से अधिकतम 3 शहर चुन सकते हैं"
-            : "अपने चुने गए प्रत्येक राज्य से आप\nएक-एक शहर चुन सकते हैं"}
+        <p className="text-[13px] font-normal text-[#6B7280] leading-[1.4]">
+          अपने चुने गए राज्यों से अपने पसंदीदा शहर चुनें
         </p>
       </div>
 
@@ -179,7 +177,7 @@ export default function EditCitySelectionPage() {
                       <button
                         key={city}
                         type="button"
-                        onClick={() => toggleDraftCity(stateId, city, isSingleStateMode)}
+                        onClick={() => toggleDraftCity(stateId, city)}
                         className={`px-4 py-2 rounded-[16px] text-[18px] font-medium cursor-pointer transition-all active:scale-95 flex items-center gap-2 ${
                           isSelected
                             ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm'
@@ -202,7 +200,7 @@ export default function EditCitySelectionPage() {
                         <button
                           key={city}
                           type="button"
-                          onClick={() => toggleDraftCity(stateId, city, isSingleStateMode)}
+                          onClick={() => toggleDraftCity(stateId, city)}
                           className={`px-4 py-2 rounded-[16px] text-[18px] font-medium cursor-pointer transition-all active:scale-95 flex items-center gap-2 ${
                             isSelected
                               ? 'bg-[#2B2437] text-white border border-[#2B2437] shadow-sm'

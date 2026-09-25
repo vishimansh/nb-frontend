@@ -46,6 +46,41 @@
       "categoryId": "politics",
       "headline": "भोपाल में चुनावी तैयारियां तेज, निर्वाचन आयोग ने अधिकारियों के साथ की अहम बैठक",
       "timestamp": "2026-09-15T17:55:00Z"
+    },
+    {
+      "id": "notif-td-4",
+      "thumbnail": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "sports",
+      "headline": "क्रिकेट: स्थानीय टी-20 कप के क्वार्टर फाइनल मुकाबले शुरू, रोमांचक मैच देखने उमड़े फैंस",
+      "timestamp": "2026-09-15T16:30:00Z"
+    },
+    {
+      "id": "notif-td-5",
+      "thumbnail": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "business",
+      "headline": "सोने-चांदी की कीमतों में उछाल, त्योहारी सीजन से पहले सर्राफा बाजार में लौटी रौनक",
+      "timestamp": "2026-09-15T15:10:00Z"
+    },
+    {
+      "id": "notif-td-6",
+      "thumbnail": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "education",
+      "headline": "उच्च शिक्षा विभाग ने जारी की नई स्कॉलरशिप लिस्ट, प्रदेश के 5 हजार छात्रों को मिलेगा लाभ",
+      "timestamp": "2026-09-15T13:45:00Z"
+    },
+    {
+      "id": "notif-td-7",
+      "thumbnail": "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "health",
+      "headline": "मौसम में बदलाव से मौसमी बीमारियों का प्रकोप, डॉक्टरों ने दी खानपान में सावधानी बरतने की सलाह",
+      "timestamp": "2026-09-15T11:20:00Z"
+    },
+    {
+      "id": "notif-td-8",
+      "thumbnail": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "lifestyle",
+      "headline": "शहर में 3 दिवसीय फूड एंड आर्ट कार्निवल का आगाज, स्थानीय कारीगरों के स्टॉल बने आकर्षण",
+      "timestamp": "2026-09-15T09:00:00Z"
     }
   ],
   "thisWeek": [
@@ -69,6 +104,41 @@
       "categoryId": "politics",
       "headline": "अहम बैठक में विकास योजनाओं की समीक्षा, कई बड़े प्रस्तावों पर हुई चर्चा",
       "timestamp": "2026-09-11T12:00:00Z"
+    },
+    {
+      "id": "notif-tw-4",
+      "thumbnail": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "business",
+      "headline": "सूक्ष्म व लघु उद्योगों के लिए नए क्लस्टर को मिली मंजूरी, 10 हजार नए रोजगार सृजित होंगे",
+      "timestamp": "2026-09-10T16:30:00Z"
+    },
+    {
+      "id": "notif-tw-5",
+      "thumbnail": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "tech",
+      "headline": "स्मार्ट ट्रैफिक मैनेजमेंट सिस्टम हुआ अपग्रेड, प्रमुख चौराहों पर जाम की समस्या में आई कमी",
+      "timestamp": "2026-09-09T14:15:00Z"
+    },
+    {
+      "id": "notif-tw-6",
+      "thumbnail": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "sports",
+      "headline": "राज्य स्तरीय खेल महोत्सव का भव्य समापन, भोपाल की टीम ने ओवरऑल चैंपियनशिप जीती",
+      "timestamp": "2026-09-08T18:00:00Z"
+    },
+    {
+      "id": "notif-tw-7",
+      "thumbnail": "https://images.unsplash.com/photo-1460723237483-7a6dc9d0b212?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "entertainment",
+      "headline": "थिएटर फेस्टिवल में युवाओं की शानदार प्रस्तुति, सामाजिक संदेश देने वाले नाटक को मिला पहला पुरस्कार",
+      "timestamp": "2026-09-07T20:30:00Z"
+    },
+    {
+      "id": "notif-tw-8",
+      "thumbnail": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=300&q=80",
+      "categoryId": "health",
+      "headline": "शहर के प्रमुख पार्कों में शुरू हुए निःशुल्क योग शिविर, सुबह के समय बड़ी संख्या में पहुंच रहे लोग",
+      "timestamp": "2026-09-06T07:30:00Z"
     }
   ]
 }

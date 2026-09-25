@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Judge,
-  VideoPlay,
-  Activity,
   TrendUp,
-  Cpu,
   Teacher,
-  Moon,
   Heart,
   Car,
   Tree,
@@ -18,16 +14,33 @@ import {
   Speaker,
   Whatsapp,
 } from 'iconsax-react';
+import { PiCricketFill } from 'react-icons/pi';
+import { Clapperboard, BrainCircuit } from 'lucide-react';
+import AstroZodiacWheelIcon from '../icons/AstroZodiacWheelIcon';
 import ArticleOptionsMenu from '../common/ArticleOptionsMenu';
+
+// Adapters: give react-icons & lucide-react the same { size, color } API as iconsax
+const CricketIcon = ({ size = 16, color = 'currentColor' }) => (
+  <PiCricketFill style={{ width: size, height: size, color }} />
+);
+const AstroIcon = AstroZodiacWheelIcon;
+const MoonStarIcon = AstroZodiacWheelIcon;
+const AstrolabeIcon = AstroZodiacWheelIcon;
+const BrainCircuitIcon = ({ size = 16, color = 'currentColor' }) => (
+  <BrainCircuit size={size} color={color} strokeWidth={1.8} />
+);
+const ClapperboardIcon = ({ size = 16, color = 'currentColor' }) => (
+  <Clapperboard size={size} color={color} strokeWidth={1.8} />
+);
 
 export const CATEGORY_PALETTES = {
   politics: { label: 'राजनीति', color: '#B6783A', icon: Judge },
-  entertainment: { label: 'मनोरंजन', color: '#805D76', icon: VideoPlay },
-  sports: { label: 'खेल', color: '#557E63', icon: Activity },
+  entertainment: { label: 'मनोरंजन', color: '#805D76', icon: ClapperboardIcon },
+  sports: { label: 'खेल', color: '#557E63', icon: CricketIcon },
   business: { label: 'बिज़नेस', color: '#497877', icon: TrendUp },
-  tech: { label: 'टेक्नोलॉजी', color: '#2B2437', icon: Cpu },
+  tech: { label: 'टेक्नोलॉजी', color: '#2B2437', icon: BrainCircuitIcon },
   education: { label: 'शिक्षा', color: '#2B2437', icon: Teacher },
-  astro: { label: 'ज्योतिष', color: '#71668C', icon: Moon },
+  astro: { label: 'ज्योतिष', color: '#71668C', icon: AstroZodiacWheelIcon },
   health: { label: 'स्वास्थ्य', color: '#B3746E', icon: Heart },
   lifestyle: { label: 'लाइफस्टाइल', color: '#77856E', icon: Tree },
   auto: { label: 'ऑटो', color: '#596776', icon: Car },
@@ -40,12 +53,14 @@ export const CATEGORY_PALETTES = {
 
 const ICON_MAP = {
   Judge,
-  VideoPlay,
-  Activity,
+  ClapperboardIcon,
+  CricketIcon,
+  AstroZodiacWheelIcon,
+  MoonStarIcon,
+  AstrolabeIcon,
+  BrainCircuitIcon,
   TrendUp,
-  Cpu,
   Teacher,
-  Moon,
   Heart,
   Tree,
   Car,
@@ -54,8 +69,8 @@ const ICON_MAP = {
   DocumentText,
   // Backward-compatible mappings
   Scales: Judge,
-  FilmStrip: VideoPlay,
-  SoccerBall: Activity,
+  FilmStrip: ClapperboardIcon,
+  SoccerBall: CricketIcon,
   GraduationCap: Teacher,
   Plant: Tree,
   Newspaper: DocumentText,

@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Flash, DocumentText } from 'iconsax-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Flash, DocumentText, ArrowDown2 } from 'iconsax-react';
 import notificationsRaw from '../data/notificationsData.json';
 import NotificationCard from '../components/notifications/NotificationCard';
 import NotificationSectionHeader from '../components/notifications/NotificationSectionHeader';
@@ -8,6 +9,9 @@ import BackButton from '../components/common/BackButton';
 
 export default function NotificationsFeedPage() {
   const navigate = useNavigate();
+
+  const [todayLimit, setTodayLimit] = useState(3);
+  const [thisWeekLimit, setThisWeekLimit] = useState(3);
 
   // Deduplication: Exclude trending IDs from today and thisWeek
   const { trending, today, thisWeek } = useMemo(() => {
@@ -65,10 +69,45 @@ export default function NotificationsFeedPage() {
               iconColor="#F5B55C"
             />
             <div className="w-full flex flex-col items-center space-y-2">
-              {today.map((item) => (
-                <NotificationCard isTrending={false} key={item.id} notification={item} />
-              ))}
+              <AnimatePresence initial={false}>
+                {today.slice(0, todayLimit).map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={index >= 3 ? { opacity: 0, y: 20, scale: 0.98 } : false}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      duration: 0.35,
+                      delay: index >= 3 ? ((index - 3) % 5) * 0.06 : 0,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="w-full flex justify-center"
+                  >
+                    <NotificationCard isTrending={false} notification={item} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
+
+            {/* और खबरें देखें button: opens 5 more cards smoothly */}
+            <AnimatePresence>
+              {today.length > todayLimit && (
+                <motion.button
+                  layout
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="button"
+                  onClick={() => setTodayLimit((prev) => prev + 5)}
+                  aria-label="आज की और खबरें देखें"
+                  className="mt-3 w-[370px] min-w-[370px] max-w-[370px] py-2.5 px-4 rounded-[12px] bg-[#F7F7F4] hover:bg-[#EFEFEA] border border-[#E5E7EB] text-[#2B2437] text-[14px] font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                >
+                  <span>और खबरें देखें</span>
+                  <ArrowDown2 size={16} color="#2B2437" variant="Bold" />
+                </motion.button>
+              )}
+            </AnimatePresence>
           </div>
         )}
 
@@ -83,10 +122,45 @@ export default function NotificationsFeedPage() {
               iconColor="#FFFFFF"
             />
             <div className="w-full flex flex-col items-center space-y-2">
-              {thisWeek.map((item) => (
-                <NotificationCard isTrending={false} key={item.id} notification={item} />
-              ))}
+              <AnimatePresence initial={false}>
+                {thisWeek.slice(0, thisWeekLimit).map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    initial={index >= 3 ? { opacity: 0, y: 20, scale: 0.98 } : false}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      duration: 0.35,
+                      delay: index >= 3 ? ((index - 3) % 5) * 0.06 : 0,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="w-full flex justify-center"
+                  >
+                    <NotificationCard isTrending={false} notification={item} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
+
+            {/* और खबरें देखें button: opens 5 more cards smoothly */}
+            <AnimatePresence>
+              {thisWeek.length > thisWeekLimit && (
+                <motion.button
+                  layout
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.25 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="button"
+                  onClick={() => setThisWeekLimit((prev) => prev + 5)}
+                  aria-label="इस हफ्ते की और खबरें देखें"
+                  className="mt-3 w-[370px] min-w-[370px] max-w-[370px] py-2.5 px-4 rounded-[12px] bg-[#F7F7F4] hover:bg-[#EFEFEA] border border-[#E5E7EB] text-[#2B2437] text-[14px] font-semibold flex items-center justify-center gap-1.5 cursor-pointer shadow-2xs"
+                >
+                  <span>और खबरें देखें</span>
+                  <ArrowDown2 size={16} color="#2B2437" variant="Bold" />
+                </motion.button>
+              )}
+            </AnimatePresence>
           </div>
         )}
       </div>

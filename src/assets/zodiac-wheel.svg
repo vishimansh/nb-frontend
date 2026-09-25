@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="200" height="200">
+  <!-- Outer Rim Background Circle -->
+  <circle cx="50" cy="50" r="48.5" fill="#1E2C6B" stroke="#151F52" stroke-width="1.5" />
+
+  <!-- 12 Alternating Radial Sectors -->
+  <g class="zodiac-sectors">
+    <path d="M 50.00 1.50 A 48.5 48.5 0 0 1 74.25 8.00 L 66.25 21.85 A 32.5 32.5 0 0 0 50.00 17.50 Z" fill="#344CB7" stroke="#1B2868" stroke-width="1" />
+    <path d="M 74.25 8.00 A 48.5 48.5 0 0 1 92.00 25.75 L 78.15 33.75 A 32.5 32.5 0 0 0 66.25 21.85 Z" fill="#2A3C94" stroke="#1B2868" stroke-width="1" />
+    <path d="M 92.00 25.75 A 48.5 48.5 0 0 1 98.50 50.00 L 82.50 50.00 A 32.5 32.5 0 0 0 78.15 33.75 Z" fill="#344CB7" stroke="#1B2868" stroke-width="1" />
+    <path d="M 98.50 50.00 A 48.5 48.5 0 0 1 92.00 74.25 L 78.15 66.25 A 32.5 32.5 0 0 0 82.50 50.00 Z" fill="#2A3C94" stroke="#1B2868" stroke-width="1" />
+    <path d="M 92.00 74.25 A 48.5 48.5 0 0 1 74.25 92.00 L 66.25 78.15 A 32.5 32.5 0 0 0 78.15 66.25 Z" fill="#344CB7" stroke="#1B2868" stroke-width="1" />
+    <path d="M 74.25 92.00 A 48.5 48.5 0 0 1 50.00 98.50 L 50.00 82.50 A 32.5 32.5 0 0 0 66.25 78.15 Z" fill="#2A3C94" stroke="#1B2868" stroke-width="1" />
+    <path d="M 50.00 98.50 A 48.5 48.5 0 0 1 25.75 92.00 L 33.75 78.15 A 32.5 32.5 0 0 0 50.00 82.50 Z" fill="#344CB7" stroke="#1B2868" stroke-width="1" />
+    <path d="M 25.75 92.00 A 48.5 48.5 0 0 1 8.00 74.25 L 21.85 66.25 A 32.5 32.5 0 0 0 33.75 78.15 Z" fill="#2A3C94" stroke="#1B2868" stroke-width="1" />
+    <path d="M 8.00 74.25 A 48.5 48.5 0 0 1 1.50 50.00 L 17.50 50.00 A 32.5 32.5 0 0 0 21.85 66.25 Z" fill="#344CB7" stroke="#1B2868" stroke-width="1" />
+    <path d="M 1.50 50.00 A 48.5 48.5 0 0 1 8.00 25.75 L 21.85 33.75 A 32.5 32.5 0 0 0 17.50 50.00 Z" fill="#2A3C94" stroke="#1B2868" stroke-width="1" />
+    <path d="M 8.00 25.75 A 48.5 48.5 0 0 1 25.75 8.00 L 33.75 21.85 A 32.5 32.5 0 0 0 21.85 33.75 Z" fill="#344CB7" stroke="#1B2868" stroke-width="1" />
+    <path d="M 25.75 8.00 A 48.5 48.5 0 0 1 50.00 1.50 L 50.00 17.50 A 32.5 32.5 0 0 0 33.75 21.85 Z" fill="#2A3C94" stroke="#1B2868" stroke-width="1" />
+  </g>
+
+  <!-- Middle Concentric Band (Border between outer zodiac wheel and inner dashed ring) -->
+  <circle cx="50" cy="50" r="32.5" fill="#27388A" stroke="#1B2868" stroke-width="1.2" />
+
+  <!-- Inner Dark Blue Disk -->
+  <circle cx="50" cy="50" r="24" fill="#1B2765" stroke="#151E50" stroke-width="1" />
+
+  <!-- Concentric Gold Dashed Orbit Ring -->
+  <circle cx="50" cy="50" r="24" fill="none" stroke="#F9C73D" stroke-width="1.8" stroke-linecap="round" stroke-dasharray="3.2 4.4" />
+
+  <!-- Central Core Deep Navy Disk -->
+  <circle cx="50" cy="50" r="16" fill="#18235A" stroke="#131B47" stroke-width="1" />
+
+  <!-- Central Surya / Sun Multi-Pointed Star -->
+  <!-- Outer Gold 16-point Starburst -->
+  <polygon points="50.00,40.20 51.40,42.94 53.75,40.95 54.00,44.01 56.93,43.07 55.99,46.00 59.05,46.25 57.06,48.60 59.80,50.00 57.06,51.40 59.05,53.75 55.99,54.00 56.93,56.93 54.00,55.99 53.75,59.05 51.40,57.06 50.00,59.80 48.60,57.06 46.25,59.05 46.00,55.99 43.07,56.93 44.01,54.00 40.95,53.75 42.94,51.40 40.20,50.00 42.94,48.60 40.95,46.25 44.01,46.00 43.07,43.07 46.00,44.01 46.25,40.95 48.60,42.94" fill="#F9C73D" stroke="#E5A922" stroke-width="0.6" stroke-linejoin="round" />
+  <!-- Inner Bright Yellow Core -->
+  <polygon points="50.00,44.20 51.76,45.75 54.10,45.90 54.25,48.24 55.80,50.00 54.25,51.76 54.10,54.10 51.76,54.25 50.00,55.80 48.24,54.25 45.90,54.10 45.75,51.76 44.20,50.00 45.75,48.24 45.90,45.90 48.24,45.75" fill="#FFE875" stroke="#F5C039" stroke-width="0.4" stroke-linejoin="round" />
+
+  <!-- 12 Golden Zodiac Signs -->
+  <g class="zodiac-glyphs">
+  <g transform="translate(60.48, 10.88)">
+    <path d="M 0 4.2 L 0 -1.5 C -0.8 -3.8 -4 -3.8 -4 -1.5 C -4 -0.2 -3 0.6 -2 0.3" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <path d="M 0 -1.5 C 0.8 -3.8 4 -3.8 4 -1.5 C 4 -0.2 3 0.6 2 0.3" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+  </g>
+  <g transform="translate(78.64, 21.36)">
+    <circle cx="0" cy="1.2" r="2.8" fill="none" stroke="#F9C73D" stroke-width="1.4" />
+    <path d="M -3.2 -3.4 C -2.4 -1.6 -1.2 -1.2 0 -1.2 C 1.2 -1.2 2.4 -1.6 3.2 -3.4" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+  </g>
+  <g transform="translate(89.12, 39.52)">
+    <path d="M -4 -3.5 C -1.5 -2.5 1.5 -2.5 4 -3.5" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <path d="M -4 3.5 C -1.5 2.5 1.5 2.5 4 3.5" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <line x1="-1.8" y1="-2.8" x2="-1.8" y2="2.8" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <line x1="1.8" y1="-2.8" x2="1.8" y2="2.8" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+  </g>
+  <g transform="translate(89.12, 60.48)">
+    <circle cx="-1.8" cy="-1.6" r="1.5" fill="none" stroke="#F9C73D" stroke-width="1.3" />
+    <path d="M -1.8 -3.1 C 1.5 -3.1 3.5 -1.5 3.5 0.5" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+    <circle cx="1.8" cy="1.6" r="1.5" fill="none" stroke="#F9C73D" stroke-width="1.3" />
+    <path d="M 1.8 3.1 C -1.5 3.1 -3.5 1.5 -3.5 -0.5" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+  </g>
+  <g transform="translate(78.64, 78.64)">
+    <circle cx="-2.6" cy="2" r="1.4" fill="none" stroke="#F9C73D" stroke-width="1.4" />
+    <path d="M -1.5 1.2 C -0.8 -2.5 1.2 -3.8 2.5 -2.5 C 3.8 -1.2 2.5 1.2 2.8 2.8 C 3 4 4.5 3.5 4.5 3.5" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+  </g>
+  <g transform="translate(60.48, 89.12)">
+    <path d="M -4 3.5 L -4 -1.5 C -4 -3.2 -2.5 -3.2 -2.5 -1.5 L -2.5 3" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+    <path d="M -2.5 -1 C -2.5 -3.2 -1 -3.2 -1 -1.5 L -1 3" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+    <path d="M -1 -1 C -1 -3.2 0.8 -3.2 0.8 -1.5 L 0.8 1.8 C 0.8 3.5 2.5 3.5 2.5 1.8 C 2.5 0 0.5 0 0.5 0 L 3.5 4.2" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+  </g>
+  <g transform="translate(39.52, 89.12)">
+    <line x1="-3.8" y1="3.2" x2="3.8" y2="3.2" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <line x1="-3.8" y1="1" x2="-1.8" y2="1" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <line x1="1.8" y1="1" x2="3.8" y2="1" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <path d="M -1.8 1 C -1.8 -1.8 1.8 -1.8 1.8 1" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+  </g>
+  <g transform="translate(21.36, 78.64)">
+    <path d="M -4 3.5 L -4 -1.5 C -4 -3.2 -2.5 -3.2 -2.5 -1.5 L -2.5 3" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+    <path d="M -2.5 -1 C -2.5 -3.2 -1 -3.2 -1 -1.5 L -1 3" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+    <path d="M -1 -1 C -1 -3.2 0.8 -3.2 0.8 -1.5 L 0.8 2.5 L 3.8 2.5" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+    <path d="M 2.6 1.3 L 4 2.5 L 2.6 3.7" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(10.88, 60.48)">
+    <line x1="-3.6" y1="3.6" x2="3.6" y2="-3.6" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <path d="M 0.8 -3.6 L 3.6 -3.6 L 3.6 -0.8" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+    <line x1="-2.5" y1="1" x2="-1" y2="2.5" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+  </g>
+  <g transform="translate(10.88, 39.52)">
+    <path d="M -3.8 -2 C -3.8 -3.5 -2.2 -3.5 -2.2 -2 L -2.2 2.2" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+    <path d="M -2.2 -1 C -2.2 -3.5 -0.6 -3.5 -0.6 -1 L -0.6 1 C 0.5 4 3 3.5 3 1.8 C 3 0.2 1.5 0.5 1.5 2 C 1.5 3.5 3 4 3.5 4" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" />
+  </g>
+  <g transform="translate(21.36, 21.36)">
+    <path d="M -3.8 -1.6 L -2.2 -3 L -0.6 -1.6 L 1 -3 L 2.6 -1.6 L 3.8 -2.6" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+    <path d="M -3.8 2.2 L -2.2 0.8 L -0.6 2.2 L 1 0.8 L 2.6 2.2 L 3.8 1.2" fill="none" stroke="#F9C73D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+  <g transform="translate(39.52, 10.88)">
+    <path d="M -3.2 -3.8 C -1.5 -1.8 -1.5 1.8 -3.2 3.8" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <path d="M 3.2 -3.8 C 1.5 -1.8 1.5 1.8 3.2 3.8" fill="none" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+    <line x1="-3" y1="0" x2="3" y2="0" stroke="#F9C73D" stroke-width="1.4" stroke-linecap="round" />
+  </g>
+  </g>
+</svg>

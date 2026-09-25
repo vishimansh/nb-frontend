@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { TickCircle, DocumentText } from 'iconsax-react';
+import { AnimatePresence } from 'framer-motion';
+import { TickCircle } from 'iconsax-react';
 import BackButton from '../components/common/BackButton';
 import { useVideo } from '../context/VideoContext';
 import { useAdvertiser } from '../context/AdvertiserContext';
@@ -190,12 +190,7 @@ export default function VideosPage() {
 
           {/* Center Action: TRUE HORIZONTAL & VERTICAL MIDDLE Dual-Mode Toggle Capsule */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <motion.div
-              initial={{ opacity: 0, y: -50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.35, duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className="pointer-events-auto h-[40px] flex items-center bg-black/60 backdrop-blur-md border border-white/25 rounded-full p-[3px] shadow-xl"
-            >
+            <div className="pointer-events-auto h-[40px] flex items-center bg-black/60 backdrop-blur-md border border-white/25 rounded-full p-[3px] shadow-xl">
               <button
                 type="button"
                 onClick={() => switchMediaMode('video')}
@@ -220,23 +215,11 @@ export default function VideosPage() {
               >
                 पॉडकास्ट
               </button>
-            </motion.div>
+            </div>
           </div>
 
-          {/* Right Action: 'News Padhein' (न्यूज़ पढ़ें) button - only in video reel, not podcasts */}
-          {mediaMode === 'video' ? (
-            <button
-              type="button"
-              onClick={() => navigate('/feed')}
-              aria-label="न्यूज़ पढ़ें (ताज़ा खबरें देखें)"
-              className="h-[40px] px-3.5 rounded-full bg-[#2B2437] hover:bg-[#3D334E] text-white border border-[#4D4060]/80 shadow-[0_4px_18px_rgba(43,36,55,0.45)] flex items-center gap-1.5 pointer-events-auto active:scale-95 transition-all text-[13px] font-bold cursor-pointer shrink-0 relative z-10"
-            >
-              <DocumentText size={16} color="#F5B55C" variant="Bold" />
-              <span className="leading-none whitespace-nowrap text-white font-bold tracking-wide">न्यूज़ पढ़ें</span>
-            </button>
-          ) : (
-            <div className="w-[40px] h-[40px] shrink-0 pointer-events-none relative z-10" />
-          )}
+          {/* Spacer: keeps toggle capsule centered now that button moved into ReelItem */}
+          <div className="w-[40px] h-[40px] shrink-0 pointer-events-none relative z-10" />
         </div>
       </div>
 

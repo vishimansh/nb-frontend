@@ -2,16 +2,29 @@ import React from 'react';
 import {
   ArrowRight2,
   Judge,
-  VideoPlay,
-  Activity,
   TrendUp,
-  Cpu,
   Teacher,
-  Moon,
   Heart,
   Coffee,
   Car,
 } from 'iconsax-react';
+import { PiCricketFill } from 'react-icons/pi';
+import { Clapperboard, BrainCircuit } from 'lucide-react';
+import AstroZodiacWheelIcon from '../icons/AstroZodiacWheelIcon';
+
+// Adapters: give react-icons & lucide-react the same { size, color } API as iconsax
+const CricketIcon = ({ size = 36, color = 'currentColor' }) => (
+  <PiCricketFill style={{ width: size, height: size, color }} />
+);
+const AstroIcon = AstroZodiacWheelIcon;
+const MoonStarIcon = AstroZodiacWheelIcon;
+const AstrolabeIcon = AstroZodiacWheelIcon;
+const BrainCircuitIcon = ({ size = 36, color = 'currentColor' }) => (
+  <BrainCircuit size={size} color={color} strokeWidth={1.8} />
+);
+const ClapperboardIcon = ({ size = 36, color = 'currentColor' }) => (
+  <Clapperboard size={size} color={color} strokeWidth={1.8} />
+);
 import imgTech from '../../assets/illustrations/category-tech.png';
 import imgEducation from '../../assets/illustrations/category-education.png';
 import imgLifestyle from '../../assets/illustrations/category-lifestyle.png';
@@ -109,12 +122,12 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
         /* Faint Watermark Icon (opacity-15, themed fallback using iconsax-react) */
         <div className="absolute right-16 top-1/2 -translate-y-1/2 pointer-events-none opacity-20 overflow-hidden flex items-center z-0">
           {category.id === 'politics' && <Judge size={36} color="#2B2437" variant="Bold" />}
-          {category.id === 'entertainment' && <VideoPlay size={36} color="#2B2437" variant="Bold" />}
-          {category.id === 'sports' && <Activity size={36} color="#2B2437" variant="Bold" />}
+          {category.id === 'entertainment' && <ClapperboardIcon size={36} color="#2B2437" />}
+          {category.id === 'sports' && <CricketIcon size={36} color="#2B2437" />}
           {category.id === 'business' && <TrendUp size={36} color="#2B2437" variant="Bold" />}
-          {category.id === 'tech' && <Cpu size={36} color="#2B2437" variant="Bold" />}
+          {category.id === 'tech' && <BrainCircuitIcon size={36} color="#2B2437" />}
           {category.id === 'education' && <Teacher size={36} color="#2B2437" variant="Bold" />}
-          {category.id === 'astro' && <Moon size={36} color="#2B2437" variant="Bold" />}
+          {category.id === 'astro' && <AstroZodiacWheelIcon size={36} />}
           {category.id === 'health' && <Heart size={36} color="#2B2437" variant="Bold" />}
           {category.id === 'lifestyle' && <Coffee size={36} color="#2B2437" variant="Bold" />}
           {category.id === 'auto' && <Car size={36} color="#2B2437" variant="Bold" />}

@@ -184,42 +184,22 @@ export function OnboardingProvider({ children }) {
 
   /**
    * City selection logic:
-   * - If single state selected: user can select up to 3 cities total across that state.
-   * - If multi-state or skipped: user can select exactly 1 city per state (radio behavior per state).
+   * - Max 3 states can be selected.
+   * - Any number of cities can be selected from any of the selected states in any combination.
    */
-  const toggleCity = (stateId, cityName, isSingleStateMode) => {
-    const isSelected = selectedCities.some(
-      (c) => c.stateId === stateId && c.city === cityName
-    );
-
-    if (isSingleStateMode) {
+  const toggleCity = (stateId, cityName) => {
+    setSelectedCities((prev) => {
+      const isSelected = prev.some(
+        (c) => c.stateId === stateId && c.city === cityName
+      );
       if (isSelected) {
-        setSelectedCities((prev) =>
-          prev.filter((c) => !(c.stateId === stateId && c.city === cityName))
+        return prev.filter(
+          (c) => !(c.stateId === stateId && c.city === cityName)
         );
       } else {
-        const stateCitiesCount = selectedCities.filter((c) => c.stateId === stateId).length;
-        if (stateCitiesCount >= 3) {
-          showAlert('आप अधिकतम 3 शहर ही चुन सकते हैं');
-          return;
-        }
-        setSelectedCities((prev) => [...prev, { stateId, city: cityName }]);
+        return [...prev, { stateId, city: cityName }];
       }
-    } else {
-      // Multi-state mode: 1 city per state (replace existing if any in same state)
-      if (isSelected) {
-        // Toggle off
-        setSelectedCities((prev) =>
-          prev.filter((c) => !(c.stateId === stateId && c.city === cityName))
-        );
-      } else {
-        // Remove prior city in this state and set this one
-        setSelectedCities((prev) => [
-          ...prev.filter((c) => c.stateId !== stateId),
-          { stateId, city: cityName },
-        ]);
-      }
-    }
+    });
   };
 
   // Active state for State News Screen with localStorage persistence
@@ -287,51 +267,23 @@ export function OnboardingProvider({ children }) {
     setDraftCities((prev) => {
       const current = prev || selectedCities;
       // Remove cities whose state was removed
-      const filtered = current.filter((c) => validStateIds.has(c.stateId));
-      if (statesList.length > 1) {
-        // Enforce max 1 city per state in multi-state mode
-        const seen = new Set();
-        return filtered.filter((c) => {
-          if (seen.has(c.stateId)) return false;
-          seen.add(c.stateId);
-          return true;
-        });
-      }
-      return filtered.slice(0, 3);
+      return current.filter((c) => validStateIds.has(c.stateId));
     });
   };
 
-  const toggleDraftCity = (stateId, cityName, isSingleStateMode) => {
+  const toggleDraftCity = (stateId, cityName) => {
     setDraftCities((prev) => {
       const current = prev || [];
       const isSelected = current.some(
         (c) => c.stateId === stateId && c.city === cityName
       );
 
-      if (isSingleStateMode) {
-        if (isSelected) {
-          return current.filter(
-            (c) => !(c.stateId === stateId && c.city === cityName)
-          );
-        } else {
-          const stateCitiesCount = current.filter((c) => c.stateId === stateId).length;
-          if (stateCitiesCount >= 3) {
-            showAlert('आप अधिकतम 3 शहर ही चुन सकते हैं');
-            return current;
-          }
-          return [...current, { stateId, city: cityName }];
-        }
+      if (isSelected) {
+        return current.filter(
+          (c) => !(c.stateId === stateId && c.city === cityName)
+        );
       } else {
-        if (isSelected) {
-          return current.filter(
-            (c) => !(c.stateId === stateId && c.city === cityName)
-          );
-        } else {
-          return [
-            ...current.filter((c) => c.stateId !== stateId),
-            { stateId, city: cityName },
-          ];
-        }
+        return [...current, { stateId, city: cityName }];
       }
     });
   };

@@ -1,15 +1,33 @@
+import React from 'react';
 import {
   TrendUp,
-  Activity,
   Judge,
-  Cpu,
-  VideoPlay,
   Teacher,
   Coffee,
-  Moon,
   Car,
   Heart,
 } from 'iconsax-react';
+import { PiCricketFill } from 'react-icons/pi';
+import { Clapperboard, BrainCircuit } from 'lucide-react';
+import AstroZodiacWheelIcon from '../components/icons/AstroZodiacWheelIcon';
+import AstroPlanetIcon from '../components/icons/AstroPlanetIcon';
+
+// Adapters so all icons accept { size, color } uniformly, matching iconsax-react API
+// Note: plain .js file — use React.createElement instead of JSX
+const makePiAdapter = (PiIcon) => function PiAdapter({ size = 24, color = 'currentColor' }) {
+  return React.createElement(PiIcon, { style: { width: size, height: size, color } });
+};
+const makeLucideAdapter = (LucideIcon) => function LucideAdapter({ size = 24, color = 'currentColor' }) {
+  return React.createElement(LucideIcon, { size, color, strokeWidth: 1.8 });
+};
+
+const CricketIcon = makePiAdapter(PiCricketFill);
+const AstroIcon = (props) => React.createElement(AstroZodiacWheelIcon, props);
+const MoonStarIcon = AstroIcon;
+const MoonOrbitIcon = AstroIcon;
+const AstrolabeIcon = AstroIcon;
+const ClapperboardIcon = makeLucideAdapter(Clapperboard);
+const BrainCircuitIcon = makeLucideAdapter(BrainCircuit);
 
 export const NOTIFICATION_CATEGORIES = {
   business: {
@@ -22,7 +40,7 @@ export const NOTIFICATION_CATEGORIES = {
     id: 'sports',
     label: 'खेल',
     color: '#557E63',
-    icon: Activity,
+    icon: CricketIcon,
   },
   politics: {
     id: 'politics',
@@ -34,13 +52,13 @@ export const NOTIFICATION_CATEGORIES = {
     id: 'tech',
     label: 'टेक्नोलॉजी',
     color: '#2B2437',
-    icon: Cpu,
+    icon: BrainCircuitIcon,
   },
   entertainment: {
     id: 'entertainment',
     label: 'मनोरंजन',
     color: '#8A5A78',
-    icon: VideoPlay,
+    icon: ClapperboardIcon,
   },
   lifestyle: {
     id: 'lifestyle',
@@ -58,7 +76,7 @@ export const NOTIFICATION_CATEGORIES = {
     id: 'astro',
     label: 'ज्योतिष',
     color: '#74648F',
-    icon: Moon,
+    icon: MoonStarIcon,
   },
   auto: {
     id: 'auto',

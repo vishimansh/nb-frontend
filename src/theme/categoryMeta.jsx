@@ -1,12 +1,8 @@
 import React from 'react';
 import {
   Judge,
-  VideoPlay,
-  Activity,
   TrendUp,
-  Cpu,
   Teacher,
-  Moon,
   Coffee,
   Car,
   Heart,
@@ -14,10 +10,40 @@ import {
   InfoCircle,
   Logout,
 } from 'iconsax-react';
+import { PiCricketFill } from 'react-icons/pi';
+import { Clapperboard, BrainCircuit } from 'lucide-react';
+import AstroZodiacWheelIcon from '../components/icons/AstroZodiacWheelIcon';
+import AstroPlanetIcon from '../components/icons/AstroPlanetIcon';
 
-// Standardized to iconsax-react library across the application
-export const MovieClapperIcon = VideoPlay;
-export const SportsWhistleIcon = Activity;
+/**
+ * Adapter: wraps react-icons (Phosphor) components so they accept the same
+ * { size, color } props that iconsax-react uses across the application.
+ */
+const makePiAdapter = (PiIcon) => function PiAdapter({ size = 24, color = 'currentColor' }) {
+  return <PiIcon style={{ width: size, height: size, color }} />;
+};
+
+/**
+ * Adapter: wraps lucide-react components so they accept the same
+ * { size, color } props that iconsax-react uses across the application.
+ */
+const makeLucideAdapter = (LucideIcon) => function LucideAdapter({ size = 24, color = 'currentColor' }) {
+  return <LucideIcon size={size} color={color} strokeWidth={1.8} />;
+};
+
+// New category-specific icons
+export const CricketIcon = makePiAdapter(PiCricketFill);
+export { AstroZodiacWheelIcon, AstroPlanetIcon };
+export const AstroIcon = AstroZodiacWheelIcon;
+export const MoonStarIcon = AstroZodiacWheelIcon;
+export const MoonOrbitIcon = AstroZodiacWheelIcon;
+export const AstrolabeIcon = AstroZodiacWheelIcon;
+export const ClapperboardIcon = makeLucideAdapter(Clapperboard);
+export const BrainCircuitIcon = makeLucideAdapter(BrainCircuit);
+
+// Standardized icon aliases across the application
+export const MovieClapperIcon = ClapperboardIcon;
+export const SportsWhistleIcon = CricketIcon;
 export const GraduationCapIcon = Teacher;
 export const ParkLifestyleIcon = Coffee;
 export const HealthPulseIcon = Heart;
@@ -49,13 +75,13 @@ export const CATEGORY_METADATA = {
     id: 'entertainment',
     label: 'मनोरंजन',
     color: '#8A5A78',
-    iconComponent: VideoPlay,
+    iconComponent: ClapperboardIcon,
   },
   sports: {
     id: 'sports',
     label: 'खेल',
     color: '#557E63',
-    iconComponent: Activity,
+    iconComponent: CricketIcon,
   },
   business: {
     id: 'business',
@@ -67,7 +93,7 @@ export const CATEGORY_METADATA = {
     id: 'tech',
     label: 'टेक्नोलॉजी',
     color: '#5267A8',
-    iconComponent: Cpu,
+    iconComponent: BrainCircuitIcon,
   },
   education: {
     id: 'education',
@@ -79,7 +105,7 @@ export const CATEGORY_METADATA = {
     id: 'astro',
     label: 'ज्योतिष',
     color: '#74648F',
-    iconComponent: Moon,
+    iconComponent: AstroZodiacWheelIcon,
   },
   lifestyle: {
     id: 'lifestyle',
