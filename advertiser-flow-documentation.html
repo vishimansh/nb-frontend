@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>NB Ads – Advertiser Flow Documentation</title><style>@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');:root{--p:#2B2437;--a:#E39026;--al:#FFF9EE;--ab:#FDE68A;--g:#6B7280;--gl:#F7F7F4;--gb:#E5E7EB;--r:#DC2626}*{box-sizing:border-box;margin:0;padding:0}body{font-family:'Inter',sans-serif;background:#f0ede8;color:var(--p);line-height:1.65}.bar{position:fixed;top:0;left:0;right:0;z-index:999;background:var(--p);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;box-shadow:0 2px 10px rgba(0,0,0,.3)}.bar-l div:first-child{font-size:14px;font-weight:700}.bar-l div:last-child{font-size:11px;opacity:.55;margin-top:2px}.btn{background:var(--a);color:#fff;border:none;padding:9px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}.btn:hover{background:#c97f1e}.wrap{max-width:900px;margin:0 auto;padding:80px 20px 60px}.cover{background:var(--p);border-radius:18px;padding:52px 44px;color:#fff;margin-bottom:28px;position:relative;overflow:hidden}.cover::before{content:'';position:absolute;top:-70px;right:-70px;width:280px;height:280px;background:var(--a);opacity:.07;border-radius:50%}.cv-badge{display:inline-block;background:var(--a);color:#fff;font-size:10px;font-weight:700;padding:3px 13px;border-radius:99px;letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}.cover h1{font-size:36px;font-weight:900;line-height:1.1;margin-bottom:14px;letter-spacing:-1px}.cover h1 span{color:var(--a)}.cover p{font-size:15px;opacity:.65;max-width:500px;line-height:1.7}.cv-meta{display:flex;gap:28px;margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1)}.cv-meta-i label{font-size:10px;opacity:.45;display:block;font-weight:600;text-transform:uppercase;letter-spacing:.7px}.cv-meta-i span{font-size:14px;font-weight:700;color:var(--a)}.toc{background:#fff;border-radius:14px;padding:28px 32px;margin-bottom:28px;border:1px solid var(--gb)}.toc h2{font-size:17px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;gap:10px}.toc h2::before{content:'';width:4px;height:18px;background:var(--a);border-radius:2px;display:block}.toc-g{display:grid;grid-template-columns:1fr 1fr;gap:7px}.toc-i{display:flex;align-items:center;gap:11px;padding:9px 13px;border-radius:10px;border:1px solid var(--gb);background:var(--gl);text-decoration:none;color:var(--p)}.toc-i:hover{border-color:var(--a);background:var(--al)}.toc-n{width:26px;height:26px;border-radius:7px;background:var(--p);color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}.toc-l{font-size:12.5px;font-weight:600}.toc-s{font-size:10.5px;color:var(--g)}.sec{background:#fff;border-radius:14px;margin-bottom:24px;border:1px solid var(--gb);overflow:hidden}.sh{background:var(--p);color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between}.sh-l{display:flex;align-items:center;gap:13px}.sn{width:36px;height:36px;border-radius:9px;background:rgba(255,255,255,.12);color:var(--a);font-size:15px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}.st{font-size:17px;font-weight:800}.sr{font-size:11px;background:rgba(255,255,255,.1);padding:4px 11px;border-radius:5px;font-family:monospace;opacity:.8}.sb{padding:24px}.purpose{background:var(--gl);border-left:4px solid var(--a);border-radius:0 10px 10px 0;padding:13px 16px;margin-bottom:18px;font-size:13.5px;font-weight:500}.dg{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:18px}.dc{background:var(--gl);border:1px solid var(--gb);border-radius:11px;padding:14px}.dc h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--g);margin-bottom:7px}.dc p{font-size:13px;font-weight:500;line-height:1.5}.fl{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:18px}.fl li{display:flex;align-items:flex-start;gap:9px;font-size:13px;line-height:1.5}.dot{width:7px;height:7px;border-radius:50%;background:var(--a);margin-top:5px;flex-shrink:0}.tag{font-weight:700}.desc{color:var(--g)}.vbox{background:#FEF2F2;border:1px solid #FECACA;border-radius:9px;padding:13px 16px;margin-bottom:14px}.vbox h4{font-size:11px;font-weight:700;color:var(--r);margin-bottom:7px;text-transform:uppercase}.vbox ul{list-style:none;display:flex;flex-direction:column;gap:5px}.vbox ul li{font-size:12.5px;color:#7F1D1D;display:flex;align-items:flex-start;gap:7px}.vbox ul li::before{content:'✗';color:var(--r);font-weight:800;flex-shrink:0}.nf{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-bottom:14px}.nn{background:var(--p);color:#fff;padding:4px 13px;border-radius:7px;font-size:11.5px;font-weight:600}.na{color:var(--a);font-weight:800;font-size:15px}.nn.cond{background:var(--al);color:var(--a);border:1px solid var(--ab)}.sbadge{display:inline-flex;align-items:center;background:var(--al);border:1px solid var(--ab);color:var(--a);padding:3px 11px;border-radius:99px;font-size:11px;font-weight:700;margin-bottom:13px}table.ft{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:14px}table.ft th{background:var(--p);color:#fff;padding:9px 13px;text-align:left;font-weight:700;font-size:11.5px}table.ft td{padding:9px 13px;border-bottom:1px solid var(--gb);vertical-align:top}table.ft tr:nth-child(even) td{background:var(--gl)}table.ft td:first-child{font-weight:700}.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:14px}.sc{border:1px solid var(--gb);border-radius:9px;padding:11px 13px;background:var(--gl)}.sc .sn2{font-size:11.5px;font-weight:800;margin-bottom:3px}.sc .sc2{font-size:11px;color:var(--g);line-height:1.4}.mr{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:14px}.mc{border:1px solid var(--gb);border-radius:9px;padding:13px;background:var(--gl);text-align:center}.mc .ml{font-size:10.5px;color:var(--g);font-weight:600;margin-bottom:3px}.mc .mv{font-size:17px;font-weight:900}.mc .mv.ac{color:var(--a)}.inote{background:var(--al);border:1px solid var(--ab);border-radius:9px;padding:11px 15px;font-size:12.5px;color:#92400E;margin-bottom:14px;display:flex;gap:9px;align-items:flex-start}.inote .ic{font-size:15px;flex-shrink:0;margin-top:1px}h3.sh3{font-size:14px;font-weight:800;margin-bottom:11px;margin-top:3px}@media print{body{background:#fff}.bar{display:none}.wrap{padding:20px;max-width:100%}.sec,.toc,.cover{break-inside:avoid}}</style></head>
+<body>
+<div class="bar"><div class="bar-l"><div>📄 Navbharat Ads — Advertiser Flow Documentation</div><div>Complete reference · 15 Screens · 16 Routes · Generated Sep 30, 2026</div></div><button class="btn" onclick="window.print()">⬇ Download / Save as PDF</button></div>
+<div class="wrap">
+<!-- COVER -->
+<div class="cover"><div class="cv-badge">Internal Documentation</div><h1>Navbharat <span>Ads</span><br/>Advertiser Flow</h1><p>A comprehensive technical and UX reference covering every screen, route, state field, validation rule, navigation path, and data model — from first landing to campaign analytics.</p><div class="cv-meta"><div class="cv-meta-i"><label>Screens</label><span>15</span></div><div class="cv-meta-i"><label>Routes</label><span>16</span></div><div class="cv-meta-i"><label>Ad Formats</label><span>5</span></div><div class="cv-meta-i"><label>Wizard Steps</label><span>7</span></div><div class="cv-meta-i"><label>Generated</label><span>Sep 30, 2026</span></div></div></div>
+<!-- TOC -->
+<div class="toc"><h2>Table of Contents</h2><div class="toc-g">
+<a class="toc-i" href="#ov"><div class="toc-n">✦</div><div><div class="toc-l">Architecture Overview</div><div class="toc-s">Context · Guard · State · Routes</div></div></a>
+<a class="toc-i" href="#s1"><div class="toc-n">1</div><div><div class="toc-l">Intro Screen</div><div class="toc-s">/advertise/intro</div></div></a>
+<a class="toc-i" href="#s2"><div class="toc-n">2</div><div><div class="toc-l">Phone Screen</div><div class="toc-s">/advertise/phone</div></div></a>
+<a class="toc-i" href="#s3"><div class="toc-n">3</div><div><div class="toc-l">OTP Screen</div><div class="toc-s">/advertise/otp</div></div></a>
+<a class="toc-i" href="#s4"><div class="toc-n">4</div><div><div class="toc-l">Business Profile</div><div class="toc-s">/advertise/business-profile</div></div></a>
+<a class="toc-i" href="#s5"><div class="toc-n">5</div><div><div class="toc-l">Location &amp; Tax</div><div class="toc-s">/advertise/location-tax</div></div></a>
+<a class="toc-i" href="#s6"><div class="toc-n">6</div><div><div class="toc-l">Goal — Step 1/7</div><div class="toc-s">/advertise/goal</div></div></a>
+<a class="toc-i" href="#s7"><div class="toc-n">7</div><div><div class="toc-l">Format — Step 2/7</div><div class="toc-s">/advertise/format</div></div></a>
+<a class="toc-i" href="#s8"><div class="toc-n">8</div><div><div class="toc-l">Targeting — Step 3/7</div><div class="toc-s">/advertise/targeting</div></div></a>
+<a class="toc-i" href="#s9"><div class="toc-n">9</div><div><div class="toc-l">Audience — Step 4/7</div><div class="toc-s">/advertise/audience</div></div></a>
+<a class="toc-i" href="#s10"><div class="toc-n">10</div><div><div class="toc-l">Creative — Step 5/7</div><div class="toc-s">/advertise/creative</div></div></a>
+<a class="toc-i" href="#s11"><div class="toc-n">11</div><div><div class="toc-l">Budget — Step 6/7</div><div class="toc-s">/advertise/budget</div></div></a>
+<a class="toc-i" href="#s12"><div class="toc-n">12</div><div><div class="toc-l">Review — Step 7/7</div><div class="toc-s">/advertise/review</div></div></a>
+<a class="toc-i" href="#s13"><div class="toc-n">13</div><div><div class="toc-l">Payment Screen</div><div class="toc-s">/advertise/payment</div></div></a>
+<a class="toc-i" href="#s14"><div class="toc-n">14</div><div><div class="toc-l">Dashboard Screen</div><div class="toc-s">/advertise/dashboard</div></div></a>
+<a class="toc-i" href="#s15"><div class="toc-n">15</div><div><div class="toc-l">Analytics Screen</div><div class="toc-s">/advertise/analytics</div></div></a>
+</div></div>
+<!-- ARCHITECTURE OVERVIEW -->
+<div id="ov" class="sec"><div class="sh"><div class="sh-l"><div class="sn">✦</div><div><div class="st">Architecture Overview</div><div style="font-size:11px;opacity:.55;margin-top:2px">Context · Guard · Storage · Route Map · Campaign Lifecycle</div></div></div></div><div class="sb">
+<div class="dg">
+<div class="dc"><h4>Context Provider</h4><p><strong>AdvertiserContext.jsx</strong> wraps the entire app inside <code>AdvertiserProvider</code>. Exposes all advertiser state + actions via <code>useAdvertiser()</code> hook to every screen.</p></div>
+<div class="dc"><h4>Route Guard</h4><p><strong>AdvertiserGuard.jsx</strong> protects all 8 campaign-creation routes (Goal→Payment). Redirects unauthenticated users to <code>/advertise/intro</code> and incomplete-profile users to <code>/advertise/business-profile</code>.</p></div>
+<div class="dc"><h4>Persistent Storage (localStorage)</h4><p><code>nb_advertiser_auth</code> · <code>nb_business_profile</code> · <code>nb_business_profile_saved</code> · <code>nb_campaigns</code>. Draft wizard state uses <strong>sessionStorage</strong>: <code>nb_draft_campaign</code>.</p></div>
+<div class="dc"><h4>Auth Model</h4><p>Separate from the reader app session. Uses <code>advertiserAuth</code> object: <code>{ isAuthenticated, phone, otpVerified }</code>. Guard enforces <em>both</em> <code>isAuthenticated</code> AND <code>otpVerified</code> must be true.</p></div>
+</div>
+<h3 class="sh3">Global State (AdvertiserContext)</h3>
+<table class="ft"><thead><tr><th>Variable</th><th>Type</th><th>Storage</th><th>Description</th></tr></thead><tbody>
+<tr><td>advertiserAuth</td><td>Object</td><td>localStorage</td><td>{ isAuthenticated, phone, otpVerified } — independent login session</td></tr>
+<tr><td>businessProfile</td><td>Object</td><td>localStorage</td><td>Persistent across campaigns: name, category, address, Aadhaar, GSTIN, logo</td></tr>
+<tr><td>isBusinessProfileSaved</td><td>Boolean</td><td>localStorage</td><td>true only after Aadhaar (12-digit raw) verified in Location-Tax screen</td></tr>
+<tr><td>draftCampaign</td><td>Object</td><td>sessionStorage</td><td>Accumulates all 7 wizard steps; reset after payment via commitCampaign()</td></tr>
+<tr><td>campaigns</td><td>Array</td><td>localStorage</td><td>All committed campaigns with status: pending_review / live / paused</td></tr>
+</tbody></table>
+<div class="inote"><div class="ic">🔐</div><div><strong>Guard checks:</strong> (1) isAuthenticated &amp;&amp; otpVerified, (2) isBusinessProfileSaved &amp;&amp; businessName.trim().length &gt; 0 &amp;&amp; idNumberRaw.length === 12. The 12-digit raw Aadhaar check prevents a 4-digit profile OTP from bypassing KYC.</div></div>
+<h3 class="sh3">Complete Route Map</h3>
+<table class="ft"><thead><tr><th>Route</th><th>Component</th><th>Guard</th><th>Navigates To</th></tr></thead><tbody>
+<tr><td>/advertise</td><td>—</td><td>No</td><td>Redirects → /advertise/intro</td></tr>
+<tr><td>/advertise/intro</td><td>AdvertiserIntroScreen</td><td>No</td><td>Smart routing by auth state</td></tr>
+<tr><td>/advertise/phone</td><td>AdvertiserPhoneScreen</td><td>No</td><td>→ /advertise/otp</td></tr>
+<tr><td>/advertise/otp</td><td>AdvertiserOtpScreen</td><td>No</td><td>→ /business-profile or /dashboard</td></tr>
+<tr><td>/advertise/business-profile</td><td>AdvertiserBusinessProfileScreen</td><td>No</td><td>→ /advertise/location-tax</td></tr>
+<tr><td>/advertise/location-tax</td><td>AdvertiserLocationTaxScreen</td><td>No</td><td>→ /advertise/goal (sets isBusinessProfileSaved=true)</td></tr>
+<tr><td>/advertise/goal</td><td>AdvertiserGoalScreen</td><td>✓ Yes</td><td>→ /advertise/format</td></tr>
+<tr><td>/advertise/format</td><td>AdvertiserFormatScreen</td><td>✓ Yes</td><td>→ /advertise/targeting</td></tr>
+<tr><td>/advertise/targeting</td><td>AdvertiserTargetingScreen</td><td>✓ Yes</td><td>→ /advertise/audience</td></tr>
+<tr><td>/advertise/audience</td><td>AdvertiserAudienceScreen</td><td>✓ Yes</td><td>→ /advertise/creative</td></tr>
+<tr><td>/advertise/creative</td><td>AdvertiserCreativeScreen</td><td>✓ Yes</td><td>→ /advertise/budget</td></tr>
+<tr><td>/advertise/budget</td><td>AdvertiserBudgetScreen</td><td>✓ Yes</td><td>→ /advertise/review</td></tr>
+<tr><td>/advertise/review</td><td>AdvertiserReviewScreen</td><td>✓ Yes</td><td>→ /advertise/payment</td></tr>
+<tr><td>/advertise/payment</td><td>AdvertiserPaymentScreen</td><td>✓ Yes</td><td>→ /advertise/dashboard (on success)</td></tr>
+<tr><td>/advertise/dashboard</td><td>AdvertiserDashboardScreen</td><td>No</td><td>→ /advertise/analytics</td></tr>
+<tr><td>/advertise/analytics</td><td>AdvertiserAnalyticsScreen</td><td>No</td><td>—</td></tr>
+</tbody></table>
+<h3 class="sh3">Campaign Lifecycle &amp; CTR by Goal</h3>
+<div class="dg">
+<div class="dc"><h4>🟡 pending_review</h4><p>Created after payment. Auto-transitions to <strong>live</strong> after 5 seconds via 250ms polling interval. User can also approve instantly via "तुरंत लाइव करें" button.</p></div>
+<div class="dc"><h4>🟢 live / ⚪ paused</h4><p>User toggles between live and paused via status button. Metrics shown at full/70% opacity. Budget can be edited from both states via BudgetEditSheet.</p></div>
+<div class="dc"><h4>CTR Model</h4><p>reach: <strong>0.94%</strong> CTR &nbsp;|&nbsp; engagement: <strong>1.25%</strong> CTR &nbsp;|&nbsp; ctrs: <strong>1.60%</strong> CTR — used in commitCampaign() to compute realistic click counts from impressions.</p></div>
+<div class="dc"><h4>commitCampaign() Security</h4><p>On commit: <code>idNumberRaw</code> is explicitly set to <code>undefined</code> in the stored campaign object — raw Aadhaar never stored in the campaigns array.</p></div>
+</div>
+</div></div>
+<!-- SCREENS 1-5: Auth + Profile Setup -->
+<div id="s1" class="sec"><div class="sh"><div class="sh-l"><div class="sn">1</div><div><div class="st">Intro Screen — Entry Point</div></div></div><div class="sr">/advertise/intro</div></div><div class="sb">
+<div class="purpose">Welcome/landing for Navbharat Ads. Communicates value prop (local targeting, ₹100 start, 5-min setup) and intelligently routes by auth/profile state.</div>
+<div class="dg"><div class="dc"><h4>UI</h4><p>Title "नवभारत ऐड्स", hero image (nb_ads_hero.png), 3 benefit badges: 📍 Location · ₹ Price · ⏱ Timer. Single dynamic CTA button.</p></div>
+<div class="dc"><h4>3 Badges</h4><p>📍 "अपने ग्राहकों तक आसानी से पहुँचें" · ₹ "सिर्फ़ ₹100 से शुरू करें" · ⏱ "सिर्फ़ 5 मिनट में विज्ञापन पोस्ट करें"</p></div></div>
+<h3 class="sh3">Smart CTA Routing (handleStart)</h3>
+<div class="nf"><div class="nn cond">Not auth + known phone</div><div class="na">→</div><div class="nn">Pre-fill phone → /advertise/otp</div></div>
+<div class="nf"><div class="nn cond">Not auth + no phone</div><div class="na">→</div><div class="nn">/advertise/phone</div></div>
+<div class="nf"><div class="nn cond">Auth + profile NOT saved</div><div class="na">→</div><div class="nn">/advertise/business-profile</div></div>
+<div class="nf"><div class="nn cond">Auth + profile saved</div><div class="na">→</div><div class="nn">/advertise/dashboard</div></div>
+<table class="ft"><thead><tr><th>Condition</th><th>Button Label</th></tr></thead><tbody>
+<tr><td>Returning user, known phone, not yet authenticated</td><td>OTP से लॉगिन करें</td></tr>
+<tr><td>Authenticated + profile saved</td><td>डैशबोर्ड पर जाएं</td></tr>
+<tr><td>New user (all other cases)</td><td>अपनी बिज़नेस प्रोफ़ाइल बनाएँ</td></tr>
+</tbody></table>
+</div></div>
+
+<div id="s2" class="sec"><div class="sh"><div class="sh-l"><div class="sn">2</div><div><div class="st">Phone Number Screen</div></div></div><div class="sr">/advertise/phone</div></div><div class="sb">
+<div class="purpose">Collects the advertiser's Indian mobile number. Validates for exactly 10 digits starting with 6–9. Stores phone in advertiserAuth context.</div>
+<div class="dg">
+<div class="dc"><h4>Input Field</h4><p>Composite input: <strong>+91</strong> prefix (non-editable) + vertical divider + numeric text field. inputMode="numeric", maxLength=10, auto-focused on mount.</p></div>
+<div class="dc"><h4>CTA Button</h4><p>Enabled only when phone.length === 10. Label: "आगे बढ़ें" + ArrowRight icon. Disabled state: 40% opacity, cursor-not-allowed.</p></div>
+</div>
+<div class="vbox"><h4>Validation Rules</h4><ul>
+<li>Empty → "कृपया अपना 10 अंकों का मोबाइल नंबर दर्ज करें।"</li>
+<li>Fails /^[6-9]\d{9}$/ → "कृपया मान्य भारतीय मोबाइल नंबर दर्ज करें (6-9 से शुरू)।"</li>
+<li>Non-digits stripped in real-time via replace(/\D/g,'')</li>
+<li>Error clears when length becomes 0 or 10</li>
+</ul></div>
+<ul class="fl"><li><div class="dot"></div><div><span class="tag">On submit:</span> <span class="desc">Sets advertiserAuth.phone → navigates to /advertise/otp</span></div></li>
+<li><div class="dot"></div><div><span class="tag">Back:</span> <span class="desc">Returns to /advertise/intro</span></div></li></ul>
+</div></div>
+
+<div id="s3" class="sec"><div class="sh"><div class="sh-l"><div class="sn">3</div><div><div class="st">OTP Verification Screen</div></div></div><div class="sr">/advertise/otp</div></div><div class="sb">
+<div class="purpose">6-digit OTP entry with individual cell boxes, 30-second resend timer, and auto-advance focus. On success, marks session as fully authenticated.</div>
+<div class="dg">
+<div class="dc"><h4>OTP Input UI</h4><p>6 cells, each 45×58px. Auto-advances on digit entry. Backspace moves focus back. Full OTP paste supported via onPaste handler. Unfilled cells show a bottom underline indicator.</p></div>
+<div class="dc"><h4>Resend Timer</h4><p>Starts at 30 seconds, counts down every second. Timer &gt; 0: shows "दोबारा भेजें 00:XX". Timer = 0: shows "OTP दोबारा भेजें" button → resets timer + clears all cells.</p></div>
+<div class="dc"><h4>Phone Display</h4><p>Shows "+91 XXXXXXXXXX" read from advertiserAuth.phone (set by PhoneScreen or IntroScreen pre-fill). Falls back to businessProfile.phone for returning users. "नंबर बदलें" link → /advertise/phone.</p></div>
+<div class="dc"><h4>On Verify</h4><p>Sets: isAuthenticated=true, otpVerified=true, phone. Calls updateDraftCampaign({phone}). If !isBusinessProfileSaved → /business-profile, else → /dashboard.</p></div>
+</div>
+<div class="vbox"><h4>Validation</h4><ul>
+<li>Fewer than 6 digits → "कृपया सभी 6 अंकों का ओटीपी कोड दर्ज करें।"</li>
+<li>Non-digits stripped via replace(/\D/g,'')</li>
+</ul></div>
+</div></div>
+
+<div id="s4" class="sec"><div class="sh"><div class="sh-l"><div class="sn">4</div><div><div class="st">Business Profile Screen</div></div></div><div class="sr">/advertise/business-profile</div></div><div class="sb">
+<div class="purpose">Two-card form collecting all business identity: logo upload, name, category, contact info, and store address. Pre-populates from existing businessProfile for returning users.</div>
+<div class="dg">
+<div class="dc"><h4>Logo Upload</h4><p>Circular 96×96px avatar with camera badge. Shows first letter of businessName as fallback. Accepts image/* files, converts to base64 via FileReader, stored as businessLogoUrl.</p></div>
+<div class="dc"><h4>Phone Field</h4><p>Read-only pre-fill from OTP session. Shows "+91 XXXXXXXXXX" with gold Verified badge (TickCircle icon). Cannot be edited on this screen.</p></div>
+</div>
+<h3 class="sh3">Card 1: Business Information</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">बिज़नेस का नाम *</span> <span class="desc">Required. Shop icon. Triggers error if empty.</span></div></li>
+<li><div class="dot"></div><div><span class="tag">मालिक का नाम</span> <span class="desc">Optional. Placeholder: "जैसे: राजेश शर्मा".</span></div></li>
+<li><div class="dot"></div><div><span class="tag">बिज़नेस श्रेणी *</span> <span class="desc">Required dropdown. 13 options: किराना, कपड़े, इलेक्ट्रॉनिक्स, रेस्टोरंट, मेडिकल, शिक्षा, हार्डवेयर, ज्वेलरी, मोबाइल, ब्यूटी, ऑटो, कृषि, अन्य.</span></div></li>
+<li><div class="dot"></div><div><span class="tag">ईमेल (ऑप्शनल)</span> <span class="desc">Regex validated if provided: /^[^\s@]+@[^\s@]+\.[^\s@]+$/</span></div></li>
+</ul>
+<h3 class="sh3">Card 2: Store Address</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">पता या इलाका</span> <span class="desc">Optional. Placeholder: "दुकान / ऑफ़िस का पता या इलाका डालें".</span></div></li>
+<li><div class="dot"></div><div><span class="tag">पिन कोड</span> <span class="desc">Optional. Numeric only, max 6 digits. Validated as exactly 6 if provided.</span></div></li>
+</ul>
+<div class="vbox"><h4>Validation</h4><ul>
+<li>businessName empty → "कृपया अपने बिज़नेस का नाम दर्ज करें।"</li>
+<li>businessCategory not selected → "कृपया अपने बिज़नेस की श्रेणी चुनें।"</li>
+<li>Invalid email → "कृपया एक मान्य ईमेल पता दर्ज करें (उदा. info@business.com)।"</li>
+<li>Pincode provided but not 6 digits → "कृपया 6 अंकों का मान्य पिन कोड दर्ज करें।"</li>
+</ul></div>
+<ul class="fl"><li><div class="dot"></div><div><span class="tag">On submit:</span> <span class="desc">updateBusinessProfile(data) + updateDraftCampaign(data). fromReview → /review | fromDashboard → /location-tax?fromDashboard | Default → /location-tax</span></div></li></ul>
+</div></div>
+
+<div id="s5" class="sec"><div class="sh"><div class="sh-l"><div class="sn">5</div><div><div class="st">Location &amp; Tax Screen — KYC Gate</div></div></div><div class="sr">/advertise/location-tax</div></div><div class="sb">
+<div class="purpose">Aadhaar (12-digit) identity verification and optional GSTIN collection. Completing this screen sets isBusinessProfileSaved=true, which unlocks AdvertiserGuard and the full campaign wizard.</div>
+<div class="dg">
+<div class="dc"><h4>Aadhaar Input</h4><p>Formatted as "XXXX XXXX XXXX" (groups of 4). Numeric only. Toggle show/hide (Eye/EyeSlash icon). Raw 12 digits stored as idNumberRaw; masked last-4 as idNumberMasked (e.g. •••• •••• 3456).</p></div>
+<div class="dc"><h4>GSTIN Section</h4><p>Checkbox "मेरे पास GST नंबर नहीं है" (default checked = hasGstin:false). If unchecked, 15-char GSTIN input appears. Validated against standard GSTIN regex + state code 01–37.</p></div>
+</div>
+<div class="vbox"><h4>Validation Rules</h4><ul>
+<li>Aadhaar &lt; 12 digits → "कृपया आधार कार्ड के पूरे 12 अंक दर्ज करें।"</li>
+<li>Progress hint while typing 1-11 digits: "कृपया X अंक और दर्ज करें"</li>
+<li>Success at 12 digits: "✓ आधार के पूरे 12 अंक दर्ज हैं" (green indicator)</li>
+<li>Invalid GSTIN on blur → "अमान्य जीएसटी नंबर: कृपया 15 अक्षरों का सही प्रारूप दर्ज करें (उदा. 23AAAAA0000A1Z5)।"</li>
+<li>CTA disabled unless: isIdValid &amp;&amp; (!hasGstin || isGstinValid)</li>
+</ul></div>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">On submit:</span> <span class="desc">updateBusinessProfile(taxData) + updateDraftCampaign(taxData) + setIsBusinessProfileSaved(true) — UNLOCKS AdvertiserGuard</span></div></li>
+<li><div class="dot"></div><div><span class="tag">Navigation:</span> <span class="desc">fromReview → /review | fromDashboard → /dashboard | Default → /advertise/goal</span></div></li>
+</ul>
+</div></div>
+<!-- SCREENS 6-10: Campaign Wizard Steps 1-5 -->
+<div id="s6" class="sec"><div class="sh"><div class="sh-l"><div class="sn">6</div><div><div class="st">Goal Screen — Wizard Step 1 of 7</div></div></div><div class="sr">/advertise/goal</div></div><div class="sb">
+<div class="sbadge">Step 1 / 7 · Protected by AdvertiserGuard</div>
+<div class="purpose">User selects the primary objective of their campaign. The goal sets the default CTA text and determines the CTR model used in commitCampaign() analytics.</div>
+<table class="ft"><thead><tr><th>Goal ID</th><th>Hindi Label</th><th>Description</th><th>Default CTA</th><th>CTR</th></tr></thead><tbody>
+<tr><td>reach</td><td>ज्यादा लोगों तक पहुंच</td><td>अपने इलाके में ज्यादा से ज्यादा लोगों को विज्ञापन दिखाएं</td><td>अधिक जानें</td><td>0.94%</td></tr>
+<tr><td>engagement</td><td>कॉल और मैसेज</td><td>ग्राहकों से सीधे कॉल या व्हाट्सएप पर पूछताछ पाएं</td><td>व्हाट्सएप करें</td><td>1.25%</td></tr>
+<tr><td>ctrs</td><td>वेबसाइट या लिंक क्लिक्स</td><td>अपनी वेबसाइट, सोशल मीडिया या स्टोर लिंक पर लोग लाएं</td><td>अभी देखें</td><td>1.60%</td></tr>
+</tbody></table>
+<div class="dg"><div class="dc"><h4>UI Pattern</h4><p>Single card with radio-style rows. Selected row: dark border + ring-1 highlight. Radio circle shows filled inner dot. Default: <code>reach</code>.</p></div>
+<div class="dc"><h4>State Saved</h4><p><code>goal</code> (string ID) and <code>ctaText</code> (matching default CTA) are both written to draftCampaign via updateDraftCampaign().</p></div></div>
+</div></div>
+
+<div id="s7" class="sec"><div class="sh"><div class="sh-l"><div class="sn">7</div><div><div class="st">Format Screen — Wizard Step 2 of 7</div></div></div><div class="sr">/advertise/format</div></div><div class="sb">
+<div class="sbadge">Step 2 / 7 · Protected by AdvertiserGuard</div>
+<div class="purpose">User selects the visual ad format. Five formats in two groups. The selected format determines which upload component renders in the Creative screen (Step 5).</div>
+<h3 class="sh3">Group 1: रील विज्ञापन (Reel Ads)</h3>
+<table class="ft"><thead><tr><th>Format ID</th><th>Label</th><th>Description</th><th>Upload Component</th></tr></thead><tbody>
+<tr><td>video_ad</td><td>वीडियो विज्ञापन</td><td>9:16 वर्टिकल वीडियो (साउंड सहित)</td><td>ReelVideoUpload</td></tr>
+<tr><td>grid_ad</td><td>ग्रिड विज्ञापन</td><td>2×2 फोटो ग्रिड</td><td>ReelGridUpload</td></tr>
+<tr><td>carousel_ad</td><td>कैरौसेल रील</td><td>9:16 मल्टी-स्लाइड कार्ड</td><td>ReelCarouselUpload</td></tr>
+</tbody></table>
+<h3 class="sh3">Group 2: न्यूज़ फ़ीड विज्ञापन (Feed Ads)</h3>
+<table class="ft"><thead><tr><th>Format ID</th><th>Label</th><th>Description</th><th>Upload Component</th></tr></thead><tbody>
+<tr><td>feed_card_ad</td><td>फ़ीड कार्ड विज्ञापन</td><td>सिंगल बैनर और कॉल बटन</td><td>FeedCardUpload</td></tr>
+<tr><td>sponsored_ad</td><td>प्रायोजित स्टोरी कार्ड</td><td>न्यूज़ स्टोरी कार्ड प्रारूप</td><td>SponsoredCardUpload</td></tr>
+</tbody></table>
+<div class="inote"><div class="ic">💡</div><div>Default format is <code>grid_ad</code>. Icon variant switches between Linear (unselected) and Bold (selected). Format saved as draftCampaign.format.</div></div>
+</div></div>
+
+<div id="s8" class="sec"><div class="sh"><div class="sh-l"><div class="sn">8</div><div><div class="st">Targeting Screen — Wizard Step 3 of 7</div></div></div><div class="sr">/advertise/targeting</div></div><div class="sb">
+<div class="sbadge">Step 3 / 7 · Protected by AdvertiserGuard</div>
+<div class="purpose">Geographic targeting. Two modes via segmented tab switcher: radius-based (SVG map with concentric circles) or district/city multi-select accordion (5 states, 31+ cities).</div>
+<div class="dg">
+<div class="dc"><h4>Mode A: Radius</h4><p>Interactive SVG map showing store pin + orange concentric circles. Slider: 5–25 km, step 5. Quick presets: 5, 10, 15, 20, 25 km. Reset button (→ 10 km). Reach from lookup table.</p></div>
+<div class="dc"><h4>Mode B: District/City</h4><p>Accordion per state. Each shows "पूरा [State] चुनें" row + 2-column city grid. Toggle entire state or individual cities. State auto-marks "fully selected" when all cities checked.</p></div>
+</div>
+<h3 class="sh3">Radius → Estimated Reach Lookup</h3>
+<div class="mr">
+<div class="mc"><div class="ml">5 km</div><div class="mv">4,120</div></div>
+<div class="mc"><div class="ml">10 km</div><div class="mv">7,631</div></div>
+<div class="mc"><div class="ml">15 km</div><div class="mv">14,200</div></div>
+<div class="mc"><div class="ml">20 km</div><div class="mv">22,800</div></div>
+<div class="mc"><div class="ml">25 km</div><div class="mv ac">34,500</div></div>
+</div>
+<h3 class="sh3">Available States &amp; City Reach Estimates</h3>
+<div class="sg">
+<div class="sc"><div class="sn2">मध्य प्रदेश</div><div class="sc2">भोपाल (1,03,435) · इंदौर (98,200) · जबलपुर (68,400) · ग्वालियर (64,500) · उज्जैन (45,000) · सागर (38,000)</div></div>
+<div class="sc"><div class="sn2">छत्तीसगढ़</div><div class="sc2">रायपुर (89,000) · बिलासपुर (54,000) · दुर्ग-भिलाई (62,000) · कोरबा (41,000) · राजनांदगांव (32,000)</div></div>
+<div class="sc"><div class="sn2">महाराष्ट्र</div><div class="sc2">मुंबई (2,10,000) · पुणे (1,45,000) · नागपुर (92,000) · नाशिक (68,000) · ठाणे (78,000) · छत्रपति संभाजीनगर (52,000)</div></div>
+<div class="sc"><div class="sn2">गुजरात</div><div class="sc2">अहमदाबाद (1,85,000) · सूरत (1,42,000) · वडोदरा (84,000) · राजकोट (68,000) · भावनगर (42,000)</div></div>
+<div class="sc"><div class="sn2">राजस्थान</div><div class="sc2">जयपुर (1,25,000) · जोधपुर (72,000) · कोटा (58,000) · उदयपुर (49,000) · बीकानेर (38,000) · अजमेर (44,000)</div></div>
+</div>
+<h3 class="sh3">State Saved to draftCampaign</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">targetingType</span><span class="desc"> — 'radius' or 'district'</span></div></li>
+<li><div class="dot"></div><div><span class="tag">radiusKm</span><span class="desc"> — 5 to 25 km</span></div></li>
+<li><div class="dot"></div><div><span class="tag">selectedDistricts</span><span class="desc"> — array of city ID strings</span></div></li>
+<li><div class="dot"></div><div><span class="tag">selectedStates / isWholeStateSelected</span><span class="desc"> — for whole-state selections</span></div></li>
+<li><div class="dot"></div><div><span class="tag">baseReach</span><span class="desc"> — total estimated reach number from selection</span></div></li>
+</ul>
+</div></div>
+
+<div id="s9" class="sec"><div class="sh"><div class="sh-l"><div class="sn">9</div><div><div class="st">Audience Screen — Wizard Step 4 of 7</div></div></div><div class="sr">/advertise/audience</div></div><div class="sb">
+<div class="sbadge">Step 4 / 7 · Protected by AdvertiserGuard</div>
+<div class="purpose">Four collapsible accordion sections for fine-grained audience targeting. All optional — user can skip. Each selection refines real-time reach estimation using a formula.</div>
+<div class="dg">
+<div class="dc"><h4>Reach Formula</h4><p>baseReach × genderMul × ageMul × catBonus. Min: 1,200. genderMul: Male=0.52, Female=0.48, All=1.0. ageMul: selectedAges.length/4 (min 0.25). catBonus: 0.72 + (selectedCats × 0.05), max 1.0.</p></div>
+<div class="dc"><h4>Skip Option</h4><p>Secondary "अभी छोड़ें (Skip)" button available alongside primary CTA. Both lead to /advertise/creative. Skipping saves current default values as-is to draftCampaign.</p></div>
+</div>
+<h3 class="sh3">Accordion 1: पसंदीदा विषय (News Categories) — Multi-Select Pills</h3>
+<table class="ft"><thead><tr><th>Category</th><th>Default Selected</th></tr></thead><tbody>
+<tr><td>मनोरंजन, लाइफस्टाइल, खेल, तकनीक, ऑटो, शिक्षा, ज्योतिष, व्यापार, स्वास्थ्य</td><td>लाइफस्टाइल (default)</td></tr>
+</tbody></table>
+<h3 class="sh3">Accordion 2: कीवर्ड — Free-text Tag Input</h3>
+<div class="inote"><div class="ic">🏷</div><div>Press Enter to add keyword tags. Tags appear as removable chips (CloseCircle icon). Duplicate keywords silently ignored. Stored as keywords[] array in draftCampaign.</div></div>
+<h3 class="sh3">Accordion 3: त्योहार व अवसर — Multi-Select Pills</h3>
+<table class="ft"><thead><tr><th>Available Occasions</th></tr></thead><tbody>
+<tr><td>दिवाली · होली · नवरात्रि · शादी का सीजन · परीक्षा का समय · बुवाई सीजन · कटाई सीजन · मानसून</td></tr>
+</tbody></table>
+<h3 class="sh3">Accordion 4: उम्र और लिंग — Demographics</h3>
+<div class="dg">
+<div class="dc"><h4>Gender (Single Select)</h4><p>3-column grid: पुरुष (Man, 52%) · महिला (Woman, 48%) · सभी पाठक (Profile2User, 100%). Default: all.</p></div>
+<div class="dc"><h4>Age Brackets (Multi-Select)</h4><p>2-col grid: 18-27 वर्ष (GenZ) · 28-43 वर्ष (Millennial) · 44-59 वर्ष (GenX) · 60+ वर्ष (Senior). At least 1 must remain selected.</p></div>
+</div>
+</div></div>
+
+<div id="s10" class="sec"><div class="sh"><div class="sh-l"><div class="sn">10</div><div><div class="st">Creative Screen — Wizard Step 5 of 7</div></div></div><div class="sr">/advertise/creative</div></div><div class="sb">
+<div class="sbadge">Step 5 / 7 · Protected by AdvertiserGuard</div>
+<div class="purpose">Renders format-specific upload component based on draftCampaign.format. Also manages shared text fields (headline, description, CTA, destination URL).</div>
+<h3 class="sh3">Common Text Fields (all formats)</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">Headline *</span> <span class="desc">Required. Pre-filled: "[BusinessName] - विशेष ऑफ़र उपलब्ध!" if businessName exists.</span></div></li>
+<li><div class="dot"></div><div><span class="tag">Description</span> <span class="desc">Pre-filled: "उच्च गुणवत्ता और बेहतरीन सेवा, आज ही संपर्क करें।"</span></div></li>
+<li><div class="dot"></div><div><span class="tag">CTA Text</span> <span class="desc">Inherits goal's defaultCta. Editable. e.g. "अधिक जानें" / "व्हाट्सएप करें" / "अभी देखें"</span></div></li>
+<li><div class="dot"></div><div><span class="tag">Destination URL</span> <span class="desc">Pre-filled with phone for call-based goals. URL or phone accepted.</span></div></li>
+</ul>
+<table class="ft"><thead><tr><th>Format</th><th>Component</th><th>Media Required</th><th>Min Required</th></tr></thead><tbody>
+<tr><td>video_ad</td><td>ReelVideoUpload</td><td>Single 9:16 vertical video file</td><td>1 video</td></tr>
+<tr><td>grid_ad</td><td>ReelGridUpload</td><td>4-slot 2×2 image grid</td><td>2 of 4 images</td></tr>
+<tr><td>carousel_ad</td><td>ReelCarouselUpload</td><td>3-slot slides (expandable)</td><td>2 slides</td></tr>
+<tr><td>feed_card_ad</td><td>FeedCardUpload</td><td>Single banner image</td><td>1 banner</td></tr>
+<tr><td>sponsored_ad</td><td>SponsoredCardUpload</td><td>Single story image + sponsorTag field</td><td>1 story image</td></tr>
+</tbody></table>
+<div class="vbox"><h4>Validation (per format)</h4><ul>
+<li>Headline empty → "कृपया अपने विज्ञापन के लिए एक मुख्य हेडलाइन दर्ज करें।"</li>
+<li>video_ad + no video → "कृपया रील विज्ञापन के लिए वीडियो फ़ाइल अपलोड करें।"</li>
+<li>grid_ad + &lt;2 images → "कृपया ग्रिड विज्ञापन के लिए कम से कम 2 तस्वीरें अपलोड करें।"</li>
+<li>carousel_ad + &lt;2 slides → "कृपया कैरौसेल विज्ञापन के लिए कम से कम 2 स्लाइड्स अपलोड करें।"</li>
+<li>feed_card_ad + no banner → "कृपया फ़ीड कार्ड विज्ञापन के लिए बैनर तस्वीर अपलोड करें।"</li>
+<li>sponsored_ad + no story → "कृपया स्पॉन्सर्ड कार्ड के लिए स्टोरी तस्वीर अपलोड करें।"</li>
+</ul></div>
+</div></div>
+<!-- SCREENS 11-15: Budget, Review, Payment, Dashboard, Analytics -->
+<div id="s11" class="sec"><div class="sh"><div class="sh-l"><div class="sn">11</div><div><div class="st">Budget Screen — Wizard Step 6 of 7</div></div></div><div class="sr">/advertise/budget</div></div><div class="sb">
+<div class="sbadge">Step 6 / 7 · Protected by AdvertiserGuard</div>
+<div class="purpose">Financial configuration step. Custom slider for daily budget, duration stepper (1-90 days), start date input, and a live billing card showing subtotal + 18% GST + grand total in real-time.</div>
+<div class="dg">
+<div class="dc"><h4>Daily Budget Slider</h4><p>Range: <strong>₹100 (min) to ₹2,500 (max)</strong>, step=25. Floating tooltip above drag point. Landmark dots at ₹500, ₹1,000, ₹1,500, ₹2,000. Quick presets: ₹250, ₹500, ₹1,000, ₹1,500. Default: ₹300/day.</p></div>
+<div class="dc"><h4>Duration Stepper</h4><p>− and + buttons. Range: 1 to 90 days. Default: 7 days. Start date field in DD-MM-YYYY format, defaults to today. getTodayFormatted() helper used.</p></div>
+<div class="dc"><h4>Billing Card (Dark)</h4><p>Dark #2B2437 card: <strong>Subtotal</strong> = dailyBudget × durationDays · <strong>+18% GST</strong> = subtotal × 0.18 · <strong>Grand Total</strong> displayed in amber/gold. GST invoice promised after payment.</p></div>
+<div class="dc"><h4>Reach Estimate</h4><p>Formula: min(baseReach × 3.5, max(1200, dailyBudget × 28.5 × (durationDays/7))). Shown in warm amber card with estimated local readers count.</p></div>
+</div>
+<h3 class="sh3">State Saved on Proceed</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">dailyBudget</span><span class="desc"> — ₹100–₹2,500 (number)</span></div></li>
+<li><div class="dot"></div><div><span class="tag">durationDays</span><span class="desc"> — 1–90 (number)</span></div></li>
+<li><div class="dot"></div><div><span class="tag">startDate</span><span class="desc"> — DD-MM-YYYY string</span></div></li>
+<li><div class="dot"></div><div><span class="tag">estimatedReach</span><span class="desc"> — computed reach number</span></div></li>
+<li><div class="dot"></div><div><span class="tag">subtotal, grandTotal</span><span class="desc"> — billing amounts including 18% GST</span></div></li>
+</ul>
+<div class="inote"><div class="ic">📌</div><div>Budget screen always navigates to /advertise/review regardless of fromReview flag — it IS the final step before review.</div></div>
+</div></div>
+
+<div id="s12" class="sec"><div class="sh"><div class="sh-l"><div class="sn">12</div><div><div class="st">Review Screen — Wizard Step 7 of 7</div></div></div><div class="sr">/advertise/review</div></div><div class="sb">
+<div class="sbadge">Step 7 / 7 · Protected by AdvertiserGuard</div>
+<div class="purpose">Final summary before payment. Shows a live ad preview rendered from uploaded media, 5 editable summary rows (each deep-linking to its step), and a dynamic review notification banner.</div>
+<h3 class="sh3">Live Ad Preview Logic</h3>
+<table class="ft"><thead><tr><th>Format</th><th>Preview Rendering</th></tr></thead><tbody>
+<tr><td>grid_ad</td><td>4-image 2×2 grid (16:12 aspect ratio) — each slot shows uploaded or fallback image</td></tr>
+<tr><td>carousel_ad</td><td>16:10 carousel with dot indicators, swipeable slides</td></tr>
+<tr><td>video_ad / feed_card / sponsored</td><td>16:9 image/video with gradient overlay, play button, headline text at bottom</td></tr>
+</tbody></table>
+<h3 class="sh3">5 Editable Summary Rows</h3>
+<table class="ft"><thead><tr><th>Row Label</th><th>Content Shown</th><th>Edit → Navigates To</th></tr></thead><tbody>
+<tr><td>उद्देश्य व प्रकार</td><td>Goal label • Format label</td><td>/advertise/goal?fromReview=true</td></tr>
+<tr><td>इलाका (लोकेशन)</td><td>"दुकान के आसपास X किमी" or "N चयनित शहर"</td><td>/advertise/targeting?fromReview=true</td></tr>
+<tr><td>किन लोगों को</td><td>"N श्रेणी फ़िल्टर" or "सभी स्थानीय पाठक"</td><td>/advertise/audience?fromReview=true</td></tr>
+<tr><td>बजट और दिन</td><td>₹X/दिन × Y दिन = ₹Z + 18% GST = ₹Total</td><td>/advertise/budget?fromReview=true</td></tr>
+<tr><td>बिज़नेस और टैक्स</td><td>BusinessName • GST or Masked Aadhaar</td><td>/advertise/business-profile?fromReview=true</td></tr>
+</tbody></table>
+<div class="inote"><div class="ic">🔄</div><div>All wizard screens check <code>fromReview</code> in navigation state. When fromReview=true, both Back and Proceed return to /advertise/review — enabling non-destructive inline editing without losing other step data.</div></div>
+<div class="nf"><div class="nn">Card icon + "₹{grandTotal} पेमेंट करें"</div><div class="na">→</div><div class="nn">/advertise/payment</div></div>
+</div></div>
+
+<div id="s13" class="sec"><div class="sh"><div class="sh-l"><div class="sn">13</div><div><div class="st">Payment Screen</div></div></div><div class="sr">/advertise/payment</div></div><div class="sb">
+<div class="purpose">Payment gateway screen. Shows grand total prominently, itemized bill breakdown, UPI app selection (4 apps), manual VPA input, and a 100% secure badge. On success, commits the campaign and shows animated success modal.</div>
+<div class="dg">
+<div class="dc"><h4>Top Amount Card</h4><p>Large display of grandTotal. "100% सुरक्षित पेमेंट" with TickCircle icon. Center-aligned.</p></div>
+<div class="dc"><h4>Bill Details</h4><p>Itemized: "विज्ञापन बजट (₹X × Y दिन) = ₹Z" + "+18% GST = ₹G" + "कुल राशि = ₹Total" (amber). Footnote: "पेमेंट के बाद GST इनवॉइस मिल जाएगी।"</p></div>
+<div class="dc"><h4>UPI App Grid</h4><p>2×2 grid: <strong>गूगल पे</strong> · <strong>फ़ोनपे</strong> · <strong>पेटीएम</strong> · <strong>भीम यूपीआई</strong>. Radio-select with border highlight. Default: gpay.</p></div>
+<div class="dc"><h4>Manual UPI ID</h4><p>Text input. Placeholder: "उदा. mobile@upi". Pre-filled: "shopkeeper@upi". Allows custom VPA entry.</p></div>
+</div>
+<h3 class="sh3">Payment Processing (handlePay)</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">setIsProcessing(true)</span> <span class="desc">— shows loading spinner + "पेमेंट हो रहा है..."</span></div></li>
+<li><div class="dot"></div><div><span class="tag">After 1200ms:</span> <span class="desc">Calls commitCampaign() — creates campaign object, adds to campaigns[] array, resets draftCampaign</span></div></li>
+<li><div class="dot"></div><div><span class="tag">setIsSuccess(true)</span> <span class="desc">— triggers animated success modal overlay</span></div></li>
+</ul>
+<h3 class="sh3">Success Modal</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">Icon:</span> <span class="desc">TickCircle (amber 36px) in rounded amber background</span></div></li>
+<li><div class="dot"></div><div><span class="tag">Title:</span> <span class="desc">"पेमेंट सफल रहा!" + "आपका विज्ञापन शुरू हो गया है।"</span></div></li>
+<li><div class="dot"></div><div><span class="tag">Summary card:</span> <span class="desc">Payment amount + Status "लाइव (Active)"</span></div></li>
+<li><div class="dot"></div><div><span class="tag">CTA:</span> <span class="desc">"मेरे विज्ञापन देखें" → /advertise/dashboard</span></div></li>
+</ul>
+<h3 class="sh3">commitCampaign() — What Gets Created</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">id:</span> <span class="desc">cmp-{Date.now()}</span></div></li>
+<li><div class="dot"></div><div><span class="tag">orderId:</span> <span class="desc">NB-ADV-{5-digit random}</span></div></li>
+<li><div class="dot"></div><div><span class="tag">status:</span> <span class="desc">pending_review (auto → live in 5s)</span></div></li>
+<li><div class="dot"></div><div><span class="tag">impressions:</span> <span class="desc">audienceReach || estimatedReach computed from budget+targeting</span></div></li>
+<li><div class="dot"></div><div><span class="tag">clicks:</span> <span class="desc">max(1, round(impressions × goalCTR/100))</span></div></li>
+<li><div class="dot"></div><div><span class="tag">Security:</span> <span class="desc">idNumberRaw explicitly set to undefined — raw Aadhaar NEVER stored in campaigns array</span></div></li>
+</ul>
+</div></div>
+
+<div id="s14" class="sec"><div class="sh"><div class="sh-l"><div class="sn">14</div><div><div class="st">Advertiser Dashboard Screen</div></div></div><div class="sr">/advertise/dashboard</div></div><div class="sb">
+<div class="purpose">Main campaign management hub. Shows business profile card, all campaigns with real-time status, live metrics (Views/Clicks/CTR/Spend), action buttons, and a 5-second live-transition countdown for new campaigns.</div>
+<div class="dg">
+<div class="dc"><h4>Business Profile Card</h4><p>Shown if isBusinessProfileSaved &amp;&amp; businessName. Displays logo/initials, name, address/GST. Two buttons: Edit (→ /business-profile?fromDashboard) and Logout (confirmation modal).</p></div>
+<div class="dc"><h4>Empty State</h4><p>campaigns.length === 0: Shows Shop icon, "कोई ऐक्टिव ऐड नहीं है", description, and "+ नया ऐड बनाएं" button → resetDraftCampaign() + /advertise/goal.</p></div>
+</div>
+<h3 class="sh3">Campaign Card — 3 States</h3>
+<table class="ft"><thead><tr><th>Status</th><th>UI Indicator</th><th>Content</th><th>User Actions</th></tr></thead><tbody>
+<tr><td>pending_review</td><td>Amber pulsing dot + "रिव्यू जारी (Xs)"</td><td>Progress bar (0→100% in 5s), reach estimate, budget summary</td><td>"तुरंत लाइव करें →" → approveCampaign()</td></tr>
+<tr><td>live</td><td>Dark badge + green pulse dot + "लाइव"</td><td>4-metric grid: Views · Clicks · CTR% · Total Spend</td><td>Toggle to paused · View Analytics · Edit Budget</td></tr>
+<tr><td>paused</td><td>Gray badge + gray dot + "पॉज्ड"</td><td>Same 4-metric grid at 70% opacity</td><td>Toggle to live · View Analytics · Edit Budget</td></tr>
+</tbody></table>
+<div class="inote"><div class="ic">⏱</div><div>Auto-approval: A 250ms setInterval ticks now=Date.now() while any campaign is pending_review. A second useEffect checks: if (Date.now() - campaign.createdAt &gt;= 5000) → approveCampaign(id) to transition to live.</div></div>
+<h3 class="sh3">Logout Flow</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">Confirmation modal:</span> <span class="desc">"लॉगआउट करना चाहते हैं?" with Cancel and Logout buttons</span></div></li>
+<li><div class="dot"></div><div><span class="tag">logoutAdvertiser():</span> <span class="desc">Resets advertiserAuth, sets isBusinessProfileSaved=false, removes: nb_advertiser_auth, nb_business_profile_saved (localStorage) + nb_draft_campaign (sessionStorage)</span></div></li>
+<li><div class="dot"></div><div><span class="tag">Navigate:</span> <span class="desc">→ /menu</span></div></li>
+</ul>
+<div class="inote"><div class="ic">📋</div><div><strong>BudgetEditSheet</strong> — Modal bottom-sheet accessible from both Dashboard and Analytics. Slider to update daily budget for an existing campaign. Calls updateCampaignBudget(id, newBudget) which proportionally scales totalSpend by the budget ratio.</div></div>
+</div></div>
+
+<div id="s15" class="sec"><div class="sh"><div class="sh-l"><div class="sn">15</div><div><div class="st">Analytics Screen</div></div></div><div class="sr">/advertise/analytics</div></div><div class="sb">
+<div class="purpose">Deep analytics view for a specific campaign (via location.state.campaignId). Displays 4 KPI cards, gender/age distribution visualizations, an AI suggestion card, and action buttons for budget edit + new campaign.</div>
+<div class="dg">
+<div class="dc"><h4>Campaign Identity Card</h4><p>Business initial avatar, business name, format label (formatNameMap), order ID (#NB-ADV-XXXXX), and live status badge with pulse dot.</p></div>
+<div class="dc"><h4>Campaign Resolution</h4><p>campaigns.find(c => c.id === campaignId) || campaigns[0]. Falls back to hardcoded demo data if no campaigns exist: Bhopal restaurant, 48,200 impressions, 453 clicks, ₹2,800 spend.</p></div>
+</div>
+<h3 class="sh3">4 Primary KPI Cards</h3>
+<table class="ft"><thead><tr><th>Metric</th><th>Icon</th><th>Badge</th><th>Sub-label</th></tr></thead><tbody>
+<tr><td>कुल व्यूज (Total Impressions)</td><td>Eye (amber)</td><td>+14% रीच</td><td>देखे गए विज्ञापन</td></tr>
+<tr><td>कुल क्लिक्स (Total Clicks)</td><td>Mouse (dark)</td><td>X.XX% CTR</td><td>ग्राहकों का जुड़ाव</td></tr>
+<tr><td>कुल खर्च (Total Spend)</td><td>MoneyChange (dark)</td><td>N दिन</td><td>बजट: ₹X/दिन</td></tr>
+<tr><td>प्रति क्लिक खर्च / CPC</td><td>TrendUp (amber)</td><td>किफायती</td><td>औसत दर से बेहतर</td></tr>
+</tbody></table>
+<h3 class="sh3">Audience Demographics</h3>
+<div class="dg">
+<div class="dc"><h4>Gender Ratio Bar</h4><p>Two-segment horizontal bar: पुरुष 54% (dark #2B2437) + महिला 46% (amber #E39026). Fixed values in current implementation.</p></div>
+<div class="dc"><h4>Age Distribution (Dynamic)</h4><p>Derived from campaign.ageRange if set. Default: 18-24: 18% · 25-34: 46% · 35-44: 28% · 45+: 8%. Each shown as labeled progress bar.</p></div>
+</div>
+<div class="inote"><div class="ic">✨</div><div><strong>AI Suggestion Card:</strong> "आपका विज्ञापन <strong>25-34 उम्र के लोगों</strong> में सबसे लोकप्रिय रहा। शाम 6 बजे से रात 10 बजे के दौरान सबसे ज्यादा क्लिक्स मिले।"</div></div>
+<h3 class="sh3">Action Buttons</h3>
+<ul class="fl">
+<li><div class="dot"></div><div><span class="tag">बजट बदलें</span> <span class="desc">— opens BudgetEditSheet modal</span></div></li>
+<li><div class="dot"></div><div><span class="tag">नया विज्ञापन</span> <span class="desc">— resetDraftCampaign() + navigate to /advertise/goal</span></div></li>
+</ul>
+</div></div>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:28px 0;color:#9CA3AF;font-size:11.5px"><div style="font-weight:700;color:#2B2437;font-size:13px;margin-bottom:5px">Navbharat Ads — Advertiser Flow Documentation</div><div>Auto-generated from source code · 15 Screens · 16 Routes · Sep 30, 2026</div><div style="margin-top:7px">To save as PDF: Click <strong>Download / Save as PDF</strong> button above or press <strong>Ctrl+P → Save as PDF</strong></div></div>
+</div>
+<script>document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});</script>
+</body></html>

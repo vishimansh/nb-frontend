@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import DeviceFrame from './components/common/DeviceFrame';
 import { OnboardingProvider } from './context/OnboardingContext';
 import { FeedProvider } from './context/FeedContext';
@@ -50,8 +50,28 @@ import AdvertiserPaymentScreen from './pages/advertiser/AdvertiserPaymentScreen'
 import AdvertiserDashboardScreen from './pages/advertiser/AdvertiserDashboardScreen';
 import AdvertiserAnalyticsScreen from './pages/advertiser/AdvertiserAnalyticsScreen';
 import AdvertiserGuard from './components/advertiser/AdvertiserGuard';
+import FlowV2App from './flows/v2/FlowV2App';
+
+function MenuWrapper() {
+  const location = useLocation();
+  const fromState = location.state?.from === '/state';
+
+  return (
+    <div className="w-full h-full relative overflow-hidden bg-[#2B2437]">
+      <div className="absolute inset-0 pointer-events-none select-none filter brightness-[0.88]" aria-hidden="true">
+        {fromState ? <StatePage /> : <HomePage />}
+      </div>
+      <MenuScreen />
+    </div>
+  );
+}
 
 export default function App() {
+  const isFlowB = new URLSearchParams(window.location.search).get('flow') === 'b';
+  if (isFlowB) {
+    return <FlowV2App />;
+  }
+
   return (
     <OnboardingProvider>
       <BrowserRouter>
@@ -79,17 +99,7 @@ export default function App() {
                       <Route path="/state" element={<StatePage />} />
                       <Route path="/edit/select-state" element={<EditStateSelectionPage />} />
                       <Route path="/edit/select-city" element={<EditCitySelectionPage />} />
-                      <Route
-                        path="/menu"
-                        element={
-                          <div className="w-full h-full relative overflow-hidden bg-[#2B2437]">
-                            <div className="absolute inset-0 pointer-events-none select-none filter brightness-[0.88]" aria-hidden="true">
-                              <HomePage />
-                            </div>
-                            <MenuScreen />
-                          </div>
-                        }
-                      />
+                      <Route path="/menu" element={<MenuWrapper />} />
                       <Route path="/menu/categories" element={<CategorySelectionScreen />} />
                       <Route path="/profile" element={<ProfileScreen />} />
                       <Route path="/epaper" element={<EPaperPage />} />

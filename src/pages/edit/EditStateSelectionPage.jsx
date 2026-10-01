@@ -65,14 +65,14 @@ export default function EditStateSelectionPage() {
         </div>
 
         <span className="text-[13px] font-medium text-[#2B2437]/70 bg-[#2B2437]/5 px-2.5 py-1 rounded-full">
-          {currentStates.length}/3 चुने गए
+          {currentStates.length} चुने गए
         </span>
       </div>
 
       {/* Subtitle */}
       <div className="px-6 pt-3 pb-1 shrink-0">
         <p className="text-[13px] font-normal text-[#6B7280] leading-[1.4]">
-          अपना पसंदीदा राज्य चुनें ताकि हम आपको बेहतर स्थानीय खबरें दिखा सकें (अधिकतम 3)
+          अपना पसंदीदा राज्य चुनें ताकि हम आपको बेहतर स्थानीय खबरें दिखा सकें
         </p>
       </div>
 

@@ -14,21 +14,35 @@ import {
   Speaker,
   Whatsapp,
 } from 'iconsax-react';
-import { PiCricketFill } from 'react-icons/pi';
-import { Clapperboard, BrainCircuit } from 'lucide-react';
+import { MdSportsCricket } from 'react-icons/md';
+import { PiMoonStarsFill } from 'react-icons/pi';
+import { Clapperboard, Cpu } from 'lucide-react';
 import AstroZodiacWheelIcon from '../icons/AstroZodiacWheelIcon';
 import ArticleOptionsMenu from '../common/ArticleOptionsMenu';
 
 // Adapters: give react-icons & lucide-react the same { size, color } API as iconsax
-const CricketIcon = ({ size = 16, color = 'currentColor' }) => (
-  <PiCricketFill style={{ width: size, height: size, color }} />
+const CricketIcon = ({ size = 16, color = 'currentColor', style = {}, ...props }) => (
+  <MdSportsCricket
+    style={{
+      width: size,
+      height: size,
+      color,
+      display: 'inline-block',
+      ...style,
+      transform: style.transform ? `${style.transform} scaleY(-1)` : 'scaleY(-1)',
+    }}
+    {...props}
+  />
 );
-const AstroIcon = AstroZodiacWheelIcon;
-const MoonStarIcon = AstroZodiacWheelIcon;
-const AstrolabeIcon = AstroZodiacWheelIcon;
+const AstroIcon = ({ size = 16, color = 'currentColor' }) => (
+  <PiMoonStarsFill style={{ width: size, height: size, color }} />
+);
+const MoonStarIcon = AstroIcon;
+const AstrolabeIcon = AstroIcon;
 const BrainCircuitIcon = ({ size = 16, color = 'currentColor' }) => (
-  <BrainCircuit size={size} color={color} strokeWidth={1.8} />
+  <Cpu size={size} color={color} strokeWidth={1.8} />
 );
+const ProcessorIcon = BrainCircuitIcon;
 const ClapperboardIcon = ({ size = 16, color = 'currentColor' }) => (
   <Clapperboard size={size} color={color} strokeWidth={1.8} />
 );
@@ -38,9 +52,9 @@ export const CATEGORY_PALETTES = {
   entertainment: { label: 'मनोरंजन', color: '#805D76', icon: ClapperboardIcon },
   sports: { label: 'खेल', color: '#557E63', icon: CricketIcon },
   business: { label: 'बिज़नेस', color: '#497877', icon: TrendUp },
-  tech: { label: 'टेक्नोलॉजी', color: '#2B2437', icon: BrainCircuitIcon },
+  tech: { label: 'टेक्नोलॉजी', color: '#2B2437', icon: ProcessorIcon },
   education: { label: 'शिक्षा', color: '#2B2437', icon: Teacher },
-  astro: { label: 'ज्योतिष', color: '#71668C', icon: AstroZodiacWheelIcon },
+  astro: { label: 'ज्योतिष', color: '#71668C', icon: AstroIcon },
   health: { label: 'स्वास्थ्य', color: '#B3746E', icon: Heart },
   lifestyle: { label: 'लाइफस्टाइल', color: '#77856E', icon: Tree },
   auto: { label: 'ऑटो', color: '#596776', icon: Car },

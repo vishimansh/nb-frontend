@@ -36,6 +36,27 @@ export default {
         'cat-health': '#B3746E',
         'cat-lifestyle': '#77856E',
         'cat-auto': '#596776',
+
+        // Flow B (nb2) Color Tokens
+        nb2: {
+          ink: '#2B2437',
+          'ink-soft': '#4A4358',
+          amber: '#E39026',
+          'amber-dark': '#C97F1E',
+          'amber-tint': '#FFF9EE',
+          'amber-line': '#FDE68A',
+          bg: '#F8F8F4',
+          card: '#FFFFFF',
+          field: '#F7F7F4',
+          line: '#E5E7EB',
+          muted: '#6B7280',
+          disabled: '#A6A4A9',
+          danger: '#DC2626',
+          'danger-tint': '#FEF2F2',
+          'danger-line': '#FECACA',
+          success: '#2F8F5B',
+          'success-tint': '#EEF8F2',
+        },
       },
       borderRadius: {
         'btn': '16px',
@@ -49,6 +70,7 @@ export default {
       fontFamily: {
         sans: ['"Noto Sans Devanagari"', 'sans-serif'],
         devanagari: ['"Noto Sans Devanagari"', 'sans-serif'],
+        nb2: ['"Noto Sans Devanagari"', 'Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'device': '0 25px 60px -15px rgba(0, 0, 0, 0.35)',

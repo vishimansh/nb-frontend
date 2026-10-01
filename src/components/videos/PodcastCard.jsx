@@ -53,6 +53,7 @@ export default function PodcastCard({
   const [isPausedByUser, setIsPausedByUser] = useState(false);
   const [showPlayFlash, setShowPlayFlash] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [showTranscriptBtn, setShowTranscriptBtn] = useState(false);
 
   // Audio Playback synchronization with active state and mutual-exclusive overlays
   useEffect(() => {
@@ -77,10 +78,23 @@ export default function PodcastCard({
     if (!isActive) {
       setIsPausedByUser(false);
       setIsDescriptionExpanded(false);
+      setShowTranscriptBtn(false);
       if (audioRef.current) {
         audioRef.current.pause();
       }
     }
+  }, [isActive]);
+
+  // Show transcript button after 7 seconds of being active
+  useEffect(() => {
+    if (!isActive) {
+      setShowTranscriptBtn(false);
+      return;
+    }
+    const timer = setTimeout(() => {
+      setShowTranscriptBtn(true);
+    }, 7000);
+    return () => clearTimeout(timer);
   }, [isActive]);
 
   // Handle center media canvas tap
@@ -271,98 +285,115 @@ export default function PodcastCard({
         onClick={(e) => e.stopPropagation()}
         className="absolute bottom-[48px] left-[16px] right-20 z-30 flex flex-col gap-[16px] pointer-events-auto text-left"
       >
-        {/* Tag Row: Trending + Genre Pill */}
-        <div className="flex items-center gap-2.5 flex-wrap">
-          {/* Trending Tag: circular badge matching genre pill height (32px) */}
-          {podcast.isTrending && (
-            <div
-              className="w-8 h-8 rounded-full bg-[#C05621] flex items-center justify-center text-white shrink-0 shadow-md"
-              title="ट्रेंडिंग"
-              aria-label="ट्रेंडिंग"
-            >
-              <Flash size={18} color="#FFFFFF" variant="Bold" />
-            </div>
-          )}
+        {/* Content Box (Tags + Show Name & Description): animates position in sync with button */}
+        <motion.div
+          layout="position"
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col gap-[16px]"
+        >
+          {/* Tag Row: Trending + Genre Pill */}
+          <div className="flex items-center gap-2.5 flex-wrap">
+            {/* Trending Tag: circular badge matching genre pill height (32px) */}
+            {podcast.isTrending && (
+              <div
+                className="w-8 h-8 rounded-full bg-[#C05621] flex items-center justify-center text-white shrink-0 shadow-md"
+                title="ट्रेंडिंग"
+                aria-label="ट्रेंडिंग"
+              >
+                <Flash size={18} color="#FFFFFF" variant="Bold" />
+              </div>
+            )}
 
-          {/* Category Badge Pill: exact same 10 news categories of the app */}
-          <div className="bg-white rounded-full p-[6px] flex items-center gap-[6px] shadow-md w-fit shrink-0">
-            <div
-              style={{ backgroundColor: categoryColor }}
-              className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] rounded-full flex items-center justify-center shrink-0"
-            >
-              {getGenreIcon(catObj.id, '#FFFFFF', 12)}
-            </div>
-            <span
-              style={{ color: categoryColor }}
-              className="text-[16px] font-medium leading-none"
-            >
-              {categoryLabel}
-            </span>
-          </div>
-        </div>
-
-        {/* Description & Show Name Stack: completely 16px regular matching ReelItem */}
-        <div className="transition-all duration-200 ease-out">
-          {!isDescriptionExpanded ? (
-            /* Collapsed State (confined strictly to 2 lines, completely regular) */
-            <p
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsDescriptionExpanded(true);
-              }}
-              className="text-[16px] font-normal text-white/95 leading-[1.4] drop-shadow line-clamp-2 cursor-pointer select-none"
-            >
-              <span className="font-normal text-white mr-1.5">
-                {podcast.showName}
-              </span>
-              <span className="font-normal">
-                {getCollapsedExcerpt(podcast.shortDescription, podcast.showName)}
-              </span>
+            {/* Category Badge Pill: exact same 10 news categories of the app */}
+            <div className="bg-white rounded-full p-[6px] flex items-center gap-[6px] shadow-md w-fit shrink-0">
+              <div
+                style={{ backgroundColor: categoryColor }}
+                className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] rounded-full flex items-center justify-center shrink-0"
+              >
+                {getGenreIcon(catObj.id, '#FFFFFF', 12)}
+              </div>
               <span
+                style={{ color: categoryColor }}
+                className="text-[16px] font-medium leading-none"
+              >
+                {categoryLabel}
+              </span>
+            </div>
+          </div>
+
+          {/* Description & Show Name Stack: completely 16px regular matching ReelItem */}
+          <div className="transition-all duration-200 ease-out">
+            {!isDescriptionExpanded ? (
+              /* Collapsed State (confined strictly to 2 lines, completely regular) */
+              <p
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsDescriptionExpanded(true);
                 }}
-                className="text-[#F5B55C] font-normal cursor-pointer hover:underline ml-1 inline-block"
+                className="text-[16px] font-normal text-white/95 leading-[1.4] drop-shadow line-clamp-2 cursor-pointer select-none"
               >
-                ...और पढ़ें
-              </span>
-            </p>
-          ) : (
-            /* Expanded State (completely regular) */
-            <p
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsDescriptionExpanded(false);
-              }}
-              className="text-[16px] font-normal text-white/95 leading-[1.5] drop-shadow cursor-pointer select-text"
-              title="कम करने के लिए टैप करें"
-            >
-              <span className="font-normal text-white block mb-0.5">
-                {podcast.showName}
-              </span>
-              <span className="font-normal">{podcast.shortDescription}</span>
-              {podcast.hostName && (
-                <span className="font-normal text-white/80 block mt-1 text-[14px]">
-                  होस्ट: {podcast.hostName}
+                <span className="font-normal text-white mr-1.5">
+                  {podcast.showName}
                 </span>
-              )}
-            </p>
-          )}
-        </div>
+                <span className="font-normal">
+                  {getCollapsedExcerpt(podcast.shortDescription, podcast.showName)}
+                </span>
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsDescriptionExpanded(true);
+                  }}
+                  className="text-[#F5B55C] font-normal cursor-pointer hover:underline ml-1 inline-block"
+                >
+                  ...और पढ़ें
+                </span>
+              </p>
+            ) : (
+              /* Expanded State (completely regular) */
+              <p
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsDescriptionExpanded(false);
+                }}
+                className="text-[16px] font-normal text-white/95 leading-[1.5] drop-shadow cursor-pointer select-text"
+                title="कम करने के लिए टैप करें"
+              >
+                <span className="font-normal text-white block mb-0.5">
+                  {podcast.showName}
+                </span>
+                <span className="font-normal">{podcast.shortDescription}</span>
+                {podcast.hostName && (
+                  <span className="font-normal text-white/80 block mt-1 text-[14px]">
+                    होस्ट: {podcast.hostName}
+                  </span>
+                )}
+              </p>
+            )}
+          </div>
+        </motion.div>
 
-        {/* Action Button: "ट्रांसक्रिप्ट पढ़ें ↗" below description in bottom-left corner */}
-        <button
-          type="button"
-          onClick={handleTranscriptClick}
-          aria-label="ट्रांसक्रिप्ट पढ़ें"
-          className="p-[12px] bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
-        >
-          <span className="text-[16px] font-medium text-white tracking-wide leading-none">
-            ट्रांसक्रिप्ट पढ़ें
-          </span>
-          <ExportSquare size={16} color="#FFFFFF" variant="Linear" />
-        </button>
+        {/* Action Button: "ट्रांसक्रिप्ट पढ़ें ↗" slides up from bottom in sync with content box */}
+        <AnimatePresence>
+          {showTranscriptBtn && (
+            <motion.button
+              key={`podcast-transcript-btn-${podcast.id}`}
+              layout="position"
+              type="button"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              onClick={handleTranscriptClick}
+              aria-label="ट्रांसक्रिप्ट पढ़ें"
+              className="p-[12px] bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
+            >
+              <span className="text-[16px] font-medium text-white tracking-wide leading-none">
+                ट्रांसक्रिप्ट पढ़ें
+              </span>
+              <ExportSquare size={16} color="#FFFFFF" variant="Linear" />
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

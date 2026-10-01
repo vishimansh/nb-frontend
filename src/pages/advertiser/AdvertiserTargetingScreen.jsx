@@ -4,10 +4,22 @@ import { Location, Shop, Buildings, ArrowUp2, ArrowDown2, ArrowRight, Refresh2 }
 import AdvertiserHeader from '../../components/advertiser/AdvertiserHeader';
 import { useAdvertiser } from '../../context/AdvertiserContext';
 
+import mpSanchi from '../../assets/illustrations/mp-sanchi.jpg';
+import cgBhoramdeo from '../../assets/illustrations/cg-bhoramdeo.jpg';
+import rjHawa from '../../assets/illustrations/rj-hawamahal.png';
+import mhGateway from '../../assets/illustrations/mh-gateway.jpg';
+import gjStatue from '../../assets/illustrations/gj-statue.jpg';
+import upTaj from '../../assets/illustrations/up-tajmahal.jpg';
+import ncrGate from '../../assets/illustrations/ncr-indiagate.jpg';
+import assamKamakhya from '../../assets/illustrations/assam-kamakhya.jpg';
+import odishaKonark from '../../assets/illustrations/odisha-konark.jpg';
+
 const STATE_DATA = {
   mp: {
     id: 'mp',
     name: 'मध्य प्रदेश',
+    monument: 'साँची स्तूप',
+    image: mpSanchi,
     cities: [
       { id: 'bhopal', name: 'भोपाल', reach: 103435 },
       { id: 'indore', name: 'इंदौर', reach: 98200 },
@@ -21,6 +33,8 @@ const STATE_DATA = {
   cg: {
     id: 'cg',
     name: 'छत्तीसगढ़',
+    monument: 'चित्रकोट जलप्रपात / भोरमदेव',
+    image: cgBhoramdeo,
     cities: [
       { id: 'raipur', name: 'रायपुर', reach: 89000 },
       { id: 'bilaspur', name: 'बिलासपुर', reach: 54000 },
@@ -30,9 +44,26 @@ const STATE_DATA = {
     ],
     totalReach: 278000,
   },
+  rj: {
+    id: 'rj',
+    name: 'राजस्थान',
+    monument: 'हवा महल',
+    image: rjHawa,
+    cities: [
+      { id: 'jaipur', name: 'जयपुर', reach: 125000 },
+      { id: 'jodhpur', name: 'जोधपुर', reach: 72000 },
+      { id: 'kota', name: 'कोटा', reach: 58000 },
+      { id: 'udaipur', name: 'उदयपुर', reach: 49000 },
+      { id: 'bikaner', name: 'बीकानेर', reach: 38000 },
+      { id: 'ajmer', name: 'अजमेर', reach: 44000 },
+    ],
+    totalReach: 386000,
+  },
   mh: {
     id: 'mh',
     name: 'महाराष्ट्र',
+    monument: 'गेटवे ऑफ इंडिया',
+    image: mhGateway,
     cities: [
       { id: 'mumbai', name: 'मुंबई', reach: 210000 },
       { id: 'pune', name: 'पुणे', reach: 145000 },
@@ -46,6 +77,8 @@ const STATE_DATA = {
   gj: {
     id: 'gj',
     name: 'गुजरात',
+    monument: 'स्टैच्यू ऑफ यूनिटी',
+    image: gjStatue,
     cities: [
       { id: 'ahmedabad', name: 'अहमदाबाद', reach: 185000 },
       { id: 'surat', name: 'सूरत', reach: 142000 },
@@ -55,18 +88,62 @@ const STATE_DATA = {
     ],
     totalReach: 521000,
   },
-  rj: {
-    id: 'rj',
-    name: 'राजस्थान',
+  up: {
+    id: 'up',
+    name: 'उत्तर प्रदेश',
+    monument: 'ताज महल',
+    image: upTaj,
     cities: [
-      { id: 'jaipur', name: 'जयपुर', reach: 125000 },
-      { id: 'jodhpur', name: 'जोधपुर', reach: 72000 },
-      { id: 'kota', name: 'कोटा', reach: 58000 },
-      { id: 'udaipur', name: 'उदयपुर', reach: 49000 },
-      { id: 'bikaner', name: 'बीकानेर', reach: 38000 },
-      { id: 'ajmer', name: 'अजमेर', reach: 44000 },
+      { id: 'lucknow', name: 'लखनऊ', reach: 185000 },
+      { id: 'kanpur', name: 'कानपुर', reach: 142000 },
+      { id: 'agra', name: 'आगरा', reach: 98000 },
+      { id: 'varanasi', name: 'वाराणसी', reach: 89000 },
+      { id: 'prayagraj', name: 'प्रयागराज', reach: 76000 },
+      { id: 'meerut', name: 'मेरठ', reach: 62000 },
     ],
-    totalReach: 386000,
+    totalReach: 652000,
+  },
+  ncr: {
+    id: 'ncr',
+    name: 'NCR दिल्ली',
+    monument: 'इंडिया गेट',
+    image: ncrGate,
+    cities: [
+      { id: 'delhi', name: 'नई दिल्ली', reach: 320000 },
+      { id: 'noida', name: 'नोएडा', reach: 145000 },
+      { id: 'gurgaon', name: 'गुड़गांव', reach: 128000 },
+      { id: 'ghaziabad', name: 'गाज़ियाबाद', reach: 95000 },
+      { id: 'faridabad', name: 'फरीदाबाद', reach: 82000 },
+    ],
+    totalReach: 770000,
+  },
+  assam: {
+    id: 'assam',
+    name: 'असम',
+    monument: 'कामाख्या मंदिर',
+    image: assamKamakhya,
+    cities: [
+      { id: 'guwahati', name: 'गुवाहाटी', reach: 98000 },
+      { id: 'dibrugarh', name: 'डिब्रूगढ़', reach: 54000 },
+      { id: 'silchar', name: 'सिलचर', reach: 42000 },
+      { id: 'jorhat', name: 'जोरहाट', reach: 36000 },
+      { id: 'nagaon', name: 'नागांव', reach: 31000 },
+    ],
+    totalReach: 261000,
+  },
+  odisha: {
+    id: 'odisha',
+    name: 'ओडिशा',
+    monument: 'कोणार्क सूर्य मंदिर',
+    image: odishaKonark,
+    cities: [
+      { id: 'bhubaneswar', name: 'भुवनेश्वर', reach: 112000 },
+      { id: 'cuttack', name: 'कटक', reach: 78000 },
+      { id: 'rourkela', name: 'राउरकेला', reach: 62000 },
+      { id: 'berhampur', name: 'बेरहामपुर', reach: 48000 },
+      { id: 'sambalpur', name: 'संबलपुर', reach: 41000 },
+    ],
+    totalReach: 341000,
   },
 };
 
@@ -104,6 +181,31 @@ const CITY_LANDMARKS = {
   udaipur: ['फतेह सागर', 'बापू बाजार', 'चेतक सर्कल', 'हिरण मगरी'],
   bikaner: ['कोटगेट', 'केईएम रोड', 'जयनारायण व्यास कॉलोनी', 'गंगाशहर'],
   ajmer: ['दरगाह बाजार', 'कचहरी रोड', 'वैशाली नगर', 'आना सागर'],
+  // UP
+  lucknow: ['हजरतगंज', 'गोमती नगर', 'चौक बाजार', 'अमीनाबाद'],
+  kanpur: ['मॉल रोड', 'नवीन मार्केट', 'सिविल लाइंस', 'गोविंद नगर'],
+  agra: ['ताज रोड', 'सदर बाजार', 'शाहगंज', 'ट्रांस यमुना'],
+  varanasi: ['गोदौलिया', 'लंका', 'सिगरा', 'लहरतारा'],
+  prayagraj: ['सिविल लाइंस', 'अल्हाबाद बैंक रोड', 'जॉर्जटाउन', 'करेली'],
+  meerut: ['अबूलेन', 'घंटाघर', 'हापुड़ रोड', 'बेगम पुल'],
+  // NCR
+  delhi: ['कनॉट प्लेस', 'करोल बाग', 'लाजपत नगर', 'दिल्ली हाट'],
+  noida: ['सेक्टर-18', 'सेक्टर-62', 'राजनगर एक्स', 'ग्रेटर नोएडा'],
+  gurgaon: ['एमजी रोड', 'सेक्टर-14', 'डीएलएफ सिटी', 'सोहना रोड'],
+  ghaziabad: ['वसुंधरा', 'इंदिरापुरम', 'राजनगर', 'मोहन नगर'],
+  faridabad: ['एनआईटी', 'बल्लभगढ़', 'सेक्टर-12', 'ओल्ड फरीदाबाद'],
+  // Assam
+  guwahati: ['फैंसी बाजार', 'पालटन बाजार', 'पानबाजार', 'उलुबारी'],
+  dibrugarh: ['नेहरू मैदान', 'चौकीडिंगी', 'ग्राहम बाजार', 'बोरबारी'],
+  silchar: ['प्रेमतला', 'हाइलाकांडी रोड', 'ताराबन', 'शिलकुरी'],
+  jorhat: ['पेनुमिया', 'दक्षिण पुखुरी', 'बुढिबराल', 'शालीमार'],
+  nagaon: ['डिपू मैदान', 'हाट खोला', 'बरभेटा', 'साधारू'],
+  // Odisha
+  bhubaneswar: ['युनिट-4 मार्केट', 'सत्यनगर', 'राजमहल स्क्वेयर', 'मास्टर कैंटीन'],
+  cuttack: ['बाद मबाजार', 'मंगलाबाग', 'रानीहाट', 'कोलेज स्क्वेयर'],
+  rourkela: ['सेक्टर-4', 'सुंदरगढ़ रोड', 'बिसरा', 'राउरकेला स्टेशन'],
+  berhampur: ['बड़ा बाजार', 'एमजी रोड', 'खटी बाजार', 'गांधी नगर'],
+  sambalpur: ['सम्बलपुर स्टेशन रोड', 'कचहरी चौक', 'बुद्धा मंदिर', 'आयापाट'],
   default: ['सिटी मार्केट', 'एम.पी. नगर', 'एम्स एरिया', 'होशंगाबाद रोड'],
 };
 
@@ -534,31 +636,55 @@ export default function AdvertiserTargetingScreen() {
                 const st = STATE_DATA[stKey];
                 const isOpen = Boolean(openStates[stKey]);
                 const isThisStateFull = st.cities.every((c) => selectedCities.includes(c.id));
+                const selectedCount = st.cities.filter((c) => selectedCities.includes(c.id)).length;
 
                 return (
                   <div
                     key={stKey}
-                    className="bg-white rounded-[20px] border border-[#E5E7EB] p-4 shadow-2xs space-y-3"
+                    className="bg-white rounded-[20px] border border-[#E5E7EB] overflow-hidden shadow-2xs"
                   >
+                    {/* Monument Image Banner Header */}
                     <div
                       onClick={() => toggleStateAccordion(stKey)}
-                      className="flex items-center justify-between cursor-pointer"
+                      className="relative h-[100px] cursor-pointer overflow-hidden"
                     >
-                      <div className="flex items-center gap-2">
-                        <h3 className="text-[15.5px] font-bold text-[#2B2437]">
-                          {st.name}
-                        </h3>
-                        <span className="text-[12px] font-normal text-[#6B7280]">
-                          (~{(st.totalReach / 1000).toFixed(0)}k लोग)
-                        </span>
+                      <img
+                        src={st.image}
+                        alt={st.monument}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                        onError={(e) => { e.target.style.display='none'; }}
+                      />
+                      {/* Dark gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+                      {/* State Name + Monument */}
+                      <div className="absolute bottom-0 left-0 right-0 px-3 pb-2.5">
+                        <div className="flex items-end justify-between">
+                          <div>
+                            <p className="text-[10px] font-medium text-white/70 leading-none mb-0.5">{st.monument}</p>
+                            <h3 className="text-[17px] font-bold text-white leading-tight drop-shadow-md">{st.name}</h3>
+                            <p className="text-[11px] text-white/75 font-normal mt-0.5">
+                              ~{(st.totalReach / 1000).toFixed(0)}k पाठक
+                            </p>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {selectedCount > 0 && (
+                              <span className="bg-[#E39026] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                {selectedCount}/{st.cities.length}
+                              </span>
+                            )}
+                            <div className="w-7 h-7 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center">
+                              {isOpen ? <ArrowUp2 size={14} color="#FFFFFF" /> : <ArrowDown2 size={14} color="#FFFFFF" />}
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <button type="button" className="text-[#2B2437]">
-                        {isOpen ? <ArrowUp2 size={18} /> : <ArrowDown2 size={18} />}
-                      </button>
                     </div>
 
                     {isOpen && (
-                      <>
+                      <div className="px-3 pb-3 space-y-3">
                         {/* "पूरा राज्य चुनें" Row */}
                         <div
                           onClick={() => handleToggleState(stKey)}
@@ -623,7 +749,7 @@ export default function AdvertiserTargetingScreen() {
                             })}
                           </div>
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 );

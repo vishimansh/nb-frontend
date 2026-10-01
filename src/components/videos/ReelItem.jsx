@@ -348,109 +348,114 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
         </button>
       </div>
 
-      {/* 5. Bottom-Left Metadata Overlay Stack (Pops up from below after 7 seconds) */}
-      <AnimatePresence>
-        {showBottomContent && (
-          <motion.div
-            key={`reel-bottom-content-${reel.id}`}
-            initial={{ opacity: 0, y: 70 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 70 }}
-            transition={{
-              duration: 0.65,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            onClick={(e) => e.stopPropagation()}
-            className="absolute bottom-[48px] left-[16px] right-20 z-30 flex flex-col gap-[16px] pointer-events-auto text-left"
-          >
-            {/* Tag Row: Trending + Category + Location */}
-            <div className="flex items-center gap-2.5 flex-wrap">
-              {/* Trending Tag: circular badge matching category pill height (32px) */}
-              {reel.isTrending && (
-                <div
-                  className="w-8 h-8 rounded-full bg-[#C05621] flex items-center justify-center text-white shrink-0 shadow-md"
-                  title="ट्रेंडिंग"
-                  aria-label="ट्रेंडिंग"
-                >
-                  <Flash size={18} color="#FFFFFF" variant="Bold" />
-                </div>
-              )}
-
-              {/* Category Tag Pill: 6px padding all sides, 6px gap, hug content, icon inside 20x20px circle, 16px medium label */}
-              <div className="bg-white rounded-full p-[6px] flex items-center gap-[6px] shadow-md w-fit shrink-0">
-                <div
-                  style={{ backgroundColor: reel.category?.color || '#2B2437' }}
-                  className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] rounded-full flex items-center justify-center shrink-0"
-                >
-                  {getCategoryIcon(reel.category?.id, '#FFFFFF', 16)}
-                </div>
-                <span
-                  style={{ color: reel.category?.color || '#2B2437' }}
-                  className="text-[16px] font-medium leading-none"
-                >
-                  {reel.category?.label}
-                </span>
+      {/* 5. Bottom-Left Metadata Overlay Stack — always visible while active */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="absolute bottom-[48px] left-[16px] right-20 z-30 flex flex-col gap-[16px] pointer-events-auto text-left"
+      >
+        {/* Content Box (Tags + Headline & Description): animates position in sync with button */}
+        <motion.div
+          layout="position"
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col gap-[16px]"
+        >
+          {/* Tag Row: Trending + Category + Location */}
+          <div className="flex items-center gap-2.5 flex-wrap">
+            {/* Trending Tag: circular badge matching category pill height (32px) */}
+            {reel.isTrending && (
+              <div
+                className="w-8 h-8 rounded-full bg-[#C05621] flex items-center justify-center text-white shrink-0 shadow-md"
+                title="ट्रेंडिंग"
+                aria-label="ट्रेंडिंग"
+              >
+                <Flash size={18} color="#FFFFFF" variant="Bold" />
               </div>
+            )}
 
-              {/* Location Indicator: icon 16px and text 16px medium */}
-              {reel.location && (
-                <div className="flex items-center gap-1 text-white/90 drop-shadow">
-                  <Location size={16} color="#FFFFFF" variant="Bold" />
-                  <span className="text-[16px] font-medium leading-none text-white">
-                    {reel.location}
-                  </span>
-                </div>
-              )}
+            {/* Category Tag Pill: 6px padding all sides, 6px gap, hug content, icon inside 20x20px circle, 16px medium label */}
+            <div className="bg-white rounded-full p-[6px] flex items-center gap-[6px] shadow-md w-fit shrink-0">
+              <div
+                style={{ backgroundColor: reel.category?.color || '#2B2437' }}
+                className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] rounded-full flex items-center justify-center shrink-0"
+              >
+                {getCategoryIcon(reel.category?.id, '#FFFFFF', 16)}
+              </div>
+              <span
+                style={{ color: reel.category?.color || '#2B2437' }}
+                className="text-[16px] font-medium leading-none"
+              >
+                {reel.category?.label}
+              </span>
             </div>
 
-            {/* Description & Headline Stack: description completely 16px regular */}
-            <div className="transition-all duration-200 ease-out">
-              {!isDescriptionExpanded ? (
-                /* Collapsed State (confined strictly to 2 lines, completely regular) */
-                <p
+            {/* Location Indicator: icon 16px and text 16px medium */}
+            {reel.location && (
+              <div className="flex items-center gap-1 text-white/90 drop-shadow">
+                <Location size={16} color="#FFFFFF" variant="Bold" />
+                <span className="text-[16px] font-medium leading-none text-white">
+                  {reel.location}
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Description & Headline Stack: description completely 16px regular */}
+          <div className="transition-all duration-200 ease-out">
+            {!isDescriptionExpanded ? (
+              /* Collapsed State (confined strictly to 2 lines, completely regular) */
+              <p
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsDescriptionExpanded(true);
+                }}
+                className="text-[16px] font-normal text-white/95 leading-[1.4] drop-shadow line-clamp-2 cursor-pointer select-none"
+              >
+                <span className="font-normal text-white mr-1.5">
+                  {reel.headline}
+                </span>
+                <span className="font-normal">
+                  {getCollapsedExcerpt(reel.shortHook || reel.fullDescription, reel.headline)}
+                </span>
+                <span
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsDescriptionExpanded(true);
                   }}
-                  className="text-[16px] font-normal text-white/95 leading-[1.4] drop-shadow line-clamp-2 cursor-pointer select-none"
+                  className="text-[#F5B55C] font-normal cursor-pointer hover:underline ml-1 inline-block"
                 >
-                  <span className="font-normal text-white mr-1.5">
-                    {reel.headline}
-                  </span>
-                  <span className="font-normal">
-                    {getCollapsedExcerpt(reel.shortHook || reel.fullDescription, reel.headline)}
-                  </span>
-                  <span
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setIsDescriptionExpanded(true);
-                    }}
-                    className="text-[#F5B55C] font-normal cursor-pointer hover:underline ml-1 inline-block"
-                  >
-                    ...और पढ़ें
-                  </span>
-                </p>
-              ) : (
-                /* Expanded State (completely regular) */
-                <p
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsDescriptionExpanded(false);
-                  }}
-                  className="text-[16px] font-normal text-white/95 leading-[1.5] drop-shadow cursor-pointer select-text"
-                  title="कम करने के लिए टैप करें"
-                >
-                  <span className="font-normal text-white block mb-0.5">
-                    {reel.headline}
-                  </span>
-                  <span className="font-normal">{reel.fullDescription}</span>
-                </p>
-              )}
-            </div>
+                  ...और पढ़ें
+                </span>
+              </p>
+            ) : (
+              /* Expanded State (completely regular) */
+              <p
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsDescriptionExpanded(false);
+                }}
+                className="text-[16px] font-normal text-white/95 leading-[1.5] drop-shadow cursor-pointer select-text"
+                title="कम करने के लिए टैप करें"
+              >
+                <span className="font-normal text-white block mb-0.5">
+                  {reel.headline}
+                </span>
+                <span className="font-normal">{reel.fullDescription}</span>
+              </p>
+            )}
+          </div>
+        </motion.div>
 
-            {/* न्यूज़ पढ़ें Button: bottom of left overlay, matching PodcastCard transcript button style */}
-            <button
+        {/* न्यूज़ पढ़ें Button — slides up from bottom in sync with content box */}
+        <AnimatePresence>
+          {showBottomContent && (
+            <motion.button
+              key={`reel-read-btn-${reel.id}`}
+              layout="position"
               type="button"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => {
                 e.stopPropagation();
                 navigate('/feed');
@@ -462,10 +467,10 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
               <span className="text-[16px] font-medium text-white tracking-wide leading-none">
                 न्यूज़ पढ़ें
               </span>
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.button>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

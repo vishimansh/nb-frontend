@@ -8,20 +8,34 @@ import {
   Coffee,
   Car,
 } from 'iconsax-react';
-import { PiCricketFill } from 'react-icons/pi';
-import { Clapperboard, BrainCircuit } from 'lucide-react';
+import { MdSportsCricket } from 'react-icons/md';
+import { PiMoonStarsFill } from 'react-icons/pi';
+import { Clapperboard, Cpu } from 'lucide-react';
 import AstroZodiacWheelIcon from '../icons/AstroZodiacWheelIcon';
 
 // Adapters: give react-icons & lucide-react the same { size, color } API as iconsax
-const CricketIcon = ({ size = 36, color = 'currentColor' }) => (
-  <PiCricketFill style={{ width: size, height: size, color }} />
+const CricketIcon = ({ size = 36, color = 'currentColor', style = {}, ...props }) => (
+  <MdSportsCricket
+    style={{
+      width: size,
+      height: size,
+      color,
+      display: 'inline-block',
+      ...style,
+      transform: style.transform ? `${style.transform} scaleY(-1)` : 'scaleY(-1)',
+    }}
+    {...props}
+  />
 );
-const AstroIcon = AstroZodiacWheelIcon;
-const MoonStarIcon = AstroZodiacWheelIcon;
-const AstrolabeIcon = AstroZodiacWheelIcon;
+const AstroIcon = ({ size = 36, color = 'currentColor' }) => (
+  <PiMoonStarsFill style={{ width: size, height: size, color }} />
+);
+const MoonStarIcon = AstroIcon;
+const AstrolabeIcon = AstroIcon;
 const BrainCircuitIcon = ({ size = 36, color = 'currentColor' }) => (
-  <BrainCircuit size={size} color={color} strokeWidth={1.8} />
+  <Cpu size={size} color={color} strokeWidth={1.8} />
 );
+const ProcessorIcon = BrainCircuitIcon;
 const ClapperboardIcon = ({ size = 36, color = 'currentColor' }) => (
   <Clapperboard size={size} color={color} strokeWidth={1.8} />
 );
@@ -127,7 +141,7 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
           {category.id === 'business' && <TrendUp size={36} color="#2B2437" variant="Bold" />}
           {category.id === 'tech' && <BrainCircuitIcon size={36} color="#2B2437" />}
           {category.id === 'education' && <Teacher size={36} color="#2B2437" variant="Bold" />}
-          {category.id === 'astro' && <AstroZodiacWheelIcon size={36} />}
+          {category.id === 'astro' && <AstroIcon size={36} color="#2B2437" />}
           {category.id === 'health' && <Heart size={36} color="#2B2437" variant="Bold" />}
           {category.id === 'lifestyle' && <Coffee size={36} color="#2B2437" variant="Bold" />}
           {category.id === 'auto' && <Car size={36} color="#2B2437" variant="Bold" />}

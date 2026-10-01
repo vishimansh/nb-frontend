@@ -1,16 +1,24 @@
 import React from 'react';
 import mpSanchi from '../../assets/illustrations/mp-sanchi.jpg';
+import cgBhoramdeo from '../../assets/illustrations/cg-bhoramdeo.jpg';
 import rjHawa from '../../assets/illustrations/rj-hawamahal.png';
 import mhGateway from '../../assets/illustrations/mh-gateway.jpg';
 import gjStatue from '../../assets/illustrations/gj-statue.jpg';
-import cgBhoramdeo from '../../assets/illustrations/cg-bhoramdeo.jpg';
+import upTaj from '../../assets/illustrations/up-tajmahal.jpg';
+import ncrGate from '../../assets/illustrations/ncr-indiagate.jpg';
+import assamKamakhya from '../../assets/illustrations/assam-kamakhya.jpg';
+import odishaKonark from '../../assets/illustrations/odisha-konark.jpg';
 
 const LANDMARK_IMAGES = {
   mp: mpSanchi,
+  cg: cgBhoramdeo,
   rj: rjHawa,
   mh: mhGateway,
   gj: gjStatue,
-  cg: cgBhoramdeo,
+  up: upTaj,
+  ncr: ncrGate,
+  assam: assamKamakhya,
+  odisha: odishaKonark,
 };
 
 /**

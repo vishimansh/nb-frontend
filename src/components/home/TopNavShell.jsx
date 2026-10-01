@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Reorder } from 'framer-motion';
 import {
   HambergerMenu,
@@ -19,6 +19,7 @@ import {
 
 export default function TopNavShell({ activeCategory: propActiveCategory, onSelectCategory, onSelectTab }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const feedContext = useContext(FeedContext);
   const { selectedCategories = [], setSelectedCategories } = useOnboarding();
 
@@ -132,7 +133,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
         {/* Left: Hamburger Menu (28px × 28px) -> Navigates to /menu */}
         <button
           type="button"
-          onClick={() => navigate('/menu')}
+          onClick={() => navigate('/menu', { state: { from: location.pathname } })}
           aria-label="मेनू खोलें"
           className="text-white hover:text-white/80 transition-colors cursor-pointer flex items-center justify-center active:scale-95"
         >

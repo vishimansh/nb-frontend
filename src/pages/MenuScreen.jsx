@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
   ArrowRight2,
@@ -29,6 +29,7 @@ import profileSkyline from '../assets/illustrations/profile_skyline_bhopal.png';
 
 export default function MenuScreen() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { selectedCategories = [], userProfile = {} } = useOnboarding();
   const { campaigns = [], advertiserAuth = {}, isBusinessProfileSaved } = useAdvertiser();
   const [isExiting, setIsExiting] = useState(false);
@@ -39,7 +40,11 @@ export default function MenuScreen() {
     if (isExiting) return;
     setIsExiting(true);
     setTimeout(() => {
-      navigate('/feed');
+      if (location.state?.from) {
+        navigate(location.state.from);
+      } else {
+        navigate('/feed');
+      }
     }, 440);
   };
 
@@ -160,7 +165,7 @@ export default function MenuScreen() {
           <button
             type="button"
             onClick={() => navigate('/profile', { state: { from: 'menu' } })}
-            className="w-10 h-10 rounded-[12px] bg-[#2B2437] flex items-center justify-center text-white cursor-pointer active:scale-95 shadow-xs relative z-10 hover:bg-[#3D334E] transition-all shrink-0"
+            className="w-10 h-10 rounded-[12px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white cursor-pointer active:scale-95 shadow-xs relative z-10 hover:bg-[#2B2437] transition-all shrink-0"
             title="प्रोफ़ाइल संपादित करें"
           >
             <Edit2 size={17} color="#FFFFFF" variant="Bold" />
@@ -180,31 +185,68 @@ export default function MenuScreen() {
           <ArrowRight2 size={18} color="#F5B55C" className="absolute right-4" />
         </button>
 
-        {/* Advertiser Flow Entry Action */}
-        <button
-          type="button"
-          onClick={() => {
-            const isAuthenticated = advertiserAuth?.isAuthenticated && advertiserAuth?.otpVerified;
-            if (!isAuthenticated) {
-              navigate('/advertise/intro');
-            } else if (!isBusinessProfileSaved) {
-              navigate('/advertise/business-profile');
-            } else {
-              navigate('/advertise/dashboard');
-            }
-          }}
-          className="w-full mt-2.5 h-[52px] rounded-[18px] bg-white border border-[#2B2437] flex items-center justify-between px-4 shadow-sm active:scale-[0.99] cursor-pointer hover:bg-[#2B2437]/5 transition-all text-left"
-        >
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
-              <Shop size={18} color="#FFFFFF" variant="Bold" />
+        {/* Advertiser Flow Entry Actions (Flow A & Flow B) */}
+        <div className="space-y-2 mt-2.5">
+          {/* Flow A: Original Flow */}
+          <button
+            type="button"
+            onClick={() => {
+              const isAuthenticated = advertiserAuth?.isAuthenticated && advertiserAuth?.otpVerified;
+              if (!isAuthenticated) {
+                navigate('/advertise/intro');
+              } else if (!isBusinessProfileSaved) {
+                navigate('/advertise/business-profile');
+              } else {
+                navigate('/advertise/dashboard');
+              }
+            }}
+            className="w-full h-[52px] rounded-[18px] bg-white border border-[#2B2437] flex items-center justify-between px-4 shadow-sm active:scale-[0.99] cursor-pointer hover:bg-[#2B2437]/5 transition-all text-left"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <Shop size={18} color="#FFFFFF" variant="Bold" />
+              </div>
+              <div>
+                <span className="text-[14px] font-bold text-[#2B2437] block leading-tight">
+                  विज्ञापन फ़्लो A
+                </span>
+                <span className="text-[11px] text-[#6B7280] font-medium block">
+                  मूल विज्ञापन फ़्लो
+                </span>
+              </div>
             </div>
-            <span className="text-[15px] font-bold text-[#2B2437]">
-              ऐप में विज्ञापन चलाएं
-            </span>
-          </div>
-          <ArrowRight2 size={18} color="#2B2437" className="shrink-0 ml-2" />
-        </button>
+            <ArrowRight2 size={18} color="#2B2437" className="shrink-0 ml-2" />
+          </button>
+
+          {/* Flow B: Refined Flow */}
+          <button
+            type="button"
+            onClick={() => {
+              window.location.href = '/?flow=b';
+            }}
+            className="w-full h-[52px] rounded-[18px] bg-gradient-to-r from-[#FFF9EE] to-white border border-[#E39026] flex items-center justify-between px-4 shadow-sm active:scale-[0.99] cursor-pointer hover:bg-[#FFF9EE] transition-all text-left"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-[10px] bg-[#E39026] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <Shop size={18} color="#FFFFFF" variant="Bold" />
+              </div>
+              <div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-[14px] font-bold text-[#2B2437] leading-tight">
+                    नवभारत ऐड्स (फ़्लो B)
+                  </span>
+                  <span className="px-1.5 py-0.2 text-[9px] font-bold bg-[#E39026] text-white rounded-full uppercase tracking-wider">
+                    नया
+                  </span>
+                </div>
+                <span className="text-[11px] text-[#C97F1E] font-medium block">
+                  नया रिफ़ाइंड सेल्फ़-सर्व फ़्लो
+                </span>
+              </div>
+            </div>
+            <ArrowRight2 size={18} color="#E39026" className="shrink-0 ml-2" />
+          </button>
+        </div>
 
         {/* 3. "मेरी सामग्री" (My Content) Section Card */}
         <div className="bg-white rounded-[24px] border border-[#EBECEF] p-4 shadow-sm">
@@ -247,7 +289,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Location size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -263,7 +305,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Notification size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -279,7 +321,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Notification size={18} color="#FFFFFF" variant="Outline" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -295,7 +337,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <ArchiveBook size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -324,7 +366,7 @@ export default function MenuScreen() {
                 className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3 flex-1">
-                  <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                  <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                     <SearchNormal1 size={18} color="#FFFFFF" />
                   </div>
                   <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -364,7 +406,7 @@ export default function MenuScreen() {
                       key={catId}
                       className="h-[56px] bg-[#F9FAFB] border border-[#F0F1F3] rounded-[16px] px-3.5 flex items-center gap-3 shadow-2xs"
                     >
-                      <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                      <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                         {IconComp && <IconComp size={18} color="#FFFFFF" variant="Bold" />}
                       </div>
                       <span className="text-[14px] font-semibold text-[#2B2437] truncate">
@@ -395,7 +437,7 @@ export default function MenuScreen() {
                     key={catId}
                     className="h-[56px] bg-[#F9FAFB] border border-[#F0F1F3] rounded-[16px] px-3.5 flex items-center gap-3 shadow-2xs select-none"
                   >
-                    <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                    <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                       {IconComp && <IconComp size={18} color="#FFFFFF" variant="Bold" />}
                     </div>
                     <span className="text-[14px] font-semibold text-[#2B2437] truncate">
@@ -424,7 +466,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Setting2 size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -440,7 +482,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <InfoCircle size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">

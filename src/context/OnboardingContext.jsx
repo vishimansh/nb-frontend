@@ -146,13 +146,13 @@ export function OnboardingProvider({ children }) {
   };
 
   /**
-   * Toggle state selection with automatic renumbering and 3-state maximum limit
+   * Toggle state selection with automatic sequential numbering and no maximum limit
    */
   const toggleState = (stateObj) => {
     const isAlreadySelected = selectedStates.some((s) => s.id === stateObj.id);
 
     if (isAlreadySelected) {
-      // Remove and auto-renumber remaining states sequentially (1, 2, 3)
+      // Remove and auto-renumber remaining states sequentially (1, 2, 3...)
       const remaining = selectedStates
         .filter((s) => s.id !== stateObj.id)
         .map((s, index) => ({
@@ -164,10 +164,6 @@ export function OnboardingProvider({ children }) {
       setSelectedCities((prev) => prev.filter((c) => c.stateId !== stateObj.id));
       return { success: true, action: 'removed' };
     } else {
-      if (selectedStates.length >= 3) {
-        showAlert('आप अधिकतम 3 राज्य ही चुन सकते हैं');
-        return { success: false, reason: 'limit_reached' };
-      }
       const newSelected = [
         ...selectedStates,
         {
@@ -245,10 +241,6 @@ export function OnboardingProvider({ children }) {
             priority: index + 1,
           }));
       } else {
-        if (current.length >= 3) {
-          showAlert('आप अधिकतम 3 राज्य ही चुन सकते हैं');
-          return current;
-        }
         return [
           ...current,
           {

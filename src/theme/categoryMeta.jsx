@@ -10,18 +10,21 @@ import {
   InfoCircle,
   Logout,
 } from 'iconsax-react';
-import { PiCricketFill } from 'react-icons/pi';
-import { Clapperboard, BrainCircuit } from 'lucide-react';
+import { MdSportsCricket } from 'react-icons/md';
+import { PiMoonStarsFill } from 'react-icons/pi';
+import { Clapperboard, Cpu } from 'lucide-react';
 import AstroZodiacWheelIcon from '../components/icons/AstroZodiacWheelIcon';
 import AstroPlanetIcon from '../components/icons/AstroPlanetIcon';
 
 /**
- * Adapter: wraps react-icons (Phosphor) components so they accept the same
+ * Adapter: wraps react-icons components so they accept the same
  * { size, color } props that iconsax-react uses across the application.
  */
-const makePiAdapter = (PiIcon) => function PiAdapter({ size = 24, color = 'currentColor' }) {
-  return <PiIcon style={{ width: size, height: size, color }} />;
+const makeReactIconAdapter = (Icon) => function ReactIconAdapter({ size = 24, color = 'currentColor' }) {
+  return <Icon style={{ width: size, height: size, color }} />;
 };
+
+const makePiAdapter = makeReactIconAdapter;
 
 /**
  * Adapter: wraps lucide-react components so they accept the same
@@ -32,14 +35,30 @@ const makeLucideAdapter = (LucideIcon) => function LucideAdapter({ size = 24, co
 };
 
 // New category-specific icons
-export const CricketIcon = makePiAdapter(PiCricketFill);
+export const CricketIcon = function CricketIcon({ size = 24, color = 'currentColor', style = {}, ...props }) {
+  return (
+    <MdSportsCricket
+      style={{
+        width: size,
+        height: size,
+        color,
+        display: 'inline-block',
+        ...style,
+        transform: style.transform ? `${style.transform} scaleY(-1)` : 'scaleY(-1)',
+      }}
+      {...props}
+    />
+  );
+};
+export const ProcessorIcon = makeLucideAdapter(Cpu);
+export const BrainCircuitIcon = ProcessorIcon;
+export const AstroCelestialIcon = makeReactIconAdapter(PiMoonStarsFill);
 export { AstroZodiacWheelIcon, AstroPlanetIcon };
-export const AstroIcon = AstroZodiacWheelIcon;
-export const MoonStarIcon = AstroZodiacWheelIcon;
-export const MoonOrbitIcon = AstroZodiacWheelIcon;
-export const AstrolabeIcon = AstroZodiacWheelIcon;
+export const AstroIcon = AstroCelestialIcon;
+export const MoonStarIcon = AstroCelestialIcon;
+export const MoonOrbitIcon = AstroCelestialIcon;
+export const AstrolabeIcon = AstroCelestialIcon;
 export const ClapperboardIcon = makeLucideAdapter(Clapperboard);
-export const BrainCircuitIcon = makeLucideAdapter(BrainCircuit);
 
 // Standardized icon aliases across the application
 export const MovieClapperIcon = ClapperboardIcon;
@@ -93,7 +112,7 @@ export const CATEGORY_METADATA = {
     id: 'tech',
     label: 'टेक्नोलॉजी',
     color: '#5267A8',
-    iconComponent: BrainCircuitIcon,
+    iconComponent: ProcessorIcon,
   },
   education: {
     id: 'education',
@@ -105,7 +124,7 @@ export const CATEGORY_METADATA = {
     id: 'astro',
     label: 'ज्योतिष',
     color: '#74648F',
-    iconComponent: AstroZodiacWheelIcon,
+    iconComponent: AstroCelestialIcon,
   },
   lifestyle: {
     id: 'lifestyle',

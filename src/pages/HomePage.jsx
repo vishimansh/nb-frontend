@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import homeFeedData from '../data/homeFeedData.json';
 import categoryFeedData from '../data/categoryFeedData.json';
 import TopNavShell from '../components/home/TopNavShell';
@@ -19,16 +19,17 @@ import { CANONICAL_CATEGORY_ORDER } from '../theme/categoryMeta';
 
 export default function HomePage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const feedScrollRef = useRef(null);
   const { activeCategory, goToCategory } = useFeed();
   const { selectedCategories = [] } = useOnboarding();
 
-  // If state category is active, redirect cleanly to /state
+  // If state category is active, redirect cleanly to /state only when browsing the home/feed, never on /menu
   useEffect(() => {
-    if (activeCategory === 'state') {
+    if (activeCategory === 'state' && (location.pathname === '/feed' || location.pathname === '/' || location.pathname === '/home')) {
       navigate('/state', { replace: true });
     }
-  }, [activeCategory, navigate]);
+  }, [activeCategory, navigate, location.pathname]);
 
   const { heroStory, topStories, categories, ads } = homeFeedData;
   const { campaigns = [] } = useAdvertiser();

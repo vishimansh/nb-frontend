@@ -22,10 +22,11 @@ export const TRENDING_ILLUSTRATION_CONFIG = {
     bottom: '40px',           // e.g., '0px', '-10px', '5px', 'auto'
     top: 'auto',              // e.g., 'auto', '10px', '0px'
     left: 'auto',             // e.g., 'auto', '0px'
-    height: '92px',           // illustration height (e.g. '100px', '115px', '85px')
-    maxWidth: '300px',        // max width constraint
-    opacity: 0.8,             // Overall opacity: 0.0 (invisible) to 1.0 (fully opaque)
-    maskImage: 'none',        // Fade gradient mask: e.g. 'linear-gradient(to right, transparent 0%, black 50%)' to fade the left portion
+    height: '80px',           // illustration height
+    width: '224px',           // illustration width
+    maxWidth: '224px',        // max width constraint
+    opacity: 1.0,             // Overall opacity: 0.0 (invisible) to 1.0 (fully opaque)
+    maskImage: 'linear-gradient(to right, transparent 0%, black 50%)',        // Fade gradient mask: fades the left portion
     objectPosition: 'bottom right', // CSS object-position
     transform: 'none',        // e.g., 'translate(0px, 0px) scale(1)'
   },
@@ -35,10 +36,11 @@ export const TRENDING_ILLUSTRATION_CONFIG = {
     bottom: '40px',           // e.g., '0px', '-10px', '5px', 'auto'
     top: 'auto',              // e.g., 'auto', '10px', '0px'
     left: 'auto',             // e.g., 'auto', '0px'
-    height: '92px',           // illustration height (e.g. '96px', '110px', '80px')
-    maxWidth: '300px',        // max width constraint
-    opacity: 0.8,             // Overall opacity: 0.0 (invisible) to 1.0 (fully opaque)
-    maskImage: 'none',        // Fade gradient mask: e.g. 'linear-gradient(to right, transparent 0%, black 50%)' to fade the left portion
+    height: '80px',           // illustration height
+    width: '224px',           // illustration width
+    maxWidth: '224px',        // max width constraint
+    opacity: 1.0,             // Overall opacity: 0.0 (invisible) to 1.0 (fully opaque)
+    maskImage: 'linear-gradient(to right, transparent 0%, black 50%)',        // Fade gradient mask: fades the left portion
     objectPosition: 'bottom right', // CSS object-position
     transform: 'none',        // e.g., 'translate(0px, 0px) scale(1)'
   },
@@ -233,6 +235,7 @@ export default function SearchPage() {
                   bottom: TRENDING_ILLUSTRATION_CONFIG.city.bottom,
                   top: TRENDING_ILLUSTRATION_CONFIG.city.top,
                   left: TRENDING_ILLUSTRATION_CONFIG.city.left,
+                  width: TRENDING_ILLUSTRATION_CONFIG.city.width,
                   height: TRENDING_ILLUSTRATION_CONFIG.city.height,
                   maxWidth: TRENDING_ILLUSTRATION_CONFIG.city.maxWidth,
                   opacity: TRENDING_ILLUSTRATION_CONFIG.city.opacity,
@@ -241,7 +244,7 @@ export default function SearchPage() {
                   objectPosition: TRENDING_ILLUSTRATION_CONFIG.city.objectPosition,
                   transform: TRENDING_ILLUSTRATION_CONFIG.city.transform,
                 }}
-                className="w-auto object-contain pointer-events-none select-none z-0"
+                className="object-contain pointer-events-none select-none z-0"
               />
 
               {/* Card Header Row */}
@@ -280,6 +283,7 @@ export default function SearchPage() {
                   bottom: TRENDING_ILLUSTRATION_CONFIG.national.bottom,
                   top: TRENDING_ILLUSTRATION_CONFIG.national.top,
                   left: TRENDING_ILLUSTRATION_CONFIG.national.left,
+                  width: TRENDING_ILLUSTRATION_CONFIG.national.width,
                   height: TRENDING_ILLUSTRATION_CONFIG.national.height,
                   maxWidth: TRENDING_ILLUSTRATION_CONFIG.national.maxWidth,
                   opacity: TRENDING_ILLUSTRATION_CONFIG.national.opacity,
@@ -288,7 +292,7 @@ export default function SearchPage() {
                   objectPosition: TRENDING_ILLUSTRATION_CONFIG.national.objectPosition,
                   transform: TRENDING_ILLUSTRATION_CONFIG.national.transform,
                 }}
-                className="w-auto object-contain pointer-events-none select-none z-0"
+                className="object-contain pointer-events-none select-none z-0"
               />
 
               {/* Card Header Row */}

@@ -7,27 +7,42 @@ import {
   Car,
   Heart,
 } from 'iconsax-react';
-import { PiCricketFill } from 'react-icons/pi';
-import { Clapperboard, BrainCircuit } from 'lucide-react';
+import { MdSportsCricket } from 'react-icons/md';
+import { PiMoonStarsFill } from 'react-icons/pi';
+import { Clapperboard, Cpu } from 'lucide-react';
 import AstroZodiacWheelIcon from '../components/icons/AstroZodiacWheelIcon';
 import AstroPlanetIcon from '../components/icons/AstroPlanetIcon';
 
 // Adapters so all icons accept { size, color } uniformly, matching iconsax-react API
 // Note: plain .js file — use React.createElement instead of JSX
-const makePiAdapter = (PiIcon) => function PiAdapter({ size = 24, color = 'currentColor' }) {
-  return React.createElement(PiIcon, { style: { width: size, height: size, color } });
+const makeReactIconAdapter = (Icon) => function ReactIconAdapter({ size = 24, color = 'currentColor' }) {
+  return React.createElement(Icon, { style: { width: size, height: size, color } });
 };
+const makePiAdapter = makeReactIconAdapter;
 const makeLucideAdapter = (LucideIcon) => function LucideAdapter({ size = 24, color = 'currentColor' }) {
   return React.createElement(LucideIcon, { size, color, strokeWidth: 1.8 });
 };
 
-const CricketIcon = makePiAdapter(PiCricketFill);
-const AstroIcon = (props) => React.createElement(AstroZodiacWheelIcon, props);
+const CricketIcon = function CricketIcon({ size = 24, color = 'currentColor', style = {}, ...props }) {
+  return React.createElement(MdSportsCricket, {
+    style: {
+      width: size,
+      height: size,
+      color,
+      display: 'inline-block',
+      ...style,
+      transform: style.transform ? `${style.transform} scaleY(-1)` : 'scaleY(-1)',
+    },
+    ...props,
+  });
+};
+const AstroIcon = makeReactIconAdapter(PiMoonStarsFill);
 const MoonStarIcon = AstroIcon;
 const MoonOrbitIcon = AstroIcon;
 const AstrolabeIcon = AstroIcon;
 const ClapperboardIcon = makeLucideAdapter(Clapperboard);
-const BrainCircuitIcon = makeLucideAdapter(BrainCircuit);
+const BrainCircuitIcon = makeLucideAdapter(Cpu);
+const ProcessorIcon = BrainCircuitIcon;
 
 export const NOTIFICATION_CATEGORIES = {
   business: {
