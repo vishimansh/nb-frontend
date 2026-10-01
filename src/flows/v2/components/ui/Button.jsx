@@ -42,7 +42,7 @@ export default function Button({
       disabled={disabled}
       className={`${baseClasses} ${variantClasses} ${className}`}
     >
-      <span>{children}</span>
+      {children}
       {showArrow && !disabled && <ArrowRight className="w-4 h-4" />}
     </button>
   );
