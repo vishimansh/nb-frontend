@@ -185,67 +185,74 @@ export default function MenuScreen() {
           <ArrowRight2 size={18} color="#F5B55C" className="absolute right-4" />
         </button>
 
-        {/* Advertiser Flow Entry Actions (Flow A & Flow B) */}
-        <div className="space-y-2 mt-2.5">
-          {/* Flow A: Original Flow */}
-          <button
-            type="button"
-            onClick={() => {
-              const isAuthenticated = advertiserAuth?.isAuthenticated && advertiserAuth?.otpVerified;
-              if (!isAuthenticated) {
-                navigate('/advertise/intro');
-              } else if (!isBusinessProfileSaved) {
-                navigate('/advertise/business-profile');
-              } else {
-                navigate('/advertise/dashboard');
-              }
-            }}
-            className="w-full h-[52px] rounded-[18px] bg-white border border-[#2B2437] flex items-center justify-between px-4 shadow-sm active:scale-[0.99] cursor-pointer hover:bg-[#2B2437]/5 transition-all text-left"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
-                <Shop size={18} color="#FFFFFF" variant="Bold" />
-              </div>
-              <div>
-                <span className="text-[14px] font-bold text-[#2B2437] block leading-tight">
-                  विज्ञापन फ़्लो A
-                </span>
-                <span className="text-[11px] text-[#6B7280] font-medium block">
-                  मूल विज्ञापन फ़्लो
-                </span>
-              </div>
+        {/* Advertiser Section Card */}
+        <div className="bg-white rounded-[24px] border border-[#EBECEF] p-4 shadow-sm overflow-hidden">
+          {/* Section Header */}
+          <div className="flex items-center gap-2.5 mb-3.5">
+            <div className="w-8 h-8 rounded-[10px] bg-[#FFF3DC] border border-[#F5B55C]/50 flex items-center justify-center shrink-0">
+              <Shop size={16} color="#E39026" variant="Bold" />
             </div>
-            <ArrowRight2 size={18} color="#2B2437" className="shrink-0 ml-2" />
-          </button>
+            <div>
+              <h2 className="text-[15px] font-bold text-[#2B2437] leading-snug">विज्ञापन दें</h2>
+              <p className="text-[11px] text-[#9CA3AF] font-medium leading-none mt-0.5">अपने कारोबार को पाठकों तक पहुँचाएं</p>
+            </div>
+          </div>
 
-          {/* Flow B: Refined Flow */}
-          <button
-            type="button"
-            onClick={() => {
-              window.location.href = '/?flow=b';
-            }}
-            className="w-full h-[52px] rounded-[18px] bg-gradient-to-r from-[#FFF9EE] to-white border border-[#E39026] flex items-center justify-between px-4 shadow-sm active:scale-[0.99] cursor-pointer hover:bg-[#FFF9EE] transition-all text-left"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-[10px] bg-[#E39026] flex items-center justify-center text-white shrink-0 shadow-2xs">
-                <Shop size={18} color="#FFFFFF" variant="Bold" />
-              </div>
-              <div>
-                <div className="flex items-center gap-1.5">
-                  <span className="text-[14px] font-bold text-[#2B2437] leading-tight">
-                    नवभारत ऐड्स (फ़्लो B)
-                  </span>
-                  <span className="px-1.5 py-0.2 text-[9px] font-bold bg-[#E39026] text-white rounded-full uppercase tracking-wider">
-                    नया
-                  </span>
+          <div className="flex flex-col gap-2.5">
+            {/* Flow B: Featured / Primary (Amber gradient card) */}
+            <button
+              type="button"
+              id="menu-ad-flow-b-btn"
+              onClick={() => { window.location.href = '/?flow=b'; }}
+              className="w-full rounded-[16px] bg-gradient-to-br from-[#FFFBF0] via-[#FFF6E0] to-[#FFF0C4] border border-[#F5B55C]/60 px-4 py-3.5 flex items-center justify-between shadow-sm active:scale-[0.99] cursor-pointer hover:border-[#E39026] transition-all text-left group"
+            >
+              <div className="flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-[13px] bg-gradient-to-br from-[#F59E0B] to-[#E39026] flex items-center justify-center shrink-0 shadow-md">
+                  <Shop size={20} color="#FFFFFF" variant="Bold" />
                 </div>
-                <span className="text-[11px] text-[#C97F1E] font-medium block">
-                  नया रिफ़ाइंड सेल्फ़-सर्व फ़्लो
-                </span>
+                <div>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <span className="text-[14.5px] font-bold text-[#2B2437] leading-snug">नवभारत ऐड्स</span>
+                    <span className="px-2 py-0.5 text-[9.5px] font-extrabold bg-[#E39026] text-white rounded-full uppercase tracking-wide leading-none">नया</span>
+                  </div>
+                  <span className="text-[11.5px] text-[#C97F1E] font-semibold leading-none">सेल्फ़-सर्व · आसान · कुछ मिनट में तैयार</span>
+                </div>
               </div>
-            </div>
-            <ArrowRight2 size={18} color="#E39026" className="shrink-0 ml-2" />
-          </button>
+              <div className="w-7 h-7 rounded-full bg-[#E39026]/15 flex items-center justify-center shrink-0 ml-2 group-hover:bg-[#E39026]/25 transition-colors">
+                <ArrowRight2 size={15} color="#E39026" />
+              </div>
+            </button>
+
+            {/* Flow A: Secondary (Clean outline card) */}
+            <button
+              type="button"
+              id="menu-ad-flow-a-btn"
+              onClick={() => {
+                const isAuthenticated = advertiserAuth?.isAuthenticated && advertiserAuth?.otpVerified;
+                if (!isAuthenticated) {
+                  navigate('/advertise/intro');
+                } else if (!isBusinessProfileSaved) {
+                  navigate('/advertise/business-profile');
+                } else {
+                  navigate('/advertise/dashboard');
+                }
+              }}
+              className="w-full rounded-[16px] bg-[#F9FAFB] border border-[#E5E7EB] px-4 py-3.5 flex items-center justify-between shadow-2xs active:scale-[0.99] cursor-pointer hover:bg-[#F3F4F6] transition-all text-left group"
+            >
+              <div className="flex items-center gap-3.5">
+                <div className="w-11 h-11 rounded-[13px] bg-[#2B2437]/[0.90] flex items-center justify-center shrink-0 shadow-sm">
+                  <Shop size={20} color="#FFFFFF" variant="Bold" />
+                </div>
+                <div>
+                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug block mb-0.5">विज्ञापन फ़्लो A</span>
+                  <span className="text-[11.5px] text-[#6B7280] font-medium leading-none">मूल विज्ञापन अनुभव</span>
+                </div>
+              </div>
+              <div className="w-7 h-7 rounded-full bg-[#2B2437]/[0.07] flex items-center justify-center shrink-0 ml-2 group-hover:bg-[#2B2437]/[0.12] transition-colors">
+                <ArrowRight2 size={15} color="#6B7280" />
+              </div>
+            </button>
+          </div>
         </div>
 
         {/* 3. "मेरी सामग्री" (My Content) Section Card */}
