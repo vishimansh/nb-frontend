@@ -189,8 +189,8 @@ export default function CategorySelectionScreen() {
         </div>
       </div>
 
-      {/* Category Grid (Directly inspired by MenuScreen Category Cards) */}
-      <div className="px-4 py-2 grid grid-cols-2 gap-2.5 overflow-y-auto scrollbar-none pb-36 flex-1 content-start">
+      {/* Category Grid (Covers vertical space generously with 82px card height) */}
+      <div className="px-4 py-2 grid grid-cols-2 gap-3 overflow-y-auto scrollbar-none pb-36 flex-1 content-start">
         {SCREENSHOT_CATEGORY_ORDER.map((catId) => {
           const meta = CATEGORY_METADATA[catId];
           if (!meta) return null;
@@ -202,17 +202,17 @@ export default function CategorySelectionScreen() {
             <div
               key={catId}
               onClick={() => handleToggleCategory(catId)}
-              className={`h-[58px] rounded-[16px] px-3 flex items-center justify-between transition-all duration-150 cursor-pointer select-none active:scale-[0.98] ${
+              className={`h-[82px] rounded-[18px] px-3.5 flex items-center justify-between transition-all duration-150 cursor-pointer select-none active:scale-[0.98] ${
                 isSelected
                   ? 'bg-white border border-[#2B2437] shadow-xs'
                   : 'bg-[#F9FAFB] border border-[#F0F1F3] hover:border-[#E2E6EE] shadow-2xs'
               }`}
             >
               {/* Left Group: Icon + Label */}
-              <div className="flex items-center gap-2.5 min-w-0 flex-1 pr-1">
-                {/* 36px Icon Container: 86% opacity of primary brand color #2B2437 */}
+              <div className="flex items-center gap-3 min-w-0 flex-1 pr-1">
+                {/* 40px Icon Container: 86% opacity of primary brand color #2B2437 */}
                 <div
-                  className={`w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center shrink-0 transition-all shadow-2xs ${
+                  className={`w-10 h-10 rounded-[12px] bg-[#2B2437]/[0.86] flex items-center justify-center shrink-0 transition-all shadow-2xs ${
                     isSelected
                       ? 'text-white'
                       : 'text-white/85'
@@ -221,7 +221,7 @@ export default function CategorySelectionScreen() {
                 >
                   {IconComp && (
                     <IconComp
-                      size={18}
+                      size={20}
                       color="#FFFFFF"
                       variant={isSelected ? 'Bold' : 'Linear'}
                     />
@@ -230,10 +230,10 @@ export default function CategorySelectionScreen() {
 
                 {/* Category Label */}
                 <span
-                  className={`text-[13.5px] truncate leading-tight ${
+                  className={`text-[14.5px] truncate leading-tight ${
                     isSelected
                       ? 'font-bold text-[#2B2437]'
-                      : 'font-medium text-[#4B5563]'
+                      : 'font-semibold text-[#4B5563]'
                   }`}
                 >
                   {meta.label}
@@ -242,11 +242,11 @@ export default function CategorySelectionScreen() {
 
               {/* Trailing Check Indicator */}
               {isSelected ? (
-                <div className="w-[18px] h-[18px] rounded-full bg-[#2B2437] flex items-center justify-center shrink-0 shadow-2xs">
-                  <TickCircle size={12} color="#FFFFFF" variant="Bold" />
+                <div className="w-5 h-5 rounded-full bg-[#2B2437] flex items-center justify-center shrink-0 shadow-2xs">
+                  <TickCircle size={13} color="#FFFFFF" variant="Bold" />
                 </div>
               ) : (
-                <div className="w-[18px] h-[18px] rounded-full border border-[#D1D5DB] shrink-0 bg-white" />
+                <div className="w-5 h-5 rounded-full border border-[#D1D5DB] shrink-0 bg-white" />
               )}
             </div>
           );
