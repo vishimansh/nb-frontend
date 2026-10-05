@@ -322,23 +322,7 @@ export default function MenuScreen() {
               <ArrowRight2 size={16} color="#9CA3AF" />
             </div>
 
-            {/* Row 3: श्रेणी आधारित सूचनाएं */}
-            <div
-              onClick={() => navigate('/notifications/categories')}
-              className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
-            >
-              <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
-                  <Notification size={18} color="#FFFFFF" variant="Outline" />
-                </div>
-                <span className="text-[14px] font-semibold text-[#2B2437]">
-                  श्रेणी आधारित सूचनाएं
-                </span>
-              </div>
-              <ArrowRight2 size={16} color="#9CA3AF" />
-            </div>
-
-            {/* Row 4: डाउनलोड की गई खबरें (ऑफलाइन पढ़ें) */}
+            {/* Row 3: डाउनलोड की गई खबरें (ऑफलाइन पढ़ें) */}
             <div
               onClick={() => navigate('/saved')}
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
@@ -359,7 +343,7 @@ export default function MenuScreen() {
               <ArrowRight2 size={16} color="#9CA3AF" />
             </div>
 
-            {/* Row 5: Color Picker */}
+            {/* Row 4: Color Picker */}
             <div
               onClick={() => setIsCustomizerOpen(true)}
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
