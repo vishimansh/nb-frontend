@@ -231,16 +231,16 @@ export default function S07_Budget({ onOpenFacilitator }) {
         </div>
 
         {/* Level 1: TOP HERO REACH CARD (अनुमानित पाठक संख्या) */}
-        <div className="p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-[#EDEDEA] shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex flex-col gap-1.5 sticky top-0 z-20">
+        <div className="p-3.5 rounded-2xl bg-[#FFF8E7] border border-[#F6DFA8] shadow-xs flex flex-col gap-2 sticky top-0 z-20 backdrop-blur-md">
           {/* Header Row: Label & Live Indicator */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
-              <Users className="w-3.5 h-3.5 text-[#E39026]" />
+              <Users className="w-3.5 h-3.5 text-[#D97706]" />
               <span className="text-[11px] font-bold text-[#854D0E] uppercase tracking-wider">
                 अनुमानित पाठक संख्या
               </span>
             </div>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F0FDF4] text-[#16A34A] text-[10px] font-bold">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/80 border border-[#86EFAC]/60 text-[#16A34A] text-[10px] font-bold shadow-2xs">
               <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse" />
               लाइव
             </span>
@@ -249,20 +249,20 @@ export default function S07_Budget({ onOpenFacilitator }) {
           {/* Metric Row */}
           <div className="flex items-baseline justify-between">
             <div className="flex items-baseline gap-1">
-              <span className="text-[26px] font-black text-[#2B2437] tracking-tight tabular-nums leading-none">
+              <span className="text-[28px] font-black text-[#2B2437] tracking-tight tabular-nums leading-none">
                 ~{formatIN(reachablePeople)}
               </span>
-              <span className="text-[12px] font-semibold text-[#8C8C94]">
+              <span className="text-[13px] font-bold text-[#B45309]">
                 पाठक
               </span>
             </div>
 
             {/* Active Parameters Pill */}
-            <div className="flex items-center gap-1 text-[10.5px] font-medium text-[#6B7280] bg-[#F4F4F2] px-2.5 py-0.5 rounded-full">
+            <div className="flex items-center gap-1 text-[11px] font-semibold text-[#78350F] bg-white/90 border border-[#FDE68A] px-2.5 py-0.5 rounded-full shadow-2xs">
               <span>{radiusKm} किमी</span>
-              <span className="text-[#D1D5DB]">·</span>
+              <span className="text-[#D97706]/40">·</span>
               <span>₹{dailyAmount}/दिन</span>
-              <span className="text-[#D1D5DB]">·</span>
+              <span className="text-[#D97706]/40">·</span>
               <span>{days} दिन</span>
             </div>
           </div>
