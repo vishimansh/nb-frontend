@@ -237,7 +237,7 @@ export default function S05_YourAd({ onOpenFacilitator }) {
   const availableCtaOptions = CTA_OPTIONS[goalId] || CTA_OPTIONS.engagement;
 
   return (
-    <div className="w-full h-full flex flex-col justify-between bg-[#F7F7F4] overflow-hidden select-none">
+    <div className="w-full h-full flex flex-col justify-between bg-[#FAF9F6] overflow-hidden select-none">
       {/* Header */}
       <V2Header
         showBack
@@ -248,7 +248,7 @@ export default function S05_YourAd({ onOpenFacilitator }) {
       />
 
       {/* Sleek Compact Live Preview Bar at Top - Always neat & never takes over screen */}
-      <div className="px-4 py-2 bg-[#F7F7F4]/95 backdrop-blur-xs border-b border-[#E5E7EB]/60 z-10 shrink-0">
+      <div className="px-4 py-2 bg-[#FAF9F6]/95 backdrop-blur-xs border-b border-[#EDEDEA] z-10 shrink-0">
         <AdPreview
           format={format.id}
           shop={shop}
@@ -264,22 +264,22 @@ export default function S05_YourAd({ onOpenFacilitator }) {
       {/* Scrollable Ad Builder Fields */}
       <div
         ref={scrollContainerRef}
-        className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-5 scrollbar-none"
+        className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3.5 scrollbar-none"
       >
         {/* Minimal Screen Title */}
-        <div className="flex flex-col items-center text-center gap-0.5 pt-0.5">
-          <h2 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight">
+        <div className="flex flex-col items-center text-center pt-0.5 pb-0.5">
+          <h2 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.ad.title}
           </h2>
-          <p className="text-[12px] text-[#6B7280]">
+          <p className="text-[12px] text-[#8C8C94] mt-0.5">
             {STRINGS.ad.subtitle}
           </p>
         </div>
 
         {/* Card 1: Media Upload Block */}
-        <div ref={mediaSectionRef} className="w-full bg-white rounded-[22px] border border-[#E5E7EB] p-4 flex flex-col gap-3 shadow-xs">
+        <div ref={mediaSectionRef} className="w-full bg-white rounded-2xl border border-[#EDEDEA] p-3.5 flex flex-col gap-3 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
           <div className="flex items-center justify-between">
-            <label className="text-[14px] font-bold text-[#2B2437] flex items-center gap-1">
+            <label className="text-[13.5px] font-bold text-[#2B2437] flex items-center gap-1">
               <span>मीडिया ({format.title})</span>
               <span className="text-[#DC2626] font-bold">*</span>
             </label>
@@ -375,15 +375,15 @@ export default function S05_YourAd({ onOpenFacilitator }) {
         </div>
 
         {/* Card 2: Ad Copy & Action Controls */}
-        <div className="w-full bg-white rounded-[22px] border border-[#E5E7EB] p-4 flex flex-col gap-4 shadow-xs">
-          <div className="flex items-center justify-between border-b border-[#F3F4F6] pb-2">
-            <h3 className="text-[15px] font-bold text-[#2B2437]">
+        <div className="w-full bg-white rounded-2xl border border-[#EDEDEA] p-3.5 flex flex-col gap-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+          <div className="flex items-center justify-between border-b border-[#F4F4F2] pb-2">
+            <h3 className="text-[14px] font-bold text-[#2B2437]">
               {isFeedCard ? 'बैनर का लिंक व बटन' : 'विज्ञापन की बातें व बटन'}
             </h3>
             <button
               type="button"
               onClick={handleFillSampleData}
-              className="text-[12px] font-bold text-[#E39026] flex items-center gap-1 hover:underline active:scale-95 transition-transform"
+              className="text-[11.5px] font-bold text-[#E39026] flex items-center gap-1 hover:underline active:scale-95 transition-transform"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>नमूना डेटा भरें</span>
@@ -392,13 +392,13 @@ export default function S05_YourAd({ onOpenFacilitator }) {
 
           {/* Feed Card Notice: Banner itself is the link */}
           {isFeedCard && (
-            <div className="p-3 rounded-[16px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center gap-2.5">
-              <Link2 className="w-4 h-4 text-[#E39026] shrink-0" />
+            <div className="p-3 rounded-xl bg-[#FFF8E7] border border-[#F6DFA8] flex items-center gap-2.5">
+              <Link2 className="w-4 h-4 text-[#D97706] shrink-0" />
               <div className="flex flex-col text-left">
-                <span className="text-[12.5px] font-bold text-[#2B2437]">
+                <span className="text-[12px] font-bold text-[#854D0E]">
                   पूरा बैनर कार्ड ही सीधा लिंक है
                 </span>
-                <span className="text-[11.5px] text-[#6B7280]">
+                <span className="text-[11px] text-[#A16207]">
                   पाठक कहीं भी टैप करेंगे, तो वे सीधे आपके संपर्क या लिंक पर पहुंचेंगे।
                 </span>
               </div>

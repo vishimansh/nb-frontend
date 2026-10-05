@@ -164,8 +164,8 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
   const selectedCategory = getCategoryById(categoryId);
 
   return (
-    <div className="w-full h-full flex flex-col justify-between bg-[#F7F7F4] overflow-hidden select-none">
-      {/* Header */}
+    <div className="w-full h-full flex flex-col justify-between bg-[#FAF9F6] overflow-hidden select-none">
+      {/* Header (Step 1 of 6) */}
       <V2Header
         showBack
         onBack={goBack}
@@ -175,16 +175,16 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
       />
 
       {/* Scrollable Form Body */}
-      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-4 scrollbar-none">
+      <div className="flex-1 overflow-y-auto px-4 py-2.5 flex flex-col gap-3.5 scrollbar-none">
         {/* Minimal Screen Title */}
-        <div className="flex flex-col items-center text-center gap-0.5 pt-0.5">
-          <h2 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight">
+        <div className="flex flex-col items-center text-center pt-0.5 pb-0.5">
+          <h2 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.shop.title}
           </h2>
-          <p className="text-[12px] text-[#6B7280]">
+          <p className="text-[12px] text-[#8C8C94] mt-0.5">
             {STRINGS.shop.subtitle}
           </p>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF8F2] border border-[#2F8F5B]/20 text-[11px] font-bold text-[#2F8F5B] mt-1">
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] border border-[#86EFAC]/50 text-[10.5px] font-bold text-[#16A34A] mt-1 shadow-2xs">
             <span>+91 {phone}</span>
             <span>•</span>
             <span>वेरिफाइड ✓</span>
@@ -192,7 +192,7 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
         </div>
 
         {/* Logo Avatar Upload */}
-        <div className="flex flex-col items-center gap-1.5 py-0.5">
+        <div className="flex flex-col items-center gap-1 py-0.5">
           <input
             ref={logoInputRef}
             type="file"
@@ -202,26 +202,26 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
           />
           <div
             onClick={() => logoInputRef.current?.click()}
-            className="w-[80px] h-[80px] rounded-full bg-white border-2 border-[#E5E7EB] hover:border-[#2B2437] flex items-center justify-center text-[#2B2437] relative cursor-pointer active:scale-95 transition-all shadow-xs"
+            className="w-[72px] h-[72px] rounded-full bg-white border-2 border-[#EDEDEA] hover:border-[#2B2437] flex items-center justify-center text-[#2B2437] relative cursor-pointer active:scale-95 transition-all shadow-xs"
           >
             {logoUrl ? (
               <img src={logoUrl} alt="" className="w-full h-full object-cover rounded-full" />
             ) : (
-              <span className="text-[28px] font-extrabold text-[#2B2437]">
+              <span className="text-[24px] font-extrabold text-[#2B2437]">
                 {(name.trim() || 'द').charAt(0)}
               </span>
             )}
-            <div className="absolute bottom-0 right-0 w-6.5 h-6.5 rounded-full bg-[#E39026] text-white flex items-center justify-center shadow-xs border-2 border-white">
-              <Camera className="w-3 h-3" />
+            <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-[#E39026] text-white flex items-center justify-center shadow-xs border-2 border-white">
+              <Camera className="w-2.5 h-2.5" />
             </div>
           </div>
-          <span className="text-[12px] font-bold text-[#4A4358]">
+          <span className="text-[11.5px] font-semibold text-[#6B7280]">
             {STRINGS.shop.logoLabel}
           </span>
         </div>
 
         {/* Card 1: मुख्य जानकारी (Required) */}
-        <div className="bg-white rounded-[22px] border border-[#E5E7EB] p-4 shadow-xs space-y-3.5">
+        <div className="bg-white rounded-2xl border border-[#EDEDEA] p-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-3">
           {/* 1. दुकान का नाम (Required) */}
           <Field
             label={STRINGS.shop.nameLabel}
@@ -235,27 +235,27 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
           />
 
           {/* 2. दुकान किस चीज़ की है? (Required) */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-[13.5px] font-bold text-[#2B2437] flex items-center gap-1">
+          <div className="flex flex-col gap-1">
+            <label className="text-[13px] font-bold text-[#2B2437] flex items-center gap-1">
               <span>{STRINGS.shop.categoryLabel}</span>
               <span className="text-[#DC2626] font-bold">*</span>
             </label>
             <div
               onClick={() => setShowCategorySheet(true)}
-              className="w-full h-[48px] rounded-[14px] px-3.5 bg-[#F7F7F4] border border-[#E5E7EB] hover:border-[#2B2437] flex items-center justify-between cursor-pointer select-none active:scale-[0.99] transition-all"
+              className="w-full h-[44px] rounded-xl px-3 bg-[#FAF9F6] border border-[#EDEDEA] hover:border-[#2B2437] flex items-center justify-between cursor-pointer select-none active:scale-[0.99] transition-all"
             >
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 <Store className="w-4 h-4 text-[#E39026]" />
-                <span className="text-[14.5px] font-bold text-[#2B2437]">
+                <span className="text-[13.5px] font-bold text-[#2B2437]">
                   {categoryId ? selectedCategory.label : STRINGS.shop.categoryPlaceholder}
                 </span>
               </div>
-              <ChevronRight className="w-4 h-4 text-[#6B7280]" />
+              <ChevronRight className="w-4 h-4 text-[#8C8C94]" />
             </div>
           </div>
 
           {/* 3. पिन कोड (Required) */}
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             <Field
               label={STRINGS.shop.pincodeLabel}
               required
@@ -268,22 +268,22 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
 
             {/* Resolved City Line */}
             {resolvedCity && (
-              <div className="flex items-center gap-1.5 text-[12.5px] text-[#2F8F5B] font-bold px-1 animate-fadeIn">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
+              <div className="flex items-center gap-1.5 text-[12px] text-[#16A34A] font-bold px-1 animate-fadeIn">
+                <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                 <span>✓ {resolvedCity.name}, {resolvedCity.state}</span>
               </div>
             )}
 
             {/* Fallback when pincode not found */}
             {pincodeNotFound && (
-              <div className="p-3 rounded-2xl bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-between animate-fadeIn">
-                <span className="text-[12px] text-[#4A4358] font-medium">
+              <div className="p-3 rounded-xl bg-[#FFF8E7] border border-[#F6DFA8] flex items-center justify-between animate-fadeIn">
+                <span className="text-[11.5px] text-[#854D0E] font-medium">
                   {STRINGS.shop.pincodeNotFound}
                 </span>
                 <button
                   type="button"
                   onClick={() => setShowCitySheet(true)}
-                  className="px-3 py-1.5 rounded-xl bg-white border border-[#E5E7EB] font-bold text-[12px] text-[#E39026] shadow-xs active:scale-95 cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg bg-white border border-[#F6DFA8] font-bold text-[11.5px] text-[#E39026] shadow-2xs active:scale-95 cursor-pointer"
                 >
                   {STRINGS.shop.pickCityBtn}
                 </button>
@@ -297,21 +297,21 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
           <button
             type="button"
             onClick={() => setShowOptional(!showOptional)}
-            className="w-full py-3 px-4 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex items-center justify-between text-left hover:bg-[#F9FAFB] active:scale-[0.99] transition-all cursor-pointer"
+            className="w-full py-2.5 px-3.5 rounded-xl bg-white border border-[#EDEDEA] shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex items-center justify-between text-left hover:bg-[#F9FAFB] active:scale-[0.99] transition-all cursor-pointer"
           >
             <div className="flex items-center gap-2">
-              <span className="text-[13px] font-bold text-[#2B2437]">
-                अतिरिक्त जानकारी (पता, ईमेल, मालिक)
+              <span className="text-[12.5px] font-bold text-[#2B2437]">
+                अतिरिक्त जानकारी (वैकल्पिक)
               </span>
-              <span className="text-[11px] font-semibold text-[#6B7280] px-2 py-0.5 rounded-full bg-[#F3F4F6]">
-                वैकल्पिक
+              <span className="text-[10px] font-semibold text-[#8C8C94] px-1.5 py-0.2 rounded-full bg-[#F4F4F2]">
+                पता, ईमेल
               </span>
             </div>
-            <ChevronDown className={`w-4 h-4 text-[#6B7280] transition-transform duration-200 ${showOptional ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`w-4 h-4 text-[#8C8C94] transition-transform duration-200 ${showOptional ? 'rotate-180' : ''}`} />
           </button>
 
           {showOptional && (
-            <div className="bg-white rounded-[22px] border border-[#E5E7EB] p-4 shadow-xs space-y-3.5 mb-2 animate-fadeIn">
+            <div className="bg-white rounded-2xl border border-[#EDEDEA] p-3.5 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-3 mb-1 animate-fadeIn">
               {/* 4. पता या इलाका (Optional) */}
               <Field
                 label={STRINGS.shop.addressLabel}
