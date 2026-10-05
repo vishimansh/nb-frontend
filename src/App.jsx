@@ -19,7 +19,7 @@ import StatePage from './pages/StatePage';
 import EditStateSelectionPage from './pages/edit/EditStateSelectionPage';
 import EditCitySelectionPage from './pages/edit/EditCitySelectionPage';
 import MenuScreen from './pages/MenuScreen';
-import CategorySelectionScreen from './pages/CategorySelectionScreen';
+import CategorySelectionScreen from './pages/onboarding/CategorySelectionScreen';
 import ProfileScreen from './pages/ProfileScreen';
 import SettingsPrivacyScreen from './pages/SettingsPrivacyScreen';
 import PlaceholderScreen from './pages/PlaceholderScreen';
@@ -32,6 +32,8 @@ import { VideoProvider } from './context/VideoContext';
 import { SavedArticlesProvider } from './context/SavedArticlesContext';
 import SavedArticlesPage from './pages/SavedArticlesPage';
 import { ErrorBoundary } from './components/common/ErrorBoundary';
+import { ThemeProvider } from './context/ThemeContext';
+import ColorPickerWidget from './components/theme/ColorPickerWidget';
 
 // Advertiser Flow & Dashboard Screens
 import AdvertiserIntroScreen from './pages/advertiser/AdvertiserIntroScreen';
@@ -68,14 +70,15 @@ function MenuWrapper() {
 
 export default function App() {
   const isFlowB = new URLSearchParams(window.location.search).get('flow') === 'b';
-  if (isFlowB) {
-    return <FlowV2App />;
-  }
 
   return (
-    <OnboardingProvider>
-      <BrowserRouter>
-        <DeviceFrame>
+    <ThemeProvider>
+      {isFlowB ? (
+        <FlowV2App />
+      ) : (
+        <OnboardingProvider>
+          <BrowserRouter>
+            <DeviceFrame>
           <SavedArticlesProvider>
             <CityProvider>
               <FeedProvider>
@@ -92,6 +95,8 @@ export default function App() {
                       <Route path="/onboarding/otp" element={<OtpScreen />} />
                       <Route path="/onboarding/select-state" element={<StateSelectionScreen />} />
                       <Route path="/onboarding/select-city" element={<CitySelectionScreen />} />
+                      <Route path="/onboarding/select-category" element={<CategorySelectionScreen />} />
+                      <Route path="/onboarding/categories" element={<Navigate to="/onboarding/select-category" replace />} />
                       <Route path="/feed" element={<HomePage />} />
                       <Route path="/city" element={<HomePage />} />
                       <Route path="/city/localities" element={<LocalityPickerPage />} />
@@ -159,5 +164,10 @@ export default function App() {
       </DeviceFrame>
       </BrowserRouter>
     </OnboardingProvider>
+      )}
+
+      {/* Real-time Color Picker Widget */}
+      <ColorPickerWidget />
+    </ThemeProvider>
   );
 }

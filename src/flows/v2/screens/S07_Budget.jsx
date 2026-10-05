@@ -4,25 +4,50 @@ import StickyCTA from '../components/chrome/StickyCTA';
 import RangeSlider from '../components/ui/RangeSlider';
 import Stepper from '../components/ui/Stepper';
 import BillSheet from '../components/sheets/BillSheet';
-import AmountText from '../components/ui/AmountText';
 import Badge from '../components/ui/Badge';
 import HelpSheet from '../components/sheets/HelpSheet';
+import CityChips from '../components/map/CityChips';
+import CitySheet from '../components/sheets/CitySheet';
 import { useAdvertiserV2 } from '../context/AdvertiserV2Context';
 import { useFlowNav } from '../router/useFlowNav';
 import { PACKAGES } from '../data/packages';
-import { calculateSubtotal, calculateGst, calculateTotal, getMoneyBreakdown } from '../utils/money';
-import { areaReaders, peopleReached, reachRange, limitedBy, recommendedDaily } from '../utils/reach';
+import { calculateTotal, getMoneyBreakdown } from '../utils/money';
 import { formatIN } from '../utils/formatIN';
+import { resolveSelectedCities, getDistanceKm } from '../utils/geo';
+import { CITIES, getCityById } from '../data/cities';
 import { track } from '../utils/track';
 import { STRINGS } from '../strings/hi';
-import { ChevronRight, Calendar, Sparkles } from 'lucide-react';
+import {
+  ChevronRight,
+  MapPin,
+  Users,
+  Zap,
+  Calendar,
+  RotateCcw,
+} from 'lucide-react';
 
+const RADIUS_PRESETS = [5, 10, 15, 20, 25];
 const DAY_PRESETS = [3, 7, 15, 30];
 
 export default function S07_Budget({ onOpenFacilitator }) {
   const { state, updateDraft } = useAdvertiserV2();
   const { goBack, proceedNextStep, getCtaLabel, isFromReview } = useFlowNav();
 
+  const shop = state.shop || {};
+  const draftArea = state.draft?.area || { radiusKm: 10, manualCityIds: [], excludedCityIds: [] };
+  const homeCityId = shop.cityId || 'indore';
+  const homeCity = getCityById(homeCityId) || { lat: 22.7196, lng: 75.8577, name: 'इंदौर' };
+  const pin = useMemo(() => {
+    return shop.pin?.lat ? shop.pin : { lat: homeCity.lat, lng: homeCity.lng };
+  }, [shop.pin, homeCity.lat, homeCity.lng]);
+
+  // Location State
+  const [radiusKm, setRadiusKm] = useState(draftArea.radiusKm || 10);
+  const [manualCityIds, setManualCityIds] = useState(draftArea.manualCityIds || []);
+  const [excludedCityIds, setExcludedCityIds] = useState(draftArea.excludedCityIds || []);
+  const [showCitySheet, setShowCitySheet] = useState(false);
+
+  // Budget State
   const draftBudget = state.draft?.budget || {
     packageId: 'standard',
     dailyAmount: 250,
@@ -40,34 +65,57 @@ export default function S07_Budget({ onOpenFacilitator }) {
   const [showBillSheet, setShowBillSheet] = useState(false);
   const [showHelpSheet, setShowHelpSheet] = useState(false);
 
+  // Auto-detect cities within radius
+  const autoCityIds = useMemo(() => {
+    const list = [];
+    for (const city of CITIES) {
+      if (city.id === homeCityId) continue;
+      const d = getDistanceKm(pin.lat, pin.lng, city.lat, city.lng);
+      if (d <= radiusKm) {
+        list.push(city.id);
+      }
+    }
+    return list;
+  }, [pin, radiusKm, homeCityId]);
+
+  // Selected cities
+  const selectedCityIds = useMemo(() => {
+    return resolveSelectedCities(homeCityId, autoCityIds, manualCityIds, excludedCityIds);
+  }, [homeCityId, autoCityIds, manualCityIds, excludedCityIds]);
+
   // Money calculations
   const money = useMemo(() => {
     return getMoneyBreakdown(dailyAmount, days);
   }, [dailyAmount, days]);
 
-  // Reach calculations
-  const totalAreaReaders = useMemo(() => {
-    return areaReaders(
-      state.draft?.area?.manualCityIds || ['indore'],
-      state.draft?.audience
-    );
-  }, [state.draft?.area, state.draft?.audience]);
-
+  /**
+   * Unified Reach Formula:
+   * Budget has high elasticity (0.85), Location has mild bounded elasticity (0.90 to 1.30).
+   */
   const reachablePeople = useMemo(() => {
-    return peopleReached(totalAreaReaders, dailyAmount, days);
-  }, [totalAreaReaders, dailyAmount, days]);
+    const locationFactor = 0.90 + ((radiusKm - 5) / 20) * 0.40;
+    const budgetRatio = Math.max(100, dailyAmount) / 300;
+    const durationRatio = Math.max(1, days) / 7;
+    const baseReach = 5800;
+    const raw = baseReach * Math.pow(budgetRatio, 0.85) * Math.pow(durationRatio, 0.75) * locationFactor;
+    return Math.max(1200, Math.round(raw));
+  }, [dailyAmount, days, radiusKm]);
 
-  const reachBounds = useMemo(() => {
-    return reachRange(reachablePeople);
-  }, [reachablePeople]);
+  const handleRadiusChange = (newRadius) => {
+    setRadiusKm(newRadius);
+    updateDraft('area.radiusKm', newRadius);
+    track('radius_changed', { radiusKm: newRadius });
+  };
 
-  const limitType = useMemo(() => {
-    return limitedBy(totalAreaReaders, dailyAmount, days);
-  }, [totalAreaReaders, dailyAmount, days]);
-
-  const recDaily = useMemo(() => {
-    return recommendedDaily(totalAreaReaders, days);
-  }, [totalAreaReaders, days]);
+  const handleRemoveCity = (cityId) => {
+    const nextExcluded = [...excludedCityIds, cityId];
+    const nextManual = manualCityIds.filter((id) => id !== cityId);
+    setExcludedCityIds(nextExcluded);
+    setManualCityIds(nextManual);
+    updateDraft('area.excludedCityIds', nextExcluded);
+    updateDraft('area.manualCityIds', nextManual);
+    track('city_removed', { cityId });
+  };
 
   const handleSelectPackage = (pkg) => {
     if (pkg.id === 'custom') {
@@ -92,13 +140,11 @@ export default function S07_Budget({ onOpenFacilitator }) {
 
   const handleDailySliderChange = (newDaily) => {
     setDailyAmount(newDaily);
-    // Check if matches an existing package
     const match = PACKAGES.find(
       (p) => p.id !== 'custom' && p.dailyAmount === newDaily && p.days === days
     );
     const pkgId = match ? match.id : 'custom';
     setSelectedPkgId(pkgId);
-
     updateDraft('budget.dailyAmount', newDaily);
     updateDraft('budget.packageId', pkgId);
   };
@@ -110,7 +156,6 @@ export default function S07_Budget({ onOpenFacilitator }) {
     );
     const pkgId = match ? match.id : 'custom';
     setSelectedPkgId(pkgId);
-
     updateDraft('budget.days', newDays);
     updateDraft('budget.packageId', pkgId);
   };
@@ -125,7 +170,6 @@ export default function S07_Budget({ onOpenFacilitator }) {
     updateDraft('budget.startDate', dateVal);
   };
 
-  // Tomorrow's date string for input min attribute
   const tomorrowStr = useMemo(() => {
     const d = new Date();
     d.setDate(d.getDate() + 1);
@@ -148,6 +192,11 @@ export default function S07_Budget({ onOpenFacilitator }) {
   }, [startDate]);
 
   const handleSubmit = () => {
+    updateDraft('area', {
+      radiusKm,
+      manualCityIds,
+      excludedCityIds,
+    });
     updateDraft('budget', {
       packageId: selectedPkgId,
       dailyAmount,
@@ -160,32 +209,139 @@ export default function S07_Budget({ onOpenFacilitator }) {
 
   return (
     <div className="w-full h-full flex flex-col justify-between bg-[#F7F7F4] overflow-hidden select-none">
-      {/* Header */}
+      {/* Header (Step 5 of 6) */}
       <V2Header
         showBack
         onBack={goBack}
-        stepNumber={6}
+        stepNumber={5}
         onHelp={() => setShowHelpSheet(true)}
         onLogoLongPress={onOpenFacilitator}
       />
 
       {/* Main Form Body */}
-      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3.5 scrollbar-none">
-        {/* Title & Subtitle */}
-        <div className="flex flex-col items-center text-center gap-1 pt-1">
-          <div className="w-14 h-14 rounded-[16px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] shadow-xs font-bold text-[24px]">
-            ₹
-          </div>
-          <h2 className="text-[20px] font-bold text-[#2B2437] tracking-tight mt-1">
-            {STRINGS.budget.title}
+      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 scrollbar-none">
+        {/* Level 2: Screen Title */}
+        <div className="flex flex-col items-center text-center gap-0.5 pt-0.5">
+          <h2 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight">
+            इलाका और बजट चुनें
           </h2>
-          <p className="text-[13px] text-[#6B7280]">
-            {STRINGS.budget.subtitle}
+          <p className="text-[12px] text-[#6B7280]">
+            दायरा, बजट और दिन तय करें
           </p>
         </div>
 
-        {/* 1. Packages Stack */}
-        <div className="flex flex-col gap-2.5">
+        {/* Level 1: TOP HERO REACH CARD (अनुमानित पाठक संख्या) */}
+        <div className="p-3.5 rounded-[18px] bg-gradient-to-br from-[#FFFDF7] via-[#FFFBF0] to-[#FEF3C7]/40 border border-[#FDE68A] shadow-xs flex flex-col gap-2 sticky top-0 z-20 backdrop-blur-md">
+          {/* Header Row: Label & Live Indicator */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-[#E39026]" />
+              <span className="text-[11.5px] font-bold text-[#854D0E] uppercase tracking-wider">
+                अनुमानित पाठक संख्या
+              </span>
+            </div>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#EEF8F2] border border-[#2F8F5B]/20 text-[#2F8F5B] text-[10.5px] font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2F8F5B] animate-pulse" />
+              लाइव अनुमान
+            </span>
+          </div>
+
+          {/* Metric Row: Dominant Hero Readers Count */}
+          <div className="flex items-baseline justify-between">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-[30px] font-black text-[#2B2437] tracking-tight tabular-nums leading-none">
+                ~{formatIN(reachablePeople)}
+              </span>
+              <span className="text-[13px] font-bold text-[#E39026]">
+                स्थानीय पाठक
+              </span>
+            </div>
+
+            {/* Active Parameters Pill */}
+            <div className="flex items-center gap-1 text-[11px] font-semibold text-[#4A4358] bg-white/95 border border-[#FDE68A] px-2.5 py-0.5 rounded-full shadow-2xs">
+              <span>{radiusKm} किमी</span>
+              <span className="text-[#D1D5DB]">·</span>
+              <span>₹{dailyAmount}/दिन</span>
+              <span className="text-[#D1D5DB]">·</span>
+              <span>{days} दिन</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Level 3: SECTION 1 - विज्ञापन का दायरा */}
+        <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2.5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5 text-[14px] font-bold text-[#2B2437]">
+              <MapPin className="w-4 h-4 text-[#E39026]" />
+              <span>1. विज्ञापन का दायरा</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[11.5px] font-bold text-[#E39026]">
+                {radiusKm} किमी दायरा
+              </span>
+              {radiusKm !== 10 && (
+                <button
+                  type="button"
+                  onClick={() => handleRadiusChange(10)}
+                  className="text-[11px] text-[#6B7280] hover:text-[#2B2437] flex items-center gap-0.5 cursor-pointer underline"
+                >
+                  <RotateCcw className="w-3 h-3 text-[#6B7280]" />
+                  <span>रीसेट</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Range Slider */}
+          <RangeSlider
+            min={5}
+            max={25}
+            step={1}
+            value={radiusKm}
+            onChange={handleRadiusChange}
+            unit="किमी"
+          />
+
+          {/* Presets */}
+          <div className="flex items-center justify-between gap-1 pt-0.5">
+            {RADIUS_PRESETS.map((km) => (
+              <button
+                key={km}
+                type="button"
+                onClick={() => handleRadiusChange(km)}
+                className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
+                  radiusKm === km
+                    ? 'bg-[#2B2437] text-white shadow-2xs'
+                    : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-neutral-100'
+                }`}
+              >
+                {km} किमी
+              </button>
+            ))}
+          </div>
+
+          {/* City Chips */}
+          <div className="pt-2 border-t border-[#F3F4F6]">
+            <CityChips
+              homeCityId={homeCityId}
+              selectedCityIds={selectedCityIds}
+              onRemoveCity={handleRemoveCity}
+              onOpenCitySheet={() => setShowCitySheet(true)}
+            />
+          </div>
+        </div>
+
+        {/* Level 3: SECTION 2 - बजट और अवधि तय करें */}
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center justify-between px-1">
+            <span className="text-[14px] font-bold text-[#2B2437]">
+              2. बजट और अवधि तय करें
+            </span>
+            <span className="text-[11px] font-medium text-[#6B7280]">
+              पैकेज चुनें
+            </span>
+          </div>
+
           {PACKAGES.map((pkg) => {
             const isSelected = selectedPkgId === pkg.id;
 
@@ -194,18 +350,22 @@ export default function S07_Budget({ onOpenFacilitator }) {
                 <div
                   key={pkg.id}
                   onClick={() => handleSelectPackage(pkg)}
-                  className={`p-3.5 rounded-[18px] border flex items-center justify-between cursor-pointer select-none transition-all ${
+                  className={`p-3 rounded-[16px] border flex items-center justify-between cursor-pointer select-none transition-all ${
                     isSelected
                       ? 'bg-white border-[#2B2437] ring-1 ring-[#2B2437] shadow-xs'
                       : 'bg-white border-[#E5E7EB] hover:bg-neutral-50'
                   }`}
                 >
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-[14.5px] text-[#2B2437]">
-                      {pkg.name}
-                    </span>
-                    <span className="text-[12px] text-[#6B7280]">
-                      ({pkg.tagline})
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                        isSelected ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
+                      }`}
+                    >
+                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    </div>
+                    <span className="font-bold text-[14px] text-[#2B2437]">
+                      अपना बजट खुद तय करें (कस्टम)
                     </span>
                   </div>
                   <ChevronRight className="w-4 h-4 text-[#6B7280]" />
@@ -213,57 +373,63 @@ export default function S07_Budget({ onOpenFacilitator }) {
               );
             }
 
+            const pkgTotal = pkg.total || calculateTotal(pkg.dailyAmount * pkg.days);
+
             return (
               <div
                 key={pkg.id}
                 onClick={() => handleSelectPackage(pkg)}
-                className={`p-3.5 rounded-[18px] border flex flex-col gap-1.5 cursor-pointer select-none transition-all ${
+                className={`p-3 rounded-[16px] border flex flex-col gap-1 cursor-pointer select-none transition-all ${
                   isSelected
                     ? 'bg-white border-[#2B2437] ring-1 ring-[#2B2437] shadow-xs'
-                    : 'bg-white border-[#E5E7EB] hover:border-neutral-300'
-                } active:scale-[0.98]`}
+                    : 'bg-white border-[#E5E7EB] hover:bg-neutral-50'
+                }`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="font-extrabold text-[16px] text-[#2B2437]">
+                  <div className="flex items-center gap-2.5">
+                    <div
+                      className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
+                        isSelected ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
+                      }`}
+                    >
+                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                    </div>
+                    <span className="font-bold text-[14.5px] text-[#2B2437]">
                       {pkg.name}
                     </span>
-                    {pkg.badge && (
-                      <Badge variant="amber">
-                        <Sparkles className="w-3 h-3 text-[#E39026]" />
-                        <span>{pkg.badge}</span>
-                      </Badge>
-                    )}
                   </div>
-                  <span className="font-extrabold text-[17px] text-[#2B2437] tabular-nums">
-                    ₹{formatIN(pkg.total)}
-                  </span>
+                  {pkg.recommended && (
+                    <Badge variant="amber">{STRINGS.budget.recommendedBadge}</Badge>
+                  )}
                 </div>
 
-                <div className="flex items-center justify-between text-[12.5px] text-[#6B7280]">
-                  <span>
+                <div className="pl-6.5 flex items-baseline justify-between">
+                  <span className="text-[12.5px] font-medium text-[#4A4358]">
                     ₹{pkg.dailyAmount}/दिन · {pkg.days} दिन
                   </span>
-                  <span>(GST सहित)</span>
+                  <div className="text-right">
+                    <span className="text-[14.5px] font-extrabold text-[#2B2437]">
+                      ₹{formatIN(pkgTotal)}
+                    </span>
+                    <span className="text-[10.5px] font-normal text-[#6B7280] ml-1">
+                      (GST सहित)
+                    </span>
+                  </div>
                 </div>
-
-                <p className="text-[12px] text-[#C97F1E] font-medium pt-0.5">
-                  {pkg.tagline}
-                </p>
               </div>
             );
           })}
         </div>
 
-        {/* 2. Custom Block (Open if custom chosen or changed) */}
+        {/* Custom Daily Slider Card */}
         {selectedPkgId === 'custom' && (
-          <div className="p-4 rounded-[22px] bg-white border border-[#2B2437] shadow-sm flex flex-col gap-3 animate-fadeIn">
+          <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2.5 animate-fadeIn">
             <div className="flex items-center justify-between">
-              <span className="text-[14px] font-bold text-[#2B2437]">
-                रोज़ का बजट
+              <span className="text-[13px] font-bold text-[#2B2437]">
+                रोज़ का खर्च:
               </span>
-              <span className="font-extrabold text-[16px] text-[#E39026] tabular-nums">
-                ₹{formatIN(dailyAmount)}/दिन
+              <span className="text-[16px] font-bold text-[#2B2437] font-mono">
+                ₹{dailyAmount}/दिन
               </span>
             </div>
 
@@ -273,166 +439,123 @@ export default function S07_Budget({ onOpenFacilitator }) {
               step={25}
               value={dailyAmount}
               onChange={handleDailySliderChange}
-              landmarks={[500, 1000, 1500, 2000]}
-              prefix="₹"
-              unit="/दिन"
+              unit="₹"
             />
+          </div>
+        )}
 
-            <div className="w-full h-px bg-[#E5E7EB] my-1" />
+        {/* Stepper for Days (in custom mode or custom duration) */}
+        {selectedPkgId === 'custom' && (
+          <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2.5">
+            <div className="flex items-center justify-between">
+              <span className="text-[13px] font-bold text-[#2B2437]">
+                दिन तय करें:
+              </span>
+              <span className="text-[15px] font-bold text-[#2B2437] font-mono">
+                {days} दिन
+              </span>
+            </div>
 
-            {/* Days Selection */}
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[14px] font-bold text-[#2B2437]">
-                  विज्ञापन की अवधि
-                </span>
-                <span className="font-bold text-[14px] text-[#2B2437] tabular-nums">
-                  {days} दिन
-                </span>
-              </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[12px] text-[#6B7280]">दिन बदलें:</span>
+              <Stepper
+                value={days}
+                min={1}
+                max={90}
+                step={1}
+                onChange={handleDaysChange}
+                unit="दिन"
+              />
+            </div>
 
-              <div className="flex items-center justify-between gap-2 flex-wrap">
-                <div className="flex gap-1.5">
-                  {DAY_PRESETS.map((d) => (
-                    <button
-                      key={d}
-                      type="button"
-                      onClick={() => handleDaysChange(d)}
-                      className={`h-9 px-3 rounded-xl text-[13px] font-bold transition-all ${
-                        days === d
-                          ? 'bg-[#2B2437] text-white shadow-xs'
-                          : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-neutral-100'
-                      }`}
-                    >
-                      {d} दिन
-                    </button>
-                  ))}
-                </div>
-
-                <Stepper
-                  value={days}
-                  onChange={handleDaysChange}
-                  min={1}
-                  max={90}
-                />
-              </div>
+            <div className="flex items-center justify-between gap-1 pt-1 border-t border-[#F3F4F6]">
+              {DAY_PRESETS.map((d) => (
+                <button
+                  key={d}
+                  type="button"
+                  onClick={() => handleDaysChange(d)}
+                  className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
+                    days === d
+                      ? 'bg-[#2B2437] text-white'
+                      : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-neutral-100'
+                  }`}
+                >
+                  {d} दिन
+                </button>
+              ))}
             </div>
           </div>
         )}
 
-        {/* 3. Daily Cap Line */}
-        <div className="text-[13px] text-[#4A4358] font-medium px-1">
-          {STRINGS.budget.dailyCapLine(dailyAmount)}
-        </div>
-
-        {/* 4. Reach Estimation Card */}
-        <div className="p-3.5 rounded-2xl bg-[#FFF9EE] border border-[#FDE68A] flex flex-col gap-1.5">
-          <span className="text-[12.5px] font-semibold text-[#6B7280]">
-            {STRINGS.budget.reachWillDeliver}:
+        {/* Level 3: SECTION 3 - विज्ञापन कब शुरू करना है? */}
+        <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2">
+          <span className="text-[14px] font-bold text-[#2B2437]">
+            3. विज्ञापन कब शुरू करना है?
           </span>
-          <div className="text-[16px] font-bold text-[#2B2437] tabular-nums">
-            {STRINGS.budget.reachRangeLine(
-              formatIN(reachBounds.lo),
-              formatIN(reachBounds.hi)
-            )}
-          </div>
 
-          {/* Condition notice & chip */}
-          {limitType === 'audience' ? (
-            <div className="flex flex-col gap-1.5 pt-1">
-              <span className="text-[12px] text-[#C97F1E] font-medium leading-snug">
-                {STRINGS.budget.audienceLimitedNote}
+          <div className="flex flex-col gap-1.5">
+            <label className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-50 cursor-pointer">
+              <input
+                type="radio"
+                name="startMode"
+                checked={startMode === 'after_review'}
+                onChange={() => handleStartModeChange('after_review')}
+                className="w-4 h-4 text-[#2B2437] focus:ring-[#2B2437]"
+              />
+              <span className="text-[13px] font-medium text-[#2B2437] flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5 text-[#E39026]" />
+                {STRINGS.budget.startModeImmediate}
               </span>
-              {recDaily && recDaily < dailyAmount && (
-                <button
-                  type="button"
-                  onClick={() => handleDailySliderChange(recDaily)}
-                  className="self-start px-2.5 py-1 rounded-full bg-white border border-[#FDE68A] text-[11.5px] font-bold text-[#E39026] shadow-xs active:scale-95"
-                >
-                  {STRINGS.budget.audienceLimitedChip(recDaily)}
-                </button>
-              )}
-            </div>
-          ) : (
-            <span className="text-[12px] text-[#6B7280] pt-1">
-              {STRINGS.budget.budgetLimitedNote}
-            </span>
-          )}
-        </div>
+            </label>
 
-        {/* 5. Start Options */}
-        <div className="p-4 rounded-[20px] bg-white border border-[#E5E7EB] flex flex-col gap-2.5">
-          <label className="text-[14px] font-bold text-[#2B2437]">
-            विज्ञापन कब शुरू होगा?
-          </label>
+            <label className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-50 cursor-pointer">
+              <input
+                type="radio"
+                name="startMode"
+                checked={startMode === 'scheduled'}
+                onChange={() => handleStartModeChange('scheduled')}
+                className="w-4 h-4 text-[#2B2437] focus:ring-[#2B2437]"
+              />
+              <span className="text-[13px] font-medium text-[#2B2437] flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5 text-[#4A4358]" />
+                {STRINGS.budget.startModeScheduled}
+              </span>
+            </label>
 
-          <label className="flex items-center gap-2.5 text-[14px] text-[#2B2437] cursor-pointer">
-            <input
-              type="radio"
-              name="startMode"
-              checked={startMode === 'after_review'}
-              onChange={() => handleStartModeChange('after_review')}
-              className="w-4 h-4 accent-[#2B2437]"
-            />
-            <span>{STRINGS.budget.startModeImmediate}</span>
-          </label>
-
-          <label className="flex items-center gap-2.5 text-[14px] text-[#2B2437] cursor-pointer">
-            <input
-              type="radio"
-              name="startMode"
-              checked={startMode === 'scheduled'}
-              onChange={() => handleStartModeChange('scheduled')}
-              className="w-4 h-4 accent-[#2B2437]"
-            />
-            <span>{STRINGS.budget.startModeScheduled}</span>
-          </label>
-
-          {startMode === 'scheduled' && (
-            <div className="pt-2 flex flex-col gap-1.5 pl-6 animate-fadeIn">
-              <div className="relative">
+            {startMode === 'scheduled' && (
+              <div className="pl-6.5 pt-1 flex flex-col gap-1">
                 <input
                   type="date"
                   min={tomorrowStr}
                   value={startDate}
                   onChange={(e) => handleStartDateChange(e.target.value)}
-                  className="w-full h-11 rounded-xl px-3 border border-[#E5E7EB] bg-[#F7F7F4] text-[14px] text-[#2B2437] outline-none"
+                  className="px-3 py-1.5 rounded-xl border border-[#D1D5DB] text-[13px] font-bold text-[#2B2437] bg-white focus:outline-none focus:ring-1 focus:ring-[#2B2437]"
                 />
+                {formattedHindiDate && (
+                  <span className="text-[11.5px] text-[#2F8F5B] font-semibold">
+                    तारीख: {formattedHindiDate}
+                  </span>
+                )}
               </div>
-              {formattedHindiDate && (
-                <span className="text-[12.5px] font-semibold text-[#E39026]">
-                  चयनित तारीख: {formattedHindiDate}
-                </span>
-              )}
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Sticky Bottom Total & CTA Bar */}
+      {/* Sticky Bottom CTA */}
       <StickyCTA
         label={getCtaLabel(STRINGS.common.next)}
         onClick={handleSubmit}
         showArrow={!isFromReview}
         summaryContent={
           <div className="w-full flex items-center justify-between">
-            <div
-              onClick={() => setShowBillSheet(true)}
-              className="flex items-center gap-1 cursor-pointer select-none active:opacity-70"
-            >
-              <span className="font-extrabold text-[15px] text-[#2B2437]">
-                कुल <AmountText amount={money.total} />
-              </span>
-              <span className="text-[12px] text-[#6B7280]">
-                {STRINGS.common.totalWithGst}
-              </span>
-              <ChevronRight className="w-4 h-4 text-[#E39026]" />
-            </div>
-
+            <span className="font-extrabold text-[15px] text-[#2B2437] tabular-nums">
+              {STRINGS.budget.totalWithGstSticky(formatIN(money.total))}
+            </span>
             <button
               type="button"
               onClick={() => setShowBillSheet(true)}
-              className="text-[12px] font-semibold text-[#E39026] underline"
+              className="text-[12.5px] font-bold text-[#E39026] hover:underline cursor-pointer"
             >
               {STRINGS.budget.viewBill}
             </button>
@@ -440,20 +563,38 @@ export default function S07_Budget({ onOpenFacilitator }) {
         }
       />
 
-      {/* Bill Sheet */}
+      {/* CitySheet Modal */}
+      <CitySheet
+        isOpen={showCitySheet}
+        onClose={() => setShowCitySheet(false)}
+        selectedCityIds={selectedCityIds}
+        onSaveSelection={(newCityIds) => {
+          setManualCityIds(newCityIds.filter((id) => !autoCityIds.includes(id) && id !== homeCityId));
+          setExcludedCityIds(autoCityIds.filter((id) => !newCityIds.includes(id)));
+        }}
+        onToggleCity={(cityId) => {
+          if (selectedCityIds.includes(cityId)) {
+            handleRemoveCity(cityId);
+          } else {
+            setManualCityIds((prev) => [...prev, cityId]);
+            setExcludedCityIds((prev) => prev.filter((id) => id !== cityId));
+          }
+        }}
+      />
+
+      {/* Bill Breakdown Bottom Sheet */}
       <BillSheet
         isOpen={showBillSheet}
         onClose={() => setShowBillSheet(false)}
-        daily={money.daily}
-        days={money.days}
-        subtotal={money.subtotal}
-        gst={money.gst}
-        total={money.total}
+        dailyAmount={dailyAmount}
+        days={days}
       />
 
+      {/* Help Sheet */}
       <HelpSheet
         isOpen={showHelpSheet}
         onClose={() => setShowHelpSheet(false)}
+        topic="budget"
       />
     </div>
   );

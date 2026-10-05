@@ -5,7 +5,7 @@ import {
   HambergerMenu,
   Notification,
   SearchNormal1,
-  DocumentText,
+  Flash,
   Location,
   Buildings,
 } from 'iconsax-react';
@@ -32,7 +32,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
 
   // Fixed initial 3 tabs (cannot be reordered or displaced)
   const fixedTabs = [
-    { id: 'top_news', label: 'टॉप न्यूज़', icon: DocumentText, isFixed: true },
+    { id: 'top_news', label: 'टॉप न्यूज़', icon: Flash, isFixed: true },
     { id: 'city', label: 'शहर', icon: Location, isFixed: true },
     { id: 'state', label: 'राज्य', icon: Buildings, isFixed: true },
   ];

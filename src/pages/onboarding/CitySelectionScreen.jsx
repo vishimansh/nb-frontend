@@ -60,7 +60,7 @@ export default function CitySelectionScreen() {
     if (newSavedCities.length > 0) {
       updateSavedCities(newSavedCities);
     }
-    navigate('/feed');
+    navigate('/onboarding/select-category');
   };
 
   const handleSkip = () => {
@@ -88,7 +88,7 @@ export default function CitySelectionScreen() {
     if (newSavedCities.length > 0) {
       updateSavedCities(newSavedCities);
     }
-    navigate('/feed');
+    navigate('/onboarding/select-category');
   };
 
   return (

@@ -156,13 +156,13 @@ export default function AdvertiserAudienceScreen() {
     <div className="w-full h-full bg-[#F7F7F4] flex flex-col select-none overflow-y-auto scrollbar-none">
       <AdvertiserHeader
         variant="brand"
-        step="4"
-        totalSteps="7"
+        step="3"
+        totalSteps="6"
         onBack={() => {
           if (fromReview) {
             navigate('/advertise/review');
           } else {
-            navigate('/advertise/targeting');
+            navigate('/advertise/format');
           }
         }}
       />

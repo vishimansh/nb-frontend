@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ArchiveAdd, ArchiveTick, More } from 'iconsax-react';
+import { More } from 'iconsax-react';
+import { Download, Check } from 'lucide-react';
 import BackButton from '../common/BackButton';
 import supremeCourtImg from '../../assets/cards/supreme-court.jpg';
 import ArticleOptionsMenu from '../common/ArticleOptionsMenu';
@@ -8,21 +9,32 @@ export default function LiveArticleHero({
   hero,
   isLive = true,
   onBack,
-  onShare,
+  onShare: _onShare,
+  onToggleDownload,
   onToggleBookmark,
+  isDownloaded: propDownloaded,
   isBookmarked: propBookmarked,
   articleId,
   articleData,
 }) {
-  const [localBookmarked, setLocalBookmarked] = useState(false);
+  const [localDownloaded, setLocalDownloaded] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const isBookmarked = propBookmarked !== undefined ? propBookmarked : localBookmarked;
 
-  const handleBookmark = () => {
-    if (onToggleBookmark) {
+  // Unify isDownloaded from props (supporting both isDownloaded and isBookmarked for compatibility)
+  const isDownloaded =
+    propDownloaded !== undefined
+      ? propDownloaded
+      : propBookmarked !== undefined
+      ? propBookmarked
+      : localDownloaded;
+
+  const handleDownload = () => {
+    if (onToggleDownload) {
+      onToggleDownload();
+    } else if (onToggleBookmark) {
       onToggleBookmark();
     } else {
-      setLocalBookmarked(!localBookmarked);
+      setLocalDownloaded(!localDownloaded);
     }
   };
 
@@ -57,19 +69,29 @@ export default function LiveArticleHero({
         )}
       </div>
 
-      {/* 4. Top-Right Controls: Bookmark & 3-Dots (top: 16px, right: 16px, 40px × 40px, icon: 20px × 20px) */}
+      {/* 4. Top-Right Controls: Download (Offline) & 3-Dots */}
       <div className="absolute top-[16px] right-[16px] z-20 flex items-center gap-2">
-        {/* Bookmark Button (40px × 40px) */}
+        {/* Offline Download Button (40px × 40px) */}
         <button
           type="button"
-          onClick={handleBookmark}
-          aria-label="बुकमार्क करें"
-          className="w-[40px] h-[40px] rounded-[14px] bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center text-white active:scale-90 transition-transform cursor-pointer shadow-xs"
+          onClick={handleDownload}
+          aria-label={isDownloaded ? "डाउनलोड किया गया (ऑफलाइन उपलब्ध)" : "ऑफलाइन डाउनलोड करें"}
+          title={isDownloaded ? "डाउनलोड किया गया (ऑफलाइन उपलब्ध)" : "ऑफलाइन डाउनलोड करें"}
+          className={`w-[40px] h-[40px] rounded-[14px] backdrop-blur-md border flex items-center justify-center active:scale-90 transition-all cursor-pointer shadow-xs ${
+            isDownloaded
+              ? 'bg-black/60 border-[#F5B55C]/50 text-[#F5B55C]'
+              : 'bg-black/40 border-white/20 text-white hover:bg-black/50'
+          }`}
         >
-          {isBookmarked ? (
-            <ArchiveTick size={20} color="#F5B55C" variant="Bold" />
+          {isDownloaded ? (
+            <div className="relative flex items-center justify-center">
+              <Download size={19} className="text-[#F5B55C]" strokeWidth={2.2} />
+              <span className="absolute -bottom-1.5 -right-1.5 w-3.5 h-3.5 bg-[#10B981] rounded-full border border-black/80 flex items-center justify-center shadow-xs">
+                <Check size={9} className="text-white stroke-[3.5]" />
+              </span>
+            </div>
           ) : (
-            <ArchiveAdd size={20} color="#FFFFFF" variant="Linear" />
+            <Download size={20} className="text-white" strokeWidth={2.2} />
           )}
         </button>
 

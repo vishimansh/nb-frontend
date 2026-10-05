@@ -16,9 +16,12 @@ import {
   Trash,
   TickCircle,
 } from 'iconsax-react';
+import { Palette } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 export default function SettingsPrivacyScreen() {
   const navigate = useNavigate();
+  const { primaryColor, accentColor, setIsCustomizerOpen } = useTheme();
 
   // Component local states
   const [personalizedAdsEnabled, setPersonalizedAdsEnabled] = useState(true);
@@ -108,7 +111,7 @@ export default function SettingsPrivacyScreen() {
             >
               <div className="flex items-center">
                 {/* Dark Navy Icon Box */}
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.92] text-white flex items-center justify-center font-bold text-[15px] mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center font-bold text-[15px] mr-3 flex-shrink-0 shadow-2xs">
                   Aa
                 </div>
                 {/* Text Block */}
@@ -132,7 +135,7 @@ export default function SettingsPrivacyScreen() {
             >
               <div className="flex items-center">
                 {/* Dark Navy Icon Box */}
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.92] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <Sun1 size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-bold text-[#2B2437] leading-snug">ऐप मोड</span>
@@ -180,6 +183,36 @@ export default function SettingsPrivacyScreen() {
                 </div>
               </div>
             </div>
+
+            {/* 3. Color Picker Tile */}
+            <div
+              onClick={() => setIsCustomizerOpen(true)}
+              className="h-[64px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
+            >
+              <div className="flex items-center">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                  <Palette size={18} color="#FFFFFF" strokeWidth={2.2} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug">Color Picker</span>
+                  <span className="text-[11px] text-[#6B7280] leading-tight">Change Primary & Accent colors in real time</span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <span className="flex items-center">
+                  <span
+                    className="w-3.5 h-3.5 rounded-full border border-white shadow-2xs inline-block"
+                    style={{ backgroundColor: primaryColor }}
+                  />
+                  <span
+                    className="w-3.5 h-3.5 rounded-full border border-white shadow-2xs inline-block -ml-1.5"
+                    style={{ backgroundColor: accentColor }}
+                  />
+                </span>
+                <ArrowRight2 size={14} color="#9CA3AF" />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -198,7 +231,7 @@ export default function SettingsPrivacyScreen() {
             {/* 1. Personalized Ads Tile (Interactive Toggle) */}
             <div className="h-[64px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between">
               <div className="flex items-center flex-1 mr-3">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.92] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <VolumeHigh size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <div className="flex flex-col">
@@ -231,7 +264,7 @@ export default function SettingsPrivacyScreen() {
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
             >
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.92] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <InfoCircle size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437] leading-none">हमारे बारे में</span>
@@ -245,7 +278,7 @@ export default function SettingsPrivacyScreen() {
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
             >
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.92] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <Lock size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437] leading-none">प्राइवेसी पॉलिसी</span>
@@ -259,7 +292,7 @@ export default function SettingsPrivacyScreen() {
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
             >
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.92] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <DocumentText size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437] leading-none">नियम एवं शर्तें</span>
@@ -273,7 +306,7 @@ export default function SettingsPrivacyScreen() {
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
             >
               <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.92] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
+                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
                   <Star1 size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437] leading-none">ऐप को रेट करें</span>

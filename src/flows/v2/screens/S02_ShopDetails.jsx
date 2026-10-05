@@ -14,7 +14,7 @@ import { isValidEmail } from '../utils/validators';
 import { processImageFile } from '../utils/imageTools';
 import { saveAccount } from '../utils/autosave';
 import { STRINGS } from '../strings/hi';
-import { Camera, ChevronRight, CheckCircle2, Store } from 'lucide-react';
+import { Camera, ChevronRight, ChevronDown, CheckCircle2, Store } from 'lucide-react';
 
 export default function S02_ShopDetails({ onOpenFacilitator }) {
   const { state, updateShop } = useAdvertiserV2();
@@ -26,6 +26,7 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
   const [showCategorySheet, setShowCategorySheet] = useState(false);
   const [showCitySheet, setShowCitySheet] = useState(false);
   const [showHelpSheet, setShowHelpSheet] = useState(false);
+  const [showOptional, setShowOptional] = useState(() => !!(shop.address || shop.ownerName || shop.email));
 
   const [name, setName] = useState(shop.name || '');
   const [nameError, setNameError] = useState(null);
@@ -175,24 +176,23 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
 
       {/* Scrollable Form Body */}
       <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-4 scrollbar-none">
-        {/* Title, Subtitle, Verified Phone line */}
-        <div className="flex flex-col items-center text-center gap-1 pt-1">
-          <div className="w-14 h-14 rounded-[16px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] shadow-xs">
-            <Store className="w-7 h-7 text-[#E39026]" />
-          </div>
-          <h2 className="text-[20px] font-bold text-[#2B2437] tracking-tight mt-1">
+        {/* Minimal Screen Title */}
+        <div className="flex flex-col items-center text-center gap-0.5 pt-0.5">
+          <h2 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.shop.title}
           </h2>
-          <p className="text-[13px] text-[#6B7280]">
+          <p className="text-[12px] text-[#6B7280]">
             {STRINGS.shop.subtitle}
           </p>
-          <span className="text-[12px] font-bold text-[#2F8F5B] mt-0.5 inline-block">
-            {STRINGS.shop.verifiedPhoneLine(phone)}
-          </span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#EEF8F2] border border-[#2F8F5B]/20 text-[11px] font-bold text-[#2F8F5B] mt-1">
+            <span>+91 {phone}</span>
+            <span>•</span>
+            <span>वेरिफाइड ✓</span>
+          </div>
         </div>
 
         {/* Logo Avatar Upload */}
-        <div className="flex flex-col items-center gap-1.5 py-1">
+        <div className="flex flex-col items-center gap-1.5 py-0.5">
           <input
             ref={logoInputRef}
             type="file"
@@ -202,17 +202,17 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
           />
           <div
             onClick={() => logoInputRef.current?.click()}
-            className="w-[84px] h-[84px] rounded-full bg-white border-2 border-[#E5E7EB] hover:border-[#2B2437] flex items-center justify-center text-[#2B2437] relative cursor-pointer active:scale-95 transition-all shadow-xs"
+            className="w-[80px] h-[80px] rounded-full bg-white border-2 border-[#E5E7EB] hover:border-[#2B2437] flex items-center justify-center text-[#2B2437] relative cursor-pointer active:scale-95 transition-all shadow-xs"
           >
             {logoUrl ? (
               <img src={logoUrl} alt="" className="w-full h-full object-cover rounded-full" />
             ) : (
-              <span className="text-[30px] font-extrabold text-[#2B2437]">
+              <span className="text-[28px] font-extrabold text-[#2B2437]">
                 {(name.trim() || 'द').charAt(0)}
               </span>
             )}
-            <div className="absolute bottom-0 right-0 w-7 h-7 rounded-full bg-[#E39026] text-white flex items-center justify-center shadow-xs">
-              <Camera className="w-3.5 h-3.5" />
+            <div className="absolute bottom-0 right-0 w-6.5 h-6.5 rounded-full bg-[#E39026] text-white flex items-center justify-center shadow-xs border-2 border-white">
+              <Camera className="w-3 h-3" />
             </div>
           </div>
           <span className="text-[12px] font-bold text-[#4A4358]">
@@ -220,7 +220,7 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
           </span>
         </div>
 
-        {/* Card 1: मुख्य जानकारी */}
+        {/* Card 1: मुख्य जानकारी (Required) */}
         <div className="bg-white rounded-[22px] border border-[#E5E7EB] p-4 shadow-xs space-y-3.5">
           {/* 1. दुकान का नाम (Required) */}
           <Field
@@ -242,11 +242,11 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
             </label>
             <div
               onClick={() => setShowCategorySheet(true)}
-              className="w-full h-[50px] rounded-[14px] px-3.5 bg-[#F7F7F4] border border-[#E5E7EB] hover:border-[#2B2437] flex items-center justify-between cursor-pointer select-none active:scale-[0.99] transition-all"
+              className="w-full h-[48px] rounded-[14px] px-3.5 bg-[#F7F7F4] border border-[#E5E7EB] hover:border-[#2B2437] flex items-center justify-between cursor-pointer select-none active:scale-[0.99] transition-all"
             >
               <div className="flex items-center gap-2.5">
                 <Store className="w-4 h-4 text-[#E39026]" />
-                <span className="text-[15px] font-bold text-[#2B2437]">
+                <span className="text-[14.5px] font-bold text-[#2B2437]">
                   {categoryId ? selectedCategory.label : STRINGS.shop.categoryPlaceholder}
                 </span>
               </div>
@@ -268,7 +268,7 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
 
             {/* Resolved City Line */}
             {resolvedCity && (
-              <div className="flex items-center gap-1.5 text-[13px] text-[#2F8F5B] font-bold px-1 animate-fadeIn">
+              <div className="flex items-center gap-1.5 text-[12.5px] text-[#2F8F5B] font-bold px-1 animate-fadeIn">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>✓ {resolvedCity.name}, {resolvedCity.state}</span>
               </div>
@@ -277,13 +277,13 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
             {/* Fallback when pincode not found */}
             {pincodeNotFound && (
               <div className="p-3 rounded-2xl bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-between animate-fadeIn">
-                <span className="text-[12.5px] text-[#4A4358]">
+                <span className="text-[12px] text-[#4A4358] font-medium">
                   {STRINGS.shop.pincodeNotFound}
                 </span>
                 <button
                   type="button"
                   onClick={() => setShowCitySheet(true)}
-                  className="px-3 py-1.5 rounded-xl bg-white border border-[#E5E7EB] font-bold text-[12.5px] text-[#E39026] shadow-xs active:scale-95"
+                  className="px-3 py-1.5 rounded-xl bg-white border border-[#E5E7EB] font-bold text-[12px] text-[#E39026] shadow-xs active:scale-95 cursor-pointer"
                 >
                   {STRINGS.shop.pickCityBtn}
                 </button>
@@ -292,44 +292,60 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
           </div>
         </div>
 
-        {/* Card 2: अन्य जानकारी (वैकल्पिक) */}
-        <div className="bg-white rounded-[22px] border border-[#E5E7EB] p-4 shadow-xs space-y-3.5 mb-2">
-          <div className="text-[13px] font-bold text-[#6B7280] pb-0.5 border-b border-[#E5E7EB]/50">
-            अन्य जानकारी (वैकल्पिक)
-          </div>
+        {/* Card 2: अन्य जानकारी (वैकल्पिक Collapsible Disclosure) */}
+        <div className="flex flex-col gap-2">
+          <button
+            type="button"
+            onClick={() => setShowOptional(!showOptional)}
+            className="w-full py-3 px-4 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex items-center justify-between text-left hover:bg-[#F9FAFB] active:scale-[0.99] transition-all cursor-pointer"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-[13px] font-bold text-[#2B2437]">
+                अतिरिक्त जानकारी (पता, ईमेल, मालिक)
+              </span>
+              <span className="text-[11px] font-semibold text-[#6B7280] px-2 py-0.5 rounded-full bg-[#F3F4F6]">
+                वैकल्पिक
+              </span>
+            </div>
+            <ChevronDown className={`w-4 h-4 text-[#6B7280] transition-transform duration-200 ${showOptional ? 'rotate-180' : ''}`} />
+          </button>
 
-          {/* 4. पता या इलाका (Optional) */}
-          <Field
-            label={STRINGS.shop.addressLabel}
-            value={address}
-            onChange={(val) => {
-              setAddress(val);
-              updateShop({ address: val });
-            }}
-            placeholder={STRINGS.shop.addressPlaceholder}
-          />
+          {showOptional && (
+            <div className="bg-white rounded-[22px] border border-[#E5E7EB] p-4 shadow-xs space-y-3.5 mb-2 animate-fadeIn">
+              {/* 4. पता या इलाका (Optional) */}
+              <Field
+                label={STRINGS.shop.addressLabel}
+                value={address}
+                onChange={(val) => {
+                  setAddress(val);
+                  updateShop({ address: val });
+                }}
+                placeholder={STRINGS.shop.addressPlaceholder}
+              />
 
-          {/* 5. मालिक का नाम (Optional) */}
-          <Field
-            label={STRINGS.shop.ownerLabel}
-            value={ownerName}
-            onChange={(val) => {
-              setOwnerName(val);
-              updateShop({ ownerName: val });
-            }}
-            placeholder={STRINGS.shop.ownerPlaceholder}
-          />
+              {/* 5. मालिक का नाम (Optional) */}
+              <Field
+                label={STRINGS.shop.ownerLabel}
+                value={ownerName}
+                onChange={(val) => {
+                  setOwnerName(val);
+                  updateShop({ ownerName: val });
+                }}
+                placeholder={STRINGS.shop.ownerPlaceholder}
+              />
 
-          {/* 6. ईमेल (Optional) */}
-          <Field
-            label={STRINGS.shop.emailLabel}
-            type="email"
-            value={email}
-            onChange={handleEmailChange}
-            placeholder={STRINGS.shop.emailPlaceholder}
-            helper={STRINGS.shop.emailHelper}
-            error={emailError}
-          />
+              {/* 6. ईमेल (Optional) */}
+              <Field
+                label={STRINGS.shop.emailLabel}
+                type="email"
+                value={email}
+                onChange={handleEmailChange}
+                placeholder={STRINGS.shop.emailPlaceholder}
+                helper={STRINGS.shop.emailHelper}
+                error={emailError}
+              />
+            </div>
+          )}
         </div>
       </div>
 

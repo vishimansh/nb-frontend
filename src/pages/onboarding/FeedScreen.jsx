@@ -1,8 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Refresh2, Notification, Location, Call, ShieldTick } from 'iconsax-react';
+import { Refresh2, Notification, Location, Call, ShieldTick, Category } from 'iconsax-react';
 import NavaBharatLogo from '../../components/common/NavaBharatLogo';
 import { useOnboarding } from '../../context/OnboardingContext';
+import { CATEGORY_METADATA } from '../../theme/categoryMeta';
 
 /**
  * Feed Landing Screen (Placeholder with summary of onboarding selections)
@@ -14,6 +15,7 @@ export default function FeedScreen() {
     phoneNumber,
     selectedStates,
     selectedCities,
+    selectedCategories = [],
     resetOnboarding,
   } = useOnboarding();
 
@@ -114,6 +116,28 @@ export default function FeedScreen() {
                 ))
               ) : (
                 <span className="text-xs text-[#6B7280]">कोई शहर नहीं चुना गया</span>
+              )}
+            </div>
+          </div>
+
+          {/* Categories Selected */}
+          <div className="bg-white rounded-xl p-3 border border-[#E5E7EB]">
+            <div className="flex items-center gap-1.5 mb-2 text-xs font-bold text-[#2B2437]">
+              <Category size={16} color="#E39026" variant="Bold" />
+              <span>चुनी गई श्रेणियां ({selectedCategories.length})</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {selectedCategories.length > 0 ? (
+                selectedCategories.map((cat, i) => (
+                  <span
+                    key={i}
+                    className="bg-[#2B2437] text-white px-3 py-1 rounded-full text-xs font-medium"
+                  >
+                    {CATEGORY_METADATA[cat]?.label || cat}
+                  </span>
+                ))
+              ) : (
+                <span className="text-xs text-[#6B7280]">कोई श्रेणी नहीं चुनी गई</span>
               )}
             </div>
           </div>

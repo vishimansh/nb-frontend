@@ -131,8 +131,22 @@ export default function LiveArticlePage() {
   const [searchParams] = useSearchParams();
   const scrollRef = useRef(null);
 
-  // Dynamically resolve article data (supporting top stories, search, city, and specialized cards)
-  const article = useMemo(() => getArticleDataById(id), [id]);
+  const {
+    isArticleDownloaded,
+    toggleDownloadArticle,
+    getOfflineArticle,
+    isOffline,
+  } = useSavedArticles();
+
+  // Dynamically resolve article data (supporting top stories, search, city, and offline cached cards)
+  const offlineArticle = getOfflineArticle(id);
+  const article = useMemo(() => {
+    const resolved = getArticleDataById(id);
+    if (offlineArticle) {
+      return { ...resolved, ...offlineArticle };
+    }
+    return resolved;
+  }, [id, offlineArticle]);
 
   // Strictly enforce that ONLY 2 news cards in the application are live update news:
   // 1. The hero feed card ('hero-101' / 'live-bhopal-encroachment')
@@ -219,8 +233,6 @@ export default function LiveArticlePage() {
     return items;
   }, [article.relatedStories]);
 
-  const { isArticleSaved, toggleSaveArticle } = useSavedArticles();
-
   const articleHeadline =
     article.headline ||
     article.hero?.caption ||
@@ -236,7 +248,7 @@ export default function LiveArticlePage() {
     readTime: article.readTime || "3 मिनट पढ़ें",
   }), [article, id, articleHeadline]);
 
-  const isBookmarked = isArticleSaved(article.id || id);
+  const isDownloaded = isArticleDownloaded(article.id || id);
   const [isCommentsOpen, setIsCommentsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const [readProgress, setReadProgress] = useState(0);
@@ -268,9 +280,13 @@ export default function LiveArticlePage() {
     setTimeout(() => setToastMessage(null), 3000);
   };
 
-  const handleToggleBookmark = () => {
-    const nextSaved = toggleSaveArticle(articleCardData);
-    showToast(nextSaved ? "खबर सुरक्षित कर ली गई है" : "खबर हटा दी गई है");
+  const handleToggleDownload = () => {
+    const isNowDownloaded = toggleDownloadArticle(articleCardData, article);
+    showToast(
+      isNowDownloaded
+        ? "खबर ऑफलाइन पढ़ने के लिए डाउनलोड हो गई है ✓"
+        : "खबर ऑफलाइन डाउनलोड से हटा दी गई है"
+    );
   };
 
   const handleShare = async () => {
@@ -281,7 +297,7 @@ export default function LiveArticlePage() {
           text: article.subheading,
           url: window.location.href,
         });
-      } catch (e) {
+      } catch {
         // Ignored or cancelled
       }
     } else {
@@ -302,6 +318,21 @@ export default function LiveArticlePage() {
     <div className="w-full h-full bg-[#F7F7F4] text-[#2B2437] font-sans antialiased relative overflow-hidden select-none flex flex-col">
       {/* Hardware Status Bar Clearance (66px) - Uses the exact background of the article */}
       <div className="h-[66px] w-full bg-[#F7F7F4] shrink-0 z-30" />
+
+      {/* Offline Status Clearance Banner */}
+      {isOffline && (
+        <div className="bg-[#FFF9EE] border-b border-[#FDE68A] text-[#92400E] px-4 py-1.5 flex items-center justify-between text-[11.5px] font-bold z-30 shrink-0 animate-fadeIn">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#E39026] animate-pulse" />
+            <span>ऑफलाइन मोड • आप सेव की गई खबर पढ़ रहे हैं</span>
+          </div>
+          {isDownloaded && (
+            <span className="text-[10.5px] px-2 py-0.5 rounded-full bg-[#FEF3C7] text-[#92400E] border border-[#FDE68A]">
+              डाउनलोड उपलब्ध ✓
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Article Reading Completion Bar (0% to 100% width) */}
       <div className="absolute top-[66px] inset-x-0 h-[4px] bg-black/5 z-40 pointer-events-none">
@@ -327,13 +358,15 @@ export default function LiveArticlePage() {
         className="flex-1 w-full overflow-y-auto scrollbar-none overscroll-y-contain scroll-smooth smooth-scroll"
         style={{ WebkitOverflowScrolling: "touch" }}
       >
-        {/* 1. Hero Container (402:320 with optional live pill, bookmark, 3-dots, caption) */}
+        {/* 1. Hero Container (402:320 with optional live pill, download button, 3-dots, caption) */}
         <LiveArticleHero
           hero={article.hero}
           isLive={isLive}
           onBack={handleBack}
-          isBookmarked={isBookmarked}
-          onToggleBookmark={handleToggleBookmark}
+          isDownloaded={isDownloaded}
+          onToggleDownload={handleToggleDownload}
+          isBookmarked={isDownloaded}
+          onToggleBookmark={handleToggleDownload}
           onShare={handleShare}
           articleId={id}
           articleData={articleCardData}

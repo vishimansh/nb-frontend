@@ -3,6 +3,7 @@ import { ChevronLeft } from 'lucide-react';
 import HelpChip from './HelpChip';
 import ProgressPill from './ProgressPill';
 import { useLongPress } from '../../hooks/useLongPress';
+import nbLogo from '../../../../assets/nb-logo.png';
 
 export default function V2Header({
   showBack = true,
@@ -36,14 +37,20 @@ export default function V2Header({
           )}
         </div>
 
-        {/* Centred Logo with 800ms Long Press trigger for Facilitator Panel */}
+        {/* Centred Brand Logo Icon with 800ms Long Press trigger for Facilitator Panel */}
         <div
           {...longPressHandlers}
-          className="cursor-pointer select-none text-center px-2 py-0.5 rounded-lg active:opacity-75 transition-opacity"
+          className="cursor-pointer select-none flex items-center justify-center gap-1.5 px-2 py-0.5 rounded-lg active:opacity-75 transition-opacity"
           title="लॉन्ग-प्रेस: फेसिलिटेटर पैनल"
         >
-          <span className="text-[20px] font-bold text-[#2B2437] tracking-tight">
-            नवभारत <span className="text-[#E39026]">ऐड्स</span>
+          <img
+            src={nbLogo}
+            alt="नवभारत"
+            className="h-[24px] w-auto object-contain"
+            draggable={false}
+          />
+          <span className="text-[12px] font-black text-[#C97F1E] bg-[#FFF9EE] border border-[#FDE68A] px-1.5 py-0.5 rounded-[6px] tracking-tight leading-none shadow-2xs">
+            ऐड्स
           </span>
         </div>
 
@@ -53,10 +60,10 @@ export default function V2Header({
         </div>
       </div>
 
-      {/* Row 2: Progress Pill (only steps 1-7) */}
+      {/* Row 2: Progress Pill (only steps 1-6) */}
       {stepNumber && (
         <div className="w-full flex items-center justify-center pt-0.5 pb-0.5">
-          <ProgressPill currentStep={stepNumber} totalSteps={7} />
+          <ProgressPill currentStep={stepNumber} totalSteps={6} />
         </div>
       )}
     </header>

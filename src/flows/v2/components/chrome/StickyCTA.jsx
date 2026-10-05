@@ -3,15 +3,44 @@ import { ArrowRight } from 'lucide-react';
 
 export default function StickyCTA({
   label,
+  primaryLabel,
   onClick,
+  onPrimary,
   disabled = false,
   missingHint = null,
   summaryContent = null,
+  stickySubtitle = null,
+  secondaryLabel = null,
+  onSecondary = null,
   showArrow = true,
   variant = 'primary', // 'primary' | 'amber'
   subAction = null,
 }) {
   const isAmber = variant === 'amber';
+  const effectiveLabel = label || primaryLabel || '';
+  const effectiveOnClick = onClick || onPrimary;
+
+  let effectiveSummary = summaryContent;
+  if (!effectiveSummary && (stickySubtitle || secondaryLabel)) {
+    effectiveSummary = (
+      <div className="w-full flex items-center justify-between text-[14px]">
+        {stickySubtitle && (
+          <span className="font-extrabold text-[15px] text-[#2B2437]">
+            {stickySubtitle}
+          </span>
+        )}
+        {secondaryLabel && (
+          <button
+            type="button"
+            onClick={onSecondary}
+            className="text-[12.5px] font-bold text-[#E39026] hover:underline cursor-pointer ml-auto"
+          >
+            {secondaryLabel}
+          </button>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="sticky bottom-0 left-0 right-0 w-full z-20 pointer-events-auto">
@@ -27,16 +56,16 @@ export default function StickyCTA({
         )}
 
         {/* Optional Summary Line (e.g. Budget/Review Total) */}
-        {summaryContent && (
+        {effectiveSummary && (
           <div className="w-full flex items-center justify-between px-1 text-[14px]">
-            {summaryContent}
+            {effectiveSummary}
           </div>
         )}
 
         {/* Primary CTA Button */}
         <button
           type="button"
-          onClick={disabled ? undefined : onClick}
+          onClick={disabled ? undefined : effectiveOnClick}
           disabled={disabled}
           className={`w-full h-[54px] rounded-[16px] font-bold text-[17px] flex items-center justify-center gap-2 transition-all duration-150 select-none shadow-md ${
             disabled
@@ -46,7 +75,7 @@ export default function StickyCTA({
               : 'bg-[#2B2437] text-white hover:bg-[#3D334E] active:scale-[0.98]'
           }`}
         >
-          <span>{label}</span>
+          {effectiveLabel && <span>{effectiveLabel}</span>}
           {showArrow && !disabled && <ArrowRight className="w-5 h-5 text-white/90" />}
         </button>
 

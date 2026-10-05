@@ -120,7 +120,9 @@ function v2Reducer(state, action) {
     case 'NAVIGATE': {
       const { screenId, options = {} } = action.payload;
       const history = [...state.nav.history];
-      if (history[history.length - 1] !== screenId) {
+      if (options.replace && history.length > 0) {
+        history[history.length - 1] = screenId;
+      } else if (history[history.length - 1] !== screenId) {
         history.push(screenId);
       }
       return {
@@ -128,7 +130,7 @@ function v2Reducer(state, action) {
         nav: {
           current: screenId,
           history,
-          direction: 'forward',
+          direction: options.direction || 'forward',
           fromReview: options.fromReview ?? false,
           focusField: options.focusField ?? null,
           resubmitFor: options.resubmitFor ?? null,
@@ -142,6 +144,9 @@ function v2Reducer(state, action) {
         return state;
       }
       history.pop();
+      while (history.length > 1 && history[history.length - 1] === 'area') {
+        history.pop();
+      }
       const prevScreen = history[history.length - 1];
       return {
         ...state,

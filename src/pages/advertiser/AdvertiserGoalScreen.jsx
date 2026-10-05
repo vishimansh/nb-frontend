@@ -8,21 +8,21 @@ const GOALS = [
   {
     id: 'reach',
     title: 'ज्यादा लोगों तक पहुंच (Reach)',
-    desc: 'अपने इलाके में ज्यादा से ज्यादा लोगों को विज्ञापन दिखाएं',
+    desc: 'इलाके में ज्यादा से ज्यादा लोगों को विज्ञापन दिखाएं',
     icon: Eye,
     defaultCta: 'अधिक जानें',
   },
   {
     id: 'engagement',
-    title: 'कॉल और मैसेज (Inquiries)',
-    desc: 'ग्राहकों से सीधे कॉल या व्हाट्सएप पर पूछताछ पाएं',
+    title: 'कॉल और मैसेज (Engagement)',
+    desc: 'सीधे कॉल या WhatsApp पर ग्राहक से पूछताछ पाएं',
     icon: Messages3,
     defaultCta: 'व्हाट्सएप करें',
   },
   {
     id: 'ctrs',
-    title: 'वेबसाइट या लिंक क्लिक्स (Clicks)',
-    desc: 'अपनी वेबसाइट, सोशल मीडिया या स्टोर लिंक पर लोग लाएं',
+    title: 'वेबसाइट क्लिक्स (CTR)',
+    desc: 'अपनी वेबसाइट, स्टोर लिंक या सोशल पेज पर लोग लाएं',
     icon: Global,
     defaultCta: 'अभी देखें',
   },
@@ -49,12 +49,14 @@ export default function AdvertiserGoalScreen() {
     }
   };
 
+  const currentGoal = GOALS.find((g) => g.id === selectedGoal) || GOALS[0];
+
   return (
     <div className="w-full h-full bg-[#F7F7F4] flex flex-col select-none overflow-y-auto scrollbar-none">
       <AdvertiserHeader
         variant="brand"
         step="1"
-        totalSteps="7"
+        totalSteps="6"
         onBack={() => {
           if (fromReview) {
             navigate('/advertise/review');
@@ -78,8 +80,8 @@ export default function AdvertiserGoalScreen() {
             आप विज्ञापन से क्या हासिल करना चाहते हैं?
           </p>
 
-          {/* Unified Card Stack */}
-          <div className="bg-white rounded-[20px] border border-[#E5E7EB] p-2.5 space-y-2 shadow-xs mt-4">
+          {/* Clean Focused Card Stack */}
+          <div className="space-y-2 mt-4">
             {GOALS.map((goal) => {
               const isSelected = selectedGoal === goal.id;
               const Icon = goal.icon;
@@ -88,25 +90,25 @@ export default function AdvertiserGoalScreen() {
                 <div
                   key={goal.id}
                   onClick={() => setSelectedGoal(goal.id)}
-                  className={`p-3.5 rounded-[16px] flex items-center justify-between cursor-pointer transition-all active:scale-[0.99] ${
+                  className={`p-3.5 rounded-[18px] bg-white border transition-all cursor-pointer active:scale-[0.99] flex items-center gap-3.5 shadow-2xs ${
                     isSelected
-                      ? 'bg-[#F9FAFB] border border-[#2B2437] ring-1 ring-[#2B2437] shadow-xs'
-                      : 'hover:bg-[#F9FAFB]/60 border border-transparent'
+                      ? 'border-[#2B2437] ring-1 ring-[#2B2437] bg-[#FDFCFB]'
+                      : 'border-[#E5E7EB] hover:border-neutral-300'
                   }`}
                 >
-                  <div className="flex items-center gap-3.5 flex-1 pr-2">
-                    <div className="w-11 h-11 rounded-[14px] bg-[#F7F7F4] flex items-center justify-center text-[#2B2437] shrink-0">
-                      <Icon size={20} color="#2B2437" variant="Bold" />
-                    </div>
+                  <div className={`w-11 h-11 rounded-[14px] flex items-center justify-center shrink-0 ${
+                    isSelected ? 'bg-[#FFF9EE] text-[#E39026] border border-[#FDE68A]' : 'bg-[#F7F7F4] text-[#2B2437]'
+                  }`}>
+                    <Icon size={22} color={isSelected ? '#E39026' : '#2B2437'} variant="Bold" />
+                  </div>
 
-                    <div>
-                      <h2 className="text-[15px] font-bold text-[#2B2437] leading-tight">
-                        {goal.title}
-                      </h2>
-                      <p className="text-[12.5px] text-[#6B7280] font-normal mt-0.5 leading-snug">
-                        {goal.desc}
-                      </p>
-                    </div>
+                  <div className="flex-1 min-w-0 pr-1">
+                    <h2 className="text-[15px] font-bold text-[#2B2437] leading-tight">
+                      {goal.title}
+                    </h2>
+                    <p className="text-[12.5px] text-[#6B7280] font-normal mt-0.5 leading-snug">
+                      {goal.desc}
+                    </p>
                   </div>
 
                   {/* Radio */}
@@ -127,14 +129,21 @@ export default function AdvertiserGoalScreen() {
               );
             })}
           </div>
+
+          {/* Minimal 1-line CTA Indicator */}
+          <div className="w-full flex justify-center mt-3">
+            <span className="text-[12px] font-medium text-[#6B7280] bg-[#FFF9EE] border border-[#FDE68A] px-3 py-1 rounded-full">
+              बटन होगा: <strong className="text-[#2B2437]">"{currentGoal.defaultCta}"</strong>
+            </span>
+          </div>
         </div>
 
-        {/* Action CTA matching MVP onboarding button */}
+        {/* Action CTA */}
         <div className="pt-4">
           <button
             type="button"
             onClick={handleProceed}
-            className="w-full h-[56px] rounded-[16px] bg-[#2B2437] hover:bg-[#3D334E] text-white font-medium text-[18px] shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] transition-colors"
+            className="w-full h-[56px] rounded-[16px] bg-[#2B2437] hover:bg-[#3D334E] text-white font-medium text-[18px] shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] transition-all"
           >
             <span>आगे बढ़ें</span>
             <ArrowRight size={20} color="#FFFFFF" variant="Linear" />

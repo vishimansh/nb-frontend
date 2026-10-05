@@ -53,8 +53,29 @@ export function useFlowNav() {
       safeNavigate('review');
       return;
     }
+
+    // Prevent getting stuck in redirect loops (e.g. 'area' -> 'budget')
+    const history = state.nav?.history || [];
+    if (history.length > 1) {
+      let prevIndex = history.length - 2;
+      while (prevIndex >= 0 && (history[prevIndex] === 'area' || history[prevIndex] === currentScreenId)) {
+        prevIndex--;
+      }
+      if (prevIndex >= 0) {
+        safeNavigate(history[prevIndex], { direction: 'backward' });
+        return;
+      }
+    }
+
+    // Fallback to previous wizard step if history is shallow or refreshed
+    const currentIndex = STEP_ORDER.indexOf(currentScreenId);
+    if (currentIndex > 0) {
+      safeNavigate(STEP_ORDER[currentIndex - 1], { direction: 'backward' });
+      return;
+    }
+
     goBack();
-  }, [isFromReview, safeNavigate, goBack]);
+  }, [isFromReview, safeNavigate, goBack, state.nav?.history, currentScreenId]);
 
   // Primary CTA label depending on mode
   const getCtaLabel = (defaultLabel = STRINGS.common.next) => {

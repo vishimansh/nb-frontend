@@ -39,19 +39,19 @@ export const SCREENS = {
   },
   area: {
     id: 'area',
-    stepNumber: 5,
+    stepNumber: null,
     requiresAuth: true,
     requiresShop: true,
   },
   budget: {
     id: 'budget',
-    stepNumber: 6,
+    stepNumber: 5,
     requiresAuth: true,
     requiresShop: true,
   },
   review: {
     id: 'review',
-    stepNumber: 7,
+    stepNumber: 6,
     requiresAuth: true,
     requiresShop: true,
   },
@@ -72,6 +72,6 @@ export const SCREENS = {
   },
 };
 
-export const STEP_ORDER = ['shop', 'goal', 'format', 'ad', 'area', 'budget', 'review'];
+export const STEP_ORDER = ['shop', 'goal', 'format', 'ad', 'budget', 'review'];
 
 export const getScreenConfig = (screenId) => SCREENS[screenId] || SCREENS.intro;

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Judge,
+  Bank,
   TrendUp,
   Teacher,
   Coffee,
@@ -88,7 +88,7 @@ export const CATEGORY_METADATA = {
     id: 'politics',
     label: 'राजनीति',
     color: '#C87528',
-    iconComponent: Judge,
+    iconComponent: Bank,
   },
   entertainment: {
     id: 'entertainment',

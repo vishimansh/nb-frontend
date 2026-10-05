@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { ArchiveAdd, ArchiveTick, Copy, TickCircle, Whatsapp } from 'iconsax-react';
+import { Copy, TickCircle, Whatsapp } from 'iconsax-react';
+import { Download, Check } from 'lucide-react';
 import { useSavedArticles } from '../../context/SavedArticlesContext';
 
 /**
  * ArticleOptionsMenu
  * Floating action popover appearing over/under the 3-dot icon on news article cards and article screens.
- * Seamlessly connects to SavedArticlesContext so saved articles appear on /saved.
+ * Seamlessly connects to SavedArticlesContext so downloaded articles appear on /saved and work offline.
  */
 export default function ArticleOptionsMenu({
   isOpen,
@@ -13,18 +14,19 @@ export default function ArticleOptionsMenu({
   articleId,
   headline,
   articleData,
+  fullArticleData,
   showWhatsApp = false,
   className = "",
 }) {
-  const { isArticleSaved, toggleSaveArticle } = useSavedArticles();
+  const { isArticleDownloaded, toggleDownloadArticle } = useSavedArticles();
   const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
 
   const targetId = articleId || headline || articleData?.id;
-  const isSaved = isArticleSaved(targetId);
+  const isDownloaded = isArticleDownloaded(targetId);
 
-  const handleSave = (e) => {
+  const handleDownload = (e) => {
     e.stopPropagation();
     const payload = articleData || {
       id: targetId,
@@ -33,11 +35,11 @@ export default function ArticleOptionsMenu({
       publishedAgo: 'अभी-अभी',
       readTime: '3 मिनट पढ़ें',
     };
-    toggleSaveArticle(payload);
+    toggleDownloadArticle(payload, fullArticleData || articleData);
 
     setTimeout(() => {
       onClose();
-    }, 500);
+    }, 400);
   };
 
   const handleWhatsApp = (e) => {
@@ -83,21 +85,26 @@ export default function ArticleOptionsMenu({
       {/* Floating Popover Container (Positioned below the 3-dots icon) */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`absolute top-[calc(100%+8px)] right-0 z-50 bg-white rounded-[12px] shadow-xl border border-[#E5E7EB] py-1.5 w-[156px] flex flex-col select-none transition-all duration-150 ${className}`}
+        className={`absolute top-[calc(100%+8px)] right-0 z-50 bg-white rounded-[12px] shadow-xl border border-[#E5E7EB] py-1.5 w-[164px] flex flex-col select-none transition-all duration-150 ${className}`}
       >
-        {/* Option 1: खबर सेव करें / खबर सेव हुई */}
+        {/* Option 1: ऑफलाइन डाउनलोड / डाउनलोड से हटाएं */}
         <button
           type="button"
-          onClick={handleSave}
+          onClick={handleDownload}
           className="w-full flex items-center gap-2.5 px-3 py-2 text-[12.5px] font-medium text-[#2B2437] hover:bg-[#F8FAFC] active:bg-[#F1F5F9] transition-colors text-left cursor-pointer rounded-t-[10px]"
         >
-          {isSaved ? (
-            <ArchiveTick size={16} color="#E39026" variant="Bold" className="shrink-0" />
+          {isDownloaded ? (
+            <div className="relative flex items-center justify-center shrink-0">
+              <Download size={16} className="text-[#E39026]" strokeWidth={2.2} />
+              <span className="absolute -bottom-1 -right-1 w-2.5 h-2.5 bg-[#10B981] rounded-full flex items-center justify-center">
+                <Check size={6} className="text-white stroke-[4]" />
+              </span>
+            </div>
           ) : (
-            <ArchiveAdd size={16} color="#2B2437" variant="Linear" className="shrink-0" />
+            <Download size={16} className="text-[#2B2437] shrink-0" strokeWidth={2.2} />
           )}
-          <span className={isSaved ? "text-[#E39026] font-bold" : ""}>
-            {isSaved ? 'सेव से हटाएं' : 'खबर सेव करें'}
+          <span className={isDownloaded ? "text-[#E39026] font-bold" : ""}>
+            {isDownloaded ? 'डाउनलोड से हटाएं' : 'ऑफलाइन डाउनलोड'}
           </span>
         </button>
 

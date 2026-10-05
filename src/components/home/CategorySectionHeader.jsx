@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   ArrowRight2,
-  Judge,
+  Bank,
   TrendUp,
   Teacher,
   Heart,
@@ -135,7 +135,7 @@ export default function CategorySectionHeader({ category, onCategoryClick, class
       ) : (
         /* Faint Watermark Icon (opacity-15, themed fallback using iconsax-react) */
         <div className="absolute right-16 top-1/2 -translate-y-1/2 pointer-events-none opacity-20 overflow-hidden flex items-center z-0">
-          {category.id === 'politics' && <Judge size={36} color="#2B2437" variant="Bold" />}
+          {category.id === 'politics' && <Bank size={36} color="#2B2437" variant="Bold" />}
           {category.id === 'entertainment' && <ClapperboardIcon size={36} color="#2B2437" />}
           {category.id === 'sports' && <CricketIcon size={36} color="#2B2437" />}
           {category.id === 'business' && <TrendUp size={36} color="#2B2437" variant="Bold" />}

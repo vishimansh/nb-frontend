@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft2 } from 'iconsax-react';
+import nbLogo from '../../assets/nb-logo.png';
 
 export default function AdvertiserHeader({
   title = 'नवभारत विज्ञापन',
@@ -36,10 +37,17 @@ export default function AdvertiserHeader({
           <ArrowLeft2 size={20} color="#2B2437" variant="Linear" />
         </button>
 
-        {/* Center: Brand Name (नवभारत ऐड्स) */}
-        <div className="flex items-center gap-1 font-bold text-[20px] tracking-tight">
-          <span className="text-[#2B2437]">नवभारत</span>
-          <span className="text-[#E39026]">ऐड्स</span>
+        {/* Center: Brand Name with Logo Icon (नवभारत ऐड्स) */}
+        <div className="flex items-center gap-1.5 font-bold tracking-tight">
+          <img
+            src={nbLogo}
+            alt="नवभारत"
+            className="h-[24px] w-auto object-contain"
+            draggable={false}
+          />
+          <span className="text-[12px] font-black text-[#C97F1E] bg-[#FFF9EE] border border-[#FDE68A] px-1.5 py-0.5 rounded-[6px] tracking-tight leading-none shadow-2xs">
+            ऐड्स
+          </span>
         </div>
 
         {/* Right: Stepper Pill [ — •••••• ] 1/7 */}

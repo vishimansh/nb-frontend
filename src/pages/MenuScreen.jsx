@@ -8,7 +8,6 @@ import {
   Folder2,
   Location,
   Notification,
-  ArchiveBook,
   TickSquare,
   Setting2,
   User,
@@ -26,12 +25,15 @@ import {
 
 import BackButton from '../components/common/BackButton';
 import profileSkyline from '../assets/illustrations/profile_skyline_bhopal.png';
+import { Download, Palette } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 export default function MenuScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const { selectedCategories = [], userProfile = {} } = useOnboarding();
   const { campaigns = [], advertiserAuth = {}, isBusinessProfileSaved } = useAdvertiser();
+  const { primaryColor, accentColor, setIsCustomizerOpen } = useTheme();
   const [isExiting, setIsExiting] = useState(false);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
@@ -165,7 +167,7 @@ export default function MenuScreen() {
           <button
             type="button"
             onClick={() => navigate('/profile', { state: { from: 'menu' } })}
-            className="w-10 h-10 rounded-[12px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white cursor-pointer active:scale-95 shadow-xs relative z-10 hover:bg-[#2B2437] transition-all shrink-0"
+            className="w-10 h-10 rounded-[12px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white cursor-pointer active:scale-95 shadow-xs relative z-10 hover:bg-[#2B2437] transition-all shrink-0"
             title="प्रोफ़ाइल संपादित करें"
           >
             <Edit2 size={17} color="#FFFFFF" variant="Bold" />
@@ -211,11 +213,10 @@ export default function MenuScreen() {
                   <Shop size={20} color="#FFFFFF" variant="Bold" />
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 mb-0.5">
+                  <div className="flex items-center gap-2">
                     <span className="text-[14.5px] font-bold text-[#2B2437] leading-snug">नवभारत ऐड्स</span>
                     <span className="px-2 py-0.5 text-[9.5px] font-extrabold bg-[#E39026] text-white rounded-full uppercase tracking-wide leading-none">नया</span>
                   </div>
-                  <span className="text-[11.5px] text-[#C97F1E] font-semibold leading-none">सेल्फ़-सर्व · आसान · कुछ मिनट में तैयार</span>
                 </div>
               </div>
               <div className="w-7 h-7 rounded-full bg-[#E39026]/15 flex items-center justify-center shrink-0 ml-2 group-hover:bg-[#E39026]/25 transition-colors">
@@ -240,12 +241,11 @@ export default function MenuScreen() {
               className="w-full rounded-[16px] bg-[#F9FAFB] border border-[#E5E7EB] px-4 py-3.5 flex items-center justify-between shadow-2xs active:scale-[0.99] cursor-pointer hover:bg-[#F3F4F6] transition-all text-left group"
             >
               <div className="flex items-center gap-3.5">
-                <div className="w-11 h-11 rounded-[13px] bg-[#2B2437]/[0.90] flex items-center justify-center shrink-0 shadow-sm">
+                <div className="w-11 h-11 rounded-[13px] bg-[#2B2437]/[0.86] flex items-center justify-center shrink-0 shadow-sm">
                   <Shop size={20} color="#FFFFFF" variant="Bold" />
                 </div>
                 <div>
-                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug block mb-0.5">विज्ञापन फ़्लो A</span>
-                  <span className="text-[11.5px] text-[#6B7280] font-medium leading-none">मूल विज्ञापन अनुभव</span>
+                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug block">विज्ञापन फ़्लो A</span>
                 </div>
               </div>
               <div className="w-7 h-7 rounded-full bg-[#2B2437]/[0.07] flex items-center justify-center shrink-0 ml-2 group-hover:bg-[#2B2437]/[0.12] transition-colors">
@@ -296,7 +296,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Location size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -312,7 +312,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Notification size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -328,7 +328,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Notification size={18} color="#FFFFFF" variant="Outline" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -338,18 +338,56 @@ export default function MenuScreen() {
               <ArrowRight2 size={16} color="#9CA3AF" />
             </div>
 
-            {/* Row 4: सेव की गई खबरें */}
+            {/* Row 4: डाउनलोड की गई खबरें (ऑफलाइन पढ़ें) */}
             <div
               onClick={() => navigate('/saved')}
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
-                  <ArchiveBook size={18} color="#FFFFFF" variant="Bold" />
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                  <Download size={18} color="#FFFFFF" strokeWidth={2.2} />
                 </div>
-                <span className="text-[14px] font-semibold text-[#2B2437]">
-                  सेव की गई खबरें
-                </span>
+                <div>
+                  <span className="text-[14px] font-semibold text-[#2B2437] block leading-tight">
+                    डाउनलोड की गई खबरें
+                  </span>
+                  <span className="text-[11px] text-[#64748B] font-medium block">
+                    ऑफलाइन कभी भी पढ़ें
+                  </span>
+                </div>
+              </div>
+              <ArrowRight2 size={16} color="#9CA3AF" />
+            </div>
+
+            {/* Row 5: Color Picker */}
+            <div
+              onClick={() => setIsCustomizerOpen(true)}
+              className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3 flex-1 mr-2">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                  <Palette size={18} color="#FFFFFF" strokeWidth={2.2} />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[14px] font-semibold text-[#2B2437] block leading-tight">
+                      Color Picker
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span
+                        className="w-2.5 h-2.5 rounded-full border border-white shadow-2xs inline-block"
+                        style={{ backgroundColor: primaryColor }}
+                      />
+                      <span
+                        className="w-2.5 h-2.5 rounded-full border border-white shadow-2xs inline-block -ml-1"
+                        style={{ backgroundColor: accentColor }}
+                      />
+                    </span>
+                  </div>
+                  <span className="text-[11px] text-[#64748B] font-medium block">
+                    Change Primary & Accent colors in real time
+                  </span>
+                </div>
               </div>
               <ArrowRight2 size={16} color="#9CA3AF" />
             </div>
@@ -373,7 +411,7 @@ export default function MenuScreen() {
                 className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3 flex-1">
-                  <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                  <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
                     <SearchNormal1 size={18} color="#FFFFFF" />
                   </div>
                   <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -413,7 +451,7 @@ export default function MenuScreen() {
                       key={catId}
                       className="h-[56px] bg-[#F9FAFB] border border-[#F0F1F3] rounded-[16px] px-3.5 flex items-center gap-3 shadow-2xs"
                     >
-                      <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                      <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
                         {IconComp && <IconComp size={18} color="#FFFFFF" variant="Bold" />}
                       </div>
                       <span className="text-[14px] font-semibold text-[#2B2437] truncate">
@@ -444,7 +482,7 @@ export default function MenuScreen() {
                     key={catId}
                     className="h-[56px] bg-[#F9FAFB] border border-[#F0F1F3] rounded-[16px] px-3.5 flex items-center gap-3 shadow-2xs select-none"
                   >
-                    <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                    <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
                       {IconComp && <IconComp size={18} color="#FFFFFF" variant="Bold" />}
                     </div>
                     <span className="text-[14px] font-semibold text-[#2B2437] truncate">
@@ -473,7 +511,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <Setting2 size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
@@ -489,7 +527,7 @@ export default function MenuScreen() {
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.92] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
                   <InfoCircle size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">

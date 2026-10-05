@@ -138,7 +138,7 @@ export default function AdvertiserAnalyticsScreen() {
               </div>
             </div>
 
-            {/* कुल क्लिक्स */}
+            {/* कुल क्लिक्स / संपर्क */}
             <div className="bg-white rounded-[20px] p-3.5 border border-[#E5E7EB] shadow-2xs space-y-1.5">
               <div className="flex items-center justify-between">
                 <div className="w-9 h-9 rounded-[12px] bg-[#F7F7F4] border border-[#E5E7EB] flex items-center justify-center text-[#2B2437]">
@@ -150,13 +150,21 @@ export default function AdvertiserAnalyticsScreen() {
               </div>
               <div>
                 <span className="text-[12px] font-medium text-[#6B7280] block">
-                  कुल क्लिक्स
+                  {campaign.goal === 'engagement'
+                    ? 'कॉल व मैसेज'
+                    : campaign.goal === 'ctrs'
+                    ? 'वेबसाइट क्लिक्स'
+                    : 'कुल क्लिक्स'}
                 </span>
                 <span className="text-[20px] font-bold text-[#2B2437] leading-tight block font-mono">
                   {Number(clicks).toLocaleString('en-IN')}
                 </span>
                 <span className="text-[11px] text-[#6B7280] font-normal block mt-0.5">
-                  ग्राहकों का जुड़ाव
+                  {campaign.goal === 'engagement'
+                    ? 'ग्राहकों की पूछताछ'
+                    : campaign.goal === 'ctrs'
+                    ? 'लिंक व स्टोर विज़िट'
+                    : 'ग्राहकों का जुड़ाव'}
                 </span>
               </div>
             </div>

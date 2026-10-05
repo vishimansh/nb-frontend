@@ -1,22 +1,22 @@
 export const GOALS = [
   {
     id: 'reach',
-    title: 'ज़्यादा लोग मेरी दुकान को जानें',
-    description: 'अपने शहर में ज़्यादा से ज़्यादा लोगों को विज्ञापन दिखाएँ',
+    title: 'ज्यादा लोगों तक पहुंच (Reach)',
+    description: 'इलाके में ज्यादा से ज्यादा लोगों को विज्ञापन दिखाएं',
     defaultCtaKey: 'learn_more',
     defaultButtonLabel: 'अधिक जानें',
   },
   {
     id: 'engagement',
-    title: 'ग्राहक कॉल या WhatsApp करें',
-    description: 'ग्राहक सीधे कॉल या WhatsApp पर पूछताछ करें',
+    title: 'कॉल और मैसेज (Engagement)',
+    description: 'सीधे कॉल या WhatsApp पर ग्राहक से पूछताछ पाएं',
     defaultCtaKey: 'whatsapp_us',
     defaultButtonLabel: 'WhatsApp करें',
   },
   {
     id: 'ctrs',
-    title: 'लोग मेरी वेबसाइट या पेज देखें',
-    description: 'लोग आपकी वेबसाइट, सोशल मीडिया या स्टोर लिंक पर आएँ',
+    title: 'वेबसाइट क्लिक्स (CTR)',
+    description: 'अपनी वेबसाइट, स्टोर लिंक या सोशल पेज पर लोग लाएं',
     defaultCtaKey: 'view_now',
     defaultButtonLabel: 'अभी देखें',
   },

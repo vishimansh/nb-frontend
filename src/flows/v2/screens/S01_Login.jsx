@@ -10,12 +10,12 @@ import { isValidPhone } from '../utils/validators';
 import { loadSavedAccount } from '../utils/autosave';
 import { track } from '../utils/track';
 import { STRINGS } from '../strings/hi';
-import { Smartphone } from 'lucide-react';
+import { Smartphone, ShieldCheck } from 'lucide-react';
 
 export default function S01_Login({ onOpenFacilitator }) {
   const { state, updateAuth, navigateTo, goBack } = useAdvertiserV2();
 
-  const [phone, setPhone] = useState(state.auth?.phone || '');
+  const [phone, setPhone] = useState(() => state.auth?.phone || loadSavedAccount()?.phone || '');
   const [phoneError, setPhoneError] = useState(null);
   const [isOtpSent, setIsOtpSent] = useState(false);
   const [isSending, setIsSending] = useState(false);
@@ -25,14 +25,6 @@ export default function S01_Login({ onOpenFacilitator }) {
   const [showHelpSheet, setShowHelpSheet] = useState(false);
 
   const timerRef = useRef(null);
-
-  // If returning user already had a saved phone, prefill it
-  useEffect(() => {
-    const savedAccount = loadSavedAccount();
-    if (savedAccount?.phone && !phone) {
-      setPhone(savedAccount.phone);
-    }
-  }, []);
 
   // Timer countdown when OTP is sent
   useEffect(() => {
@@ -97,16 +89,16 @@ export default function S01_Login({ onOpenFacilitator }) {
       />
 
       {/* Main Container */}
-      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col items-center gap-4 scrollbar-none">
+      <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col items-center gap-4 scrollbar-none">
         {/* Title & Subtitle */}
         <div className="flex flex-col items-center text-center gap-1 pt-1">
-          <div className="w-14 h-14 rounded-[16px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] shadow-xs">
-            <Smartphone className="w-7 h-7 text-[#E39026]" />
+          <div className="w-13 h-13 rounded-[18px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] shadow-xs">
+            <Smartphone className="w-6 h-6 text-[#E39026]" />
           </div>
-          <h2 className="text-[20px] font-bold text-[#2B2437] tracking-tight mt-1">
+          <h2 className="text-[22px] font-extrabold text-[#2B2437] tracking-tight mt-1">
             {STRINGS.login.title}
           </h2>
-          <p className="text-[13px] text-[#6B7280]">
+          <p className="text-[13px] font-medium text-[#6B7280]">
             {STRINGS.login.subtitle}
           </p>
         </div>
@@ -120,11 +112,11 @@ export default function S01_Login({ onOpenFacilitator }) {
             </span>
           </div>
         ) : (
-          <div className="w-full max-w-[350px] flex flex-col gap-4">
+          <div className="w-full max-w-[360px] flex flex-col gap-3.5">
             {/* Phone Card */}
-            <div className="p-4 rounded-[22px] bg-white border border-[#E5E7EB] nb2-card-shadow flex flex-col gap-3">
+            <div className="p-4 rounded-[22px] bg-white border border-[#E5E7EB] shadow-xs flex flex-col gap-3">
               <div className="flex items-center justify-between">
-                <label className="text-[14px] font-semibold text-[#2B2437]">
+                <label className="text-[13.5px] font-bold text-[#2B2437]">
                   {STRINGS.login.phoneLabel}
                 </label>
                 {isOtpSent && (
@@ -134,7 +126,7 @@ export default function S01_Login({ onOpenFacilitator }) {
                       setIsOtpSent(false);
                       setOtpError(null);
                     }}
-                    className="text-[13px] font-bold text-[#E39026] hover:underline"
+                    className="text-[12.5px] font-bold text-[#E39026] hover:underline cursor-pointer"
                   >
                     {STRINGS.login.changeNumber}
                   </button>
@@ -163,8 +155,8 @@ export default function S01_Login({ onOpenFacilitator }) {
 
             {/* OTP Block (reveals under phone field) */}
             {isOtpSent && (
-              <div className="p-4 rounded-[22px] bg-white border border-[#E5E7EB] nb2-card-shadow flex flex-col items-center gap-3.5 animate-fadeIn">
-                <label className="text-[14px] font-semibold text-[#2B2437]">
+              <div className="p-4 rounded-[22px] bg-white border border-[#E5E7EB] shadow-xs flex flex-col items-center gap-3.5 animate-fadeIn">
+                <label className="text-[13.5px] font-bold text-[#2B2437]">
                   {STRINGS.login.otpLabel}
                 </label>
 
@@ -175,16 +167,16 @@ export default function S01_Login({ onOpenFacilitator }) {
                 />
 
                 {/* Resend and Help Row */}
-                <div className="w-full flex items-center justify-between pt-1 text-[13px]">
+                <div className="w-full flex items-center justify-between pt-1 text-[12.5px]">
                   {resendTimer > 0 ? (
-                    <span className="text-[#6B7280]">
+                    <span className="text-[#6B7280] font-medium">
                       {STRINGS.login.resendIn(resendTimer)}
                     </span>
                   ) : (
                     <button
                       type="button"
                       onClick={handleResend}
-                      className="font-bold text-[#E39026] hover:underline"
+                      className="font-bold text-[#E39026] hover:underline cursor-pointer"
                     >
                       {STRINGS.login.resendBtn}
                     </button>
@@ -193,13 +185,19 @@ export default function S01_Login({ onOpenFacilitator }) {
                   <button
                     type="button"
                     onClick={() => setShowHelpSheet(true)}
-                    className="text-[#6B7280] font-medium hover:text-[#2B2437] hover:underline"
+                    className="text-[#6B7280] font-medium hover:text-[#2B2437] hover:underline cursor-pointer"
                   >
                     {STRINGS.login.noOtpHelp}
                   </button>
                 </div>
               </div>
             )}
+
+            {/* Privacy Reassurance Pill */}
+            <div className="flex items-center justify-center gap-1.5 text-[11.5px] text-[#9CA3AF] font-medium py-1">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
+              <span>सुरक्षित व गोपनीय • केवल OTP सत्यापन के लिए</span>
+            </div>
           </div>
         )}
       </div>

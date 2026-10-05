@@ -11,6 +11,7 @@ export default function CitySheet({
   onClose,
   selectedCityIds = [],
   onSaveSelection,
+  onToggleCity = null,
   singleSelect = false,
   onSelectSingleCity = null,
 }) {
@@ -36,6 +37,10 @@ export default function CitySheet({
     setTempSelected((prev) =>
       prev.includes(cityId) ? prev.filter((id) => id !== cityId) : [...prev, cityId]
     );
+
+    if (onToggleCity) {
+      onToggleCity(cityId);
+    }
   };
 
   const toggleState = (stateName) => {

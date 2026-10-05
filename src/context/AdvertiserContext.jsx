@@ -361,6 +361,85 @@ export const AdvertiserProvider = ({ children }) => {
     );
   };
 
+  const loadSampleCampaigns = () => {
+    const samples = [
+      {
+        id: 'cmp-demo-eng',
+        orderId: 'NB-ADV-78214',
+        status: 'live',
+        createdAt: Date.now() - 86400000 * 2,
+        businessName: 'रॉयल साड़ी संसार',
+        businessCategory: 'कपड़े और परिधान',
+        format: 'video_ad',
+        goal: 'engagement',
+        dailyBudget: 250,
+        totalSpend: 2065,
+        impressions: 34800,
+        clicks: 435,
+        ctr: 1.25,
+        startDate: '01-10-2026',
+        durationDays: 7,
+        details: {
+          headline: 'नई बनारसी और कांजीवरम साड़ियों पर 30% विशेष छूट',
+          destinationUrl: '9826012345',
+          callNumber: '9826012345',
+          ctaText: 'WhatsApp करें',
+          targetingType: 'radius',
+          radiusKm: 10,
+        },
+      },
+      {
+        id: 'cmp-demo-ctr',
+        orderId: 'NB-ADV-55421',
+        status: 'live',
+        createdAt: Date.now() - 86400000 * 1,
+        businessName: 'कैफे भोपाल बाइट्स',
+        businessCategory: 'रेस्टोरेंट व कैफे',
+        format: 'feed_card_ad',
+        goal: 'ctrs',
+        dailyBudget: 350,
+        totalSpend: 2065,
+        impressions: 52000,
+        clicks: 832,
+        ctr: 1.6,
+        startDate: '02-10-2026',
+        durationDays: 5,
+        details: {
+          headline: 'भोपाल का सबसे लज़ीज़ पिज्जा - आज ही ऑनलाइन ऑर्डर करें',
+          destinationUrl: 'https://bhopalbites.in/menu',
+          ctaText: 'अभी देखें',
+          targetingType: 'radius',
+          radiusKm: 15,
+        },
+      },
+      {
+        id: 'cmp-demo-reach',
+        orderId: 'NB-ADV-31092',
+        status: 'live',
+        createdAt: Date.now() - 86400000 * 3,
+        businessName: 'संजीवनी हॉस्पिटल',
+        businessCategory: 'स्वास्थ्य व चिकित्सा',
+        format: 'grid_ad',
+        goal: 'reach',
+        dailyBudget: 500,
+        totalSpend: 4130,
+        impressions: 124500,
+        clicks: 1170,
+        ctr: 0.94,
+        startDate: '29-09-2026',
+        durationDays: 7,
+        details: {
+          headline: 'मुफ़्त स्वास्थ्य जांच शिविर - इस रविवार सुबह 9 बजे से',
+          destinationUrl: '9826099887',
+          ctaText: 'अधिक जानें',
+          targetingType: 'radius',
+          radiusKm: 25,
+        },
+      },
+    ];
+    setCampaigns(samples);
+  };
+
   return (
     <AdvertiserContext.Provider
       value={{
@@ -381,6 +460,7 @@ export const AdvertiserProvider = ({ children }) => {
         approveCampaign,
         updateCampaignBudget,
         logoutAdvertiser,
+        loadSampleCampaigns,
       }}
     >
       {children}

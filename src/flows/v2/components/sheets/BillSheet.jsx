@@ -8,12 +8,19 @@ export default function BillSheet({
   isOpen,
   onClose,
   daily,
-  days,
+  dailyAmount,
+  days = 7,
   subtotal,
   gst,
   total,
 }) {
   const [showGstInfo, setShowGstInfo] = useState(false);
+
+  const effDaily = daily || dailyAmount || 250;
+  const effDays = days || 7;
+  const effSubtotal = subtotal !== undefined ? subtotal : effDaily * effDays;
+  const effGst = gst !== undefined ? gst : Math.round(effSubtotal * 0.18);
+  const effTotal = total !== undefined ? total : effSubtotal + effGst;
 
   return (
     <>
@@ -27,8 +34,8 @@ export default function BillSheet({
           <div className="p-4 rounded-2xl bg-[#F8F8F4] border border-[#E5E7EB] flex flex-col gap-2.5">
             {/* Subtotal line */}
             <div className="flex items-center justify-between text-[14.5px] text-[#4A4358]">
-              <span>विज्ञापन बजट ({daily}/दिन × {days} दिन):</span>
-              <span className="font-semibold text-[#2B2437]">₹{formatIN(subtotal)}</span>
+              <span>विज्ञापन बजट ({effDaily}/दिन × {effDays} दिन):</span>
+              <span className="font-semibold text-[#2B2437]">₹{formatIN(effSubtotal)}</span>
             </div>
 
             {/* GST line */}
@@ -43,7 +50,7 @@ export default function BillSheet({
                   {STRINGS.billSheet.whatIsGstLink}
                 </button>
               </div>
-              <span className="font-semibold text-[#2B2437]">₹{formatIN(gst)}</span>
+              <span className="font-semibold text-[#2B2437]">₹{formatIN(effGst)}</span>
             </div>
 
             <div className="w-full h-px bg-[#E5E7EB] my-1" />
@@ -51,7 +58,7 @@ export default function BillSheet({
             {/* Grand Total */}
             <div className="flex items-center justify-between text-[17px] font-extrabold text-[#2B2437]">
               <span>{STRINGS.billSheet.totalLine('')}</span>
-              <span>₹{formatIN(total)}</span>
+              <span>₹{formatIN(effTotal)}</span>
             </div>
           </div>
 

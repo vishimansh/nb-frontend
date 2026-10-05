@@ -21,8 +21,6 @@ export default function FormatMiniPhone({
   formatId,
   shopName = 'आपकी दुकान',
 }) {
-  const initial = (shopName || 'द').charAt(0);
-
   // ----------------------------------------------------
   // 1. VIDEO REEL AD (Toyota Video Reel from MVP)
   // ----------------------------------------------------

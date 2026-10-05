@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import V2Header from '../components/chrome/V2Header';
 import StickyCTA from '../components/chrome/StickyCTA';
-import ChoiceRow from '../components/ui/ChoiceRow';
 import HelpSheet from '../components/sheets/HelpSheet';
 import { useAdvertiserV2 } from '../context/AdvertiserV2Context';
 import { useFlowNav } from '../router/useFlowNav';
 import { GOALS, getGoalById } from '../data/goals';
 import { STRINGS } from '../strings/hi';
-import { Target, Users, MessageSquareText, Globe } from 'lucide-react';
+import { Users, MessageSquareText, Globe, Check } from 'lucide-react';
 
 const ICON_MAP = {
   reach: Users,
@@ -44,43 +43,82 @@ export default function S03_Goal({ onOpenFacilitator }) {
       />
 
       {/* Main Content */}
-      <div className="flex-1 overflow-y-auto px-4 py-4 flex flex-col items-center gap-4 scrollbar-none">
-        {/* Screen Icon Tile & Title */}
-        <div className="flex flex-col items-center text-center gap-1.5 pt-1">
-          <div className="w-14 h-14 rounded-[16px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] shadow-xs">
-            <Target className="w-7 h-7 text-[#E39026]" />
-          </div>
-          <h2 className="text-[20px] font-bold text-[#2B2437] tracking-tight leading-tight mt-1">
+      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col items-center gap-3.5 scrollbar-none">
+        {/* Minimal Screen Title */}
+        <div className="flex flex-col items-center text-center gap-0.5 pt-0.5">
+          <h2 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.goal.title}
           </h2>
-          <p className="text-[13px] text-[#6B7280]">
+          <p className="text-[12px] text-[#6B7280]">
             {STRINGS.goal.subtitle}
           </p>
         </div>
 
         {/* Goals Selection Cards Stack */}
-        <div className="w-full max-w-[360px] bg-white rounded-[20px] border border-[#E5E7EB] p-2.5 space-y-2 shadow-xs">
+        <div className="w-full max-w-[360px] flex flex-col gap-2.5">
           {GOALS.map((goal) => {
             const isSelected = goal.id === selectedGoal;
             const IconComp = ICON_MAP[goal.id] || Users;
 
             return (
-              <div key={goal.id} className="flex flex-col gap-1.5">
-                <ChoiceRow
-                  title={goal.title}
-                  description={goal.description}
-                  selected={isSelected}
-                  onClick={() => handleSelectGoal(goal.id)}
-                  icon={<IconComp className="w-5 h-5" />}
-                />
+              <div
+                key={goal.id}
+                onClick={() => handleSelectGoal(goal.id)}
+                className={`p-3.5 rounded-[20px] border transition-all duration-150 cursor-pointer select-none flex items-center gap-3.5 ${
+                  isSelected
+                    ? 'bg-white border-[#2B2437] ring-2 ring-[#2B2437]/15 shadow-sm'
+                    : 'bg-white border-[#E5E7EB] hover:border-neutral-300 shadow-2xs'
+                } active:scale-[0.99]`}
+              >
+                {/* Icon tile */}
+                <div
+                  className={`w-11 h-11 rounded-[14px] flex items-center justify-center shrink-0 transition-colors ${
+                    isSelected ? 'bg-[#FFF9EE] text-[#E39026] border border-[#FDE68A]' : 'bg-[#F7F7F4] text-[#4A4358]'
+                  }`}
+                >
+                  <IconComp className="w-5 h-5" />
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 min-w-0 pr-1">
+                  <div className="flex items-center gap-1.5">
+                    <h4 className="text-[14.5px] font-bold text-[#2B2437] leading-tight">
+                      {goal.title}
+                    </h4>
+                    {goal.id === 'engagement' && (
+                      <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[10.5px] font-bold text-[#C97F1E]">
+                        लोकप्रिय
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[12px] text-[#6B7280] leading-snug mt-0.5">
+                    {goal.description}
+                  </p>
+                </div>
+
+                {/* Check / Radio indicator */}
+                <div className="shrink-0">
+                  <div
+                    className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${
+                      isSelected
+                        ? 'border-[#2B2437] bg-[#2B2437]'
+                        : 'border-[#D1D5DB] bg-white'
+                    }`}
+                  >
+                    {isSelected && (
+                      <Check className="w-3 h-3 text-white stroke-[3]" />
+                    )}
+                  </div>
+                </div>
               </div>
             );
           })}
         </div>
 
-        {/* Live Button Notice Chip */}
-        <div className="px-3.5 py-1.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[12px] font-bold text-[#C97F1E] shadow-2xs animate-fadeIn">
-          {STRINGS.goal.btnPreviewNotice(currentGoalObj.defaultButtonLabel)}
+        {/* Live Button Notice Pill */}
+        <div className="px-3.5 py-1.5 rounded-full bg-white border border-[#E5E7EB] text-[11.5px] font-bold text-[#4A4358] shadow-2xs inline-flex items-center gap-1.5 animate-fadeIn">
+          <span className="w-2 h-2 rounded-full bg-[#E39026]" />
+          <span>{STRINGS.goal.btnPreviewNotice(currentGoalObj.defaultButtonLabel)}</span>
         </div>
       </div>
 

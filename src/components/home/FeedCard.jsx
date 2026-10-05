@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Judge,
+  Bank,
   TrendUp,
   Teacher,
   Heart,
@@ -11,6 +11,7 @@ import {
   Location,
   Buildings,
   DocumentText,
+  Flash,
   Speaker,
   Whatsapp,
 } from 'iconsax-react';
@@ -48,7 +49,7 @@ const ClapperboardIcon = ({ size = 16, color = 'currentColor' }) => (
 );
 
 export const CATEGORY_PALETTES = {
-  politics: { label: 'राजनीति', color: '#B6783A', icon: Judge },
+  politics: { label: 'राजनीति', color: '#B6783A', icon: Bank },
   entertainment: { label: 'मनोरंजन', color: '#805D76', icon: ClapperboardIcon },
   sports: { label: 'खेल', color: '#557E63', icon: CricketIcon },
   business: { label: 'बिज़नेस', color: '#497877', icon: TrendUp },
@@ -61,12 +62,12 @@ export const CATEGORY_PALETTES = {
   city: { label: 'शहर', color: '#F5B55C', icon: Location },
   state: { label: 'राज्य', color: '#2B2437', icon: Buildings },
   country: { label: 'देश', color: '#2B2437', icon: DocumentText },
-  'top-news': { label: 'टॉप न्यूज़', color: '#F5B55C', icon: DocumentText },
-  'top_news': { label: 'टॉप न्यूज़', color: '#F5B55C', icon: DocumentText },
+  'top-news': { label: 'टॉप न्यूज़', color: '#F5B55C', icon: Flash },
+  'top_news': { label: 'टॉप न्यूज़', color: '#F5B55C', icon: Flash },
 };
 
 const ICON_MAP = {
-  Judge,
+  Bank,
   ClapperboardIcon,
   CricketIcon,
   AstroZodiacWheelIcon,
@@ -81,8 +82,9 @@ const ICON_MAP = {
   Location,
   Buildings,
   DocumentText,
+  Flash,
   // Backward-compatible mappings
-  Scales: Judge,
+  Scales: Bank,
   FilmStrip: ClapperboardIcon,
   SoccerBall: CricketIcon,
   GraduationCap: Teacher,

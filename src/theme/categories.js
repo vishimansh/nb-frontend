@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   TrendUp,
-  Judge,
+  Bank,
   Teacher,
   Coffee,
   Car,
@@ -61,7 +61,7 @@ export const NOTIFICATION_CATEGORIES = {
     id: 'politics',
     label: 'राजनीति',
     color: '#C87528',
-    icon: Judge,
+    icon: Bank,
   },
   tech: {
     id: 'tech',

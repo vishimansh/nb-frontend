@@ -89,8 +89,8 @@ export default function AdvertiserReviewScreen() {
     <div className="w-full h-full bg-[#F7F7F4] flex flex-col select-none overflow-y-auto scrollbar-none">
       <AdvertiserHeader
         variant="brand"
-        step="7"
-        totalSteps="7"
+        step="6"
+        totalSteps="6"
         onBack={() => navigate('/advertise/budget', { state: { fromReview: true } })}
       />
 
@@ -250,7 +250,7 @@ export default function AdvertiserReviewScreen() {
               </div>
               <button
                 type="button"
-                onClick={() => navigate('/advertise/targeting', { state: { fromReview: true } })}
+                onClick={() => navigate('/advertise/budget', { state: { fromReview: true } })}
                 className="text-[12px] font-semibold text-[#E39026] flex items-center gap-1 hover:underline cursor-pointer"
               >
                 <Edit2 size={13} color="#E39026" />

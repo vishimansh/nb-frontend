@@ -6,7 +6,6 @@ import { useAdvertiserV2 } from '../context/AdvertiserV2Context';
 import { useFlowNav } from '../router/useFlowNav';
 import { getRejectionReasonById } from '../data/rejectionReasons';
 import { formatIN } from '../utils/formatIN';
-import { CONFIG } from '../config';
 import { track } from '../utils/track';
 import { STRINGS } from '../strings/hi';
 import { openWhatsAppSupport } from '../utils/whatsapp';
@@ -16,7 +15,6 @@ import {
   Sparkles,
   Radio,
   AlertCircle,
-  HelpCircle,
 } from 'lucide-react';
 
 const TIMELINE_STEPS = [
@@ -82,17 +80,24 @@ export default function S09_Status({ onOpenFacilitator }) {
       />
 
       {/* Main Status Container */}
-      <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-4 scrollbar-none">
+      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3.5 scrollbar-none">
         {/* Order Card Banner */}
-        <div className="p-3.5 rounded-2xl bg-white border border-[#E5E7EB] nb2-card-shadow flex items-center justify-between">
-          <span className="text-[14px] font-bold text-[#2B2437]">
-            {STRINGS.status.orderHeader(campaign.orderId, formatIN(campaign.money?.total || 2065))}
-          </span>
-          <CheckCircle2 className="w-5 h-5 text-[#2F8F5B]" />
+        <div className="p-3.5 rounded-[20px] bg-white border border-[#E5E7EB] shadow-xs flex items-center justify-between">
+          <div className="flex flex-col">
+            <span className="text-[11.5px] font-bold text-[#6B7280] uppercase tracking-wider">
+              ऑर्डर विवरण
+            </span>
+            <span className="text-[15px] font-extrabold text-[#2B2437] mt-0.5">
+              {campaign.orderId} • {formatIN(campaign.money?.total || 2065)}
+            </span>
+          </div>
+          <div className="w-8 h-8 rounded-full bg-[#EEF8F2] border border-[#A7F3D0] flex items-center justify-center text-[#2F8F5B]">
+            <CheckCircle2 className="w-4 h-4 text-[#2F8F5B]" />
+          </div>
         </div>
 
         {/* Vertical Timeline */}
-        <div className="p-4 rounded-[22px] bg-white border border-[#E5E7EB] nb2-card-shadow flex flex-col gap-3">
+        <div className="p-4 rounded-[22px] bg-white border border-[#E5E7EB] shadow-xs flex flex-col gap-3">
           <h3 className="text-[15px] font-extrabold text-[#2B2437]">
             प्रक्रिया की स्थिति
           </h3>
@@ -110,20 +115,20 @@ export default function S09_Status({ onOpenFacilitator }) {
                   <div className="flex flex-col items-center shrink-0 w-8">
                     {/* Step Node */}
                     <div
-                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
+                      className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${
                         isPast
-                          ? 'bg-[#2F8F5B] shadow-[0_0_0_4px_rgba(47,143,91,0.12)]'
+                          ? 'bg-[#2F8F5B] text-white shadow-2xs'
                           : isCurrent
-                          ? 'bg-white border-[2.5px] border-[#E39026] shadow-[0_0_0_4px_rgba(227,144,38,0.15)]'
+                          ? 'bg-white border-2 border-[#E39026] shadow-[0_0_0_3px_rgba(227,144,38,0.15)]'
                           : 'bg-[#F3F4F6] border border-[#E5E7EB]'
                       }`}
                     >
                       {isPast ? (
-                        <CheckCircle2 className="w-[18px] h-[18px] text-white" />
+                        <CheckCircle2 className="w-4 h-4 text-white" />
                       ) : isCurrent ? (
-                        <div className="w-2.5 h-2.5 rounded-full bg-[#E39026] animate-pulse" />
+                        <div className="w-2 h-2 rounded-full bg-[#E39026] animate-pulse" />
                       ) : (
-                        <div className="w-2 h-2 rounded-full bg-[#CBD5E1]" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#CBD5E1]" />
                       )}
                     </div>
 
@@ -133,22 +138,22 @@ export default function S09_Status({ onOpenFacilitator }) {
                         className={`w-[2px] rounded-full my-1 transition-all duration-500 ${
                           isPast ? 'bg-[#2F8F5B]' : 'bg-[#E5E7EB]'
                         }`}
-                        style={{ height: isCurrent ? '38px' : '26px' }}
+                        style={{ height: isCurrent ? '34px' : '22px' }}
                       />
                     )}
                   </div>
 
                   {/* Right column: label + optional subtitle */}
-                  <div className={`flex flex-col justify-center min-w-0 pt-1 ${
-                    !isLast ? (isCurrent ? 'pb-5' : 'pb-2.5') : 'pb-1'
+                  <div className={`flex flex-col justify-center min-w-0 pt-0.5 ${
+                    !isLast ? (isCurrent ? 'pb-4' : 'pb-2') : 'pb-1'
                   }`}>
                     <span
-                      className={`text-[14.5px] leading-snug ${
+                      className={`text-[14px] leading-snug ${
                         isCurrent
                           ? 'font-bold text-[#2B2437]'
                           : isPast
                           ? 'font-semibold text-[#2F8F5B]'
-                          : 'font-medium text-[#B0B8C4]'
+                          : 'font-medium text-[#9CA3AF]'
                       }`}
                     >
                       {step.label}
@@ -174,41 +179,37 @@ export default function S09_Status({ onOpenFacilitator }) {
 
         {/* State-specific Interactive Card */}
         {status === 'in_review' && (
-          <div className="p-4 rounded-[22px] bg-[#FFF9EE] border border-[#FDE68A] flex flex-col gap-3 animate-fadeIn">
+          <div className="p-4 rounded-[22px] bg-[#FFF9EE] border border-[#FDE68A] flex flex-col gap-3 animate-fadeIn shadow-2xs">
             <div className="flex items-center gap-2.5 text-[#C97F1E]">
-              <Clock className="w-5 h-5 text-[#E39026] shrink-0" />
+              <div className="w-8 h-8 rounded-[12px] bg-white border border-[#FDE68A] flex items-center justify-center shrink-0">
+                <Clock className="w-4 h-4 text-[#E39026]" />
+              </div>
               <div>
-                <h4 className="font-extrabold text-[15px] text-[#2B2437]">
+                <h4 className="font-extrabold text-[14.5px] text-[#2B2437]">
                   {STRINGS.status.inReviewTitle}
                 </h4>
-                <p className="text-[12.5px] text-[#6B7280]">
+                <p className="text-[12px] font-medium text-[#6B7280]">
                   {STRINGS.status.inReviewSubtitle}
                 </p>
               </div>
             </div>
 
             {campaign.extraCheck && (
-              <span className="text-[12px] font-semibold text-[#C97F1E] bg-white/70 p-2 rounded-xl border border-amber-200">
+              <span className="text-[11.5px] font-semibold text-[#C97F1E] bg-white/80 p-2 rounded-xl border border-amber-200">
                 {STRINGS.status.extraCheckNotice}
               </span>
             )}
 
-            {CONFIG.PLACEHOLDER_REVIEW_ETA_TEXT && (
-              <span className="text-[12px] text-[#6B7280]">
-                {CONFIG.PLACEHOLDER_REVIEW_ETA_TEXT}
-              </span>
-            )}
-
             {/* WhatsApp Updates Switch */}
-            <div className="pt-2 border-t border-[#FDE68A] flex items-center justify-between">
-              <span className="text-[13px] font-medium text-[#4A4358]">
+            <div className="pt-2 border-t border-[#FDE68A]/60 flex items-center justify-between">
+              <span className="text-[12.5px] font-medium text-[#4A4358]">
                 {STRINGS.status.whatsappUpdatesToggle}
               </span>
               <input
                 type="checkbox"
                 checked={whatsappUpdates}
                 onChange={(e) => updatePrefs({ whatsappUpdates: e.target.checked })}
-                className="w-4 h-4 accent-[#E39026]"
+                className="w-4 h-4 accent-[#E39026] cursor-pointer"
               />
             </div>
           </div>

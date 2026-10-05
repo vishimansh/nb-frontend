@@ -11,6 +11,7 @@ import { useFlowNav } from '../router/useFlowNav';
 import { useToastV2 } from '../context/ToastV2Context';
 import { formatIN } from '../utils/formatIN';
 import { getFormatById } from '../data/formats';
+import { getGoalById } from '../data/goals';
 import { STRINGS } from '../strings/hi';
 import {
   Add,
@@ -22,6 +23,7 @@ import {
   Edit2,
   Logout,
   Timer1,
+  Messages3,
 } from 'iconsax-react';
 import {
   Pencil,
@@ -29,6 +31,8 @@ import {
   AlertCircle,
   Image as ImageIcon,
 } from 'lucide-react';
+
+const EMPTY_CAMPAIGNS = [];
 
 export default function S10_Dashboard({ onOpenFacilitator }) {
   const {
@@ -53,7 +57,7 @@ export default function S10_Dashboard({ onOpenFacilitator }) {
   const [now, setNow] = useState(() => Date.now());
 
   const shop = state.shop || {};
-  const campaigns = state.campaigns || [];
+  const campaigns = state.campaigns || EMPTY_CAMPAIGNS;
   const identity = state.identity || {};
   const phone = state.auth?.phone || '9876543210';
 
@@ -226,6 +230,7 @@ export default function S10_Dashboard({ onOpenFacilitator }) {
               const snapDraft = camp.snapshot?.draft || {};
               const headline = snapDraft.headline?.trim() || `विज्ञापन #${camp.id.slice(-4)}`;
               const formatObj = getFormatById(snapDraft.format);
+              const goalObj = getGoalById(snapDraft.goal || 'engagement');
               const firstImg = snapDraft.media?.images?.[0]?.dataUrl;
 
               const isPending = camp.status === 'in_review';
@@ -251,6 +256,27 @@ export default function S10_Dashboard({ onOpenFacilitator }) {
                   key={camp.id}
                   className="bg-white rounded-[20px] border border-[#E5E7EB] p-4 shadow-sm space-y-3.5"
                 >
+                  {/* Top Bar: Dual Badges (Goal + Format) */}
+                  <div className="flex items-center justify-between gap-1.5 border-b border-[#F3F4F6] pb-2.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${
+                        goalObj.id === 'reach'
+                          ? 'bg-[#EFF6FF] text-[#1D4ED8] border-[#BFDBFE]'
+                          : goalObj.id === 'engagement'
+                          ? 'bg-[#ECFDF5] text-[#047857] border-[#A7F3D0]'
+                          : 'bg-[#F5F3FF] text-[#6D28D9] border-[#DDD6FE]'
+                      }`}>
+                        {goalObj.id === 'reach' ? '📢 पहुंच (Reach)' : goalObj.id === 'engagement' ? '💬 कॉल व मैसेज' : '🔗 वेबसाइट क्लिक्स'}
+                      </span>
+                      <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#FFF7ED] text-[#C2410C] border border-[#FFEDD5]">
+                        {formatObj.title}
+                      </span>
+                    </div>
+
+                    <span className="text-[11px] font-mono text-[#9CA3AF]">
+                      #{camp.id.slice(-4)}
+                    </span>
+                  </div>
                   {/* Top Row: Thumbnail + Headline + Status Toggle */}
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-3 min-w-0 pr-1 flex-1">
@@ -290,7 +316,7 @@ export default function S10_Dashboard({ onOpenFacilitator }) {
                       >
                         <span
                           className={`w-2 h-2 rounded-full ${
-                            isLive ? 'bg-[#10B981] animate-pulse' : 'bg-[#9CA3AF]'
+                            isLive ? 'bg-[#2F8F5B] animate-pulse' : 'bg-[#9CA3AF]'
                           }`}
                         />
                         <span>{isLive ? 'लाइव' : 'पॉज्ड'}</span>
@@ -358,39 +384,77 @@ export default function S10_Dashboard({ onOpenFacilitator }) {
                     </div>
                   )}
 
-                  {/* 2. Live or Paused Metrics: Spacious 2x2 Grid (Flow A standard) */}
+                  {/* 2. Live or Paused Metrics: Goal-Calibrated 2x2 Grid */}
                   {!isPending && (
                     <div className={`grid grid-cols-2 gap-2.5 ${isPaused ? 'opacity-60' : ''}`}>
-                      {/* Views */}
+                      {/* Metric 1 (Hero Metric customized by Goal) */}
+                      <div className={`rounded-[16px] p-3.5 border ${
+                        goalObj.id === 'reach'
+                          ? 'bg-[#EFF6FF] border-[#BFDBFE]'
+                          : goalObj.id === 'engagement'
+                          ? 'bg-[#ECFDF5] border-[#A7F3D0]'
+                          : 'bg-[#F5F3FF] border-[#DDD6FE]'
+                      }`}>
+                        <div className="flex items-center gap-1.5 mb-1.5">
+                          {goalObj.id === 'reach' ? (
+                            <Eye size={14} color="#E39026" />
+                          ) : goalObj.id === 'engagement' ? (
+                            <Messages3 size={14} color="#2F8F5B" />
+                          ) : (
+                            <Mouse size={14} color="#E39026" />
+                          )}
+                          <span className="text-[11.5px] font-semibold leading-snug text-[#4B5563]">
+                            {goalObj.id === 'reach'
+                              ? 'कुल व्यूज'
+                              : goalObj.id === 'engagement'
+                              ? 'कॉल व मैसेज पूछताछ'
+                              : 'वेबसाइट क्लिक'}
+                          </span>
+                        </div>
+                        <div className={`text-[22px] font-extrabold font-mono tracking-tight leading-none ${
+                          goalObj.id === 'reach'
+                            ? 'text-[#E39026]'
+                            : goalObj.id === 'engagement'
+                            ? 'text-[#2F8F5B]'
+                            : 'text-[#E39026]'
+                        }`}>
+                          {goalObj.id === 'reach'
+                            ? formatIN(impressionsCount)
+                            : formatIN(clicksCount)}
+                        </div>
+                      </div>
+
+                      {/* Metric 2 */}
                       <div className="bg-[#F7F7F4] rounded-[16px] p-3.5 border border-[#EBECEF]">
                         <div className="flex items-center gap-1.5 text-[#6B7280] mb-1.5">
                           <Eye size={14} color="#9CA3AF" />
-                          <span className="text-[11.5px] font-semibold leading-snug">कितनी बार दिखा</span>
+                          <span className="text-[11.5px] font-semibold leading-snug">
+                            {goalObj.id === 'reach' ? 'पहुंचे पाठक' : 'कुल व्यूज'}
+                          </span>
                         </div>
                         <div className="text-[22px] font-extrabold text-[#2B2437] font-mono tracking-tight leading-none">
-                          {formatIN(impressionsCount)}
+                          {goalObj.id === 'reach'
+                            ? formatIN(Math.round(impressionsCount * 0.88))
+                            : formatIN(impressionsCount)}
                         </div>
                       </div>
 
-                      {/* Clicks */}
-                      <div className="bg-[#F7F7F4] rounded-[16px] p-3.5 border border-[#EBECEF]">
-                        <div className="flex items-center gap-1.5 text-[#6B7280] mb-1.5">
-                          <Mouse size={14} color="#9CA3AF" />
-                          <span className="text-[11.5px] font-semibold leading-snug">कुल क्लिक</span>
-                        </div>
-                        <div className="text-[22px] font-extrabold text-[#2B2437] font-mono tracking-tight leading-none">
-                          {formatIN(clicksCount)}
-                        </div>
-                      </div>
-
-                      {/* CTR */}
+                      {/* Metric 3 */}
                       <div className="bg-[#F7F7F4] rounded-[16px] p-3.5 border border-[#EBECEF]">
                         <div className="flex items-center gap-1.5 text-[#6B7280] mb-1.5">
                           <TrendUp size={14} color="#9CA3AF" />
-                          <span className="text-[11.5px] font-semibold leading-snug">क्लिक प्रतिशत</span>
+                          <span className="text-[11.5px] font-semibold leading-snug">
+                            {goalObj.id === 'reach'
+                              ? 'CPM (प्रति 1k)'
+                              : goalObj.id === 'engagement'
+                              ? 'पूछताछ दर'
+                              : 'क्लिक प्रतिशत (CTR)'}
+                          </span>
                         </div>
                         <div className="text-[22px] font-extrabold text-[#E39026] font-mono tracking-tight leading-none">
-                          {ctrVal}%
+                          {goalObj.id === 'reach'
+                            ? `₹${impressionsCount > 0 ? ((spent / impressionsCount) * 1000).toFixed(1) : '3.6'}`
+                            : `${ctrVal}%`}
                         </div>
                       </div>
 

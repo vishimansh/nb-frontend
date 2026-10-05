@@ -60,7 +60,7 @@ export default function AdvertiserFormatScreen() {
     if (fromReview) {
       navigate('/advertise/review');
     } else {
-      navigate('/advertise/targeting');
+      navigate('/advertise/audience');
     }
   };
 
@@ -69,7 +69,7 @@ export default function AdvertiserFormatScreen() {
       <AdvertiserHeader
         variant="brand"
         step="2"
-        totalSteps="7"
+        totalSteps="6"
         onBack={() => {
           if (fromReview) {
             navigate('/advertise/review');

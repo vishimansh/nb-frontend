@@ -17,7 +17,7 @@ export const STRINGS = {
     help: 'मदद',
     save: 'सेव करें',
     next: 'आगे बढ़ें',
-    stepPill: (step) => `स्टेप ${step}/7`,
+    stepPill: (step) => `स्टेप ${step}/6`,
     adTag: 'विज्ञापन',
     reportAd: 'विज्ञापन की रिपोर्ट करें',
     reportReceived: 'रिपोर्ट मिल गई, धन्यवाद',

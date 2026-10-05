@@ -53,6 +53,7 @@ export default function S11_CampaignDetail({ onOpenFacilitator }) {
   const snapDraft = campaign.snapshot?.draft || {};
   const headline = snapDraft.headline || 'विज्ञापन';
   const formatObj = getFormatById(snapDraft.format);
+  const goalId = snapDraft.goal || 'engagement';
   const firstImg = snapDraft.media?.images?.[0]?.dataUrl;
 
   const status = campaign.status || 'live';
@@ -97,7 +98,7 @@ export default function S11_CampaignDetail({ onOpenFacilitator }) {
       />
 
       {/* Main Analytics Scroll Area */}
-      <div className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-4 scrollbar-none">
+      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3.5 scrollbar-none">
         {/* Title */}
         <div className="text-center pt-1">
           <h2 className="text-[22px] font-extrabold text-[#2B2437] tracking-tight">
@@ -106,9 +107,9 @@ export default function S11_CampaignDetail({ onOpenFacilitator }) {
         </div>
 
         {/* 1. Identity Card */}
-        <div className="p-3.5 rounded-[22px] bg-white border border-[#E5E7EB] nb2-card-shadow flex items-center justify-between">
+        <div className="p-3.5 rounded-[22px] bg-white border border-[#E5E7EB] shadow-xs flex items-center justify-between">
           <div className="flex items-center gap-3 min-w-0 flex-1">
-            <div className="w-12 h-12 rounded-xl bg-[#F7F7F4] border border-[#E5E7EB] overflow-hidden shrink-0 flex items-center justify-center">
+            <div className="w-11 h-11 rounded-[12px] bg-[#F7F7F4] border border-[#E5E7EB] overflow-hidden shrink-0 flex items-center justify-center">
               {firstImg ? (
                 <img src={firstImg} alt="" className="w-full h-full object-cover" />
               ) : (
@@ -133,57 +134,57 @@ export default function S11_CampaignDetail({ onOpenFacilitator }) {
         {/* 2. Four KPI Cards */}
         <div className="grid grid-cols-2 gap-2.5">
           {/* कितनी बार दिखा */}
-          <div className="p-3.5 rounded-2xl bg-white border border-[#E5E7EB] nb2-card-shadow flex flex-col gap-1">
-            <span className="text-[12px] text-[#6B7280]">
+          <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-1">
+            <span className="text-[11.5px] font-medium text-[#6B7280]">
               {STRINGS.dashboard.metricViews}
             </span>
-            <span className="text-[20px] font-extrabold text-[#2B2437] tabular-nums">
-              {views > 0 ? formatIN(views) : <span className="text-[13px] font-normal text-[#A6A4A9]">{STRINGS.dashboard.dataComing}</span>}
+            <span className="text-[20px] font-extrabold text-[#2B2437] font-mono tracking-tight tabular-nums">
+              {views > 0 ? formatIN(views) : <span className="text-[12px] font-normal text-[#A6A4A9]">{STRINGS.dashboard.dataComing}</span>}
             </span>
           </div>
 
           {/* क्लिक */}
-          <div className="p-3.5 rounded-2xl bg-white border border-[#E5E7EB] nb2-card-shadow flex flex-col gap-1">
-            <span className="text-[12px] text-[#6B7280]">
+          <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-1">
+            <span className="text-[11.5px] font-medium text-[#6B7280]">
               {STRINGS.dashboard.metricClicks}
             </span>
-            <span className="text-[20px] font-extrabold text-[#2B2437] tabular-nums">
-              {clicks > 0 ? formatIN(clicks) : <span className="text-[13px] font-normal text-[#A6A4A9]">{STRINGS.dashboard.dataComing}</span>}
+            <span className="text-[20px] font-extrabold text-[#2B2437] font-mono tracking-tight tabular-nums">
+              {clicks > 0 ? formatIN(clicks) : <span className="text-[12px] font-normal text-[#A6A4A9]">{STRINGS.dashboard.dataComing}</span>}
             </span>
           </div>
 
-          {/* संपर्क टैप */}
-          <div className="p-3.5 rounded-2xl bg-white border border-[#E5E7EB] nb2-card-shadow flex flex-col gap-1">
-            <span className="text-[12px] text-[#6B7280]">
-              {STRINGS.dashboard.metricTapEngagement}
+          {/* संपर्क या लिंक टैप */}
+          <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-1">
+            <span className="text-[11.5px] font-medium text-[#6B7280]">
+              {goalId === 'ctrs' ? STRINGS.dashboard.metricTapCtrs : STRINGS.dashboard.metricTapEngagement}
             </span>
-            <span className="text-[20px] font-extrabold text-[#2B2437] tabular-nums">
-              {contactTaps > 0 ? formatIN(contactTaps) : <span className="text-[13px] font-normal text-[#A6A4A9]">{STRINGS.dashboard.dataComing}</span>}
+            <span className="text-[20px] font-extrabold text-[#2B2437] font-mono tracking-tight tabular-nums">
+              {contactTaps > 0 ? formatIN(contactTaps) : <span className="text-[12px] font-normal text-[#A6A4A9]">{STRINGS.dashboard.dataComing}</span>}
             </span>
           </div>
 
           {/* कुल खर्च */}
-          <div className="p-3.5 rounded-2xl bg-white border border-[#E5E7EB] nb2-card-shadow flex flex-col gap-1">
-            <span className="text-[12px] text-[#6B7280]">
+          <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-1">
+            <span className="text-[11.5px] font-medium text-[#6B7280]">
               {STRINGS.dashboard.metricSpent}
             </span>
-            <span className="text-[20px] font-extrabold text-[#2B2437] tabular-nums">
+            <span className="text-[20px] font-extrabold text-[#2B2437] font-mono tracking-tight tabular-nums">
               ₹{formatIN(spent)}
             </span>
           </div>
         </div>
 
         {/* 3. Spend Progress Bar */}
-        <div className="p-4 rounded-2xl bg-white border border-[#E5E7EB] nb2-card-shadow flex flex-col gap-2">
-          <div className="flex items-center justify-between text-[13px] font-bold text-[#2B2437]">
+        <div className="p-3.5 rounded-[20px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2">
+          <div className="flex items-center justify-between text-[12.5px] font-bold text-[#2B2437]">
             <span>{STRINGS.analytics.spendProgress(formatIN(spent), formatIN(subtotal))}</span>
-            <span className="text-[12px] text-[#6B7280] font-normal">
+            <span className="text-[11.5px] text-[#6B7280] font-normal">
               {STRINGS.analytics.daysLeft(4)}
             </span>
           </div>
-          <div className="w-full h-2.5 rounded-full bg-[#E5E7EB] overflow-hidden">
+          <div className="w-full h-2 rounded-full bg-[#E5E7EB] overflow-hidden">
             <div
-              className="h-full bg-[#E39026] rounded-full transition-all duration-300"
+              className="h-full bg-gradient-to-r from-[#E39026] to-[#F59E0B] rounded-full transition-all duration-300"
               style={{ width: `${spendPercentage}%` }}
             />
           </div>
@@ -191,11 +192,11 @@ export default function S11_CampaignDetail({ onOpenFacilitator }) {
 
         {/* 4. One Insight Card (Only when views >= 1,000) */}
         {showInsight && (
-          <div className="p-4 rounded-2xl bg-[#FFF9EE] border border-[#FDE68A] flex items-start gap-3 animate-fadeIn">
-            <Sparkles className="w-5 h-5 text-[#E39026] shrink-0 mt-0.5" />
+          <div className="p-3.5 rounded-[18px] bg-[#FFF9EE] border border-[#FDE68A] flex items-start gap-2.5 animate-fadeIn shadow-2xs">
+            <Sparkles className="w-4 h-4 text-[#E39026] shrink-0 mt-0.5" />
             <div className="flex flex-col gap-0.5">
-              <span className="text-[13px] font-bold text-[#C97F1E]">पाठक गतिविधि</span>
-              <p className="text-[13.5px] font-medium text-[#2B2437] leading-snug">
+              <span className="text-[12px] font-bold text-[#C97F1E]">पाठक गतिविधि</span>
+              <p className="text-[13px] font-medium text-[#2B2437] leading-snug">
                 आपका विज्ञापन {hourlyPeak} के बीच सबसे ज़्यादा देखा जा रहा है.
               </p>
             </div>

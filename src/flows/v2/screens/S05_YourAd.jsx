@@ -10,13 +10,12 @@ import AdRulesSheet from '../components/sheets/AdRulesSheet';
 import HelpSheet from '../components/sheets/HelpSheet';
 import { useAdvertiserV2 } from '../context/AdvertiserV2Context';
 import { useFlowNav } from '../router/useFlowNav';
-import { useScrollCollapse } from '../hooks/useScrollCollapse';
 import { getFormatById } from '../data/formats';
 import { CTA_OPTIONS, getCtaConfig, getCtaLabel as getLabelForCta } from '../data/ctaOptions';
 import { checkBlockedWords, checkClaimWords } from '../data/policyWords';
 import { isValidPhone, isValidUrl } from '../utils/validators';
 import { STRINGS } from '../strings/hi';
-import { AlertCircle, AlertTriangle, Plus, Eye, Sparkles, ExternalLink, Link2 } from 'lucide-react';
+import { AlertTriangle, Sparkles, Link2 } from 'lucide-react';
 import exampleGridReel from '../assets/examples/example_grid_reel.png';
 import exampleCarouselReel from '../assets/examples/example_carousel_reel.png';
 import exampleFeedBanner from '../assets/examples/example_feed_banner.png';
@@ -58,7 +57,6 @@ export default function S05_YourAd({ onOpenFacilitator }) {
   const scrollContainerRef = useRef(null);
   const headlineInputRef = useRef(null);
   const mediaSectionRef = useRef(null);
-  const isCollapsed = useScrollCollapse(scrollContainerRef, 120);
 
   // Focus rejection field if redirected from rejection
   useEffect(() => {
@@ -176,7 +174,6 @@ export default function S05_YourAd({ onOpenFacilitator }) {
 
   const claimHeadline = checkClaimWords(headline);
   const claimDesc = checkClaimWords(description);
-  const hasClaimWord = !!(claimHeadline || claimDesc);
 
   // Validation
   const ctaConfig = getCtaConfig(goalId, selectedCtaKey);
@@ -269,12 +266,12 @@ export default function S05_YourAd({ onOpenFacilitator }) {
         ref={scrollContainerRef}
         className="flex-1 overflow-y-auto px-5 py-4 flex flex-col gap-5 scrollbar-none"
       >
-        {/* Title & Subtitle */}
-        <div className="text-center">
-          <h2 className="text-[22px] font-extrabold text-[#2B2437] tracking-tight">
+        {/* Minimal Screen Title */}
+        <div className="flex flex-col items-center text-center gap-0.5 pt-0.5">
+          <h2 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.ad.title}
           </h2>
-          <p className="text-[13.5px] text-[#6B7280]">
+          <p className="text-[12px] text-[#6B7280]">
             {STRINGS.ad.subtitle}
           </p>
         </div>
@@ -395,17 +392,15 @@ export default function S05_YourAd({ onOpenFacilitator }) {
 
           {/* Feed Card Notice: Banner itself is the link */}
           {isFeedCard && (
-            <div className="p-3.5 rounded-[18px] bg-[#FFF9EE] border border-[#FDE68A] flex items-start gap-3">
-              <div className="w-8 h-8 rounded-xl bg-[#E39026]/15 flex items-center justify-center text-[#E39026] shrink-0 mt-0.5">
-                <Link2 className="w-4 h-4 text-[#E39026]" />
-              </div>
-              <div className="flex flex-col gap-0.5 text-left">
-                <span className="text-[13.5px] font-bold text-[#2B2437]">
+            <div className="p-3 rounded-[16px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center gap-2.5">
+              <Link2 className="w-4 h-4 text-[#E39026] shrink-0" />
+              <div className="flex flex-col text-left">
+                <span className="text-[12.5px] font-bold text-[#2B2437]">
                   पूरा बैनर कार्ड ही सीधा लिंक है
                 </span>
-                <p className="text-[12px] text-[#6B7280] leading-snug">
-                  फ़ीड बैनर में अलग से हेडलाइन या विवरण की ज़रूरत नहीं है. ऊपर जोड़े गए बैनर पर पाठक कहीं भी टैप करेंगे, तो वे सीधे आपके लिंक/नंबर पर पहुँचेंगे.
-                </p>
+                <span className="text-[11.5px] text-[#6B7280]">
+                  पाठक कहीं भी टैप करेंगे, तो वे सीधे आपके संपर्क या लिंक पर पहुंचेंगे।
+                </span>
               </div>
             </div>
           )}
@@ -547,7 +542,7 @@ export default function S05_YourAd({ onOpenFacilitator }) {
 
       {/* Sticky Bottom CTA */}
       <StickyCTA
-        label={getCtaLabel(STRINGS.common.next)}
+        label={getCtaLabel(isFromReview || isResubmitting ? STRINGS.common.next : 'इलाका और बजट चुनें')}
         disabled={!isFormValid}
         missingHint={missingHint}
         onClick={handleSubmit}

@@ -246,11 +246,11 @@ export default function AdvertiserCreativeScreen() {
 
   return (
     <div className="w-full h-full bg-[#F7F7F4] flex flex-col select-none overflow-y-auto scrollbar-none">
-      {/* Brand Header with Step 5/7 */}
+      {/* Brand Header with Step 4/6 */}
       <AdvertiserHeader
         variant="brand"
-        step="5"
-        totalSteps="7"
+        step="4"
+        totalSteps="6"
         onBack={() => {
           if (fromReview) {
             navigate('/advertise/review');
@@ -281,15 +281,24 @@ export default function AdvertiserCreativeScreen() {
           {renderUploadComponent()}
         </div>
 
-        {/* Action CTA */}
+        {/* Action CTA leading to Location & Budget */}
         <div className="pt-2 pb-2">
           <button
             type="button"
             onClick={handleProceed}
-            className="w-full h-[56px] rounded-[16px] bg-[#2B2437] hover:bg-[#3D334E] text-white font-medium text-[18px] shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99] transition-all"
+            className="w-full min-h-[58px] rounded-[18px] bg-gradient-to-r from-[#2B2437] via-[#382F48] to-[#2B2437] hover:from-[#3D334E] hover:to-[#382F48] text-white px-4 py-3 shadow-lg shadow-[#2B2437]/20 flex items-center justify-between cursor-pointer active:scale-[0.98] transition-all border border-white/10 group"
           >
-            <span>आगे बढ़ें</span>
-            <ArrowRight size={20} color="#FFFFFF" variant="Linear" />
+            <div className="text-left">
+              <span className="text-[16px] font-bold tracking-tight block leading-tight">
+                इलाका और बजट चुनें
+              </span>
+              <span className="text-[11.5px] text-[#FDE68A] font-medium block mt-0.5">
+                दुकान का दायरा और दैनिक खर्च तय करें (स्टेप 5/6)
+              </span>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center text-white shrink-0 group-hover:translate-x-1 group-hover:bg-[#E39026] transition-all shadow-2xs">
+              <ArrowRight size={18} color="#FFFFFF" variant="Linear" />
+            </div>
           </button>
         </div>
       </div>
