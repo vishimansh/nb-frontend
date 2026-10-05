@@ -223,14 +223,11 @@ export default function S07_Budget({ onOpenFacilitator }) {
 
       {/* Main Form Body */}
       <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 scrollbar-none">
-        {/* Screen Title */}
-        <div className="flex flex-col items-center text-center gap-0.5 pt-0.5">
-          <h2 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight">
+        {/* Minimal Screen Title */}
+        <div className="flex flex-col items-center text-center pt-0.5">
+          <h2 className="text-[18px] font-extrabold text-[#2B2437] tracking-tight">
             इलाका और बजट चुनें
           </h2>
-          <p className="text-[12px] text-[#6B7280]">
-            दायरा, बजट और दिन तय करें
-          </p>
         </div>
 
         {/* Level 1: TOP HERO REACH CARD (अनुमानित पाठक संख्या) */}
@@ -249,7 +246,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
             </span>
           </div>
 
-          {/* Metric Row: Dominant Hero Readers Count */}
+          {/* Metric Row: Readers Count & Active Parameters */}
           <div className="flex items-baseline justify-between">
             <div className="flex items-baseline gap-1.5">
               <span className="text-[28px] font-black text-[#2B2437] tracking-tight tabular-nums leading-none">
@@ -280,7 +277,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
             </div>
             <div className="flex items-center gap-2">
               <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[11px] font-bold text-[#B45309]">
-                {radiusKm} किमी दायरा
+                {radiusKm} किमी
               </span>
               {radiusKm !== 10 && (
                 <button
@@ -342,7 +339,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
             </span>
             {selectedPkgId === 'custom' ? (
               <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[10.5px] font-bold text-[#B45309]">
-                कस्टम बजट
+                कस्टम
               </span>
             ) : (
               <span className="px-2 py-0.5 rounded-full bg-[#F3F4F6] text-[10.5px] font-bold text-[#4B5563]">
@@ -351,13 +348,13 @@ export default function S07_Budget({ onOpenFacilitator }) {
             )}
           </div>
 
-          {/* PRIMARY: CUSTOM BUDGET CONTROLS (Always visible & prioritized) */}
+          {/* PRIMARY: CUSTOM BUDGET CONTROLS */}
           <div className="p-3.5 rounded-2xl bg-white border border-[#E7E5E4] shadow-2xs flex flex-col gap-3">
-            {/* Sub-section 1: Daily Spend Slider */}
+            {/* Daily Spend */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
                 <span className="text-[13px] font-bold text-[#2B2437]">
-                  दैनिक बजट (रोज़ का खर्च):
+                  रोज़ का बजट
                 </span>
                 <span className="text-[16px] font-black text-[#2B2437] font-mono tabular-nums">
                   ₹{formatIN(dailyAmount)}
@@ -393,20 +390,15 @@ export default function S07_Budget({ onOpenFacilitator }) {
               </div>
             </div>
 
-            {/* Subtle Divider */}
+            {/* Divider */}
             <div className="border-t border-[#F3F4F6]" />
 
-            {/* Sub-section 2: Duration / Days */}
+            {/* Duration / Days */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-[13px] font-bold text-[#2B2437] block">
-                    विज्ञापन की अवधि:
-                  </span>
-                  <span className="text-[11px] text-[#6B7280]">
-                    कितने दिन विज्ञापन चलेगा
-                  </span>
-                </div>
+                <span className="text-[13px] font-bold text-[#2B2437]">
+                  अवधि (दिन)
+                </span>
                 <Stepper
                   value={days}
                   min={1}
@@ -437,14 +429,11 @@ export default function S07_Budget({ onOpenFacilitator }) {
             </div>
           </div>
 
-          {/* SECONDARY: TEMPLATE PACKAGES (Compact 1-Tap Shortcuts) */}
+          {/* SECONDARY: TEMPLATE PACKAGES */}
           <div className="flex flex-col gap-1.5 pt-0.5">
             <div className="flex items-center justify-between px-1">
-              <span className="text-[12px] font-bold text-[#6B7280]">
-                या तैयार पैकेज चुनें:
-              </span>
-              <span className="text-[11px] text-[#9CA3AF]">
-                1-क्लिक शॉर्टकट
+              <span className="text-[12px] font-semibold text-[#6B7280]">
+                तैयार पैकेज
               </span>
             </div>
 
@@ -486,12 +475,9 @@ export default function S07_Budget({ onOpenFacilitator }) {
                       </span>
                     </div>
 
-                    <div className="pt-1.5 mt-1 border-t border-[#F3F4F6] flex items-baseline justify-between">
+                    <div className="pt-1.5 mt-1 border-t border-[#F3F4F6]">
                       <span className="text-[13px] font-black text-[#2B2437] tabular-nums">
                         ₹{formatIN(pkgTotal)}
-                      </span>
-                      <span className="text-[9px] text-[#9CA3AF]">
-                        कुल
                       </span>
                     </div>
                   </button>
@@ -501,67 +487,60 @@ export default function S07_Budget({ onOpenFacilitator }) {
           </div>
         </div>
 
-        {/* Level 4: SECTION 3 - विज्ञापन कब शुरू करना है? */}
+        {/* Level 4: SECTION 3 - शुरुआत */}
         <div className="p-3.5 rounded-2xl bg-white border border-[#E7E5E4] shadow-2xs flex flex-col gap-2.5">
           <span className="text-[14px] font-bold text-[#2B2437]">
-            3. विज्ञापन कब शुरू करना है?
+            3. शुरुआत
           </span>
 
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
               onClick={() => handleStartModeChange('after_review')}
-              className={`p-2.5 rounded-xl border text-left flex items-start gap-2 transition-all cursor-pointer ${
+              className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
                 startMode === 'after_review'
                   ? 'bg-white border-[#2B2437] ring-1.5 ring-[#2B2437] shadow-xs'
                   : 'bg-[#FAF9F5] border-[#E5E7EB] hover:bg-neutral-50'
               }`}
             >
               <div
-                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${
+                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
                   startMode === 'after_review' ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
                 }`}
               >
                 {startMode === 'after_review' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
               </div>
-              <div className="flex flex-col">
-                <span className="text-[12.5px] font-bold text-[#2B2437] leading-tight flex items-center gap-1">
-                  <Zap className="w-3.5 h-3.5 text-[#E39026]" />
-                  {STRINGS.budget.startModeImmediate}
-                </span>
-              </div>
+              <span className="text-[12.5px] font-bold text-[#2B2437] leading-tight flex items-center gap-1">
+                <Zap className="w-3.5 h-3.5 text-[#E39026]" />
+                तुरंत (रिव्यू के बाद)
+              </span>
             </button>
 
             <button
               type="button"
               onClick={() => handleStartModeChange('scheduled')}
-              className={`p-2.5 rounded-xl border text-left flex items-start gap-2 transition-all cursor-pointer ${
+              className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
                 startMode === 'scheduled'
                   ? 'bg-white border-[#2B2437] ring-1.5 ring-[#2B2437] shadow-xs'
                   : 'bg-[#FAF9F5] border-[#E5E7EB] hover:bg-neutral-50'
               }`}
             >
               <div
-                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${
+                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
                   startMode === 'scheduled' ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
                 }`}
               >
                 {startMode === 'scheduled' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
               </div>
-              <div className="flex flex-col">
-                <span className="text-[12.5px] font-bold text-[#2B2437] leading-tight flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-[#4A4358]" />
-                  {STRINGS.budget.startModeScheduled}
-                </span>
-              </div>
+              <span className="text-[12.5px] font-bold text-[#2B2437] leading-tight flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-[#4A4358]" />
+                तारीख तय करें
+              </span>
             </button>
           </div>
 
           {startMode === 'scheduled' && (
             <div className="pt-2 border-t border-[#F3F4F6] flex flex-col gap-1.5 animate-fadeIn">
-              <span className="text-[12px] font-semibold text-[#6B7280]">
-                शुरू होने की तारीख चुनें:
-              </span>
               <input
                 type="date"
                 min={tomorrowStr}
@@ -571,7 +550,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
               />
               {formattedHindiDate && (
                 <span className="text-[11.5px] text-[#2F8F5B] font-semibold">
-                  तारीख: {formattedHindiDate}
+                  {formattedHindiDate}
                 </span>
               )}
             </div>
