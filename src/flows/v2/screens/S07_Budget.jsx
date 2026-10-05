@@ -211,7 +211,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
   }, [selectedPkgId]);
 
   return (
-    <div className="w-full h-full flex flex-col justify-between bg-[#F8F8F6] overflow-hidden select-none">
+    <div className="w-full h-full flex flex-col justify-between bg-[#FAF9F6] overflow-hidden select-none">
       {/* Header (Step 5 of 6) */}
       <V2Header
         showBack
@@ -222,43 +222,43 @@ export default function S07_Budget({ onOpenFacilitator }) {
       />
 
       {/* Main Form Body */}
-      <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 scrollbar-none">
-        {/* Minimal Screen Title */}
-        <div className="flex flex-col items-center text-center pt-0.5">
-          <h2 className="text-[18px] font-extrabold text-[#2B2437] tracking-tight">
+      <div className="flex-1 overflow-y-auto px-4 py-2.5 flex flex-col gap-2.5 scrollbar-none">
+        {/* Screen Title */}
+        <div className="flex items-center justify-center pt-0.5 pb-0.5">
+          <h2 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
             इलाका और बजट चुनें
           </h2>
         </div>
 
         {/* Level 1: TOP HERO REACH CARD (अनुमानित पाठक संख्या) */}
-        <div className="p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-[#E7E5E4] shadow-xs flex flex-col gap-2 sticky top-0 z-20">
+        <div className="p-3 rounded-2xl bg-white/95 backdrop-blur-md border border-[#EDEDEA] shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex flex-col gap-1.5 sticky top-0 z-20">
           {/* Header Row: Label & Live Indicator */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
               <Users className="w-3.5 h-3.5 text-[#E39026]" />
-              <span className="text-[11.5px] font-bold text-[#854D0E] uppercase tracking-wider">
+              <span className="text-[11px] font-bold text-[#854D0E] uppercase tracking-wider">
                 अनुमानित पाठक संख्या
               </span>
             </div>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F0FDF4] border border-[#86EFAC]/60 text-[#16A34A] text-[10.5px] font-bold">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F0FDF4] text-[#16A34A] text-[10px] font-bold">
               <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse" />
-              लाइव अनुमान
+              लाइव
             </span>
           </div>
 
-          {/* Metric Row: Readers Count & Active Parameters */}
+          {/* Metric Row */}
           <div className="flex items-baseline justify-between">
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-[28px] font-black text-[#2B2437] tracking-tight tabular-nums leading-none">
+            <div className="flex items-baseline gap-1">
+              <span className="text-[26px] font-black text-[#2B2437] tracking-tight tabular-nums leading-none">
                 ~{formatIN(reachablePeople)}
               </span>
-              <span className="text-[13px] font-bold text-[#E39026]">
-                स्थानीय पाठक
+              <span className="text-[12px] font-semibold text-[#8C8C94]">
+                पाठक
               </span>
             </div>
 
             {/* Active Parameters Pill */}
-            <div className="flex items-center gap-1 text-[11px] font-semibold text-[#4A4358] bg-[#F7F7F4] border border-[#E5E7EB] px-2.5 py-0.5 rounded-full">
+            <div className="flex items-center gap-1 text-[10.5px] font-medium text-[#6B7280] bg-[#F4F4F2] px-2.5 py-0.5 rounded-full">
               <span>{radiusKm} किमी</span>
               <span className="text-[#D1D5DB]">·</span>
               <span>₹{dailyAmount}/दिन</span>
@@ -269,23 +269,23 @@ export default function S07_Budget({ onOpenFacilitator }) {
         </div>
 
         {/* Level 2: SECTION 1 - विज्ञापन का दायरा */}
-        <div className="p-3.5 rounded-2xl bg-white border border-[#E7E5E4] shadow-2xs flex flex-col gap-2.5">
+        <div className="p-3.5 rounded-2xl bg-white border border-[#EDEDEA] shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1.5 text-[14px] font-bold text-[#2B2437]">
-              <MapPin className="w-4 h-4 text-[#E39026]" />
+            <div className="flex items-center gap-1.5 text-[13.5px] font-bold text-[#2B2437]">
+              <MapPin className="w-3.5 h-3.5 text-[#E39026]" />
               <span>1. विज्ञापन का दायरा</span>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[11px] font-bold text-[#B45309]">
+            <div className="flex items-center gap-1.5">
+              <span className="text-[11.5px] font-bold text-[#2B2437] tabular-nums">
                 {radiusKm} किमी
               </span>
               {radiusKm !== 10 && (
                 <button
                   type="button"
                   onClick={() => handleRadiusChange(10)}
-                  className="text-[11px] text-[#6B7280] hover:text-[#2B2437] flex items-center gap-0.5 cursor-pointer underline"
+                  className="text-[10.5px] text-[#9CA3AF] hover:text-[#2B2437] flex items-center gap-0.5 cursor-pointer underline"
                 >
-                  <RotateCcw className="w-3 h-3 text-[#6B7280]" />
+                  <RotateCcw className="w-2.5 h-2.5" />
                   <span>रीसेट</span>
                 </button>
               )}
@@ -302,17 +302,17 @@ export default function S07_Budget({ onOpenFacilitator }) {
             unit="किमी"
           />
 
-          {/* Presets */}
-          <div className="flex items-center justify-between gap-1 pt-0.5">
+          {/* Segmented Presets */}
+          <div className="flex items-center bg-[#F4F4F2] p-0.5 rounded-xl gap-0.5">
             {RADIUS_PRESETS.map((km) => (
               <button
                 key={km}
                 type="button"
                 onClick={() => handleRadiusChange(km)}
-                className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
+                className={`flex-1 py-1 rounded-lg text-[11.5px] font-semibold transition-all cursor-pointer ${
                   radiusKm === km
-                    ? 'bg-[#2B2437] text-white shadow-2xs'
-                    : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-[#EFEFEA]'
+                    ? 'bg-white text-[#2B2437] shadow-xs'
+                    : 'text-[#6B7280] hover:text-[#2B2437]'
                 }`}
               >
                 {km} किमी
@@ -321,7 +321,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
           </div>
 
           {/* City Chips */}
-          <div className="pt-2 border-t border-[#F3F4F6]">
+          <div className="pt-2 border-t border-[#F4F4F2]">
             <CityChips
               homeCityId={homeCityId}
               selectedCityIds={selectedCityIds}
@@ -332,33 +332,27 @@ export default function S07_Budget({ onOpenFacilitator }) {
         </div>
 
         {/* Level 3: SECTION 2 - बजट और अवधि तय करें (CUSTOM BUDGET FIRST) */}
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between px-1">
-            <span className="text-[14px] font-bold text-[#2B2437]">
+            <span className="text-[13.5px] font-bold text-[#2B2437]">
               2. बजट और अवधि तय करें
             </span>
-            {selectedPkgId === 'custom' ? (
-              <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[10.5px] font-bold text-[#B45309]">
-                कस्टम
-              </span>
-            ) : (
-              <span className="px-2 py-0.5 rounded-full bg-[#F3F4F6] text-[10.5px] font-bold text-[#4B5563]">
-                {activePackage?.name || 'पैकेज'}
-              </span>
-            )}
+            <span className="text-[10.5px] font-bold text-[#8C8C94] uppercase tracking-wider">
+              {selectedPkgId === 'custom' ? 'कस्टम' : activePackage?.name || 'पैकेज'}
+            </span>
           </div>
 
           {/* PRIMARY: CUSTOM BUDGET CONTROLS */}
-          <div className="p-3.5 rounded-2xl bg-white border border-[#E7E5E4] shadow-2xs flex flex-col gap-3">
+          <div className="p-3.5 rounded-2xl bg-white border border-[#EDEDEA] shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col gap-3">
             {/* Daily Spend */}
             <div className="flex flex-col gap-1.5">
               <div className="flex items-center justify-between">
-                <span className="text-[13px] font-bold text-[#2B2437]">
-                  रोज़ का बजट
+                <span className="text-[12.5px] font-semibold text-[#6B7280]">
+                  दैनिक बजट
                 </span>
                 <span className="text-[16px] font-black text-[#2B2437] font-mono tabular-nums">
                   ₹{formatIN(dailyAmount)}
-                  <span className="text-[11.5px] font-medium text-[#6B7280]">/दिन</span>
+                  <span className="text-[11px] font-medium text-[#9CA3AF] ml-0.5">/दिन</span>
                 </span>
               </div>
 
@@ -371,17 +365,17 @@ export default function S07_Budget({ onOpenFacilitator }) {
                 unit="₹"
               />
 
-              {/* Quick Amount Chips */}
-              <div className="flex items-center justify-between gap-1 pt-0.5">
+              {/* Segmented Amount Chips */}
+              <div className="flex items-center bg-[#F4F4F2] p-0.5 rounded-xl gap-0.5">
                 {DAILY_PRESETS.map((amt) => (
                   <button
                     key={amt}
                     type="button"
                     onClick={() => handleDailySliderChange(amt)}
-                    className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
+                    className={`flex-1 py-1 rounded-lg text-[11.5px] font-semibold transition-all cursor-pointer ${
                       dailyAmount === amt
-                        ? 'bg-[#2B2437] text-white shadow-2xs'
-                        : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-[#EFEFEA]'
+                        ? 'bg-white text-[#2B2437] shadow-xs'
+                        : 'text-[#6B7280] hover:text-[#2B2437]'
                     }`}
                   >
                     ₹{amt}
@@ -391,13 +385,13 @@ export default function S07_Budget({ onOpenFacilitator }) {
             </div>
 
             {/* Divider */}
-            <div className="border-t border-[#F3F4F6]" />
+            <div className="h-px bg-[#F4F4F2]" />
 
             {/* Duration / Days */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <span className="text-[13px] font-bold text-[#2B2437]">
-                  अवधि (दिन)
+                <span className="text-[12.5px] font-semibold text-[#6B7280]">
+                  अवधि
                 </span>
                 <Stepper
                   value={days}
@@ -409,17 +403,17 @@ export default function S07_Budget({ onOpenFacilitator }) {
                 />
               </div>
 
-              {/* Quick Day Chips */}
-              <div className="flex items-center justify-between gap-1 pt-0.5">
+              {/* Segmented Day Chips */}
+              <div className="flex items-center bg-[#F4F4F2] p-0.5 rounded-xl gap-0.5">
                 {DAY_PRESETS.map((d) => (
                   <button
                     key={d}
                     type="button"
                     onClick={() => handleDaysChange(d)}
-                    className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
+                    className={`flex-1 py-1 rounded-lg text-[11.5px] font-semibold transition-all cursor-pointer ${
                       days === d
-                        ? 'bg-[#2B2437] text-white shadow-2xs'
-                        : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-[#EFEFEA]'
+                        ? 'bg-white text-[#2B2437] shadow-xs'
+                        : 'text-[#6B7280] hover:text-[#2B2437]'
                     }`}
                   >
                     {d} दिन
@@ -431,11 +425,9 @@ export default function S07_Budget({ onOpenFacilitator }) {
 
           {/* SECONDARY: TEMPLATE PACKAGES */}
           <div className="flex flex-col gap-1.5 pt-0.5">
-            <div className="flex items-center justify-between px-1">
-              <span className="text-[12px] font-semibold text-[#6B7280]">
-                तैयार पैकेज
-              </span>
-            </div>
+            <span className="text-[11px] font-semibold text-[#8C8C94] uppercase tracking-wider px-1">
+              तैयार पैकेज
+            </span>
 
             <div className="grid grid-cols-3 gap-2">
               {PACKAGES.filter((p) => p.id !== 'custom').map((pkg) => {
@@ -450,33 +442,33 @@ export default function S07_Budget({ onOpenFacilitator }) {
                     className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer relative ${
                       isSelected
                         ? 'bg-white border-[#2B2437] ring-1.5 ring-[#2B2437] shadow-xs'
-                        : 'bg-white border-[#E5E7EB] hover:border-[#D1D5DB]'
+                        : 'bg-white border-[#EDEDEA] hover:border-[#D1D5DB]'
                     }`}
                   >
                     {pkg.recommended && (
-                      <span className="absolute -top-2 right-1.5 px-1.5 py-0.2 rounded-full bg-[#E39026] text-white text-[9px] font-bold tracking-tight shadow-2xs">
+                      <span className="absolute -top-1.5 right-1.5 px-1.5 py-0.2 rounded-full bg-[#E39026] text-white text-[8.5px] font-bold tracking-tight shadow-2xs">
                         {STRINGS.budget.recommendedBadge}
                       </span>
                     )}
 
                     <div className="flex flex-col">
                       <div className="flex items-center justify-between">
-                        <span className="font-extrabold text-[13px] text-[#2B2437] leading-tight">
+                        <span className="font-bold text-[12.5px] text-[#2B2437]">
                           {pkg.name}
                         </span>
                         {isSelected && (
-                          <span className="w-3.5 h-3.5 rounded-full bg-[#2B2437] text-white flex items-center justify-center text-[9px]">
+                          <span className="w-3 h-3 rounded-full bg-[#2B2437] text-white flex items-center justify-center text-[8px]">
                             ✓
                           </span>
                         )}
                       </div>
-                      <span className="text-[10px] text-[#6B7280] font-medium mt-0.5">
-                        ₹{pkg.dailyAmount}/दिन · {pkg.days} दिन
+                      <span className="text-[10px] text-[#8C8C94] font-medium mt-0.5">
+                        ₹{pkg.dailyAmount} · {pkg.days} दिन
                       </span>
                     </div>
 
-                    <div className="pt-1.5 mt-1 border-t border-[#F3F4F6]">
-                      <span className="text-[13px] font-black text-[#2B2437] tabular-nums">
+                    <div className="pt-1.5 mt-1 border-t border-[#F4F4F2]">
+                      <span className="text-[12.5px] font-black text-[#2B2437] tabular-nums">
                         ₹{formatIN(pkgTotal)}
                       </span>
                     </div>
@@ -488,8 +480,8 @@ export default function S07_Budget({ onOpenFacilitator }) {
         </div>
 
         {/* Level 4: SECTION 3 - शुरुआत */}
-        <div className="p-3.5 rounded-2xl bg-white border border-[#E7E5E4] shadow-2xs flex flex-col gap-2.5">
-          <span className="text-[14px] font-bold text-[#2B2437]">
+        <div className="p-3.5 rounded-2xl bg-white border border-[#EDEDEA] shadow-[0_1px_3px_rgba(0,0,0,0.02)] flex flex-col gap-2.5">
+          <span className="text-[13.5px] font-bold text-[#2B2437]">
             3. शुरुआत
           </span>
 
@@ -497,59 +489,59 @@ export default function S07_Budget({ onOpenFacilitator }) {
             <button
               type="button"
               onClick={() => handleStartModeChange('after_review')}
-              className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+              className={`py-2 px-3 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
                 startMode === 'after_review'
                   ? 'bg-white border-[#2B2437] ring-1.5 ring-[#2B2437] shadow-xs'
-                  : 'bg-[#FAF9F5] border-[#E5E7EB] hover:bg-neutral-50'
+                  : 'bg-[#F9F9F8] border-[#EDEDEA] hover:bg-neutral-50'
               }`}
             >
               <div
-                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center shrink-0 ${
                   startMode === 'after_review' ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
                 }`}
               >
-                {startMode === 'after_review' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                {startMode === 'after_review' && <span className="w-1 h-1 rounded-full bg-white" />}
               </div>
-              <span className="text-[12.5px] font-bold text-[#2B2437] leading-tight flex items-center gap-1">
-                <Zap className="w-3.5 h-3.5 text-[#E39026]" />
-                तुरंत (रिव्यू के बाद)
+              <span className="text-[12px] font-bold text-[#2B2437] flex items-center gap-1 truncate">
+                <Zap className="w-3 h-3 text-[#E39026]" />
+                तुरंत
               </span>
             </button>
 
             <button
               type="button"
               onClick={() => handleStartModeChange('scheduled')}
-              className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
+              className={`py-2 px-3 rounded-xl border text-left flex items-center gap-2 transition-all cursor-pointer ${
                 startMode === 'scheduled'
                   ? 'bg-white border-[#2B2437] ring-1.5 ring-[#2B2437] shadow-xs'
-                  : 'bg-[#FAF9F5] border-[#E5E7EB] hover:bg-neutral-50'
+                  : 'bg-[#F9F9F8] border-[#EDEDEA] hover:bg-neutral-50'
               }`}
             >
               <div
-                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 ${
+                className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center shrink-0 ${
                   startMode === 'scheduled' ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
                 }`}
               >
-                {startMode === 'scheduled' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+                {startMode === 'scheduled' && <span className="w-1 h-1 rounded-full bg-white" />}
               </div>
-              <span className="text-[12.5px] font-bold text-[#2B2437] leading-tight flex items-center gap-1">
-                <Calendar className="w-3.5 h-3.5 text-[#4A4358]" />
+              <span className="text-[12px] font-bold text-[#2B2437] flex items-center gap-1 truncate">
+                <Calendar className="w-3 h-3 text-[#4A4358]" />
                 तारीख तय करें
               </span>
             </button>
           </div>
 
           {startMode === 'scheduled' && (
-            <div className="pt-2 border-t border-[#F3F4F6] flex flex-col gap-1.5 animate-fadeIn">
+            <div className="pt-2 border-t border-[#F4F4F2] flex flex-col gap-1.5 animate-fadeIn">
               <input
                 type="date"
                 min={tomorrowStr}
                 value={startDate}
                 onChange={(e) => handleStartDateChange(e.target.value)}
-                className="w-full px-3 py-2 rounded-xl border border-[#D1D5DB] text-[13px] font-bold text-[#2B2437] bg-white focus:outline-none focus:ring-1 focus:ring-[#2B2437]"
+                className="w-full px-3 py-1.5 rounded-xl border border-[#D1D5DB] text-[12.5px] font-bold text-[#2B2437] bg-white focus:outline-none focus:ring-1 focus:ring-[#2B2437]"
               />
               {formattedHindiDate && (
-                <span className="text-[11.5px] text-[#2F8F5B] font-semibold">
+                <span className="text-[11px] text-[#2F8F5B] font-semibold">
                   {formattedHindiDate}
                 </span>
               )}
