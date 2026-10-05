@@ -4,7 +4,6 @@ import StickyCTA from '../components/chrome/StickyCTA';
 import RangeSlider from '../components/ui/RangeSlider';
 import Stepper from '../components/ui/Stepper';
 import BillSheet from '../components/sheets/BillSheet';
-import Badge from '../components/ui/Badge';
 import HelpSheet from '../components/sheets/HelpSheet';
 import CityChips from '../components/map/CityChips';
 import CitySheet from '../components/sheets/CitySheet';
@@ -18,7 +17,6 @@ import { CITIES, getCityById } from '../data/cities';
 import { track } from '../utils/track';
 import { STRINGS } from '../strings/hi';
 import {
-  ChevronRight,
   MapPin,
   Users,
   Zap,
@@ -27,6 +25,7 @@ import {
 } from 'lucide-react';
 
 const RADIUS_PRESETS = [5, 10, 15, 20, 25];
+const DAILY_PRESETS = [100, 250, 500, 1000];
 const DAY_PRESETS = [3, 7, 15, 30];
 
 export default function S07_Budget({ onOpenFacilitator }) {
@@ -207,8 +206,12 @@ export default function S07_Budget({ onOpenFacilitator }) {
     proceedNextStep();
   };
 
+  const activePackage = useMemo(() => {
+    return PACKAGES.find((p) => p.id === selectedPkgId);
+  }, [selectedPkgId]);
+
   return (
-    <div className="w-full h-full flex flex-col justify-between bg-[#F7F7F4] overflow-hidden select-none">
+    <div className="w-full h-full flex flex-col justify-between bg-[#F8F8F6] overflow-hidden select-none">
       {/* Header (Step 5 of 6) */}
       <V2Header
         showBack
@@ -220,7 +223,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
 
       {/* Main Form Body */}
       <div className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3 scrollbar-none">
-        {/* Level 2: Screen Title */}
+        {/* Screen Title */}
         <div className="flex flex-col items-center text-center gap-0.5 pt-0.5">
           <h2 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight">
             इलाका और बजट चुनें
@@ -231,7 +234,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
         </div>
 
         {/* Level 1: TOP HERO REACH CARD (अनुमानित पाठक संख्या) */}
-        <div className="p-3.5 rounded-[18px] bg-gradient-to-br from-[#FFFDF7] via-[#FFFBF0] to-[#FEF3C7]/40 border border-[#FDE68A] shadow-xs flex flex-col gap-2 sticky top-0 z-20 backdrop-blur-md">
+        <div className="p-3.5 rounded-2xl bg-white/95 backdrop-blur-md border border-[#E7E5E4] shadow-xs flex flex-col gap-2 sticky top-0 z-20">
           {/* Header Row: Label & Live Indicator */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5">
@@ -240,8 +243,8 @@ export default function S07_Budget({ onOpenFacilitator }) {
                 अनुमानित पाठक संख्या
               </span>
             </div>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#EEF8F2] border border-[#2F8F5B]/20 text-[#2F8F5B] text-[10.5px] font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2F8F5B] animate-pulse" />
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#F0FDF4] border border-[#86EFAC]/60 text-[#16A34A] text-[10.5px] font-bold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse" />
               लाइव अनुमान
             </span>
           </div>
@@ -249,7 +252,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
           {/* Metric Row: Dominant Hero Readers Count */}
           <div className="flex items-baseline justify-between">
             <div className="flex items-baseline gap-1.5">
-              <span className="text-[30px] font-black text-[#2B2437] tracking-tight tabular-nums leading-none">
+              <span className="text-[28px] font-black text-[#2B2437] tracking-tight tabular-nums leading-none">
                 ~{formatIN(reachablePeople)}
               </span>
               <span className="text-[13px] font-bold text-[#E39026]">
@@ -258,7 +261,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
             </div>
 
             {/* Active Parameters Pill */}
-            <div className="flex items-center gap-1 text-[11px] font-semibold text-[#4A4358] bg-white/95 border border-[#FDE68A] px-2.5 py-0.5 rounded-full shadow-2xs">
+            <div className="flex items-center gap-1 text-[11px] font-semibold text-[#4A4358] bg-[#F7F7F4] border border-[#E5E7EB] px-2.5 py-0.5 rounded-full">
               <span>{radiusKm} किमी</span>
               <span className="text-[#D1D5DB]">·</span>
               <span>₹{dailyAmount}/दिन</span>
@@ -268,15 +271,15 @@ export default function S07_Budget({ onOpenFacilitator }) {
           </div>
         </div>
 
-        {/* Level 3: SECTION 1 - विज्ञापन का दायरा */}
-        <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2.5">
+        {/* Level 2: SECTION 1 - विज्ञापन का दायरा */}
+        <div className="p-3.5 rounded-2xl bg-white border border-[#E7E5E4] shadow-2xs flex flex-col gap-2.5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 text-[14px] font-bold text-[#2B2437]">
               <MapPin className="w-4 h-4 text-[#E39026]" />
               <span>1. विज्ञापन का दायरा</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[11.5px] font-bold text-[#E39026]">
+              <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[11px] font-bold text-[#B45309]">
                 {radiusKm} किमी दायरा
               </span>
               {radiusKm !== 10 && (
@@ -312,7 +315,7 @@ export default function S07_Budget({ onOpenFacilitator }) {
                 className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
                   radiusKm === km
                     ? 'bg-[#2B2437] text-white shadow-2xs'
-                    : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-neutral-100'
+                    : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-[#EFEFEA]'
                 }`}
               >
                 {km} किमी
@@ -331,214 +334,248 @@ export default function S07_Budget({ onOpenFacilitator }) {
           </div>
         </div>
 
-        {/* Level 3: SECTION 2 - बजट और अवधि तय करें */}
-        <div className="flex flex-col gap-2">
+        {/* Level 3: SECTION 2 - बजट और अवधि तय करें (CUSTOM BUDGET FIRST) */}
+        <div className="flex flex-col gap-2.5">
           <div className="flex items-center justify-between px-1">
             <span className="text-[14px] font-bold text-[#2B2437]">
               2. बजट और अवधि तय करें
             </span>
-            <span className="text-[11px] font-medium text-[#6B7280]">
-              पैकेज चुनें
-            </span>
+            {selectedPkgId === 'custom' ? (
+              <span className="px-2 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[10.5px] font-bold text-[#B45309]">
+                कस्टम बजट
+              </span>
+            ) : (
+              <span className="px-2 py-0.5 rounded-full bg-[#F3F4F6] text-[10.5px] font-bold text-[#4B5563]">
+                {activePackage?.name || 'पैकेज'}
+              </span>
+            )}
           </div>
 
-          {PACKAGES.map((pkg) => {
-            const isSelected = selectedPkgId === pkg.id;
-
-            if (pkg.id === 'custom') {
-              return (
-                <div
-                  key={pkg.id}
-                  onClick={() => handleSelectPackage(pkg)}
-                  className={`p-3 rounded-[16px] border flex items-center justify-between cursor-pointer select-none transition-all ${
-                    isSelected
-                      ? 'bg-white border-[#2B2437] ring-1 ring-[#2B2437] shadow-xs'
-                      : 'bg-white border-[#E5E7EB] hover:bg-neutral-50'
-                  }`}
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                        isSelected ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
-                      }`}
-                    >
-                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                    </div>
-                    <span className="font-bold text-[14px] text-[#2B2437]">
-                      अपना बजट खुद तय करें (कस्टम)
-                    </span>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-[#6B7280]" />
-                </div>
-              );
-            }
-
-            const pkgTotal = pkg.total || calculateTotal(pkg.dailyAmount * pkg.days);
-
-            return (
-              <div
-                key={pkg.id}
-                onClick={() => handleSelectPackage(pkg)}
-                className={`p-3 rounded-[16px] border flex flex-col gap-1 cursor-pointer select-none transition-all ${
-                  isSelected
-                    ? 'bg-white border-[#2B2437] ring-1 ring-[#2B2437] shadow-xs'
-                    : 'bg-white border-[#E5E7EB] hover:bg-neutral-50'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div
-                      className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                        isSelected ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
-                      }`}
-                    >
-                      {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
-                    </div>
-                    <span className="font-bold text-[14.5px] text-[#2B2437]">
-                      {pkg.name}
-                    </span>
-                  </div>
-                  {pkg.recommended && (
-                    <Badge variant="amber">{STRINGS.budget.recommendedBadge}</Badge>
-                  )}
-                </div>
-
-                <div className="pl-6.5 flex items-baseline justify-between">
-                  <span className="text-[12.5px] font-medium text-[#4A4358]">
-                    ₹{pkg.dailyAmount}/दिन · {pkg.days} दिन
-                  </span>
-                  <div className="text-right">
-                    <span className="text-[14.5px] font-extrabold text-[#2B2437]">
-                      ₹{formatIN(pkgTotal)}
-                    </span>
-                    <span className="text-[10.5px] font-normal text-[#6B7280] ml-1">
-                      (GST सहित)
-                    </span>
-                  </div>
-                </div>
+          {/* PRIMARY: CUSTOM BUDGET CONTROLS (Always visible & prioritized) */}
+          <div className="p-3.5 rounded-2xl bg-white border border-[#E7E5E4] shadow-2xs flex flex-col gap-3">
+            {/* Sub-section 1: Daily Spend Slider */}
+            <div className="flex flex-col gap-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[13px] font-bold text-[#2B2437]">
+                  दैनिक बजट (रोज़ का खर्च):
+                </span>
+                <span className="text-[16px] font-black text-[#2B2437] font-mono tabular-nums">
+                  ₹{formatIN(dailyAmount)}
+                  <span className="text-[11.5px] font-medium text-[#6B7280]">/दिन</span>
+                </span>
               </div>
-            );
-          })}
+
+              <RangeSlider
+                min={100}
+                max={2500}
+                step={25}
+                value={dailyAmount}
+                onChange={handleDailySliderChange}
+                unit="₹"
+              />
+
+              {/* Quick Amount Chips */}
+              <div className="flex items-center justify-between gap-1 pt-0.5">
+                {DAILY_PRESETS.map((amt) => (
+                  <button
+                    key={amt}
+                    type="button"
+                    onClick={() => handleDailySliderChange(amt)}
+                    className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
+                      dailyAmount === amt
+                        ? 'bg-[#2B2437] text-white shadow-2xs'
+                        : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-[#EFEFEA]'
+                    }`}
+                  >
+                    ₹{amt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Subtle Divider */}
+            <div className="border-t border-[#F3F4F6]" />
+
+            {/* Sub-section 2: Duration / Days */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-[13px] font-bold text-[#2B2437] block">
+                    विज्ञापन की अवधि:
+                  </span>
+                  <span className="text-[11px] text-[#6B7280]">
+                    कितने दिन विज्ञापन चलेगा
+                  </span>
+                </div>
+                <Stepper
+                  value={days}
+                  min={1}
+                  max={90}
+                  step={1}
+                  onChange={handleDaysChange}
+                  unit="दिन"
+                />
+              </div>
+
+              {/* Quick Day Chips */}
+              <div className="flex items-center justify-between gap-1 pt-0.5">
+                {DAY_PRESETS.map((d) => (
+                  <button
+                    key={d}
+                    type="button"
+                    onClick={() => handleDaysChange(d)}
+                    className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
+                      days === d
+                        ? 'bg-[#2B2437] text-white shadow-2xs'
+                        : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-[#EFEFEA]'
+                    }`}
+                  >
+                    {d} दिन
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* SECONDARY: TEMPLATE PACKAGES (Compact 1-Tap Shortcuts) */}
+          <div className="flex flex-col gap-1.5 pt-0.5">
+            <div className="flex items-center justify-between px-1">
+              <span className="text-[12px] font-bold text-[#6B7280]">
+                या तैयार पैकेज चुनें:
+              </span>
+              <span className="text-[11px] text-[#9CA3AF]">
+                1-क्लिक शॉर्टकट
+              </span>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2">
+              {PACKAGES.filter((p) => p.id !== 'custom').map((pkg) => {
+                const isSelected = selectedPkgId === pkg.id;
+                const pkgTotal = pkg.total || calculateTotal(pkg.dailyAmount * pkg.days);
+
+                return (
+                  <button
+                    key={pkg.id}
+                    type="button"
+                    onClick={() => handleSelectPackage(pkg)}
+                    className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition-all cursor-pointer relative ${
+                      isSelected
+                        ? 'bg-white border-[#2B2437] ring-1.5 ring-[#2B2437] shadow-xs'
+                        : 'bg-white border-[#E5E7EB] hover:border-[#D1D5DB]'
+                    }`}
+                  >
+                    {pkg.recommended && (
+                      <span className="absolute -top-2 right-1.5 px-1.5 py-0.2 rounded-full bg-[#E39026] text-white text-[9px] font-bold tracking-tight shadow-2xs">
+                        {STRINGS.budget.recommendedBadge}
+                      </span>
+                    )}
+
+                    <div className="flex flex-col">
+                      <div className="flex items-center justify-between">
+                        <span className="font-extrabold text-[13px] text-[#2B2437] leading-tight">
+                          {pkg.name}
+                        </span>
+                        {isSelected && (
+                          <span className="w-3.5 h-3.5 rounded-full bg-[#2B2437] text-white flex items-center justify-center text-[9px]">
+                            ✓
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-[10px] text-[#6B7280] font-medium mt-0.5">
+                        ₹{pkg.dailyAmount}/दिन · {pkg.days} दिन
+                      </span>
+                    </div>
+
+                    <div className="pt-1.5 mt-1 border-t border-[#F3F4F6] flex items-baseline justify-between">
+                      <span className="text-[13px] font-black text-[#2B2437] tabular-nums">
+                        ₹{formatIN(pkgTotal)}
+                      </span>
+                      <span className="text-[9px] text-[#9CA3AF]">
+                        कुल
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
         </div>
 
-        {/* Custom Daily Slider Card */}
-        {selectedPkgId === 'custom' && (
-          <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2.5 animate-fadeIn">
-            <div className="flex items-center justify-between">
-              <span className="text-[13px] font-bold text-[#2B2437]">
-                रोज़ का खर्च:
-              </span>
-              <span className="text-[16px] font-bold text-[#2B2437] font-mono">
-                ₹{dailyAmount}/दिन
-              </span>
-            </div>
-
-            <RangeSlider
-              min={100}
-              max={2500}
-              step={25}
-              value={dailyAmount}
-              onChange={handleDailySliderChange}
-              unit="₹"
-            />
-          </div>
-        )}
-
-        {/* Stepper for Days (in custom mode or custom duration) */}
-        {selectedPkgId === 'custom' && (
-          <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2.5">
-            <div className="flex items-center justify-between">
-              <span className="text-[13px] font-bold text-[#2B2437]">
-                दिन तय करें:
-              </span>
-              <span className="text-[15px] font-bold text-[#2B2437] font-mono">
-                {days} दिन
-              </span>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span className="text-[12px] text-[#6B7280]">दिन बदलें:</span>
-              <Stepper
-                value={days}
-                min={1}
-                max={90}
-                step={1}
-                onChange={handleDaysChange}
-                unit="दिन"
-              />
-            </div>
-
-            <div className="flex items-center justify-between gap-1 pt-1 border-t border-[#F3F4F6]">
-              {DAY_PRESETS.map((d) => (
-                <button
-                  key={d}
-                  type="button"
-                  onClick={() => handleDaysChange(d)}
-                  className={`flex-1 py-1 rounded-xl text-[12px] font-bold transition-all cursor-pointer ${
-                    days === d
-                      ? 'bg-[#2B2437] text-white'
-                      : 'bg-[#F7F7F4] text-[#4A4358] hover:bg-neutral-100'
-                  }`}
-                >
-                  {d} दिन
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Level 3: SECTION 3 - विज्ञापन कब शुरू करना है? */}
-        <div className="p-3.5 rounded-[18px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2">
+        {/* Level 4: SECTION 3 - विज्ञापन कब शुरू करना है? */}
+        <div className="p-3.5 rounded-2xl bg-white border border-[#E7E5E4] shadow-2xs flex flex-col gap-2.5">
           <span className="text-[14px] font-bold text-[#2B2437]">
             3. विज्ञापन कब शुरू करना है?
           </span>
 
-          <div className="flex flex-col gap-1.5">
-            <label className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-50 cursor-pointer">
-              <input
-                type="radio"
-                name="startMode"
-                checked={startMode === 'after_review'}
-                onChange={() => handleStartModeChange('after_review')}
-                className="w-4 h-4 text-[#2B2437] focus:ring-[#2B2437]"
-              />
-              <span className="text-[13px] font-medium text-[#2B2437] flex items-center gap-1.5">
-                <Zap className="w-3.5 h-3.5 text-[#E39026]" />
-                {STRINGS.budget.startModeImmediate}
-              </span>
-            </label>
-
-            <label className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-neutral-50 cursor-pointer">
-              <input
-                type="radio"
-                name="startMode"
-                checked={startMode === 'scheduled'}
-                onChange={() => handleStartModeChange('scheduled')}
-                className="w-4 h-4 text-[#2B2437] focus:ring-[#2B2437]"
-              />
-              <span className="text-[13px] font-medium text-[#2B2437] flex items-center gap-1.5">
-                <Calendar className="w-3.5 h-3.5 text-[#4A4358]" />
-                {STRINGS.budget.startModeScheduled}
-              </span>
-            </label>
-
-            {startMode === 'scheduled' && (
-              <div className="pl-6.5 pt-1 flex flex-col gap-1">
-                <input
-                  type="date"
-                  min={tomorrowStr}
-                  value={startDate}
-                  onChange={(e) => handleStartDateChange(e.target.value)}
-                  className="px-3 py-1.5 rounded-xl border border-[#D1D5DB] text-[13px] font-bold text-[#2B2437] bg-white focus:outline-none focus:ring-1 focus:ring-[#2B2437]"
-                />
-                {formattedHindiDate && (
-                  <span className="text-[11.5px] text-[#2F8F5B] font-semibold">
-                    तारीख: {formattedHindiDate}
-                  </span>
-                )}
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => handleStartModeChange('after_review')}
+              className={`p-2.5 rounded-xl border text-left flex items-start gap-2 transition-all cursor-pointer ${
+                startMode === 'after_review'
+                  ? 'bg-white border-[#2B2437] ring-1.5 ring-[#2B2437] shadow-xs'
+                  : 'bg-[#FAF9F5] border-[#E5E7EB] hover:bg-neutral-50'
+              }`}
+            >
+              <div
+                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${
+                  startMode === 'after_review' ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
+                }`}
+              >
+                {startMode === 'after_review' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
               </div>
-            )}
+              <div className="flex flex-col">
+                <span className="text-[12.5px] font-bold text-[#2B2437] leading-tight flex items-center gap-1">
+                  <Zap className="w-3.5 h-3.5 text-[#E39026]" />
+                  {STRINGS.budget.startModeImmediate}
+                </span>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleStartModeChange('scheduled')}
+              className={`p-2.5 rounded-xl border text-left flex items-start gap-2 transition-all cursor-pointer ${
+                startMode === 'scheduled'
+                  ? 'bg-white border-[#2B2437] ring-1.5 ring-[#2B2437] shadow-xs'
+                  : 'bg-[#FAF9F5] border-[#E5E7EB] hover:bg-neutral-50'
+              }`}
+            >
+              <div
+                className={`w-4 h-4 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 ${
+                  startMode === 'scheduled' ? 'border-[#2B2437] bg-[#2B2437]' : 'border-[#D1D5DB]'
+                }`}
+              >
+                {startMode === 'scheduled' && <span className="w-1.5 h-1.5 rounded-full bg-white" />}
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[12.5px] font-bold text-[#2B2437] leading-tight flex items-center gap-1">
+                  <Calendar className="w-3.5 h-3.5 text-[#4A4358]" />
+                  {STRINGS.budget.startModeScheduled}
+                </span>
+              </div>
+            </button>
           </div>
+
+          {startMode === 'scheduled' && (
+            <div className="pt-2 border-t border-[#F3F4F6] flex flex-col gap-1.5 animate-fadeIn">
+              <span className="text-[12px] font-semibold text-[#6B7280]">
+                शुरू होने की तारीख चुनें:
+              </span>
+              <input
+                type="date"
+                min={tomorrowStr}
+                value={startDate}
+                onChange={(e) => handleStartDateChange(e.target.value)}
+                className="w-full px-3 py-2 rounded-xl border border-[#D1D5DB] text-[13px] font-bold text-[#2B2437] bg-white focus:outline-none focus:ring-1 focus:ring-[#2B2437]"
+              />
+              {formattedHindiDate && (
+                <span className="text-[11.5px] text-[#2F8F5B] font-semibold">
+                  तारीख: {formattedHindiDate}
+                </span>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
