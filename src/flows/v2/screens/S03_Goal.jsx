@@ -49,9 +49,6 @@ export default function S03_Goal({ onOpenFacilitator }) {
           <h2 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.goal.title}
           </h2>
-          <p className="text-[12px] text-[#8C8C94] mt-0.5">
-            {STRINGS.goal.subtitle}
-          </p>
         </div>
 
         {/* Goals Selection Cards Stack */}

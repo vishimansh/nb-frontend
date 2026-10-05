@@ -28,6 +28,8 @@ import {
   Store,
   Sparkles,
   Receipt,
+  Clock,
+  RotateCcw,
 } from 'lucide-react';
 
 export default function S08_ReviewPay({ onOpenFacilitator }) {
@@ -176,46 +178,47 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
       {/* Main Review Body */}
       <div className="flex-1 overflow-y-auto px-4 py-2.5 flex flex-col gap-3 scrollbar-none">
         {/* Minimal Screen Title */}
-        <div className="flex flex-col items-center text-center pt-0.5 pb-0.5">
-          <h1 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
+        <div className="flex flex-col items-center text-center pt-1">
+          <h1 className="text-[19px] font-extrabold text-[#2B2437] tracking-tight leading-tight">
             {STRINGS.review.title}
           </h1>
-          <p className="text-[12px] text-[#8C8C94] mt-0.5">
-            विवरण जांचें और सुरक्षित भुगतान करें
-          </p>
         </div>
 
-        {/* 1. Signature Warm Amber Telemetry Bar (Matching S07 Reach theme) */}
-        <div className="flex items-center justify-between px-3.5 py-2 rounded-2xl bg-[#FFF8E7] border border-[#F6DFA8] shadow-xs text-[12px]">
-          <div className="flex items-center gap-1.5 font-bold text-[#854D0E]">
+        {/* 1. Hero summary banner */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#FFF8E7] via-[#FFF3D1] to-[#FDE9B8] border border-[#F6DFA8] shadow-[0_4px_14px_rgba(227,144,38,0.12)] px-4 py-3">
+          <div className="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-[#E39026]/10" />
+          <div className="flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-wider text-[#B45309]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse shrink-0" />
-            <span className="tabular-nums">~{formatIN(reachablePeople)} पाठक</span>
+            आपका विज्ञापन इतने लोगों तक पहुँचेगा
           </div>
-          <span className="text-[#F6DFA8]">·</span>
-          <span className="font-semibold text-[#78350F] truncate max-w-[130px]">
-            {cityNamesText} ({draft.area?.radiusKm || 10} किमी)
-          </span>
-          <span className="text-[#F6DFA8]">·</span>
-          <span className="font-bold text-[#854D0E]">{money.days} दिन</span>
+          <div className="flex items-baseline gap-1.5 mt-1">
+            <span className="text-[26px] font-black text-[#2B2437] tabular-nums leading-none">
+              ~{formatIN(reachablePeople)}
+            </span>
+            <span className="text-[13px] font-bold text-[#854D0E]">पाठक</span>
+          </div>
+          <p className="text-[12px] font-medium text-[#78350F] mt-1.5 truncate">
+            {cityNamesText} · {draft.area?.radiusKm || 10} किमी · {money.days} दिन तक
+          </p>
         </div>
 
         {/* 2. Interactive Ad Preview Card */}
         <div className="flex flex-col gap-1.5">
           <div className="flex items-center justify-between px-1">
-            <span className="text-[11.5px] font-semibold text-[#8C8C94] uppercase tracking-wider">
-              {STRINGS.review.previewCaption} ({formatObj.title}):
+            <span className="text-[12px] font-bold text-[#2B2437]">
+              {STRINGS.review.previewCaption}
             </span>
             <button
               type="button"
               onClick={() => handleEditScreen('ad')}
-              className="text-[11.5px] font-bold text-[#E39026] hover:underline flex items-center gap-1 cursor-pointer"
+              className="text-[11.5px] font-bold text-[#B45309] bg-[#FFF8E7] border border-[#F6DFA8] px-2.5 py-1 rounded-full hover:bg-[#FDEFC6] flex items-center gap-1 cursor-pointer transition-colors"
             >
               <Pencil className="w-3 h-3" />
-              <span>बदलें</span>
+              <span>विज्ञापन बदलें</span>
             </button>
           </div>
 
-          <div className="rounded-2xl overflow-hidden border border-[#EDEDEA] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.02)] p-1">
+          <div className="rounded-2xl overflow-hidden border border-[#EDEDEA] bg-white shadow-[0_6px_20px_rgba(43,36,55,0.07)] p-1.5">
             <AdPreview
               format={formatObj.id}
               shop={shop}
@@ -228,7 +231,7 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
         </div>
 
         {/* 3. Single Unified Summary Card */}
-        <div className="rounded-2xl bg-white border border-[#EDEDEA] shadow-[0_1px_3px_rgba(0,0,0,0.02)] overflow-hidden divide-y divide-[#F4F4F2]">
+        <div className="rounded-2xl bg-white border border-[#EDEDEA] shadow-[0_2px_10px_rgba(43,36,55,0.05)] overflow-hidden divide-y divide-[#F4F4F2]">
           {/* Row 1: उद्देश्य व प्रकार */}
           <div className="p-3 flex items-center justify-between gap-2 hover:bg-neutral-50/50 transition-colors">
             <div className="flex items-center gap-2.5 min-w-0">
@@ -262,10 +265,10 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
               </div>
               <div className="flex flex-col min-w-0">
                 <span className="text-[10.5px] font-semibold text-[#8C8C94]">
-                  {STRINGS.review.rowArea} व {STRINGS.review.rowAudience}
+                  {STRINGS.review.rowAudience}
                 </span>
                 <span className="text-[13px] font-bold text-[#2B2437] truncate">
-                  {cityNamesText} · {draft.area?.radiusKm || 10} किमी ({audienceText})
+                  {audienceText}
                 </span>
               </div>
             </div>
@@ -312,26 +315,13 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
               </div>
               <div className="flex flex-col">
                 <span className="text-[10.5px] font-semibold text-[#8C8C94]">
-                  {STRINGS.review.rowBudget} (GST सहित)
+                  {STRINGS.review.rowBudget}
                 </span>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-[15px] font-black text-[#2B2437] tabular-nums">
-                    ₹{formatIN(money.total)}
-                  </span>
-                  <span className="text-[10.5px] text-[#8C8C94]">
-                    (₹{formatIN(money.daily)}/दिन × {money.days} दिन)
-                  </span>
-                </div>
+                <span className="text-[13px] font-bold text-[#2B2437] tabular-nums">
+                  ₹{formatIN(money.daily)}/दिन × {money.days} दिन
+                </span>
               </div>
             </div>
-
-            <button
-              type="button"
-              onClick={() => setShowBillSheet(true)}
-              className="text-[12px] font-bold text-[#E39026] hover:underline cursor-pointer shrink-0 px-2 py-1"
-            >
-              बिल देखें
-            </button>
           </div>
         </div>
 
@@ -359,7 +349,7 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
                     <ShieldCheck className="w-3.5 h-3.5 text-[#16A34A]" />
                   </div>
                   <span className="text-[11px] font-medium text-[#166534]">
-                    18% ITC इनपुट टैक्स क्रेडिट के लिए मान्य
+                    GST इनवॉइस पर टैक्स क्रेडिट मिलेगा
                   </span>
                 </div>
               </div>
@@ -447,15 +437,21 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
         </div>
 
         {/* 5. Minimal 1-Line Trust Reassurance */}
-        <div className="flex items-center justify-center gap-2.5 text-[11px] text-[#8C8C94] py-0.5">
-          <span className="flex items-center gap-1">
-            <Lock className="w-3 h-3 text-[#16A34A]" />
-            100% सुरक्षित भुगतान
-          </span>
-          <span>•</span>
-          <span>24 घंटे में अप्रूवल</span>
-          <span>•</span>
-          <span>अस्वीकृत पर पूरा रिफंड</span>
+        <div className="grid grid-cols-3 gap-2 pb-1">
+          {[
+            { icon: Lock, t: 'सुरक्षित', s: 'UPI पेमेंट' },
+            { icon: Clock, t: '24 घंटे', s: 'में रिव्यू' },
+            { icon: RotateCcw, t: 'पूरा रिफंड', s: 'नामंज़ूर होने पर' },
+          ].map(({ icon: Icon, t, s }) => (
+            <div
+              key={t}
+              className="flex flex-col items-center text-center gap-0.5 rounded-xl bg-white border border-[#EDEDEA] py-2 px-1"
+            >
+              <Icon className="w-3.5 h-3.5 text-[#16A34A]" />
+              <span className="text-[11.5px] font-bold text-[#2B2437]">{t}</span>
+              <span className="text-[10px] text-[#8C8C94]">{s}</span>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -463,8 +459,8 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
       <StickyCTA
         label={
           identity.verified
-            ? `₹${formatIN(money.total)} पे करें`
-            : 'पहचान सत्यापित करके पे करें'
+            ? `₹${formatIN(money.total)} पेमेंट करें`
+            : 'पहचान जाँचकर पेमेंट करें'
         }
         onClick={handlePayClick}
         showArrow={false}
@@ -475,7 +471,7 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
                 ₹{formatIN(money.total)}
               </span>
               <span className="text-[10.5px] text-[#8C8C94]">
-                कुल राशि (GST सहित) · {money.days} दिन
+                GST सहित
               </span>
             </div>
 
@@ -484,7 +480,7 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
               onClick={() => setShowBillSheet(true)}
               className="text-[12px] font-bold text-[#E39026] hover:underline cursor-pointer px-2 py-1 rounded-lg hover:bg-amber-50"
             >
-              बिल ब्यौरा
+              बिल देखें
             </button>
           </div>
         }

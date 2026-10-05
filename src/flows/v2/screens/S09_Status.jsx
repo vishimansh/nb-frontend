@@ -161,12 +161,7 @@ export default function S09_Status({ onOpenFacilitator }) {
 
                     {isCurrent && (
                       <span className="text-[11.5px] text-[#E39026] font-semibold mt-0.5 leading-snug">
-                        प्रक्रिया जारी है...
-                      </span>
-                    )}
-                    {isPast && (
-                      <span className="text-[11px] text-[#6EBA98] font-medium mt-0.5 leading-snug">
-                        पूरा हुआ ✓
+                        जारी …
                       </span>
                     )}
                   </div>

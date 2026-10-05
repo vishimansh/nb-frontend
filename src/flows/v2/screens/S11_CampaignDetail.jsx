@@ -121,7 +121,7 @@ export default function S11_CampaignDetail({ onOpenFacilitator }) {
                 {headline}
               </h4>
               <span className="text-[12px] text-[#6B7280]">
-                {formatObj.title} · #{campaign.orderId}
+                {formatObj.title}
               </span>
             </div>
           </div>
@@ -177,9 +177,9 @@ export default function S11_CampaignDetail({ onOpenFacilitator }) {
         {/* 3. Spend Progress Bar */}
         <div className="p-3.5 rounded-[20px] bg-white border border-[#E5E7EB] shadow-2xs flex flex-col gap-2">
           <div className="flex items-center justify-between text-[12.5px] font-bold text-[#2B2437]">
-            <span>{STRINGS.analytics.spendProgress(formatIN(spent), formatIN(subtotal))}</span>
-            <span className="text-[11.5px] text-[#6B7280] font-normal">
-              {STRINGS.analytics.daysLeft(4)}
+            <span>कुल बजट ₹{formatIN(subtotal)}</span>
+            <span className="text-[11.5px] text-[#6B7280] font-bold tabular-nums">
+              {spendPercentage}%
             </span>
           </div>
           <div className="w-full h-2 rounded-full bg-[#E5E7EB] overflow-hidden">

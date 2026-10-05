@@ -8,7 +8,7 @@ import { isValidUpi } from '../../utils/validators';
 import { useAdvertiserV2 } from '../../context/AdvertiserV2Context';
 import { track } from '../../utils/track';
 import { STRINGS } from '../../strings/hi';
-import { ChevronDown, AlertCircle } from 'lucide-react';
+import { ChevronDown, AlertCircle, Lock } from 'lucide-react';
 
 const UPI_APPS = [
   { id: 'gpay', name: 'गूगल पे', color: '#4285F4' },
@@ -118,24 +118,28 @@ export default function PaymentSheet({
     >
       <div className="flex flex-col items-center gap-4 py-1 select-none">
         {/* Total banner */}
-        <div className="text-center">
-          <div className="text-[28px] font-extrabold text-[#2B2437] tabular-nums">
+        <div className="w-full text-center rounded-2xl bg-gradient-to-br from-[#FFF8E7] to-[#FDE9B8] border border-[#F6DFA8] py-3.5">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#B45309]">भुगतान की राशि</span>
+          <div className="text-[32px] leading-tight font-black text-[#2B2437] tabular-nums">
             ₹{formatIN(totalAmount)}
           </div>
-          <span className="text-[12.5px] text-[#6B7280]">{STRINGS.payment.subGst}</span>
+          <span className="text-[12px] font-medium text-[#78350F]">{STRINGS.payment.subGst}</span>
         </div>
 
         {/* 1. IDLE STATE: App buttons & other UPI */}
         {paymentState === 'idle' && (
           <div className="w-full flex flex-col gap-3.5">
+            <span className="text-[12px] font-bold text-[#8C8C94] uppercase tracking-wider">
+              अपना UPI ऐप चुनें
+            </span>
             {/* 2x2 UPI App Grid */}
-            <div className="grid grid-cols-2 gap-2.5 w-full">
+            <div className="grid grid-cols-2 gap-2.5 w-full -mt-1.5">
               {UPI_APPS.map((app) => (
                 <button
                   key={app.id}
                   type="button"
                   onClick={() => handleStartPayment(app)}
-                  className="h-[52px] rounded-2xl bg-white border border-[#E5E7EB] hover:border-[#2B2437] flex items-center justify-center gap-2 font-bold text-[15px] text-[#2B2437] shadow-xs active:scale-[0.97] transition-all"
+                  className="h-[56px] rounded-2xl bg-white border border-[#E5E7EB] hover:border-[#E39026] hover:shadow-md flex items-center justify-center gap-2 font-bold text-[15px] text-[#2B2437] shadow-xs active:scale-[0.97] transition-all"
                 >
                   <div
                     className="w-3 h-3 rounded-full shrink-0"
@@ -182,7 +186,8 @@ export default function PaymentSheet({
             </div>
 
             {/* Safety Line */}
-            <span className="text-[12px] text-[#6B7280] text-center">
+            <span className="flex items-center justify-center gap-1.5 text-[12px] text-[#6B7280] text-center">
+              <Lock className="w-3 h-3 text-[#16A34A]" />
               {STRINGS.payment.safetyLine}
             </span>
           </div>

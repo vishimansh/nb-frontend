@@ -192,12 +192,6 @@ export default function S01_Login({ onOpenFacilitator }) {
                 </div>
               </div>
             )}
-
-            {/* Privacy Reassurance Pill */}
-            <div className="flex items-center justify-center gap-1.5 text-[11.5px] text-[#9CA3AF] font-medium py-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
-              <span>सुरक्षित व गोपनीय • केवल OTP सत्यापन के लिए</span>
-            </div>
           </div>
         )}
       </div>

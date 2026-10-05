@@ -271,9 +271,6 @@ export default function S05_YourAd({ onOpenFacilitator }) {
           <h2 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.ad.title}
           </h2>
-          <p className="text-[12px] text-[#8C8C94] mt-0.5">
-            {STRINGS.ad.subtitle}
-          </p>
         </div>
 
         {/* Card 1: Media Upload Block */}
@@ -368,10 +365,6 @@ export default function S05_YourAd({ onOpenFacilitator }) {
               slotLabel="आर्टिकल थंबनेल फोटो जोड़ें (16:9)"
             />
           )}
-
-          <span className="text-[11.5px] text-[#6B7280]">
-            {STRINGS.ad.uploadTip}
-          </span>
         </div>
 
         {/* Card 2: Ad Copy & Action Controls */}
@@ -397,9 +390,6 @@ export default function S05_YourAd({ onOpenFacilitator }) {
               <div className="flex flex-col text-left">
                 <span className="text-[12px] font-bold text-[#854D0E]">
                   पूरा बैनर कार्ड ही सीधा लिंक है
-                </span>
-                <span className="text-[11px] text-[#A16207]">
-                  पाठक कहीं भी टैप करेंगे, तो वे सीधे आपके संपर्क या लिंक पर पहुंचेंगे।
                 </span>
               </div>
             </div>

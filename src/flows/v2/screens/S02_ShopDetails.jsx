@@ -181,9 +181,6 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
           <h2 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.shop.title}
           </h2>
-          <p className="text-[12px] text-[#8C8C94] mt-0.5">
-            {STRINGS.shop.subtitle}
-          </p>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#F0FDF4] border border-[#86EFAC]/50 text-[10.5px] font-bold text-[#16A34A] mt-1 shadow-2xs">
             <span>+91 {phone}</span>
             <span>•</span>
@@ -270,7 +267,7 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
             {resolvedCity && (
               <div className="flex items-center gap-1.5 text-[12px] text-[#16A34A] font-bold px-1 animate-fadeIn">
                 <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
-                <span>✓ {resolvedCity.name}, {resolvedCity.state}</span>
+                <span>{resolvedCity.name}, {resolvedCity.state}</span>
               </div>
             )}
 
@@ -302,9 +299,6 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
             <div className="flex items-center gap-2">
               <span className="text-[12.5px] font-bold text-[#2B2437]">
                 अतिरिक्त जानकारी (वैकल्पिक)
-              </span>
-              <span className="text-[10px] font-semibold text-[#8C8C94] px-1.5 py-0.2 rounded-full bg-[#F4F4F2]">
-                पता, ईमेल
               </span>
             </div>
             <ChevronDown className={`w-4 h-4 text-[#8C8C94] transition-transform duration-200 ${showOptional ? 'rotate-180' : ''}`} />

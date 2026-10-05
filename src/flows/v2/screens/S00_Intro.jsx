@@ -69,9 +69,6 @@ export default function S00_Intro({ onOpenFacilitator }) {
           <h1 className="text-[26px] font-extrabold text-[#2B2437] tracking-tight leading-tight">
             {STRINGS.intro.title}
           </h1>
-          <p className="text-[14px] font-medium text-[#6B7280] mt-1 leading-snug">
-            {STRINGS.intro.subtitle}
-          </p>
         </div>
 
         {/* Hero Illustration - Transparent natural blend */}

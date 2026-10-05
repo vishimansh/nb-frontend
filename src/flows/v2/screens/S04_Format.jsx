@@ -85,9 +85,6 @@ export default function S04_Format({ onOpenFacilitator }) {
           <h2 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
             {STRINGS.format.title}
           </h2>
-          <p className="text-[12px] text-[#8C8C94] mt-0.5">
-            {STRINGS.format.subtitle}
-          </p>
         </div>
 
         {/* Category Tabs: सभी · रील · न्यूज़ फ़ीड */}
@@ -147,11 +144,6 @@ export default function S04_Format({ onOpenFacilitator }) {
                     {fmt.effort}
                   </span>
                 </div>
-
-                {/* Placement Explanation */}
-                <p className="text-[11.5px] text-[#8C8C94] leading-snug line-clamp-2">
-                  {fmt.description}
-                </p>
 
                 {/* Selection Radio Bar */}
                 <div

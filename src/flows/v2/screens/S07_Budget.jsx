@@ -240,10 +240,6 @@ export default function S07_Budget({ onOpenFacilitator }) {
                 अनुमानित पाठक संख्या
               </span>
             </div>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/80 border border-[#86EFAC]/60 text-[#16A34A] text-[10px] font-bold shadow-2xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse" />
-              लाइव
-            </span>
           </div>
 
           {/* Metric Row */}
@@ -255,15 +251,6 @@ export default function S07_Budget({ onOpenFacilitator }) {
               <span className="text-[13px] font-bold text-[#B45309]">
                 पाठक
               </span>
-            </div>
-
-            {/* Active Parameters Pill */}
-            <div className="flex items-center gap-1 text-[11px] font-semibold text-[#78350F] bg-white/90 border border-[#FDE68A] px-2.5 py-0.5 rounded-full shadow-2xs">
-              <span>{radiusKm} किमी</span>
-              <span className="text-[#D97706]/40">·</span>
-              <span>₹{dailyAmount}/दिन</span>
-              <span className="text-[#D97706]/40">·</span>
-              <span>{days} दिन</span>
             </div>
           </div>
         </div>
@@ -336,9 +323,6 @@ export default function S07_Budget({ onOpenFacilitator }) {
           <div className="flex items-center justify-between px-1">
             <span className="text-[13.5px] font-bold text-[#2B2437]">
               2. बजट और अवधि तय करें
-            </span>
-            <span className="text-[10.5px] font-bold text-[#8C8C94] uppercase tracking-wider">
-              {selectedPkgId === 'custom' ? 'कस्टम' : activePackage?.name || 'पैकेज'}
             </span>
           </div>
 
@@ -558,9 +542,6 @@ export default function S07_Budget({ onOpenFacilitator }) {
         summaryContent={
           <div className="w-full flex items-center justify-between py-1">
             <div className="flex flex-col">
-              <span className="text-[11px] font-semibold text-[#8C8C94] uppercase tracking-wider">
-                कुल विज्ञापन बजट
-              </span>
               <div className="flex items-baseline gap-1.5">
                 <span className="font-black text-[22px] text-[#2B2437] tabular-nums tracking-tight leading-tight">
                   कुल ₹{formatIN(money.total)}
