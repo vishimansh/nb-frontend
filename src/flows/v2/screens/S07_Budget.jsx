@@ -556,14 +556,28 @@ export default function S07_Budget({ onOpenFacilitator }) {
         onClick={handleSubmit}
         showArrow={!isFromReview}
         summaryContent={
-          <div className="w-full flex items-center justify-between">
-            <span className="font-extrabold text-[15px] text-[#2B2437] tabular-nums">
-              {STRINGS.budget.totalWithGstSticky(formatIN(money.total))}
-            </span>
+          <div className="w-full flex items-center justify-between py-1">
+            <div className="flex flex-col">
+              <span className="text-[11px] font-semibold text-[#8C8C94] uppercase tracking-wider">
+                कुल विज्ञापन बजट
+              </span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="font-black text-[22px] text-[#2B2437] tabular-nums tracking-tight leading-tight">
+                  कुल ₹{formatIN(money.total)}
+                </span>
+                <span className="text-[12px] font-semibold text-[#8C8C94]">
+                  (GST सहित)
+                </span>
+              </div>
+              <span className="text-[11px] font-medium text-[#8C8C94] mt-0.5">
+                ₹{formatIN(dailyAmount)}/दिन × {days} दिन
+              </span>
+            </div>
+
             <button
               type="button"
               onClick={() => setShowBillSheet(true)}
-              className="text-[12.5px] font-bold text-[#E39026] hover:underline cursor-pointer"
+              className="px-3 py-1.5 rounded-xl bg-[#FFF8E7] border border-[#F6DFA8] text-[12px] font-bold text-[#D97706] hover:bg-[#FDE68A] transition-colors cursor-pointer shadow-2xs shrink-0"
             >
               {STRINGS.budget.viewBill}
             </button>

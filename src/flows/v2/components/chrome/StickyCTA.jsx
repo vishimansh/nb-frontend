@@ -45,9 +45,9 @@ export default function StickyCTA({
   return (
     <div className="sticky bottom-0 left-0 right-0 w-full z-20 pointer-events-auto">
       {/* Cream gradient fade above the CTA */}
-      <div className="h-6 w-full bg-gradient-to-t from-[#F7F7F4] to-transparent pointer-events-none" />
+      <div className="h-6 w-full bg-gradient-to-t from-[#FAF9F6] to-transparent pointer-events-none" />
 
-      <div className="bg-[#F7F7F4]/95 backdrop-blur-md px-4 pt-1.5 pb-6 flex flex-col gap-2 border-t border-[#E5E7EB]/50">
+      <div className="bg-[#FAF9F6]/95 backdrop-blur-md px-4 pt-1.5 pb-6 flex flex-col gap-2 border-t border-[#EDEDEA]">
         {/* Optional Missing Info Explanation for disabled state */}
         {disabled && missingHint && (
           <div className="text-center text-[12px] font-medium text-[#DC2626]">
