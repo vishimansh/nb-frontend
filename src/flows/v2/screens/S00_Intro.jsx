@@ -7,7 +7,7 @@ import { useAdvertiserV2 } from '../context/AdvertiserV2Context';
 import { CONFIG } from '../config';
 import { STRINGS } from '../strings/hi';
 import { track } from '../utils/track';
-import { MapPin, Clock, Sparkles, ShieldCheck } from 'lucide-react';
+import { MapPin, Clock, ShieldCheck } from 'lucide-react';
 
 export default function S00_Intro({ onOpenFacilitator }) {
   const { state, navigateTo, resetDraft } = useAdvertiserV2();
@@ -63,75 +63,62 @@ export default function S00_Intro({ onOpenFacilitator }) {
       />
 
       {/* Scrollable Intro Body */}
-      <div className="flex-1 overflow-y-auto px-5 pt-1 pb-3 flex flex-col items-center justify-between gap-3 scrollbar-none">
-        {/* Title & Subtitle with Brand Pill */}
-        <div className="text-center pt-0.5 px-1">
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#FFF9EE] border border-[#FDE68A] text-[11px] font-bold text-[#E39026] mb-1.5 shadow-2xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#E39026]" />
-            <span>{STRINGS.intro.tag || 'नवभारत ऐड्स'}</span>
-          </div>
-          <h1 className="text-[25px] font-extrabold text-[#2B2437] tracking-tight leading-[1.25]">
+      <div className="flex-1 overflow-y-auto px-5 pt-2 pb-3 flex flex-col items-center justify-between gap-3.5 scrollbar-none">
+        {/* Title & Subtitle */}
+        <div className="text-center pt-0.5 px-2">
+          <h1 className="text-[26px] font-extrabold text-[#2B2437] tracking-tight leading-tight">
             {STRINGS.intro.title}
           </h1>
-          <p className="text-[13px] font-medium text-[#6B7280] mt-1.5 leading-snug max-w-[320px] mx-auto">
+          <p className="text-[14px] font-medium text-[#6B7280] mt-1 leading-snug">
             {STRINGS.intro.subtitle}
           </p>
         </div>
 
-        {/* Hero Illustration - Transparent natural blend (No white bg wrapper) */}
-        <div className="w-full max-w-[325px] shrink-0 relative flex items-center justify-center my-0.5">
+        {/* Hero Illustration - Transparent natural blend */}
+        <div className="w-full max-w-[320px] shrink-0 relative flex items-center justify-center my-0.5">
           <img
             src={CONFIG.HERO_SRC}
-            alt="नवभारत ऐड्स - स्थानीय कारोबार विज्ञापन"
+            alt="नवभारत ऐड्स"
             className="w-full h-auto object-contain select-none filter drop-shadow-sm pointer-events-none"
           />
         </div>
 
         {/* Three Value Micro-Cards */}
-        <div className="grid grid-cols-3 gap-2 w-full max-w-[350px] shrink-0">
+        <div className="grid grid-cols-3 gap-2.5 w-full max-w-[350px] shrink-0">
           {/* Badge 1: Local */}
-          <div className="bg-white rounded-[18px] border border-[#EBECEF] p-2.5 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
+          <div className="bg-white rounded-[16px] border border-[#EBECEF] py-3 px-2 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
             <div className="w-9 h-9 rounded-[12px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] mb-1.5 shadow-2xs">
               <MapPin className="w-4 h-4 text-[#E39026]" />
             </div>
             <p className="text-[12px] font-bold text-[#2B2437] leading-tight">
-              {STRINGS.intro.badge1Title || 'अपने शहर में'}
-            </p>
-            <p className="text-[10px] font-medium text-[#6B7280] leading-tight mt-0.5">
-              {STRINGS.intro.badge1Subtitle || 'सीधे ग्राहकों तक'}
+              {STRINGS.intro.badge1}
             </p>
           </div>
 
           {/* Badge 2: Budget */}
-          <div className="bg-white rounded-[18px] border border-[#EBECEF] p-2.5 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
+          <div className="bg-white rounded-[16px] border border-[#EBECEF] py-3 px-2 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
             <div className="w-9 h-9 rounded-[12px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] font-bold text-[17px] leading-none mb-1.5 shadow-2xs">
               ₹
             </div>
             <p className="text-[12px] font-bold text-[#2B2437] leading-tight">
-              {STRINGS.intro.badge2Title || 'सिर्फ ₹100 से'}
-            </p>
-            <p className="text-[10px] font-medium text-[#6B7280] leading-tight mt-0.5">
-              {STRINGS.intro.badge2Subtitle || 'शुरुआत करें'}
+              {STRINGS.intro.badge2}
             </p>
           </div>
 
           {/* Badge 3: Fast & Easy */}
-          <div className="bg-white rounded-[18px] border border-[#EBECEF] p-2.5 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
+          <div className="bg-white rounded-[16px] border border-[#EBECEF] py-3 px-2 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
             <div className="w-9 h-9 rounded-[12px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] mb-1.5 shadow-2xs">
               <Clock className="w-4 h-4 text-[#E39026]" />
             </div>
             <p className="text-[12px] font-bold text-[#2B2437] leading-tight">
-              {STRINGS.intro.badge3Title || '5 मिनट में तैयार'}
-            </p>
-            <p className="text-[10px] font-medium text-[#6B7280] leading-tight mt-0.5">
-              {STRINGS.intro.badge3Subtitle || 'बिना किसी एजेंसी'}
+              {STRINGS.intro.badge3}
             </p>
           </div>
         </div>
 
-        {/* Sleek Reassurance Strip */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FDF5E8] border border-[#F5B55C]/50 shadow-2xs text-[11.5px] font-semibold text-[#2B2437]">
-          <ShieldCheck className="w-4 h-4 text-[#10B981] shrink-0" />
+        {/* Sleek Minimal Reassurance Strip */}
+        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FDF5E8] border border-[#F5B55C]/50 shadow-2xs text-[11.5px] font-semibold text-[#2B2437]">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
           <span>{STRINGS.intro.reassurance}</span>
         </div>
       </div>
