@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Pipette, RotateCcw, X, Palette, Check } from 'lucide-react';
+import { Pipette, RotateCcw, X, Palette, Check, GripHorizontal, GripVertical } from 'lucide-react';
 import {
   useTheme,
   DEFAULT_PRIMARY,
@@ -65,6 +65,16 @@ function hsvToHex(h, s, v) {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 
+function clampPosition(x, y, width = 290, height = 380) {
+  if (typeof window === 'undefined') return { x, y };
+  const maxX = Math.max(8, window.innerWidth - width - 8);
+  const maxY = Math.max(8, window.innerHeight - height - 8);
+  return {
+    x: Math.min(Math.max(8, x), maxX),
+    y: Math.min(Math.max(8, y), maxY),
+  };
+}
+
 export default function ColorPickerWidget() {
   const {
     primaryColor,
@@ -91,6 +101,137 @@ export default function ColorPickerWidget() {
     setHsv(newHsv);
     setHexInput(currentColor.toUpperCase());
   }, [currentColor, target]);
+
+  // Draggable position state (stored in localStorage)
+  const [position, setPosition] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem('nb_color_picker_pos');
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (typeof parsed.x === 'number' && typeof parsed.y === 'number') {
+            return clampPosition(parsed.x, parsed.y, 290, 420);
+          }
+        }
+      } catch {}
+      return clampPosition(window.innerWidth - 305, 75, 290, 420);
+    }
+    return { x: 100, y: 75 };
+  });
+
+  const [isDraggingPanel, setIsDraggingPanel] = useState(false);
+  const [isDraggingTrigger, setIsDraggingTrigger] = useState(false);
+
+  // Keep widget in screen bounds on resize and when toggling open/close
+  useEffect(() => {
+    const handleResize = () => {
+      setPosition((prev) => {
+        const width = isCustomizerOpen ? 290 : 155;
+        const height = isCustomizerOpen ? 420 : 44;
+        return clampPosition(prev.x, prev.y, width, height);
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isCustomizerOpen]);
+
+  // When opening, ensure it fits within the viewport
+  useEffect(() => {
+    if (isCustomizerOpen) {
+      setPosition((prev) => clampPosition(prev.x, prev.y, 290, 420));
+    }
+  }, [isCustomizerOpen]);
+
+  // Unified global drag tracker for Trigger and Panel
+  const dragRef = useRef({
+    isDragging: false,
+    hasMoved: false,
+    startX: 0,
+    startY: 0,
+    origX: 0,
+    origY: 0,
+    isPanel: false,
+  });
+
+  const handlePointerDownDrag = (e, isPanel) => {
+    if (e.button !== undefined && e.button !== 0) return;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+    dragRef.current = {
+      isDragging: true,
+      hasMoved: false,
+      startX: clientX,
+      startY: clientY,
+      origX: position.x,
+      origY: position.y,
+      isPanel,
+    };
+
+    if (isPanel) {
+      setIsDraggingPanel(true);
+    } else {
+      setIsDraggingTrigger(true);
+    }
+  };
+
+  useEffect(() => {
+    const handleMove = (e) => {
+      if (!dragRef.current.isDragging) return;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      const dx = clientX - dragRef.current.startX;
+      const dy = clientY - dragRef.current.startY;
+
+      if (!dragRef.current.hasMoved && Math.hypot(dx, dy) > 4) {
+        dragRef.current.hasMoved = true;
+      }
+
+      if (dragRef.current.hasMoved) {
+        const width = dragRef.current.isPanel ? 290 : 155;
+        const height = dragRef.current.isPanel ? 420 : 44;
+        const newPos = clampPosition(
+          dragRef.current.origX + dx,
+          dragRef.current.origY + dy,
+          width,
+          height
+        );
+        setPosition(newPos);
+      }
+    };
+
+    const handleUp = () => {
+      if (!dragRef.current.isDragging) return;
+      const wasPanel = dragRef.current.isPanel;
+      const hadMoved = dragRef.current.hasMoved;
+
+      dragRef.current.isDragging = false;
+      setIsDraggingPanel(false);
+      setIsDraggingTrigger(false);
+
+      if (hadMoved) {
+        try {
+          localStorage.setItem('nb_color_picker_pos', JSON.stringify(position));
+        } catch {}
+      } else if (!wasPanel) {
+        // Simple click without drag on closed trigger: open customizer
+        setIsCustomizerOpen(true);
+      }
+    };
+
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleUp);
+    window.addEventListener('touchmove', handleMove, { passive: false });
+    window.addEventListener('touchend', handleUp);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseup', handleUp);
+      window.removeEventListener('touchmove', handleMove);
+      window.removeEventListener('touchend', handleUp);
+    };
+  }, [position, setIsCustomizerOpen]);
 
   const satBoxRef = useRef(null);
   const hueBarRef = useRef(null);
@@ -139,7 +280,7 @@ export default function ColorPickerWidget() {
     [setCurrentColor]
   );
 
-  // Window-level mouse/touch drag handlers for butter-smooth movement
+  // Window-level mouse/touch drag handlers for color picking in Saturation & Hue
   useEffect(() => {
     const handlePointerMove = (e) => {
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -196,19 +337,33 @@ export default function ColorPickerWidget() {
     }
   };
 
-  // If customizer is closed, show floating palette button
+  // If customizer is closed, show floating draggable palette button
   if (!isCustomizerOpen) {
     return (
-      <div className="fixed top-[74px] right-3 z-50 select-none">
+      <div
+        style={{
+          position: 'fixed',
+          left: `${position.x}px`,
+          top: `${position.y}px`,
+          zIndex: 9999,
+        }}
+        className="select-none touch-none"
+      >
         <button
           type="button"
-          onClick={() => setIsCustomizerOpen(true)}
-          className="h-[38px] px-3 rounded-full bg-white/95 backdrop-blur-md shadow-lg border border-gray-200/90 flex items-center gap-2 text-gray-800 hover:shadow-xl active:scale-95 transition-all cursor-pointer group"
-          title="Open Color Picker"
-          aria-label="Open Color Picker"
+          onMouseDown={(e) => handlePointerDownDrag(e, false)}
+          onTouchStart={(e) => handlePointerDownDrag(e, false)}
+          className={`h-[38px] pl-2.5 pr-3 rounded-full bg-white/95 backdrop-blur-md shadow-lg border border-gray-200/90 flex items-center gap-1.5 text-gray-800 transition-all cursor-grab active:cursor-grabbing group select-none ${
+            isDraggingTrigger
+              ? 'scale-105 shadow-2xl ring-2 ring-black/10'
+              : 'hover:shadow-xl active:scale-95'
+          }`}
+          title="Drag anywhere on screen, or click to open Color Picker"
+          aria-label="Open Color Picker (Draggable)"
         >
-          <Palette size={16} className="text-gray-700" />
-          <div className="flex items-center">
+          <GripVertical size={13} className="text-gray-400 group-hover:text-gray-600 shrink-0" />
+          <Palette size={15} className="text-gray-700 shrink-0" />
+          <div className="flex items-center shrink-0">
             <span
               className="w-4 h-4 rounded-full border border-white shadow-xs inline-block"
               style={{ backgroundColor: primaryColor }}
@@ -220,7 +375,7 @@ export default function ColorPickerWidget() {
               title="Accent"
             />
           </div>
-          <span className="text-[12px] font-bold text-gray-900 tracking-tight">
+          <span className="text-[12px] font-bold text-gray-900 tracking-tight shrink-0">
             Color Picker
           </span>
         </button>
@@ -234,11 +389,35 @@ export default function ColorPickerWidget() {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="fixed top-[70px] right-3 z-[999] w-[290px] bg-white rounded-[22px] shadow-2xl border border-gray-200/90 p-3.5 flex flex-col gap-3 select-none animate-fadeIn"
       style={{
-        boxShadow: '0 20px 40px -10px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0,0,0,0.06)',
+        position: 'fixed',
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        zIndex: 9999,
+        boxShadow: isDraggingPanel
+          ? '0 28px 50px -10px rgba(0, 0, 0, 0.35), 0 0 0 2px rgba(0,0,0,0.1)'
+          : '0 20px 40px -10px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0,0,0,0.06)',
       }}
+      className={`w-[290px] bg-white rounded-[22px] border border-gray-200/90 p-3.5 flex flex-col gap-2.5 select-none transition-shadow ${
+        isDraggingPanel ? 'scale-[1.01]' : 'animate-fadeIn'
+      }`}
     >
+      {/* 0. Dedicated Drag Handle Bar */}
+      <div
+        onMouseDown={(e) => handlePointerDownDrag(e, true)}
+        onTouchStart={(e) => handlePointerDownDrag(e, true)}
+        className="w-full flex items-center justify-between pb-1 cursor-grab active:cursor-grabbing group touch-none -mt-1 select-none border-b border-gray-100/80"
+        title="Click and drag anywhere to move color picker"
+      >
+        <div className="flex items-center gap-1.5 text-gray-400 group-hover:text-gray-600 transition-colors">
+          <GripHorizontal size={14} />
+          <span className="text-[10.5px] font-semibold tracking-tight text-gray-400 group-hover:text-gray-600">
+            Drag to move
+          </span>
+        </div>
+        <div className="w-12 h-1 rounded-full bg-gray-200 group-hover:bg-gray-400 transition-colors mr-1" />
+      </div>
+
       {/* 1. Header with Target Switcher (Primary vs Accent) & Close */}
       <div className="flex items-center justify-between gap-1 pb-1 border-b border-gray-100">
         <div className="flex items-center gap-1.5 flex-1 bg-gray-100 p-1 rounded-[14px]">

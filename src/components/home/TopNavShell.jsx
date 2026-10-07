@@ -208,13 +208,13 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                 className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-out ${
                   isActive
                     ? 'bg-[#F5B55C] text-[#2B2437] shadow-xs'
-                    : 'bg-transparent text-[#94A3B8]'
+                    : 'bg-transparent text-[#E2E8F0]'
                 }`}
               >
                 {Icon && (
                   <Icon
                     size={22}
-                    color={isActive ? '#2B2437' : '#94A3B8'}
+                    color={isActive ? '#2B2437' : '#E2E8F0'}
                     variant="Linear"
                   />
                 )}
@@ -224,7 +224,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                 className={`text-[13.5px] mt-[8px] leading-tight tracking-tight truncate w-full text-center px-1 transition-colors duration-300 ease-out ${
                   isActive
                     ? 'font-bold text-[#F5B55C]'
-                    : 'font-normal text-[#CBD5E1]'
+                    : 'font-normal text-[#E2E8F0]'
                 }`}
               >
                 {tab.label}
@@ -290,13 +290,13 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                   className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ease-out ${
                     isActive
                       ? 'bg-[#F5B55C] text-[#2B2437] shadow-xs'
-                      : 'bg-transparent text-[#94A3B8]'
+                      : 'bg-transparent text-[#E2E8F0]'
                   }`}
                 >
                   {Icon && (
                     <Icon
                       size={22}
-                      color={isActive ? '#2B2437' : '#94A3B8'}
+                      color={isActive ? '#2B2437' : '#E2E8F0'}
                       variant="Linear"
                     />
                   )}
@@ -306,7 +306,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
                   className={`text-[13.5px] mt-[8px] leading-tight tracking-tight truncate w-full text-center px-1 transition-colors duration-300 ease-out ${
                     isActive
                       ? 'font-bold text-[#F5B55C]'
-                      : 'font-normal text-[#CBD5E1]'
+                      : 'font-normal text-[#E2E8F0]'
                   }`}
                 >
                   {meta?.label || id}

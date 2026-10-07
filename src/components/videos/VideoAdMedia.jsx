@@ -48,6 +48,14 @@ export default function VideoAdMedia({
           playsInline
           loop
           preload="auto"
+          onError={(e) => {
+            if (ad.onlineFallbackUrl && e.currentTarget.src !== ad.onlineFallbackUrl) {
+              e.currentTarget.src = ad.onlineFallbackUrl;
+              if (isCurrentReel && !isPaused) {
+                e.currentTarget.play().catch(() => {});
+              }
+            }
+          }}
           className="w-full h-full object-cover absolute inset-0 z-0"
         />
       ) : (

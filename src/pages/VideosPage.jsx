@@ -49,8 +49,8 @@ export default function VideosPage() {
       destinationUrl: cmp.details?.destinationUrl || 'https://navabharat.com',
       likeCount: 194,
       isLiked: false,
-      videoUrl: cmp.details?.uploadedCreativeUrl?.startsWith('blob') ? cmp.details.uploadedCreativeUrl : 'https://vjs.zencdn.net/v/oceans.mp4',
-      posterThumbnail: cmp.details?.uploadedCreativeUrl || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
+      videoUrl: cmp.details?.uploadedCreativeUrl?.startsWith('blob') ? cmp.details.uploadedCreativeUrl : '/videos/toyota-car-ad.mp4',
+      posterThumbnail: cmp.details?.uploadedCreativeUrl || 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=800&q=80',
     }));
 
     const allAds = [...customAds, ...rawReelAdsData];

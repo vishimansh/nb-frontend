@@ -265,7 +265,7 @@ export default function FeedCard({
 
           {/* Headline: 14px medium with protective leading and pt-[1px] for Hindi matras */}
           <h3
-            className="mt-[4px] pt-[1px] text-[14px] font-medium text-[#2B2437] leading-[17px] line-clamp-3 overflow-hidden text-ellipsis"
+            className="mt-[4px] pt-[1px] text-[14px] font-medium text-black leading-[17px] line-clamp-3 overflow-hidden text-ellipsis"
             style={{
               display: '-webkit-box',
               WebkitLineClamp: 3,
@@ -308,24 +308,24 @@ export default function FeedCard({
 
         {/* Right Action Icons (24px gap between icons) */}
         <div className="flex items-center gap-[24px] relative">
-          {/* WhatsApp / Share Icon: 18px × 18px dark navy circle */}
+          {/* WhatsApp / Share Icon: 18px × 18px matching black headline color */}
           <button
             type="button"
             onClick={handleWhatsApp}
             aria-label="व्हाट्सएप पर शेयर करें"
-            className="w-[18px] h-[18px] rounded-full bg-[#2B2437] flex items-center justify-center text-white cursor-pointer active:opacity-80 shrink-0"
+            className="w-[18px] h-[18px] flex items-center justify-center text-black hover:opacity-80 active:scale-95 transition-all cursor-pointer shrink-0"
           >
-            <Whatsapp size={11} color="#FFFFFF" variant="Bold" />
+            <Whatsapp size={18} color="#000000" variant="Bold" />
           </button>
 
-          {/* Overflow Menu (•••): 18px × 18px */}
+          {/* Overflow Menu (•••): 18px × 18px matching black headline color */}
           <button
             type="button"
             onClick={handleMore}
             aria-label="अधिक विकल्प"
-            className="w-[18px] h-[18px] flex items-center justify-center text-[#2B2437] hover:text-black cursor-pointer shrink-0"
+            className="w-[18px] h-[18px] flex items-center justify-center text-black hover:opacity-80 active:scale-95 transition-all cursor-pointer shrink-0"
           >
-            <More size={18} color="#2B2437" variant="Linear" />
+            <More size={18} color="#000000" variant="Linear" />
           </button>
 
           {/* Options Menu Popover: खबर सेव करें & लिंक कॉपी करें */}

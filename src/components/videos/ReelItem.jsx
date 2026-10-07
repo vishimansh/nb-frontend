@@ -184,6 +184,14 @@ export default function ReelItem({ reel, isActive, onShareToast }) {
             playsInline
             loop
             preload="auto"
+            onError={(e) => {
+              if (reel.onlineFallbackUrl && e.currentTarget.src !== reel.onlineFallbackUrl) {
+                e.currentTarget.src = reel.onlineFallbackUrl;
+                if (isActive && !isPausedByUser) {
+                  e.currentTarget.play().catch(() => {});
+                }
+              }
+            }}
             onTimeUpdate={(e) => {
               if (e.currentTarget.currentTime >= 7) {
                 setShowBottomContent(true);

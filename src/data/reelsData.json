@@ -1,7 +1,8 @@
 [
   {
     "id": "reel-1",
-    "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
+    "videoUrl": "/videos/reel-business-rbi.webm",
+    "onlineFallbackUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/ba/201905_Coin_counter_working.webm/201905_Coin_counter_working.webm.480p.vp9.webm",
     "posterThumbnail": "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&fit=crop&w=800&q=80",
     "backupPoster": "https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=800&q=80",
     "category": {
@@ -39,7 +40,8 @@
   },
   {
     "id": "reel-2",
-    "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
+    "videoUrl": "/videos/reel-narmada-aarti.webm",
+    "onlineFallbackUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/59/Ganga_Aarti_at_Rishikesh.webm/Ganga_Aarti_at_Rishikesh.webm.480p.vp9.webm",
     "posterThumbnail": "https://images.unsplash.com/photo-1571536802807-30451e3955d8?auto=format&fit=crop&w=800&q=80",
     "backupPoster": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80",
     "category": {
@@ -69,7 +71,8 @@
   },
   {
     "id": "reel-3",
-    "videoUrl": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+    "videoUrl": "/videos/reel-indore-metro.webm",
+    "onlineFallbackUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/29/Milan_M4_train_video.webm/Milan_M4_train_video.webm.480p.vp9.webm",
     "posterThumbnail": "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=800&q=80",
     "backupPoster": "https://images.unsplash.com/photo-1545459720-aac8509eb02c?auto=format&fit=crop&w=800&q=80",
     "category": {
@@ -99,7 +102,8 @@
   },
   {
     "id": "reel-4",
-    "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
+    "videoUrl": "/videos/reel-gwalior-cricket.webm",
+    "onlineFallbackUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/1/12/Virat_Kohli_bowled_in_India_vs_Ned_Match_in_Bengaluru.webm/Virat_Kohli_bowled_in_India_vs_Ned_Match_in_Bengaluru.webm.480p.vp9.webm",
     "posterThumbnail": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?auto=format&fit=crop&w=800&q=80",
     "backupPoster": "https://images.unsplash.com/photo-1587385789097-0197a7fbd179?auto=format&fit=crop&w=800&q=80",
     "category": {
@@ -129,8 +133,9 @@
   },
   {
     "id": "reel-5",
-    "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
-    "posterThumbnail": "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=800&q=80",
+    "videoUrl": "/videos/reel-raipur-solar.webm",
+    "onlineFallbackUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e1/Solar_panels_in_California_and_Nevada_sparkle_in_the_sunlight_%28CIRA_2019-06-10%29.webm/Solar_panels_in_California_and_Nevada_sparkle_in_the_sunlight_%28CIRA_2019-06-10%29.webm.480p.vp9.webm",
+    "posterThumbnail": "https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80",
     "backupPoster": "https://images.unsplash.com/photo-1497440001374-f26997328c1b?auto=format&fit=crop&w=800&q=80",
     "category": {
       "id": "city",
@@ -150,7 +155,8 @@
   },
   {
     "id": "reel-6",
-    "videoUrl": "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+    "videoUrl": "/videos/reel-bhopal-startup.webm",
+    "onlineFallbackUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/f/f7/Indic_Wikimedia_Hackathon_Kochi_2025_Hacking_%26_Presentations_Video_01.webm/Indic_Wikimedia_Hackathon_Kochi_2025_Hacking_%26_Presentations_Video_01.webm.480p.vp9.webm",
     "posterThumbnail": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
     "backupPoster": "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
     "category": {
@@ -171,7 +177,8 @@
   },
   {
     "id": "reel-7",
-    "videoUrl": "https://vjs.zencdn.net/v/oceans.mp4",
+    "videoUrl": "/videos/reel-ujjain-mahakal.webm",
+    "onlineFallbackUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/09/Sri_Sri_Iswar_Madan_Mohan_Jew_-_Temple_Aarti.webm/Sri_Sri_Iswar_Madan_Mohan_Jew_-_Temple_Aarti.webm.480p.vp9.webm",
     "posterThumbnail": "https://images.unsplash.com/photo-1609766857041-ed402ea8069a?auto=format&fit=crop&w=800&q=80",
     "backupPoster": "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80",
     "category": {
@@ -192,7 +199,8 @@
   },
   {
     "id": "reel-8",
-    "videoUrl": "https://media.w3.org/2010/05/sintel/trailer_hd.mp4",
+    "videoUrl": "/videos/reel-jabalpur-flyover.webm",
+    "onlineFallbackUrl": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/51/Timelapse_of_I-285_and_SR_400_interchange_construction_in_Georgia_USA.webm/Timelapse_of_I-285_and_SR_400_interchange_construction_in_Georgia_USA.webm.480p.vp9.webm",
     "posterThumbnail": "https://images.unsplash.com/photo-1545459720-aac8509eb02c?auto=format&fit=crop&w=800&q=80",
     "backupPoster": "https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=800&q=80",
     "category": {

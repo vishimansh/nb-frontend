@@ -31,6 +31,19 @@
     ]
   },
   {
+    "id": "ad-samsung-video",
+    "isAd": true,
+    "format": "video",
+    "brandName": "Samsung India",
+    "brandLogo": "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=120&q=80",
+    "headline": "नया गैलेक्सी AI - तकनीक का नया अनुभव",
+    "destinationUrl": "https://www.samsung.com/in",
+    "likeCount": 512,
+    "isLiked": false,
+    "videoUrl": "/videos/ad-ai-tech.webm",
+    "posterThumbnail": "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=80"
+  },
+  {
     "id": "ad-lumea-carousel",
     "isAd": true,
     "format": "carousel",
