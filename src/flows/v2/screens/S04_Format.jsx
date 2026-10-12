@@ -11,7 +11,8 @@ import { useToastV2 } from '../context/ToastV2Context';
 import { FORMATS, getFormatById } from '../data/formats';
 import { track } from '../utils/track';
 import { STRINGS } from '../strings/hi';
-import { Check, Star } from 'lucide-react';
+import { Check, Star, Download } from 'lucide-react';
+import { triggerPrototypeDownload } from '../components/ad/AdPreview';
 
 export default function S04_Format({ onOpenFacilitator }) {
   const { state, updateDraft } = useAdvertiserV2();
@@ -145,22 +146,37 @@ export default function S04_Format({ onOpenFacilitator }) {
                   </span>
                 </div>
 
-                {/* Selection Radio Bar */}
-                <div
-                  className={`w-full py-2 rounded-xl text-[12.5px] font-bold flex items-center justify-center gap-1.5 transition-colors ${
-                    isSelected
-                      ? 'bg-[#2B2437] text-white shadow-xs'
-                      : 'bg-[#F4F4F2] text-[#4A4358] hover:bg-[#EBEBE8]'
-                  }`}
-                >
-                  {isSelected ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 stroke-[2.5]" />
-                      <span>चुना गया</span>
-                    </>
-                  ) : (
-                    <span>चुनें</span>
-                  )}
+                {/* Selection & Prototype Download Buttons */}
+                <div className="flex items-center gap-1.5 w-full">
+                  <div
+                    className={`flex-1 py-2 rounded-xl text-[12px] font-bold flex items-center justify-center gap-1.5 transition-colors ${
+                      isSelected
+                        ? 'bg-[#2B2437] text-white shadow-xs'
+                        : 'bg-[#F4F4F2] text-[#4A4358] hover:bg-[#EBEBE8]'
+                    }`}
+                  >
+                    {isSelected ? (
+                      <>
+                        <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+                        <span>चुना गया</span>
+                      </>
+                    ) : (
+                      <span>चुनें</span>
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      triggerPrototypeDownload(fmt.id, showToast);
+                    }}
+                    className="px-2.5 py-2 rounded-xl bg-[#F4F4F2] hover:bg-[#EBEBE8] text-[#2B2437] text-[11px] font-bold flex items-center justify-center gap-1 border border-[#E5E7EB] shadow-2xs active:scale-95 transition-all cursor-pointer shrink-0"
+                    title="प्रोटोटाइप इमेज डाउनलोड करें"
+                  >
+                    <Download className="w-3.5 h-3.5 text-[#2B2437]" />
+                    <span>इमेज</span>
+                  </button>
                 </div>
               </div>
             );

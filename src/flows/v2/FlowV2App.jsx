@@ -20,6 +20,7 @@ import S08_ReviewPay from './screens/S08_ReviewPay';
 import S09_Status from './screens/S09_Status';
 import S10_Dashboard from './screens/S10_Dashboard';
 import S11_CampaignDetail from './screens/S11_CampaignDetail';
+import S12_PreviewScreen from './screens/S12_PreviewScreen';
 
 const SCREEN_COMPONENTS = {
   intro: S00_Intro,
@@ -34,6 +35,7 @@ const SCREEN_COMPONENTS = {
   status: S09_Status,
   dashboard: S10_Dashboard,
   analytics: S11_CampaignDetail,
+  preview: S12_PreviewScreen,
 };
 
 class FlowV2ScreenErrorBoundary extends React.Component {
@@ -101,7 +103,9 @@ function FlowV2Inner() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const currentScreenId = state.nav?.current || 'intro';
+  const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+  const previewParam = urlParams?.get('preview');
+  const currentScreenId = previewParam ? 'preview' : (state.nav?.current || 'intro');
   const CurrentScreenComponent = SCREEN_COMPONENTS[currentScreenId] || S00_Intro;
   const slideDirection = state.nav?.direction === 'backward' ? 'nb2-screen-slide-backward' : 'nb2-screen-slide-forward';
 

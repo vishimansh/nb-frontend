@@ -10,6 +10,7 @@ import {
 import { getMoneyBreakdown } from '../utils/money';
 import { getCategoryById } from '../data/categories';
 import { track } from '../utils/track';
+import { STEP_ORDER } from '../router/screens';
 
 export const initialDraftState = {
   goal: 'engagement',
@@ -81,6 +82,12 @@ function getMergedInitialState() {
   }
 
   if (saved) {
+    let sanitizedHistory = saved.nav?.history;
+    if (Array.isArray(sanitizedHistory)) {
+      sanitizedHistory = sanitizedHistory.filter(
+        (s, idx, arr) => s !== 'area' && (idx === 0 || s !== arr[idx - 1])
+      );
+    }
     state = {
       ...state,
       ...saved,
@@ -91,6 +98,7 @@ function getMergedInitialState() {
       nav: {
         ...initialV2State.nav,
         ...(saved.nav || {}),
+        history: sanitizedHistory && sanitizedHistory.length > 0 ? sanitizedHistory : initialV2State.nav.history,
       },
     };
   }
@@ -115,13 +123,37 @@ function setNestedValue(obj, path, value) {
   target[lastKey] = value;
 }
 
-function v2Reducer(state, action) {
+export function v2Reducer(state, action) {
   switch (action.type) {
     case 'NAVIGATE': {
       const { screenId, options = {} } = action.payload;
-      const history = [...state.nav.history];
+      let history = [...state.nav.history];
+      const isBackward = options.direction === 'backward';
+
       if (options.replace && history.length > 0) {
         history[history.length - 1] = screenId;
+      } else if (isBackward) {
+        // Rewind history stack to screenId
+        const targetStepIdx = STEP_ORDER.indexOf(screenId);
+        if (targetStepIdx >= 0) {
+          // If rewinding to a wizard step, prune any forward/subsequent wizard steps
+          history = history.filter((s) => {
+            const sIdx = STEP_ORDER.indexOf(s);
+            return sIdx === -1 || sIdx <= targetStepIdx;
+          });
+        }
+        // Collapse consecutive duplicate screens from old history
+        history = history.filter((s, idx, arr) => idx === 0 || s !== arr[idx - 1]);
+
+        const lastIdx = history.lastIndexOf(screenId);
+        if (lastIdx >= 0) {
+          history = history.slice(0, lastIdx + 1);
+        } else {
+          if (history.length > 0 && history[history.length - 1] === state.nav.current) {
+            history.pop();
+          }
+          history.push(screenId);
+        }
       } else if (history[history.length - 1] !== screenId) {
         history.push(screenId);
       }
@@ -139,15 +171,28 @@ function v2Reducer(state, action) {
     }
 
     case 'GO_BACK': {
-      const history = [...state.nav.history];
+      let history = [...state.nav.history];
       if (history.length <= 1) {
-        return state;
+        return {
+          ...state,
+          nav: {
+            ...state.nav,
+            current: 'intro',
+            history: ['intro'],
+            direction: 'backward',
+            fromReview: false,
+            focusField: null,
+            resubmitFor: null,
+          },
+        };
       }
-      history.pop();
-      while (history.length > 1 && history[history.length - 1] === 'area') {
+      if (history[history.length - 1] === state.nav.current) {
         history.pop();
       }
-      const prevScreen = history[history.length - 1];
+      while (history.length > 1 && (history[history.length - 1] === 'area' || history[history.length - 1] === state.nav.current)) {
+        history.pop();
+      }
+      const prevScreen = history[history.length - 1] || 'intro';
       return {
         ...state,
         nav: {

@@ -30,7 +30,9 @@ import {
   Receipt,
   Clock,
   RotateCcw,
+  Download,
 } from 'lucide-react';
+import { triggerPrototypeDownload } from '../components/ad/AdPreview';
 
 export default function S08_ReviewPay({ onOpenFacilitator }) {
   const { state, setIdentity, commitCampaign } = useAdvertiserV2();
@@ -208,14 +210,25 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
             <span className="text-[12px] font-bold text-[#2B2437]">
               {STRINGS.review.previewCaption}
             </span>
-            <button
-              type="button"
-              onClick={() => handleEditScreen('ad')}
-              className="text-[11.5px] font-bold text-[#B45309] bg-[#FFF8E7] border border-[#F6DFA8] px-2.5 py-1 rounded-full hover:bg-[#FDEFC6] flex items-center gap-1 cursor-pointer transition-colors"
-            >
-              <Pencil className="w-3 h-3" />
-              <span>विज्ञापन बदलें</span>
-            </button>
+            <div className="flex items-center gap-1.5">
+              <button
+                type="button"
+                onClick={() => triggerPrototypeDownload(formatObj.id, showToast)}
+                className="text-[11.5px] font-bold text-[#2B2437] bg-[#F4F4F2] border border-[#E5E7EB] px-2.5 py-1 rounded-full hover:bg-[#EBEBE8] flex items-center gap-1 cursor-pointer transition-colors"
+                title="प्रोटोटाइप इमेज डाउनलोड करें"
+              >
+                <Download className="w-3 h-3 text-[#2B2437]" />
+                <span>डाउनलोड</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleEditScreen('ad')}
+                className="text-[11.5px] font-bold text-[#B45309] bg-[#FFF8E7] border border-[#F6DFA8] px-2.5 py-1 rounded-full hover:bg-[#FDEFC6] flex items-center gap-1 cursor-pointer transition-colors"
+              >
+                <Pencil className="w-3 h-3" />
+                <span>विज्ञापन बदलें</span>
+              </button>
+            </div>
           </div>
 
           <div className="rounded-2xl overflow-hidden border border-[#EDEDEA] bg-white shadow-[0_6px_20px_rgba(43,36,55,0.07)] p-1.5">
@@ -349,7 +362,7 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
                     <ShieldCheck className="w-3.5 h-3.5 text-[#16A34A]" />
                   </div>
                   <span className="text-[11px] font-medium text-[#166534]">
-                    GST इनवॉइस पर टैक्स क्रेडिट मिलेगा
+                    GST इनवॉइस पर 18% ITC टैक्स क्रेडिट मिलेगा
                   </span>
                 </div>
               </div>
@@ -439,8 +452,8 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
         {/* 5. Minimal 1-Line Trust Reassurance */}
         <div className="grid grid-cols-3 gap-2 pb-1">
           {[
-            { icon: Lock, t: 'सुरक्षित', s: 'UPI पेमेंट' },
-            { icon: Clock, t: '24 घंटे', s: 'में रिव्यू' },
+            { icon: Lock, t: '100% सुरक्षित भुगतान', s: 'UPI पेमेंट' },
+            { icon: Clock, t: '24 घंटे में अप्रूवल', s: 'तेज़ रिव्यू' },
             { icon: RotateCcw, t: 'पूरा रिफंड', s: 'नामंज़ूर होने पर' },
           ].map(({ icon: Icon, t, s }) => (
             <div
@@ -459,8 +472,8 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
       <StickyCTA
         label={
           identity.verified
-            ? `₹${formatIN(money.total)} पेमेंट करें`
-            : 'पहचान जाँचकर पेमेंट करें'
+            ? `₹${formatIN(money.total)} पे करें`
+            : 'पहचान जाँचकर पे करें'
         }
         onClick={handlePayClick}
         showArrow={false}

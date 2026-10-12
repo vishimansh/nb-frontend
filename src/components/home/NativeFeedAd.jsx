@@ -77,13 +77,13 @@ const DEFAULT_ADS = [
  * 5. Le Rendez-Vous Bhopal: French Indian Art Festival
  * 6. PawSaath: Bhopal's Biggest Ever Food Drive
  */
-export default function NativeFeedAd({ ad, className = "", onClick }) {
+export default function NativeFeedAd({ ad, className = "", onClick, isHighlighted = false }) {
   const adId = ad?.id;
   const adInfo = AD_CARDS[adId] || {
     image: ad?.imageKey && AD_CARDS[`ad-${ad.imageKey}`]
       ? AD_CARDS[`ad-${ad.imageKey}`].image
       : DEFAULT_ADS[0],
-    title: ad?.headline || "प्रायोजित विज्ञापन",
+    title: ad?.headline || "स्पॉन्सर्ड विज्ञापन",
     brand: ad?.brand || "विज्ञापन",
   };
 
@@ -96,18 +96,29 @@ export default function NativeFeedAd({ ad, className = "", onClick }) {
   };
 
   return (
-    <aside
-      aria-label={adInfo.title}
-      onClick={handleClick}
-      className={`w-[386px] h-[128px] max-w-[386px] rounded-[16px] overflow-hidden shadow-xs relative border border-[#E5E7EB] select-none cursor-pointer group active:scale-[0.99] transition-transform bg-white ${className}`}
-    >
-      <img
-        src={adImage}
-        alt={adInfo.title}
-        className="w-full h-full object-cover object-center pointer-events-none select-none"
-        loading="lazy"
-        draggable={false}
-      />
-    </aside>
+    <div className="relative">
+      {isHighlighted && (
+        <div className="absolute -top-2.5 right-3 bg-[#E39026] text-[#2B2437] text-[10px] font-extrabold px-2.5 py-0.5 rounded-full shadow-sm z-20 flex items-center gap-1 leading-none select-none">
+          <span>★</span>
+          <span>फ़ीड कार्ड विज्ञापन</span>
+        </div>
+      )}
+      <aside
+        data-ad-role="native-feed-ad"
+        aria-label={adInfo.title}
+        onClick={handleClick}
+        className={`w-[386px] h-[128px] max-w-[386px] rounded-[16px] overflow-hidden shadow-xs relative border border-[#E5E7EB] select-none cursor-pointer group active:scale-[0.99] transition-transform bg-white ${
+          isHighlighted ? 'ring-2 ring-[#E39026] shadow-md' : ''
+        } ${className}`}
+      >
+        <img
+          src={adImage}
+          alt={adInfo.title}
+          className="w-full h-full object-cover object-center pointer-events-none select-none"
+          loading="lazy"
+          draggable={false}
+        />
+      </aside>
+    </div>
   );
 }

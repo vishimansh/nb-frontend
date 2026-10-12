@@ -50,11 +50,38 @@ export function useFlowNav() {
 
   const handleBack = useCallback(() => {
     if (isFromReview) {
-      safeNavigate('review');
+      safeNavigate('review', { direction: 'backward' });
+      return;
+    }
+    if (isResubmitting) {
+      safeNavigate('status', { direction: 'backward' });
       return;
     }
 
-    // Prevent getting stuck in redirect loops (e.g. 'area' -> 'budget')
+    // Step navigation for the 6-step process (shop -> goal -> format -> ad -> budget -> review)
+    const currentIndex = STEP_ORDER.indexOf(currentScreenId);
+    if (currentIndex > 0) {
+      const prevStepScreen = STEP_ORDER[currentIndex - 1];
+      safeNavigate(prevStepScreen, { direction: 'backward' });
+      return;
+    }
+
+    if (currentIndex === 0) {
+      // Step 1 ('shop'): find the last non-wizard screen in history, or fallback to 'intro'
+      const history = state.nav?.history || [];
+      let targetScreen = null;
+      for (let i = history.length - 1; i >= 0; i--) {
+        const scr = history[i];
+        if (scr !== currentScreenId && scr !== 'area' && !STEP_ORDER.includes(scr)) {
+          targetScreen = scr;
+          break;
+        }
+      }
+      safeNavigate(targetScreen || 'intro', { direction: 'backward' });
+      return;
+    }
+
+    // Fallback for non-wizard screens (e.g. status, analytics, dashboard)
     const history = state.nav?.history || [];
     if (history.length > 1) {
       let prevIndex = history.length - 2;
@@ -67,15 +94,8 @@ export function useFlowNav() {
       }
     }
 
-    // Fallback to previous wizard step if history is shallow or refreshed
-    const currentIndex = STEP_ORDER.indexOf(currentScreenId);
-    if (currentIndex > 0) {
-      safeNavigate(STEP_ORDER[currentIndex - 1], { direction: 'backward' });
-      return;
-    }
-
     goBack();
-  }, [isFromReview, safeNavigate, goBack, state.nav?.history, currentScreenId]);
+  }, [isFromReview, isResubmitting, currentScreenId, safeNavigate, state.nav?.history, goBack]);
 
   // Primary CTA label depending on mode
   const getCtaLabel = (defaultLabel = STRINGS.common.next) => {

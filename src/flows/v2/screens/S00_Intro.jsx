@@ -172,7 +172,7 @@ export default function S00_Intro({ onOpenFacilitator }) {
             <button
               type="button"
               onClick={() => {
-                window.location.href = '/';
+                window.location.href = '/feed';
               }}
               className="text-[11.5px] text-[#9CA3AF] hover:text-[#2B2437] transition-colors cursor-pointer"
             >

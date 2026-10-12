@@ -48,7 +48,7 @@ export default function ProfileMenu({
         <button
           type="button"
           onClick={() => {
-            window.location.href = '/';
+            window.location.href = '/feed';
           }}
           className="w-full p-3.5 rounded-2xl bg-white border border-[#E5E7EB] hover:bg-neutral-50 flex items-center gap-3 text-[14.5px] font-semibold text-[#2B2437] active:scale-[0.98] transition-all"
         >

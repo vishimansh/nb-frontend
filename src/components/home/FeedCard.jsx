@@ -133,6 +133,7 @@ export default function FeedCard({
   onCategoryClick,
   isSponsored = false,
   isBreakingNews = false,
+  isHighlighted = false,
   location = null,
   className = "",
   onClick,
@@ -164,7 +165,7 @@ export default function FeedCard({
     : (palette?.color || category?.color || '#497877');
 
   const catLabel = isSponsored
-    ? 'स्पॉन्सर्ड'
+    ? (category?.label && category.label !== 'प्रायोजित' ? category.label : 'स्पॉन्सर्ड')
     : (category?.label || palette?.label || 'बिज़नेस');
 
   // Resolve valid React Component for category icon
@@ -210,9 +211,18 @@ export default function FeedCard({
 
   return (
     <article
+      data-ad-role={isSponsored ? "sponsored-feed-card" : undefined}
       onClick={handleCardClick}
-      className={`${defaultWidthClass} ${defaultMinHeightClass} ${defaultBgClass} ${defaultPaddingClass} flex flex-col justify-between select-none mx-auto cursor-pointer transition-colors relative ${defaultRoundedClass} ${isMenuOpen ? 'z-30 overflow-visible' : 'overflow-visible'} ${className}`}
+      className={`${defaultWidthClass} ${defaultMinHeightClass} ${defaultBgClass} ${defaultPaddingClass} flex flex-col justify-between select-none mx-auto cursor-pointer transition-colors relative ${defaultRoundedClass} ${isMenuOpen ? 'z-30 overflow-visible' : 'overflow-visible'} ${
+        isHighlighted ? 'ring-2 ring-[#E39026] shadow-md' : ''
+      } ${className}`}
     >
+      {isHighlighted && (
+        <div className="absolute -top-2.5 right-3 bg-[#E39026] text-[#2B2437] text-[10px] font-extrabold px-2 py-0.5 rounded-full shadow-sm z-20 flex items-center gap-1 leading-none select-none">
+          <span>★</span>
+          <span>स्पॉन्सर्ड विज्ञापन</span>
+        </div>
+      )}
       {/* Top Section: Left Text Column + Right Thumbnail */}
       <div className="flex items-start justify-between w-full min-h-[69px] gap-2">
         {/* Left Column: matching thumbnail, with safe matra overflow */}

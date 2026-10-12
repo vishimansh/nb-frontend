@@ -34,6 +34,14 @@ export default function HomePage() {
   const { heroStory, topStories, categories, ads } = homeFeedData;
   const { campaigns = [] } = useAdvertiser();
 
+  const urlSearch = new URLSearchParams(location.search);
+  const adParamId = urlSearch.get('ad');
+  const targetFeedAd = (adParamId && ads.find((a) => a.id === adParamId || a.imageKey === adParamId || a.id === `ad-${adParamId}`)) || ads[0];
+
+  const highlightParam = urlSearch.get('highlight');
+  const isHighlightSponsored = highlightParam === 'sponsored' || highlightParam === '1' || highlightParam === 'true';
+  const isHighlightFeedAd = highlightParam === 'feed_ad' || highlightParam === 'feed_card_ad' || highlightParam === '1' || highlightParam === 'true';
+
   const liveFeedCampaign = campaigns.find((c) => c.status === 'live' && c.format === 'feed_banner');
   const liveHeroCampaign = campaigns.find((c) => c.status === 'live' && c.format === 'hero_banner');
 
@@ -209,6 +217,7 @@ export default function HomePage() {
                   readTime={story.readTime}
                   onCategoryClick={goToCategory}
                   isSponsored={story.isSponsored || story.categoryId === 'sponsored'}
+                  isHighlighted={(story.isSponsored || story.categoryId === 'sponsored') && isHighlightSponsored}
                   onClick={
                     story.isCustomAd && story.destinationUrl
                       ? () => {
@@ -222,9 +231,9 @@ export default function HomePage() {
             </section>
 
             {/* 4. Native Feed Ad 1 (Fixed separator before category sections) */}
-            {ads[0] && activeCategoryList.length > 0 && (
+            {targetFeedAd && activeCategoryList.length > 0 && (
               <div className="flex justify-center my-2">
-                <NativeFeedAd ad={ads[0]} />
+                <NativeFeedAd ad={targetFeedAd} isHighlighted={isHighlightFeedAd} />
               </div>
             )}
 

@@ -341,6 +341,7 @@ export default function ColorPickerWidget() {
   if (!isCustomizerOpen) {
     return (
       <div
+        id="color-picker-widget-root"
         style={{
           position: 'fixed',
           left: `${position.x}px`,

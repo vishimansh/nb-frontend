@@ -6,11 +6,14 @@ import {
   VolumeCross,
   ExportSquare,
   Speaker as SpeakerIcon,
+  Bank as BankIcon,
 } from 'iconsax-react';
+import { MdSportsCricket } from 'react-icons/md';
 import {
   Play,
   ChevronLeft,
   X,
+  Download,
 } from 'lucide-react';
 import { useToastV2 } from '../../context/ToastV2Context';
 import { STRINGS } from '../../strings/hi';
@@ -24,6 +27,67 @@ import exampleGridReel from '../../assets/examples/example_grid_reel.png';
 import exampleCarouselReel from '../../assets/examples/example_carousel_reel.png';
 import exampleFeedBanner from '../../assets/examples/example_feed_banner.png';
 import exampleSponsoredArticle from '../../assets/examples/example_sponsored_article.png';
+
+export const PROTOTYPE_DOWNLOADS = {
+  video_ad: {
+    id: 'video_ad',
+    title: 'वीडियो रील विज्ञापन (Toyota India)',
+    filename: 'navbharat-prototype-video-reel.png',
+    imageUrl: '/prototypes/prototype-video-reel.png',
+    fallbackSrc: exampleVideoReel,
+    description: 'पूरे 9:16 मोबाइल स्क्रीन पर वीडियो रील विज्ञापन',
+  },
+  grid_ad: {
+    id: 'grid_ad',
+    title: '2×2 ग्रिड रील विज्ञापन (Feather India)',
+    filename: 'navbharat-prototype-grid-reel.png',
+    imageUrl: '/prototypes/prototype-grid-reel.png',
+    fallbackSrc: exampleGridReel,
+    description: '4 तस्वीरों का आकर्षक 2×2 ग्रिड रील विज्ञापन',
+  },
+  carousel_ad: {
+    id: 'carousel_ad',
+    title: 'कैरौसेल रील विज्ञापन (Lumea India)',
+    filename: 'navbharat-prototype-carousel-reel.png',
+    imageUrl: '/prototypes/prototype-carousel-reel.png',
+    fallbackSrc: exampleCarouselReel,
+    description: 'स्वाइप होने वाले मल्टी-स्लाइड कैरौसेल रील विज्ञापन',
+  },
+  feed_card_ad: {
+    id: 'feed_card_ad',
+    title: 'फ़ीड बैनर कार्ड फ़ोन मॉकअप (भोपाल हाट)',
+    filename: 'navbharat-mockup-feed-card-screen.png',
+    imageUrl: '/prototypes/mockup-feed-card-screen.png',
+    fallbackSrc: exampleFeedBanner,
+    description: 'न्यूज़ फ़ीड में 3:1 बैनर विज्ञापन का संपूर्ण मोबाइल स्क्रीन मॉकअप',
+  },
+  sponsored_ad: {
+    id: 'sponsored_ad',
+    title: 'स्पॉन्सर्ड आर्टिकल कार्ड फ़ोन मॉकअप (फैमिली रेस्टोरेंट)',
+    filename: 'navbharat-mockup-sponsored-card-screen.png',
+    imageUrl: '/prototypes/mockup-sponsored-card-screen.png',
+    fallbackSrc: exampleSponsoredArticle,
+    description: 'न्यूज़ फ़ीड में "स्पॉन्सर्ड" स्टोरी कार्ड का संपूर्ण मोबाइल स्क्रीन मॉकअप',
+  },
+};
+
+export function triggerPrototypeDownload(formatId, onToast) {
+  const item = PROTOTYPE_DOWNLOADS[formatId] || PROTOTYPE_DOWNLOADS.feed_card_ad;
+  try {
+    const link = document.createElement('a');
+    link.href = item.imageUrl || item.fallbackSrc;
+    link.download = item.filename;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    if (onToast) {
+      onToast(`📥 ${item.title} डाउनलोड हो रहा है...`);
+    }
+  } catch (err) {
+    console.error('Download failed', err);
+  }
+}
 
 const mvpToyota = rawReelAdsData?.[0] || {
   brandName: 'Toyota India',
@@ -45,16 +109,18 @@ const mvpFeather = rawReelAdsData?.[1] || {
   ],
 };
 
-const mvpLumea = rawReelAdsData?.[2] || {
-  brandName: 'Lumea India',
-  headline: 'प्रकृति से प्रेरित, आपकी पहचान के लिए',
-  carouselSlides: [
-    'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80',
-    'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80',
-  ],
-};
+const mvpLumea =
+  rawReelAdsData?.find((ad) => ad.format === 'carousel') ||
+  rawReelAdsData?.[3] || {
+    brandName: 'Lumea India',
+    headline: 'प्रकृति से प्रेरित, आपकी पहचान के लिए',
+    carouselSlides: [
+      'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=800&q=80',
+    ],
+  };
 
 const mvpSponsoredArticle = {
   headline: 'भोपाल में खुला नया फैमिली रेस्टोरेंट, स्वाद, माहौल और खास ऑफ़र्स के साथ ज़रूर करें विज़िट',
@@ -66,11 +132,63 @@ const mvpSponsoredArticle = {
 };
 
 /**
+ * Editorial Feed Card matching the authentic Navbharat FeedCard layout
+ */
+function AuthenticEditorialFeedCard({
+  category,
+  catColor,
+  IconComponent,
+  timeAgo,
+  headline,
+  imageSrc,
+  readTime = '3 मिनट पढ़ें',
+}) {
+  return (
+    <div className="w-full bg-white rounded-[12px] p-2.5 border border-[#E5E7EB] shadow-2xs flex flex-col justify-between pointer-events-none select-none">
+      <div className="flex items-start justify-between w-full gap-2">
+        <div className="flex-1 min-w-0 flex flex-col justify-start">
+          <div className="flex items-center gap-1.5 shrink-0 flex-wrap mb-1">
+            <span
+              className="w-3.5 h-3.5 rounded-full flex items-center justify-center text-white shrink-0"
+              style={{ backgroundColor: catColor }}
+            >
+              <IconComponent size={9} color="#FFFFFF" />
+            </span>
+            <span
+              className="text-[11px] font-semibold leading-normal pt-[1px] shrink-0"
+              style={{ color: catColor }}
+            >
+              {category}
+            </span>
+            <span className="text-[10px] text-[#6B7280]">• {timeAgo}</span>
+          </div>
+          <p className="text-[12.5px] font-medium text-[#111827] leading-[17px] line-clamp-2">
+            {headline}
+          </p>
+        </div>
+        <div className="w-[88px] h-[58px] rounded-[8px] overflow-hidden shrink-0 bg-gray-100 border border-[#E5E7EB]">
+          <img src={imageSrc} alt="" className="w-full h-full object-cover" />
+        </div>
+      </div>
+      <div className="w-full my-1.5 h-[0.64px] bg-[#18253B]/10" />
+      <div className="flex items-center justify-between w-full text-[10px] text-[#6B7280]">
+        <span>{timeAgo} • {readTime}</span>
+        <div className="flex items-center gap-2">
+          <WhatsappIcon size={13} color="#000000" variant="Bold" />
+          <span className="text-black font-bold tracking-widest text-[9px]">•••</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/**
  * Authentic Ad Preview Component with refined dimensions and layout structures:
- * - Reel Formats (Video, Grid, Carousel): Exactly proportioned 9:16 phone chassis (270px × 480px).
+ * - Reel Formats (Video, Grid, Carousel): Exactly proportioned 9:16 phone chassis (280px × 498px).
  * - Full text visibility: All Hindi matras protected with proper line-height, text shadows, and high contrast.
- * - Feed Card Format: Authentic 3:1 banner card shown in native newsfeed context.
+ * - Feed Card Format: Authentic 3:1 banner card shown in native newsfeed context with real news feed cards.
  * - Sponsored Article Format: Authentic FeedCard shown in native newsfeed context with full article reader modal.
+ * - Interactive Download Button: Allows downloading the high-res prototype image for each format!
  */
 export default function AdPreview({
   format = 'feed_card_ad',
@@ -82,6 +200,7 @@ export default function AdPreview({
   compact = false,
   className = '',
   onCompactTap = null,
+  showDownloadBtn = true,
 }) {
   const { showToast } = useToastV2();
   const videoRef = useRef(null);
@@ -136,6 +255,11 @@ export default function AdPreview({
     showToast(`${resolvedBrandName} · ${resolvedCtaLabel} लिंक खुल रहा है...`);
   };
 
+  const handleDownloadPrototype = (e) => {
+    e?.stopPropagation?.();
+    triggerPrototypeDownload(format, showToast);
+  };
+
   const handleLike = (e) => {
     e?.stopPropagation?.();
     setIsLiked((prev) => {
@@ -188,10 +312,10 @@ export default function AdPreview({
       thumbSrc = images[0]?.dataUrl || mvpToyota.posterThumbnail || exampleVideoReel;
       formatLabel = 'वीडियो रील (9:16)';
     } else if (isGrid) {
-      thumbSrc = images[0]?.dataUrl || mvpFeather.gridImages[0] || exampleGridReel;
+      thumbSrc = images[0]?.dataUrl || mvpFeather.gridImages?.[0] || exampleGridReel;
       formatLabel = '2×2 ग्रिड रील';
     } else if (isCarousel) {
-      thumbSrc = images[0]?.dataUrl || mvpLumea.carouselSlides[0] || exampleCarouselReel;
+      thumbSrc = images[0]?.dataUrl || mvpLumea.carouselSlides?.[0] || exampleCarouselReel;
       formatLabel = 'कैरौसेल रील (मल्टी-स्लाइड)';
     } else if (isSponsored) {
       thumbSrc = images[0]?.dataUrl || mvpSponsoredArticle.imageUrl || exampleSponsoredArticle;
@@ -226,8 +350,8 @@ export default function AdPreview({
 
   // ========================================================
   // REEL AD FORMATS (Video Ad, Grid Ad, Carousel Ad)
-  // Perfectly proportioned 9:16 phone chassis (270px × 480px)
-  // High contrast vignette + matra-safe line height (100% visible text)
+  // Proportioned 9:16 phone chassis (280px × 498px)
+  // Matra-safe line height (100% visible text) + Download Button
   // ========================================================
   if (isReel) {
     const carouselSlides =
@@ -236,236 +360,256 @@ export default function AdPreview({
         : mvpLumea.carouselSlides || [exampleCarouselReel];
 
     return (
-      <div
-        className={`w-[270px] h-[480px] max-w-full rounded-[24px] overflow-hidden bg-black relative flex flex-col justify-between select-none shadow-xl border border-white/15 mx-auto text-white shrink-0 ${className}`}
-      >
-        {/* Dynamic Island Mock */}
-        <div className="w-16 h-2.5 rounded-full bg-black mx-auto mt-1.5 z-30 shrink-0 border border-white/10 shadow-sm" />
+      <div className={`w-full max-w-[320px] mx-auto flex flex-col items-center gap-2.5 select-none ${className}`}>
+        {/* Phone Chassis Container */}
+        <div className="w-[280px] h-[498px] max-w-full rounded-[28px] overflow-hidden bg-black relative flex flex-col justify-between shadow-2xl border-[3.5px] border-[#1C1C1E] mx-auto text-white shrink-0 group">
+          {/* Dynamic Island Mock */}
+          <div className="w-18 h-2.5 rounded-full bg-black mx-auto mt-1.5 z-30 shrink-0 border border-white/10 shadow-sm" />
 
-        {/* Carousel Story Segmented Progress Dashes */}
-        {isCarousel && (
-          <div className="absolute top-5 left-3.5 right-3.5 z-40 flex items-center gap-1 pointer-events-none">
-            {carouselSlides.map((_, idx) => (
-              <div
-                key={idx}
-                className={`flex-1 h-[2.5px] rounded-full transition-all duration-300 ${
-                  idx === activeSlide
-                    ? 'bg-white shadow-[0_1px_4px_rgba(0,0,0,0.5)]'
-                    : 'bg-white/40'
-                }`}
-              />
-            ))}
-          </div>
-        )}
-
-        {/* Top Navigation Mock */}
-        <div
-          className={`w-full px-3 z-30 flex items-center justify-between ${
-            isCarousel ? 'pt-4' : 'pt-1.5'
-          }`}
-        >
-          <div className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md border border-white/15 flex items-center justify-center text-[11px] text-white">
-            ‹
-          </div>
-
-          {/* Centered [ वीडियो | पॉडकास्ट ] Pill Toggle */}
-          <div className="px-1.5 py-0.2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-[9px] font-bold flex items-center gap-1 shadow-sm">
-            <span className="px-1.5 py-0.2 rounded-full bg-white text-[#1C1C1E] shadow-2xs">
-              वीडियो
-            </span>
-            <span className="text-white/80 px-0.5">पॉडकास्ट</span>
-          </div>
-
-          <div className="w-6" />
-        </div>
-
-        {/* Central Ad Media Surface */}
-        <div className="absolute inset-0 z-0 bg-neutral-950 flex items-center justify-center overflow-hidden">
-          {/* 1. Video Reel Ad */}
-          {isVideo && (
-            <div
-              onClick={handleTogglePlayPause}
-              className="w-full h-full relative flex items-center justify-center cursor-pointer"
-            >
-              <video
-                ref={videoRef}
-                src={video?.objectUrl || mvpToyota.videoUrl}
-                poster={mvpToyota.posterThumbnail}
-                muted={isMuted}
-                autoPlay
-                loop
-                playsInline
-                className="w-full h-full object-cover"
-              />
-
-              {/* Play Pause Button Overlay */}
-              {!isPlaying && (
-                <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-auto bg-black/25">
-                  <div className="w-13 h-13 rounded-full bg-black/65 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-xl active:scale-95 transition-transform">
-                    <Play className="w-6 h-6 text-white fill-white ml-0.5" />
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* 2. Grid Reel Ad */}
-          {isGrid && (
-            <div className="w-full h-full relative flex items-center justify-center overflow-hidden bg-[#2D2A26]">
-              <img
-                src={mvpFeather.backgroundTexture}
-                alt=""
-                className="w-full h-full object-cover absolute inset-0 opacity-75 filter brightness-90"
-              />
-
-              {/* Centered 2x2 Image Grid Canvas (True 1:1 Aspect Square) */}
-              <div className="w-[210px] aspect-square grid grid-cols-2 grid-rows-2 gap-1.5 z-10 p-1">
-                {[0, 1, 2, 3].map((slotIdx) => {
-                  const userImg = images[slotIdx]?.dataUrl;
-                  const fallbackImg = mvpFeather.gridImages[slotIdx];
-                  const imgSrc = userImg || fallbackImg;
-
-                  return (
-                    <div
-                      key={slotIdx}
-                      className="rounded-xl overflow-hidden border border-white/20 shadow-md bg-black/40 relative aspect-square flex items-center justify-center"
-                    >
-                      <img
-                        src={imgSrc}
-                        alt={`Grid ${slotIdx + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* 3. Carousel Reel Ad */}
+          {/* Carousel Story Segmented Progress Dashes */}
           {isCarousel && (
-            <div className="w-full h-full relative flex items-center justify-center bg-black">
-              <img
-                src={carouselSlides[activeSlide % carouselSlides.length]}
-                alt={`Slide ${activeSlide + 1}`}
-                className="w-full h-full object-cover pointer-events-none transition-all duration-300"
-              />
-
-              {/* Tap zones for slide navigation */}
-              <div
-                onClick={() =>
-                  setActiveSlide((prev) => Math.max(0, prev - 1))
-                }
-                className="absolute left-0 top-14 bottom-24 w-1/3 z-20 cursor-pointer"
-                aria-label="पिछली स्लाइड"
-              />
-              <div
-                onClick={() =>
-                  setActiveSlide((prev) => (prev + 1) % carouselSlides.length)
-                }
-                className="absolute right-0 top-14 bottom-24 w-1/3 z-20 cursor-pointer"
-                aria-label="अगली स्लाइड"
-              />
+            <div className="absolute top-5 left-3.5 right-3.5 z-40 flex items-center gap-1 pointer-events-none">
+              {carouselSlides.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`flex-1 h-[2.5px] rounded-full transition-all duration-300 ${
+                    idx === activeSlide
+                      ? 'bg-white shadow-[0_1px_4px_rgba(0,0,0,0.5)]'
+                      : 'bg-white/40'
+                  }`}
+                />
+              ))}
             </div>
           )}
 
-          {/* Top and Bottom Ambient Vignette Gradients (Rich bottom vignette for 100% text legibility) */}
-          <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/85 via-black/30 to-transparent pointer-events-none z-10" />
-          <div className="absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-black/95 via-black/75 to-transparent pointer-events-none z-10" />
-        </div>
-
-        {/* Right-Side Interaction Rail — sits above the bottom text overlay */}
-        <div className="absolute right-2.5 bottom-36 z-20 flex flex-col items-center gap-3 pointer-events-auto">
-          {/* Like Button */}
-          <div className="flex flex-col items-center">
-            <button
-              type="button"
-              onClick={handleLike}
-              className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform shadow-lg cursor-pointer"
-            >
-              <HeartIcon
-                size={18}
-                color={isLiked ? '#EF4444' : '#FFFFFF'}
-                variant={isLiked ? 'Bold' : 'Linear'}
-              />
-            </button>
-            <span className="text-[10px] font-semibold text-white drop-shadow mt-0.5">
-              {likeCount}
-            </span>
-          </div>
-
-          {/* WhatsApp Share Button */}
-          <div className="flex flex-col items-center">
-            <button
-              type="button"
-              onClick={handleShare}
-              className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-95 transition-transform shadow-lg text-white cursor-pointer"
-            >
-              <WhatsappIcon size={18} color="#FFFFFF" variant="Bold" />
-            </button>
-            <span className="text-[9px] font-medium text-white drop-shadow mt-0.5">
-              शेयर
-            </span>
-          </div>
-
-          {/* Sound Toggle */}
-          {isVideo && (
-            <button
-              type="button"
-              onClick={handleSoundToggle}
-              className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform shadow-lg text-white cursor-pointer"
-            >
-              {isMuted ? (
-                <VolumeCross size={16} color="#FFFFFF" />
-              ) : (
-                <VolumeHigh size={16} color="#FFFFFF" />
-              )}
-            </button>
-          )}
-        </div>
-
-        {/* Bottom-Left Overlay Stack: Absolutely pinned to chassis bottom, 100% visible Hindi Matras */}
-        <div className="absolute bottom-0 left-0 right-0 p-3 pb-4 z-20 flex flex-col gap-1.5 text-left pr-[52px] pointer-events-auto">
-          {/* Attribution: Circular brand logo + Company Name */}
-          <div className="flex items-center gap-1.5">
-            <div className="w-7 h-7 rounded-full overflow-hidden border border-white/40 bg-white shrink-0 shadow-sm flex items-center justify-center text-[#2B2437] font-bold text-[10.5px]">
-              {logoUrl ? (
-                <img src={logoUrl} alt="" className="w-full h-full object-cover" />
-              ) : (
-                resolvedBrandName.charAt(0)
-              )}
+          {/* Top Navigation Mock matching VideosPage */}
+          <div
+            className={`w-full px-3 z-30 flex items-center justify-between ${
+              isCarousel ? 'pt-4' : 'pt-1.5'
+            }`}
+          >
+            <div className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md border border-white/15 flex items-center justify-center text-[11px] text-white">
+              ‹
             </div>
-            <span className="text-[13px] font-bold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] leading-[1.5] truncate">
-              {resolvedBrandName}
-            </span>
+
+            {/* Centered [ वीडियो | पॉडकास्ट ] Pill Toggle */}
+            <div className="px-1.5 py-0.2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-[9px] font-bold flex items-center gap-1 shadow-sm">
+              <span className="px-1.5 py-0.2 rounded-full bg-white text-[#1C1C1E] shadow-2xs">
+                वीडियो
+              </span>
+              <span className="text-white/80 px-0.5">पॉडकास्ट</span>
+            </div>
+
+            <div className="w-6" />
           </div>
 
-          {/* Headline with generous line-height: matras above/below consonants always fully rendered */}
-          <div className="flex flex-col gap-1">
-            <p className="text-[13px] font-semibold text-white leading-[20px] pt-[3px] pb-[3px] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] line-clamp-2">
-              {resolvedHeadline}
-            </p>
+          {/* Central Ad Media Surface */}
+          <div className="absolute inset-0 z-0 bg-neutral-950 flex items-center justify-center overflow-hidden">
+            {/* 1. Video Reel Ad */}
+            {isVideo && (
+              <div
+                onClick={handleTogglePlayPause}
+                className="w-full h-full relative flex items-center justify-center cursor-pointer"
+              >
+                <video
+                  ref={videoRef}
+                  src={video?.objectUrl || mvpToyota.videoUrl}
+                  poster={mvpToyota.posterThumbnail}
+                  muted={isMuted}
+                  autoPlay
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Play Pause Button Overlay */}
+                {!isPlaying && (
+                  <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-auto bg-black/25">
+                    <div className="w-13 h-13 rounded-full bg-black/65 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-xl active:scale-95 transition-transform">
+                      <Play className="w-6 h-6 text-white fill-white ml-0.5" />
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* 2. Grid Reel Ad (2x2 Sneaker Grid) */}
+            {isGrid && (
+              <div className="w-full h-full relative flex items-center justify-center overflow-hidden bg-[#2D2A26]">
+                <img
+                  src={mvpFeather.backgroundTexture}
+                  alt=""
+                  className="w-full h-full object-cover absolute inset-0 opacity-75 filter brightness-90"
+                />
+
+                {/* Centered 2x2 Image Grid Canvas (True 1:1 Aspect Square) */}
+                <div className="w-[216px] aspect-square grid grid-cols-2 grid-rows-2 gap-1.5 z-10 p-1">
+                  {[0, 1, 2, 3].map((slotIdx) => {
+                    const userImg = images[slotIdx]?.dataUrl;
+                    const fallbackImg = mvpFeather.gridImages[slotIdx];
+                    const imgSrc = userImg || fallbackImg;
+
+                    return (
+                      <div
+                        key={slotIdx}
+                        className="rounded-xl overflow-hidden border border-white/20 shadow-md bg-black/40 relative aspect-square flex items-center justify-center"
+                      >
+                        <img
+                          src={imgSrc}
+                          alt={`Grid ${slotIdx + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* 3. Carousel Reel Ad */}
+            {isCarousel && (
+              <div className="w-full h-full relative flex items-center justify-center bg-black">
+                <img
+                  src={carouselSlides[activeSlide % carouselSlides.length]}
+                  alt={`Slide ${activeSlide + 1}`}
+                  className="w-full h-full object-cover pointer-events-none transition-all duration-300"
+                />
+
+                {/* Tap zones for slide navigation */}
+                <div
+                  onClick={() =>
+                    setActiveSlide((prev) => Math.max(0, prev - 1))
+                  }
+                  className="absolute left-0 top-14 bottom-24 w-1/3 z-20 cursor-pointer"
+                  aria-label="पिछली स्लाइड"
+                />
+                <div
+                  onClick={() =>
+                    setActiveSlide((prev) => (prev + 1) % carouselSlides.length)
+                  }
+                  className="absolute right-0 top-14 bottom-24 w-1/3 z-20 cursor-pointer"
+                  aria-label="अगली स्लाइड"
+                />
+              </div>
+            )}
+
+            {/* Top and Bottom Ambient Vignette Gradients */}
+            <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/85 via-black/30 to-transparent pointer-events-none z-10" />
+            <div className="absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-black/95 via-black/75 to-transparent pointer-events-none z-10" />
+          </div>
+
+          {/* Right-Side Interaction Rail */}
+          <div className="absolute right-2.5 bottom-36 z-20 flex flex-col items-center gap-3 pointer-events-auto">
+            {/* Like Button */}
+            <div className="flex flex-col items-center">
+              <button
+                type="button"
+                onClick={handleLike}
+                className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform shadow-lg cursor-pointer"
+              >
+                <HeartIcon
+                  size={18}
+                  color={isLiked ? '#EF4444' : '#FFFFFF'}
+                  variant={isLiked ? 'Bold' : 'Linear'}
+                />
+              </button>
+              <span className="text-[10px] font-semibold text-white drop-shadow mt-0.5">
+                {likeCount}
+              </span>
+            </div>
+
+            {/* WhatsApp Share Button */}
+            <div className="flex flex-col items-center">
+              <button
+                type="button"
+                onClick={handleShare}
+                className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-95 transition-transform shadow-lg text-white cursor-pointer"
+              >
+                <WhatsappIcon size={18} color="#FFFFFF" variant="Bold" />
+              </button>
+              <span className="text-[9px] font-medium text-white drop-shadow mt-0.5">
+                शेयर
+              </span>
+            </div>
+
+            {/* Sound Toggle */}
+            {isVideo && (
+              <button
+                type="button"
+                onClick={handleSoundToggle}
+                className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform shadow-lg text-white cursor-pointer"
+              >
+                {isMuted ? (
+                  <VolumeCross size={16} color="#FFFFFF" />
+                ) : (
+                  <VolumeHigh size={16} color="#FFFFFF" />
+                )}
+              </button>
+            )}
+          </div>
+
+          {/* Bottom-Left Overlay Stack */}
+          <div className="absolute bottom-0 left-0 right-0 p-3 pb-4 z-20 flex flex-col gap-1.5 text-left pr-[52px] pointer-events-auto">
+            {/* Attribution */}
+            <div className="flex items-center gap-1.5">
+              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/40 bg-white shrink-0 shadow-sm flex items-center justify-center text-[#2B2437] font-bold text-[10.5px]">
+                {logoUrl ? (
+                  <img src={logoUrl} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  resolvedBrandName.charAt(0)
+                )}
+              </div>
+              <span className="text-[13px] font-bold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] leading-[1.5] truncate">
+                {resolvedBrandName}
+              </span>
+            </div>
+
+            {/* Headline with protected leading */}
+            <div className="flex flex-col gap-1">
+              <p className="text-[13px] font-semibold text-white leading-[20px] pt-[2px] pb-[2px] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] line-clamp-2">
+                {resolvedHeadline}
+              </p>
+              <button
+                type="button"
+                onClick={handleCtaClick}
+                className="text-[10.5px] font-medium text-white/85 underline decoration-white/60 hover:text-white cursor-pointer w-fit text-left tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] leading-[1.5]"
+              >
+                विज्ञापन
+              </button>
+            </div>
+
+            {/* Action Button: "और जानें ↗" */}
             <button
               type="button"
               onClick={handleCtaClick}
-              className="text-[10.5px] font-medium text-white/85 underline decoration-white/60 hover:text-white cursor-pointer w-fit text-left tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] leading-[1.5]"
+              className="px-3.5 py-1.5 bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
             >
-              विज्ञापन
+              <span className="text-[12px] font-semibold text-white tracking-wide leading-[1.4]">
+                {resolvedCtaLabel}
+              </span>
+              <ExportSquare size={12} color="#FFFFFF" variant="Linear" />
             </button>
           </div>
-
-          {/* Action Button: "और जानें ↗" (Rounded Pill CTA) */}
-          <button
-            type="button"
-            onClick={handleCtaClick}
-            className="px-3.5 py-2 bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
-          >
-            <span className="text-[12px] font-semibold text-white tracking-wide leading-[1.4]">
-              {resolvedCtaLabel}
-            </span>
-            <ExportSquare size={12} color="#FFFFFF" variant="Linear" />
-          </button>
         </div>
+
+        {/* Prototype Image Download Bar */}
+        {showDownloadBtn && (
+          <div className="w-full max-w-[280px] flex items-center justify-between gap-2 px-1 pt-0.5">
+            <span className="text-[11px] text-[#6B7280] font-medium flex items-center gap-1 truncate">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A] shrink-0" />
+              <span>प्रोटोटाइप 9:16</span>
+            </span>
+            <button
+              type="button"
+              onClick={handleDownloadPrototype}
+              className="px-2.5 py-1 rounded-full bg-[#2B2437] hover:bg-[#3D334E] text-white text-[11px] font-bold flex items-center gap-1 shadow-2xs active:scale-95 transition-all cursor-pointer shrink-0"
+              title="प्रोटोटाइप इमेज डाउनलोड करें"
+            >
+              <Download className="w-3 h-3" />
+              <span>इमेज डाउनलोड करें</span>
+            </button>
+          </div>
+        )}
       </div>
     );
   }
@@ -473,41 +617,30 @@ export default function AdPreview({
   // ========================================================
   // FORMAT 4: FEED AD CARD (3:1 NATIVE BANNER CARD)
   // Rendered inside authentic Navbharat Newsfeed context
-  // Entire card is the clickable CTA link; NO headline or description overlay.
+  // Entire card is clickable link, exactly matching NativeFeedAd
   // ========================================================
   if (isFeedCard) {
     const bannerImg = images[0]?.dataUrl || adBhopalHaat;
 
     return (
       <div className={`w-full max-w-[360px] mx-auto flex flex-col gap-2.5 select-none ${className}`}>
-        {/* Newsfeed Snippet Container */}
+        {/* Authentic Navbharat Newsfeed Context */}
         <div className="rounded-[20px] bg-[#F7F7F4] border border-[#E5E7EB] p-2.5 flex flex-col gap-2.5 shadow-xs">
-          {/* Editorial Story Snippet (Above) */}
-          <div className="p-2 rounded-[10px] bg-white border border-[#E5E7EB]/80 flex items-start gap-2 shadow-2xs opacity-80 pointer-events-none">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1 mb-0.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#B6783A]" />
-                <span className="text-[9.5px] font-bold text-[#B6783A]">राजनीति</span>
-                <span className="text-[9px] text-[#9CA3AF]">• 15 मिनट पहले</span>
-              </div>
-              <p className="text-[11.5px] font-medium text-[#2B2437] line-clamp-1 leading-[18px] pt-0.5">
-                विधानसभा के विशेष सत्र में जनहित के कई प्रस्ताव पारित
-              </p>
-            </div>
-            <div className="w-12 h-9 rounded bg-[#E5E7EB] shrink-0 overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=120&q=80"
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+          {/* Top Feed Article (Editorial: Politics) */}
+          <AuthenticEditorialFeedCard
+            category="राजनीति"
+            catColor="#B6783A"
+            IconComponent={BankIcon}
+            timeAgo="15 मिनट पहले"
+            headline="विधानसभा के विशेष सत्र में जनहित के कई प्रस्ताव पारित"
+            imageSrc="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=120&q=80"
+          />
 
-          {/* The 3:1 Feed Banner Card itself (Clickable Destination Link) */}
+          {/* The 3:1 Feed Banner Card itself (Exact match to NativeFeedAd.jsx) */}
           <aside
             aria-label={resolvedHeadline}
             onClick={handleCtaClick}
-            className="w-full aspect-[3/1] rounded-[14px] overflow-hidden shadow-xs relative border border-[#CBD5E1] select-none cursor-pointer group active:scale-[0.99] transition-transform bg-white"
+            className="w-full aspect-[3/1] rounded-[16px] overflow-hidden shadow-xs relative border border-[#E5E7EB] select-none cursor-pointer group active:scale-[0.99] transition-transform bg-white"
           >
             <img
               src={bannerImg}
@@ -516,44 +649,35 @@ export default function AdPreview({
               loading="lazy"
               draggable={false}
             />
-
-            {/* Top-Right 'विज्ञापन' Badge */}
-            <div className="absolute top-1.5 right-1.5 z-10 pointer-events-none">
-              <span className="px-1.5 py-0.5 rounded-full bg-black/65 backdrop-blur-xs text-white text-[8.5px] font-bold border border-white/20 shadow-2xs">
-                विज्ञापन
-              </span>
-            </div>
           </aside>
 
-          {/* Editorial Story Snippet (Below) */}
-          <div className="p-2 rounded-[10px] bg-white border border-[#E5E7EB]/80 flex items-start gap-2 shadow-2xs opacity-80 pointer-events-none">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1 mb-0.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#557E63]" />
-                <span className="text-[9.5px] font-bold text-[#557E63]">खेल</span>
-                <span className="text-[9px] text-[#9CA3AF]">• 25 मिनट पहले</span>
-              </div>
-              <p className="text-[11.5px] font-medium text-[#2B2437] line-clamp-1 leading-[18px] pt-0.5">
-                राष्ट्रीय खेलों में प्रदेश के खिलाड़ियों ने जीते स्वर्ण पदक
-              </p>
-            </div>
-            <div className="w-12 h-9 rounded bg-[#E5E7EB] shrink-0 overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1621981386829-9b458a2cddde?auto=format&fit=crop&w=120&q=80"
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+          {/* Bottom Feed Article (Editorial: Sports) */}
+          <AuthenticEditorialFeedCard
+            category="खेल"
+            catColor="#557E63"
+            IconComponent={MdSportsCricket}
+            timeAgo="25 मिनट पहले"
+            headline="राष्ट्रीय खेलों में प्रदेश के खिलाड़ियों ने जीते स्वर्ण पदक"
+            imageSrc="https://images.unsplash.com/photo-1621981386829-9b458a2cddde?auto=format&fit=crop&w=120&q=80"
+          />
         </div>
 
-        {/* Micro-hint explaining native card behavior */}
-        <div className="flex items-center justify-between px-1 text-[11.5px] text-[#6B7280]">
-          <span className="flex items-center gap-1 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E39026]" />
-            पूरा कार्ड लिंक है (अलग से बटन नहीं है)
+        {/* Micro-hint and Prototype Download Bar */}
+        <div className="flex items-center justify-between px-1 text-[11px] text-[#6B7280]">
+          <span className="flex items-center gap-1 font-medium truncate">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E39026] shrink-0" />
+            <span>पूरा 3:1 कार्ड क्लिकेबल है</span>
           </span>
-          <span className="font-bold text-[#2B2437]">{resolvedCtaLabel} ↗</span>
+          {showDownloadBtn && (
+            <button
+              type="button"
+              onClick={handleDownloadPrototype}
+              className="px-2.5 py-1 rounded-full bg-[#2B2437] hover:bg-[#3D334E] text-white text-[11px] font-bold flex items-center gap-1 shadow-2xs active:scale-95 transition-all cursor-pointer shrink-0 ml-2"
+            >
+              <Download className="w-3 h-3" />
+              <span>इमेज डाउनलोड करें</span>
+            </button>
+          )}
         </div>
       </div>
     );
@@ -562,7 +686,7 @@ export default function AdPreview({
   // ========================================================
   // FORMAT 5: SPONSORED ARTICLE AD FORMAT
   // Rendered inside authentic Navbharat Newsfeed context
-  // Tapping opens the full interactive Article Reader experience modal.
+  // Matching FeedCard.jsx with isSponsored={true}
   // ========================================================
   const articleThumb =
     images[0]?.dataUrl || mvpSponsoredArticle.imageUrl || exampleSponsoredArticle;
@@ -570,40 +694,28 @@ export default function AdPreview({
   return (
     <>
       <div className={`w-full max-w-[360px] mx-auto flex flex-col gap-2.5 select-none ${className}`}>
-        {/* Newsfeed Snippet Container */}
+        {/* Authentic Navbharat Newsfeed Context */}
         <div className="rounded-[20px] bg-[#F7F7F4] border border-[#E5E7EB] p-2.5 flex flex-col gap-2.5 shadow-xs">
-          {/* Editorial Story Snippet (Above) */}
-          <div className="p-2 rounded-[10px] bg-white border border-[#E5E7EB]/80 flex items-start gap-2 shadow-2xs opacity-80 pointer-events-none">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1 mb-0.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#B6783A]" />
-                <span className="text-[9.5px] font-bold text-[#B6783A]">राजनीति</span>
-                <span className="text-[9px] text-[#9CA3AF]">• 15 मिनट पहले</span>
-              </div>
-              <p className="text-[11.5px] font-medium text-[#2B2437] line-clamp-1 leading-[18px] pt-0.5">
-                विधानसभा के विशेष सत्र में जनहित के कई प्रस्ताव पारित
-              </p>
-            </div>
-            <div className="w-12 h-9 rounded bg-[#E5E7EB] shrink-0 overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=120&q=80"
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+          {/* Top Feed Article (Editorial: Politics) */}
+          <AuthenticEditorialFeedCard
+            category="राजनीति"
+            catColor="#B6783A"
+            IconComponent={BankIcon}
+            timeAgo="15 मिनट पहले"
+            headline="विधानसभा के विशेष सत्र में जनहित के कई प्रस्ताव पारित"
+            imageSrc="https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=120&q=80"
+          />
 
           {/* Authentic MVP FeedCard with isSponsored={true} */}
           <article
             onClick={() => setShowArticleModal(true)}
-            className="w-full min-h-[96px] p-2.5 rounded-[12px] bg-white border-2 border-[#E39026]/40 shadow-xs flex flex-col justify-between select-none cursor-pointer transition-all hover:border-[#E39026] active:scale-[0.99] relative"
+            className="w-full bg-white rounded-[12px] p-2.5 border border-[#E5E7EB] shadow-xs flex flex-col justify-between select-none cursor-pointer transition-all hover:border-[#2B2437] active:scale-[0.99] relative"
           >
             {/* Top Section: Left Text Column + Right Thumbnail */}
             <div className="flex items-start justify-between w-full gap-2">
-              {/* Left Column */}
               <div className="flex-1 min-w-0 flex flex-col justify-start">
                 {/* Category Badge Row */}
-                <div className="flex items-center gap-1.5 shrink-0 flex-wrap">
+                <div className="flex items-center gap-1.5 shrink-0 flex-wrap mb-1">
                   <span className="w-3.5 h-3.5 rounded-full bg-[#2B2437] flex items-center justify-center text-white shrink-0 shadow-2xs">
                     <SpeakerIcon size={8} color="#FFFFFF" variant="Bold" />
                   </span>
@@ -612,19 +724,19 @@ export default function AdPreview({
                     स्पॉन्सर्ड
                   </span>
 
-                  <span className="text-[10px] font-semibold text-[#6B7280] leading-normal shrink-0 truncate max-w-[100px]">
+                  <span className="text-[10px] font-medium text-[#6B7280] leading-normal shrink-0 truncate max-w-[120px]">
                     • {resolvedBrandName}
                   </span>
                 </div>
 
-                {/* Headline (Protective leading so matras are never cut) */}
-                <h3 className="mt-1 text-[13.5px] font-medium text-[#2B2437] leading-[19px] pt-0.5 pb-0.5 line-clamp-2">
+                {/* Headline */}
+                <h3 className="text-[13px] font-medium text-black leading-[18px] line-clamp-2 pt-0.5">
                   {resolvedHeadline}
                 </h3>
               </div>
 
-              {/* Right Column: 96px wide × 60px tall Thumbnail */}
-              <div className="w-[96px] h-[60px] rounded-[8px] overflow-hidden shrink-0 bg-gray-100 border border-[#E5E7EB]">
+              {/* Right Thumbnail */}
+              <div className="w-[88px] h-[58px] rounded-[8px] overflow-hidden shrink-0 bg-gray-100 border border-[#E5E7EB]">
                 <img
                   src={articleThumb}
                   alt={resolvedHeadline}
@@ -635,63 +747,52 @@ export default function AdPreview({
             </div>
 
             {/* Hairline Divider */}
-            <div
-              className="w-full my-1"
-              style={{
-                height: '0.64px',
-                backgroundColor: 'rgba(24, 37, 59, 0.08)',
-              }}
-            />
+            <div className="w-full my-1.5 h-[0.64px] bg-[#18253B]/10" />
 
-            {/* Bottom Meta Row */}
-            <div className="flex items-center justify-between w-full text-[10.5px] text-[#6B7280]">
+            {/* Bottom Meta Row matching FeedCard */}
+            <div className="flex items-center justify-between w-full text-[10px] text-[#6B7280]">
               <div className="flex items-center gap-1.5 font-medium leading-normal">
                 <span>{mvpSponsoredArticle.publishedAgo}</span>
                 <span>•</span>
                 <span>{mvpSponsoredArticle.readTime}</span>
               </div>
 
-              {/* Right Action: Read Article Prompt */}
-              <div className="flex items-center gap-1 text-[#E39026] font-bold">
-                <span>आर्टिकल पढ़ें ↗</span>
+              <div className="flex items-center gap-2">
+                <WhatsappIcon size={13} color="#000000" variant="Bold" />
+                <span className="text-black font-bold tracking-widest text-[9px]">•••</span>
               </div>
             </div>
           </article>
 
-          {/* Editorial Story Snippet (Below) */}
-          <div className="p-2 rounded-[10px] bg-white border border-[#E5E7EB]/80 flex items-start gap-2 shadow-2xs opacity-80 pointer-events-none">
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-1 mb-0.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#557E63]" />
-                <span className="text-[9.5px] font-bold text-[#557E63]">खेल</span>
-                <span className="text-[9px] text-[#9CA3AF]">• 25 मिनट पहले</span>
-              </div>
-              <p className="text-[11.5px] font-medium text-[#2B2437] line-clamp-1 leading-[18px] pt-0.5">
-                राष्ट्रीय खेलों में प्रदेश के खिलाड़ियों ने जीते स्वर्ण पदक
-              </p>
-            </div>
-            <div className="w-12 h-9 rounded bg-[#E5E7EB] shrink-0 overflow-hidden">
-              <img
-                src="https://images.unsplash.com/photo-1621981386829-9b458a2cddde?auto=format&fit=crop&w=120&q=80"
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
+          {/* Bottom Feed Article (Editorial: Sports) */}
+          <AuthenticEditorialFeedCard
+            category="खेल"
+            catColor="#557E63"
+            IconComponent={MdSportsCricket}
+            timeAgo="25 मिनट पहले"
+            headline="राष्ट्रीय खेलों में प्रदेश के खिलाड़ियों ने जीते स्वर्ण पदक"
+            imageSrc="https://images.unsplash.com/photo-1621981386829-9b458a2cddde?auto=format&fit=crop&w=120&q=80"
+          />
         </div>
 
-        {/* Micro note */}
-        <div className="flex items-center justify-between px-1 text-[11.5px] text-[#6B7280]">
-          <span className="flex items-center gap-1 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E39026]" />
-            टैप करने पर पूरा प्रायोजित आर्टिकल खुलता है
-          </span>
+        {/* Micro note and Prototype Download Bar */}
+        <div className="flex items-center justify-between px-1 text-[11px] text-[#6B7280]">
           <span
             onClick={() => setShowArticleModal(true)}
-            className="font-bold text-[#E39026] hover:underline cursor-pointer"
+            className="flex items-center gap-1 font-medium text-[#E39026] hover:underline cursor-pointer truncate"
           >
-            आर्टिकल देखें ↗
+            <span>आर्टिकल खोलें ↗</span>
           </span>
+          {showDownloadBtn && (
+            <button
+              type="button"
+              onClick={handleDownloadPrototype}
+              className="px-2.5 py-1 rounded-full bg-[#2B2437] hover:bg-[#3D334E] text-white text-[11px] font-bold flex items-center gap-1 shadow-2xs active:scale-95 transition-all cursor-pointer shrink-0 ml-2"
+            >
+              <Download className="w-3 h-3" />
+              <span>इमेज डाउनलोड करें</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -714,7 +815,7 @@ export default function AdPreview({
                     <SpeakerIcon size={8} color="#FFFFFF" variant="Bold" />
                   </span>
                   <span className="text-[11.5px] font-bold text-[#2B2437]">
-                    प्रायोजित स्टोरी • {resolvedBrandName}
+                    स्पॉन्सर्ड स्टोरी • {resolvedBrandName}
                   </span>
                 </div>
               </div>
@@ -728,7 +829,7 @@ export default function AdPreview({
               </button>
             </div>
 
-            {/* Modal Scrollable Article Body (Generous pb-28 so zero text is hidden behind sticky CTA) */}
+            {/* Modal Scrollable Article Body */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-left scrollbar-none pb-28">
               {/* Hero Image */}
               <div className="w-full aspect-[16/9] rounded-[14px] overflow-hidden bg-black shadow-inner">
