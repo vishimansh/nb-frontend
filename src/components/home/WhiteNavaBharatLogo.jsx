@@ -39,24 +39,44 @@ function getGreetingData(userName) {
     return { title: 'क्रिसमस की हार्दिक शुभकामनाएं' };
   }
 
-  // 2. Dynamic Time of Day Greetings with First Name (Single line, generous matras)
-  if (hour >= 5 && hour < 12) {
+  // 2. Dynamic Time of Day Welcome Messages
+  // सुबह: सुप्रभात! पढ़ें सुबह की ताज़ा ख़बरें।
+  if (hour >= 4 && hour < 12) {
     return {
-      title: firstName ? `सुप्रभात, ${firstName}!` : 'सुप्रभात!',
+      salutation: firstName ? `सुप्रभात, ${firstName}!` : 'सुप्रभात!',
+      message: 'पढ़ें सुबह की ताज़ा ख़बरें।',
+      title: firstName
+        ? `सुप्रभात, ${firstName}! पढ़ें सुबह की ताज़ा ख़बरें।`
+        : 'सुप्रभात! पढ़ें सुबह की ताज़ा ख़बरें।',
     };
   }
+  // दोपहर: नमस्कार! जानें दिनभर के ताज़ा अपडेट।
   if (hour >= 12 && hour < 17) {
     return {
-      title: firstName ? `दोपहर की खबरें पढ़ें, ${firstName}!` : 'दोपहर की खबरें पढ़ें!',
+      salutation: firstName ? `नमस्कार, ${firstName}!` : 'नमस्कार!',
+      message: 'जानें दिनभर के ताज़ा अपडेट।',
+      title: firstName
+        ? `नमस्कार, ${firstName}! जानें दिनभर के ताज़ा अपडेट।`
+        : 'नमस्कार! जानें दिनभर के ताज़ा अपडेट।',
     };
   }
+  // शाम: शुभ संध्या! जानें आज की अहम ख़बरें।
   if (hour >= 17 && hour < 21) {
     return {
-      title: firstName ? `शुभ संध्या, ${firstName}!` : 'शुभ संध्या!',
+      salutation: firstName ? `शुभ संध्या, ${firstName}!` : 'शुभ संध्या!',
+      message: 'जानें आज की अहम ख़बरें।',
+      title: firstName
+        ? `शुभ संध्या, ${firstName}! जानें आज की अहम ख़बरें।`
+        : 'शुभ संध्या! जानें आज की अहम ख़बरें।',
     };
   }
+  // रात: शुभ रात्रि! दिनभर की ख़बरों पर डालें एक नज़र।
   return {
-    title: firstName ? `नमस्कार, ${firstName}!` : 'नमस्कार!',
+    salutation: firstName ? `शुभ रात्रि, ${firstName}!` : 'शुभ रात्रि!',
+    message: 'दिनभर की ख़बरों पर डालें एक नज़र।',
+    title: firstName
+      ? `शुभ रात्रि, ${firstName}! दिनभर की ख़बरों पर डालें एक नज़र।`
+      : 'शुभ रात्रि! दिनभर की ख़बरों पर डालें एक नज़र।',
   };
 }
 
@@ -117,7 +137,7 @@ export default function WhiteNavaBharatLogo({ className = "w-[164px] h-[40px]" }
       tabIndex={0}
       aria-label={showingGreeting ? greeting.title : "नवभारत"}
       title="टैप करके संदेश या लोगो देखें"
-      className="relative w-full min-w-[164px] max-w-[260px] h-[48px] overflow-hidden flex items-center justify-start select-none cursor-pointer group"
+      className="relative w-full min-w-[164px] h-[48px] overflow-hidden flex items-center justify-start select-none cursor-pointer group"
     >
       {/* 1. Official Nava Bharat White Logo */}
       <div
@@ -135,7 +155,7 @@ export default function WhiteNavaBharatLogo({ className = "w-[164px] h-[40px]" }
         />
       </div>
 
-      {/* 2. Dynamic Times-of-India style Greeting (Clean single line, no icons, no yellow subtitle) */}
+      {/* 2. Dynamic Times-of-India style Welcome Greeting */}
       <div
         className={`absolute inset-0 flex items-center justify-start transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           showingGreeting
@@ -143,11 +163,15 @@ export default function WhiteNavaBharatLogo({ className = "w-[164px] h-[40px]" }
             : 'translate-y-full opacity-0 scale-95 pointer-events-none'
         }`}
       >
-        <div className="flex items-center justify-start text-left w-full">
-          {/* Main Greeting: bold white with leading-normal so matras are never clipped */}
-          <span className="text-[16px] sm:text-[17px] font-bold text-white leading-normal tracking-tight truncate max-w-full drop-shadow-xs select-none">
-            {greeting.title}
+        <div className="flex flex-col justify-center text-left w-full overflow-hidden leading-tight py-0.5">
+          <span className="text-[13.5px] sm:text-[14px] font-bold text-white tracking-tight leading-snug truncate drop-shadow-xs select-none">
+            {greeting.salutation || greeting.title}
           </span>
+          {greeting.message && (
+            <span className="text-[11px] sm:text-[11.5px] font-medium text-white/90 leading-tight truncate drop-shadow-xs select-none">
+              {greeting.message}
+            </span>
+          )}
         </div>
       </div>
     </div>

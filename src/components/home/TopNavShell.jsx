@@ -146,7 +146,7 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
         </button>
 
         {/* Center-Left: Official Nava Bharat White Vector Logo / Dynamic Greeting */}
-        <div className="flex items-center flex-1 min-w-0 max-w-[260px] justify-start pl-2">
+        <div className="flex items-center flex-1 min-w-0 justify-start pl-2">
           <WhiteNavaBharatLogo className="w-[164px] h-[40px] object-contain" />
         </div>
 
