@@ -40,7 +40,7 @@ describe('Onboarding Category Selection Flow', () => {
 
     // Title & instruction
     expect(html).toContain('श्रेणियां चुनें');
-    expect(html).toContain('होम स्क्रीन के लिए पसंदीदा श्रेणियां चुनें');
+    expect(html).toContain('हर विषय की खबर, आपकी रुचि के अनुसार।');
     expect(html).toContain('स्किप');
 
     // Button in onboarding mode

@@ -133,7 +133,12 @@ export default function TopNavShell({ activeCategory: propActiveCategory, onSele
         {/* Left: Hamburger Menu (28px × 28px) -> Navigates to /menu */}
         <button
           type="button"
-          onClick={() => navigate('/menu', { state: { from: location.pathname } })}
+          onClick={() => {
+            try {
+              sessionStorage.removeItem('nb_menu_subscreen_active');
+            } catch {}
+            navigate('/menu', { state: { from: location.pathname } });
+          }}
           aria-label="मेनू खोलें"
           className="text-white hover:text-white/80 transition-colors cursor-pointer flex items-center justify-center active:scale-95"
         >

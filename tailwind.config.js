@@ -76,6 +76,15 @@ export default {
         'device': '0 25px 60px -15px rgba(0, 0, 0, 0.35)',
         'card-soft': '0 4px 20px -2px rgba(43, 36, 55, 0.06)',
       },
+      keyframes: {
+        fadeIn: {
+          from: { opacity: '0', transform: 'translateY(4px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.25s ease-out both',
+      },
     },
   },
   plugins: [],

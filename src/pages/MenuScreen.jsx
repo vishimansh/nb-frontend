@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -6,7 +6,6 @@ import {
   Edit2,
   Crown,
   Folder2,
-  Location,
   Notification,
   TickSquare,
   Setting2,
@@ -25,28 +24,53 @@ import {
 
 import BackButton from '../components/common/BackButton';
 import profileSkyline from '../assets/illustrations/profile_skyline_bhopal.png';
-import { Download, Palette } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import { Download } from 'lucide-react';
 
 export default function MenuScreen() {
   const navigate = useNavigate();
   const location = useLocation();
   const { selectedCategories = [], userProfile = {} } = useOnboarding();
   const { campaigns = [], advertiserAuth = {}, isBusinessProfileSaved } = useAdvertiser();
-  const { primaryColor, accentColor, setIsCustomizerOpen } = useTheme();
   const [isExiting, setIsExiting] = useState(false);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
 
+  // Check if returning from a child screen so we suppress the initial left slide-in animation
+  const isReturningFromSubscreen = useRef(
+    location.state?.returnedFromChild === true ||
+    sessionStorage.getItem('nb_menu_subscreen_active') === 'true'
+  ).current;
+
+  useEffect(() => {
+    // Clear flag after mount so that opening afresh from feed later animates normally
+    sessionStorage.removeItem('nb_menu_subscreen_active');
+  }, []);
+
+  const goToSubScreen = (path, extraState = {}) => {
+    try {
+      sessionStorage.setItem('nb_menu_subscreen_active', 'true');
+    } catch {}
+    const origin = (location.state?.from && location.state.from !== 'menu')
+      ? location.state.from
+      : (location.state?.originPath || '/feed');
+    navigate(path, {
+      state: {
+        from: 'menu',
+        originPath: origin,
+        ...extraState,
+      },
+    });
+  };
+
   const handleBack = () => {
     if (isExiting) return;
     setIsExiting(true);
+    sessionStorage.removeItem('nb_menu_subscreen_active');
     setTimeout(() => {
-      if (location.state?.from) {
-        navigate(location.state.from);
-      } else {
-        navigate('/feed');
-      }
+      const target = (location.state?.from && location.state.from !== 'menu')
+        ? location.state.from
+        : (location.state?.originPath || '/feed');
+      navigate(target);
     }, 440);
   };
 
@@ -91,21 +115,29 @@ export default function MenuScreen() {
     <div className="w-full h-full absolute inset-0 overflow-hidden pointer-events-auto">
       {/* Dark Scrim Backdrop over the underlying feed */}
       <motion.div
-        initial={{ opacity: 0 }}
+        initial={isReturningFromSubscreen ? false : { opacity: 0 }}
         animate={isExiting ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: 0.46, ease: 'easeOut' }}
+        transition={
+          isReturningFromSubscreen && !isExiting
+            ? { duration: 0 }
+            : { duration: 0.46, ease: 'easeOut' }
+        }
         onClick={handleBack}
         className="absolute inset-0 bg-black/40 z-10 cursor-pointer"
       />
 
       {/* Menu Screen Drawer Content */}
       <motion.div
-        initial={{ x: '-100%' }}
+        initial={isReturningFromSubscreen ? false : { x: '-100%' }}
         animate={isExiting ? { x: '-100%' } : { x: '0%' }}
-        transition={{
-          duration: 0.5,
-          ease: [0.22, 1, 0.36, 1],
-        }}
+        transition={
+          isReturningFromSubscreen && !isExiting
+            ? { duration: 0 }
+            : {
+                duration: 0.5,
+                ease: [0.22, 1, 0.36, 1],
+              }
+        }
         style={{
           willChange: 'transform',
           boxShadow: '14px 0 40px rgba(0, 0, 0, 0.28)',
@@ -136,7 +168,7 @@ export default function MenuScreen() {
 
           {/* Left Profile Identity Stack */}
           <div
-            onClick={() => navigate('/profile', { state: { from: 'menu' } })}
+            onClick={() => goToSubScreen('/profile')}
             className="flex items-center relative z-10 cursor-pointer active:opacity-90"
           >
             <div className="w-14 h-14 rounded-full ring-[2.5px] ring-[#F5B55C] ring-offset-2 overflow-hidden bg-gradient-to-br from-[#2B2437] to-[#1E1927] shrink-0 mr-3.5 flex items-center justify-center shadow-xs">
@@ -166,7 +198,7 @@ export default function MenuScreen() {
           {/* Right Edit Button */}
           <button
             type="button"
-            onClick={() => navigate('/profile', { state: { from: 'menu' } })}
+            onClick={() => goToSubScreen('/profile')}
             className="w-10 h-10 rounded-[12px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white cursor-pointer active:scale-95 shadow-xs relative z-10 hover:bg-[#2B2437] transition-all shrink-0"
             title="प्रोफ़ाइल संपादित करें"
           >
@@ -177,7 +209,7 @@ export default function MenuScreen() {
         {/* 2. Premium Membership Button (Centered text with gold crown & arrow) */}
         <button
           type="button"
-          onClick={() => navigate('/about')}
+          onClick={() => goToSubScreen('/about')}
           className="w-full h-[52px] rounded-[18px] bg-white border border-[#F5B55C]/70 relative flex items-center justify-center px-4 shadow-2xs active:scale-[0.99] cursor-pointer hover:bg-[#F5B55C]/10 transition-all"
         >
           <Crown size={20} color="#F5B55C" variant="Bold" className="absolute left-4" />
@@ -205,7 +237,12 @@ export default function MenuScreen() {
             <button
               type="button"
               id="menu-ad-flow-b-btn"
-              onClick={() => { window.location.href = '/?flow=b'; }}
+              onClick={() => {
+                try {
+                  sessionStorage.setItem('nb_menu_subscreen_active', 'true');
+                } catch {}
+                window.location.href = '/?flow=b';
+              }}
               className="w-full rounded-[16px] bg-gradient-to-br from-[#FFFBF0] via-[#FFF6E0] to-[#FFF0C4] border border-[#F5B55C]/60 px-4 py-3.5 flex items-center justify-between shadow-sm active:scale-[0.99] cursor-pointer hover:border-[#E39026] transition-all text-left group"
             >
               <div className="flex items-center gap-3.5">
@@ -231,11 +268,11 @@ export default function MenuScreen() {
               onClick={() => {
                 const isAuthenticated = advertiserAuth?.isAuthenticated && advertiserAuth?.otpVerified;
                 if (!isAuthenticated) {
-                  navigate('/advertise/intro');
+                  goToSubScreen('/advertise/intro');
                 } else if (!isBusinessProfileSaved) {
-                  navigate('/advertise/business-profile');
+                  goToSubScreen('/advertise/business-profile');
                 } else {
-                  navigate('/advertise/dashboard');
+                  goToSubScreen('/advertise/dashboard');
                 }
               }}
               className="w-full rounded-[16px] bg-[#F9FAFB] border border-[#E5E7EB] px-4 py-3.5 flex items-center justify-between shadow-2xs active:scale-[0.99] cursor-pointer hover:bg-[#F3F4F6] transition-all text-left group"
@@ -270,7 +307,7 @@ export default function MenuScreen() {
             {/* Conditional Row: मेरे विज्ञापन (Mere Vigyapan) - shown ONLY when user has created ads */}
             {campaigns.length > 0 && (
               <div
-                onClick={() => navigate('/advertise/dashboard')}
+                onClick={() => goToSubScreen('/advertise/dashboard')}
                 className="h-[56px] px-3.5 bg-[#FFFBF0] rounded-[14px] border border-[#FDE68A] flex items-center justify-between hover:bg-[#FFF8E6] active:scale-[0.99] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3 flex-1 mr-2">
@@ -290,25 +327,9 @@ export default function MenuScreen() {
               </div>
             )}
 
-            {/* Row 1: चुनी गई लोकेशन */}
+            {/* Row 1: नोटिफिकेशन्स */}
             <div
-              onClick={() => navigate('/state')}
-              className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
-            >
-              <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
-                  <Location size={18} color="#FFFFFF" variant="Bold" />
-                </div>
-                <span className="text-[14px] font-semibold text-[#2B2437]">
-                  चुनी गई लोकेशन
-                </span>
-              </div>
-              <ArrowRight2 size={16} color="#9CA3AF" />
-            </div>
-
-            {/* Row 2: नोटिफिकेशन */}
-            <div
-              onClick={() => navigate('/notifications')}
+              onClick={() => goToSubScreen('/notifications')}
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
@@ -316,15 +337,15 @@ export default function MenuScreen() {
                   <Notification size={18} color="#FFFFFF" variant="Bold" />
                 </div>
                 <span className="text-[14px] font-semibold text-[#2B2437]">
-                  नोटिफिकेशन
+                  नोटिफिकेशन्स
                 </span>
               </div>
               <ArrowRight2 size={16} color="#9CA3AF" />
             </div>
 
-            {/* Row 3: डाउनलोड की गई खबरें (ऑफलाइन पढ़ें) */}
+            {/* Row 2: डाउनलोड की गई खबरें (ऑफलाइन पढ़ें) */}
             <div
-              onClick={() => navigate('/saved')}
+              onClick={() => goToSubScreen('/saved')}
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
@@ -337,39 +358,6 @@ export default function MenuScreen() {
                   </span>
                   <span className="text-[11px] text-[#64748B] font-medium block">
                     ऑफलाइन कभी भी पढ़ें
-                  </span>
-                </div>
-              </div>
-              <ArrowRight2 size={16} color="#9CA3AF" />
-            </div>
-
-            {/* Row 4: Color Picker */}
-            <div
-              onClick={() => setIsCustomizerOpen(true)}
-              className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
-            >
-              <div className="flex items-center gap-3 flex-1 mr-2">
-                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
-                  <Palette size={18} color="#FFFFFF" strokeWidth={2.2} />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[14px] font-semibold text-[#2B2437] block leading-tight">
-                      Color Picker
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <span
-                        className="w-2.5 h-2.5 rounded-full border border-white shadow-2xs inline-block"
-                        style={{ backgroundColor: primaryColor }}
-                      />
-                      <span
-                        className="w-2.5 h-2.5 rounded-full border border-white shadow-2xs inline-block -ml-1"
-                        style={{ backgroundColor: accentColor }}
-                      />
-                    </span>
-                  </div>
-                  <span className="text-[11px] text-[#64748B] font-medium block">
-                    Change Primary & Accent colors in real time
                   </span>
                 </div>
               </div>
@@ -391,7 +379,7 @@ export default function MenuScreen() {
               </div>
 
               <div
-                onClick={() => navigate('/menu/categories')}
+                onClick={() => goToSubScreen('/menu/categories')}
                 className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-3 flex-1">
@@ -417,7 +405,7 @@ export default function MenuScreen() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => navigate('/menu/categories')}
+                  onClick={() => goToSubScreen('/menu/categories')}
                   className="text-[14px] font-semibold text-[#F5B55C] cursor-pointer hover:opacity-80 transition-opacity"
                 >
                   एडिट करें
@@ -491,7 +479,7 @@ export default function MenuScreen() {
           <div className="space-y-2.5">
             {/* Row 1: सेटिंग्स और प्राइवेसी with Setting gear */}
             <div
-              onClick={() => navigate('/settings')}
+              onClick={() => goToSubScreen('/settings')}
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">
@@ -507,7 +495,7 @@ export default function MenuScreen() {
 
             {/* Row 2: ऐप की जानकारी with exclamation mark in circle */}
             <div
-              onClick={() => navigate('/about')}
+              onClick={() => goToSubScreen('/about')}
               className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
             >
               <div className="flex items-center gap-3 flex-1 mr-2">

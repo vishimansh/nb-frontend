@@ -70,12 +70,12 @@ export default function NotificationsScreen() {
 
           {/* Display Headline: 32px, Semibold, leading-[1.15] */}
           <h1 className="mt-3 text-[32px] font-semibold leading-[1.15] text-[#2B2437] text-center whitespace-pre-line px-6">
-            {"खबर आते ही,\nआपको पता चले।"}
+            {"खबर का सच उसी पल आप तक"}
           </h1>
 
           {/* Supporting Subtext: 16px, Medium, leading-[1.5], #374151 */}
           <p className="mt-2 text-[16px] font-medium leading-[1.5] text-[#374151] text-center px-6 whitespace-pre-line">
-            {"बड़ी खबरों और ज़रूरी अपडेट के लिए\nनोटिफिकेशन चालू करें।"}
+            {"बड़ी खबरों और ज़रूरी अपडेट के लिए\nनोटिफिकेशन ऑन करें।"}
           </p>
         </div>
 
@@ -168,7 +168,7 @@ export default function NotificationsScreen() {
           onClick={handleEnable}
           className="w-full h-[56px] rounded-[16px] bg-[#2B2437] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center transition-all cursor-pointer hover:bg-[#3D334E]"
         >
-          नोटिफिकेशन चालू करें
+          नोटिफिकेशन ऑन करें
         </button>
 
         <button

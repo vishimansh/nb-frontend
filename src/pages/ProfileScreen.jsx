@@ -27,6 +27,14 @@ import {
 } from 'iconsax-react';
 import { useOnboarding } from '../context/OnboardingContext';
 import { useAdvertiser } from '../context/AdvertiserContext';
+import CategorySheet, { CATEGORY_ICON_MAP } from '../flows/v2/components/sheets/CategorySheet';
+import CitySheet from '../flows/v2/components/sheets/CitySheet';
+import { lookupCityByPincode, PINCODE_MAP } from '../flows/v2/data/pincodes';
+import { getCategoryById, CATEGORIES } from '../flows/v2/data/categories';
+import { getCityById } from '../flows/v2/data/cities';
+import { loadSavedAccount, saveAccount, loadSavedState, saveState } from '../flows/v2/utils/autosave';
+import { processImageFile } from '../flows/v2/utils/imageTools';
+import { Store } from 'lucide-react';
 
 
 const TOP_CITIES = [
@@ -93,7 +101,9 @@ export default function ProfileScreen() {
     logoutAdvertiser,
   } = useAdvertiser();
 
-  const [profileType, setProfileType] = useState('user'); // 'user' | 'business'
+  const [profileType, setProfileType] = useState(
+    location.state?.tab === 'business' ? 'business' : 'user'
+  );
 
   // Baseline verified phone snapshot
   const initialVerifiedPhone = userProfile.phone || '';
@@ -110,44 +120,120 @@ export default function ProfileScreen() {
   const [email, setEmail] = useState(userProfile.email || '');
   const [avatarUrl, setAvatarUrl] = useState(userProfile.avatarUrl || null);
 
-  // Business Profile Form states
-  const [businessName, setBusinessName] = useState(draftCampaign.businessName || businessProfile.businessName || '');
-  const [businessOwnerName, setBusinessOwnerName] = useState(draftCampaign.ownerName || businessProfile.ownerName || '');
-  const [businessCategory, setBusinessCategory] = useState(draftCampaign.businessCategory || businessProfile.businessCategory || '');
-  const [businessPhone, setBusinessPhone] = useState(draftCampaign.phone || businessProfile.phone || advertiserAuth.phone || '');
-  const [businessEmail, setBusinessEmail] = useState(draftCampaign.email || businessProfile.email || '');
-  const [businessLogoUrl, setBusinessLogoUrl] = useState(draftCampaign.businessLogoUrl || businessProfile.businessLogoUrl || null);
-  const [storeAddress, setStoreAddress] = useState(draftCampaign.storeAddress || businessProfile.storeAddress || '');
-  const [pincode, setPincode] = useState(draftCampaign.pincode || businessProfile.pincode || '');
-  const [businessAadhaar, setBusinessAadhaar] = useState(draftCampaign.idNumberRaw || businessProfile.idNumberRaw || '');
-  const [showAadhaar, setShowAadhaar] = useState(false);
-  const [hasGstin, setHasGstin] = useState(draftCampaign.hasGstin ?? businessProfile.hasGstin ?? false);
-  const [gstin, setGstin] = useState(draftCampaign.gstin || businessProfile.gstin || '');
-  const [errors, setErrors] = useState({});
+  // Business Profile Form states (Flow B Shop Concept)
+  const flowBAccount = loadSavedAccount() || {};
+  const flowBState = loadSavedState() || {};
+  const flowBShop = flowBAccount.shop || flowBState.shop || {};
 
-  const GSTIN_REGEX = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+  const [businessName, setBusinessName] = useState(
+    flowBShop.name || draftCampaign.businessName || businessProfile.businessName || ''
+  );
+  const [businessOwnerName, setBusinessOwnerName] = useState(
+    flowBShop.ownerName || draftCampaign.ownerName || businessProfile.ownerName || ''
+  );
+
+  const initialCatId = (() => {
+    if (flowBShop.categoryId) return flowBShop.categoryId;
+    const existingCat = flowBShop.category || draftCampaign.businessCategory || businessProfile.businessCategory;
+    if (existingCat) {
+      const match = CATEGORIES.find((c) => c.id === existingCat || c.label === existingCat);
+      if (match) return match.id;
+    }
+    return 'grocery';
+  })();
+  const [businessCategory, setBusinessCategory] = useState(initialCatId);
+
+  const [businessPhone, setBusinessPhone] = useState(
+    flowBAccount.phone || flowBShop.phone || draftCampaign.phone || businessProfile.phone || advertiserAuth.phone || userProfile.phone || ''
+  );
+  const [businessEmail, setBusinessEmail] = useState(
+    flowBShop.email || draftCampaign.email || businessProfile.email || ''
+  );
+  const [businessLogoUrl, setBusinessLogoUrl] = useState(
+    flowBShop.logoDataUrl || draftCampaign.businessLogoUrl || businessProfile.businessLogoUrl || null
+  );
+  const [storeAddress, setStoreAddress] = useState(
+    flowBShop.address || draftCampaign.storeAddress || businessProfile.storeAddress || ''
+  );
+
+  const initialPincode = flowBShop.pincode || draftCampaign.pincode || businessProfile.pincode || '';
+  const [pincode, setPincode] = useState(initialPincode);
+
+  const initialResolvedCity = (() => {
+    if (initialPincode && initialPincode.length === 6) {
+      const found = lookupCityByPincode(initialPincode);
+      if (found) return found;
+    }
+    if (flowBShop.cityId) {
+      const found = getCityById(flowBShop.cityId);
+      if (found) return found;
+    }
+    if (flowBShop.city) {
+      return { id: flowBShop.cityId || '', name: flowBShop.city, state: flowBShop.state || 'मध्य प्रदेश' };
+    }
+    return null;
+  })();
+  const [resolvedCity, setResolvedCity] = useState(initialResolvedCity);
+  const [pincodeNotFound, setPincodeNotFound] = useState(false);
+
+  const [isCategorySheetOpen, setIsCategorySheetOpen] = useState(false);
+  const [isShopCitySheetOpen, setIsShopCitySheetOpen] = useState(false);
+
+  const [errors, setErrors] = useState({});
 
   const businessFileInputRef = useRef(null);
 
-  const handleBusinessLogoChange = (e) => {
+  const handleBusinessLogoChange = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setBusinessLogoUrl(event.target?.result);
-      };
-      reader.readAsDataURL(file);
+      try {
+        const processed = await processImageFile(file, 256, 0.85);
+        setBusinessLogoUrl(processed.dataUrl);
+      } catch {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          setBusinessLogoUrl(event.target?.result);
+        };
+        reader.readAsDataURL(file);
+      }
     }
   };
 
-  const formatAadhaar = (digits) => {
-    if (!digits) return '';
-    const clean = digits.replace(/\D/g, '').slice(0, 12);
-    const parts = [];
-    for (let i = 0; i < clean.length; i += 4) {
-      parts.push(clean.slice(i, i + 4));
+  const handlePincodeChange = (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 6);
+    setPincode(digits);
+    if (errors.pincode) {
+      setErrors((prev) => ({ ...prev, pincode: null }));
     }
-    return parts.join(' ');
+    if (digits.length === 6) {
+      const foundCity = lookupCityByPincode(digits);
+      if (foundCity) {
+        setResolvedCity(foundCity);
+        setPincodeNotFound(false);
+      } else {
+        setResolvedCity(null);
+        setPincodeNotFound(true);
+      }
+    } else {
+      setResolvedCity(null);
+      setPincodeNotFound(false);
+    }
+  };
+
+  const handleSingleCityPick = (cId) => {
+    const cityObj = getCityById(cId);
+    if (cityObj) {
+      setResolvedCity(cityObj);
+      setPincodeNotFound(false);
+      const matchingPin = Object.entries(PINCODE_MAP).find(([, id]) => id === cId)?.[0];
+      if (matchingPin) {
+        setPincode(matchingPin);
+      }
+      if (errors.pincode) {
+        setErrors((prev) => ({ ...prev, pincode: null }));
+      }
+      setToastMessage(`शहर चुना गया: ${cityObj.name || cityObj.nameHi}`);
+    }
   };
 
   // Phone input change -> marks unverified if modified & clears phone error
@@ -198,61 +284,40 @@ export default function ProfileScreen() {
     return true;
   };
 
-  // Input Validation for Business Profile
+  // Input Validation for Business Profile (Flow B Shop Model)
   const validateBusinessForm = () => {
     const errs = {};
     const trimmedBName = businessName.trim();
     if (!trimmedBName) {
       errs.businessName = 'कृपया व्यापार / दुकान का नाम दर्ज करें';
-    } else if (trimmedBName.length < 3) {
-      errs.businessName = 'दुकान के नाम में कम से कम 3 अक्षर होने चाहिए';
+    } else if (trimmedBName.length < 2) {
+      errs.businessName = 'दुकान के नाम में कम से कम 2 अक्षर होने चाहिए';
     }
 
-    if (businessOwnerName.trim() && businessOwnerName.trim().length < 2) {
-      errs.businessOwnerName = 'मालिक के नाम में कम से कम 2 अक्षर होने चाहिए';
+    if (!businessCategory) {
+      errs.businessCategory = 'कृपया दुकान की श्रेणी चुनें';
     }
 
     const cleanBPhone = businessPhone.replace(/\D/g, '');
     if (!cleanBPhone) {
-      errs.businessPhone = 'कृपया बिज़नेस संपर्क मोबाइल नंबर दर्ज करें';
+      errs.businessPhone = 'कृपया संपर्क मोबाइल नंबर दर्ज करें';
     } else if (cleanBPhone.length !== 10) {
       errs.businessPhone = `कृपया पूरे 10 अंक दर्ज करें (${cleanBPhone.length}/10 अंक)`;
     } else if (!/^[6-9]/.test(cleanBPhone)) {
       errs.businessPhone = 'मोबाइल नंबर 6, 7, 8 या 9 से शुरू होना चाहिए';
     }
 
+    const trimmedPin = pincode.trim();
+    if (!trimmedPin) {
+      errs.pincode = 'कृपया 6-अंकों का पिनकोड दर्ज करें';
+    } else if (!/^[1-9][0-9]{5}$/.test(trimmedPin)) {
+      errs.pincode = 'कृपया 6-अंकों का मान्य भारतीय पिनकोड दर्ज करें';
+    } else if (!resolvedCity) {
+      errs.pincode = 'कृपया पिनकोड जांचें या सूची से शहर चुनें';
+    }
+
     if (businessEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(businessEmail.trim())) {
       errs.businessEmail = 'कृपया एक मान्य ईमेल पता दर्ज करें (उदा. info@business.com)';
-    }
-
-    if (storeAddress.trim() && storeAddress.trim().length < 5) {
-      errs.storeAddress = 'कृपया पूरा पता दर्ज करें (कम से कम 5 अक्षर)';
-    }
-
-    if (pincode.trim() && !/^[1-9][0-9]{5}$/.test(pincode.trim())) {
-      errs.pincode = 'कृपया 6-अंकों का मान्य भारतीय पिनकोड दर्ज करें (उदा. 462001)';
-    }
-
-    if (businessAadhaar.trim()) {
-      if (businessAadhaar.trim().length !== 12) {
-        errs.businessAadhaar = `कृपया 12 अंकों का आधार नंबर दर्ज करें (${businessAadhaar.trim().length}/12 अंक)`;
-      } else if (/^0{12}$|^1{12}$/.test(businessAadhaar.trim())) {
-        errs.businessAadhaar = 'अमान्य आधार नंबर';
-      }
-    }
-
-    if (hasGstin) {
-      const trimmedGstin = gstin.trim().toUpperCase();
-      if (!trimmedGstin) {
-        errs.gstin = 'कृपया अपना 15-अंकों का GSTIN दर्ज करें';
-      } else if (!GSTIN_REGEX.test(trimmedGstin)) {
-        errs.gstin = 'अमान्य GSTIN: कृपया 15 अक्षरों का सही प्रारूप दर्ज करें (उदा. 23AAAAA0000A1Z5)';
-      } else {
-        const stateCode = parseInt(trimmedGstin.slice(0, 2), 10);
-        if (stateCode < 1 || stateCode > 37) {
-          errs.gstin = 'अमान्य GSTIN राज्य कोड (01 से 37 के बीच होना चाहिए)';
-        }
-      }
     }
 
     setErrors(errs);
@@ -341,35 +406,64 @@ export default function ProfileScreen() {
       };
       setUserProfile(updatedProfile);
     } else {
-      const maskedAadhaar = businessAadhaar ? `•••• •••• ${businessAadhaar.slice(-4)}` : '';
+      const selectedCategoryObj = getCategoryById(businessCategory);
+      const categoryLabel = selectedCategoryObj?.label || 'किराना';
+      const cityName = resolvedCity?.name || resolvedCity?.nameHi || '';
+      const stateName = resolvedCity?.state || '';
+
+      const shopData = {
+        name: businessName.trim(),
+        categoryId: businessCategory,
+        category: categoryLabel,
+        pincode: pincode.trim(),
+        cityId: resolvedCity?.id || '',
+        city: cityName,
+        state: stateName,
+        address: storeAddress.trim(),
+        ownerName: businessOwnerName.trim(),
+        email: businessEmail.trim(),
+        phone: businessPhone.trim(),
+        logoDataUrl: businessLogoUrl,
+        pin: resolvedCity?.lat ? { lat: resolvedCity.lat, lng: resolvedCity.lng } : null,
+      };
+
+      // 1. Save to Flow B storage (nb2_account and nb2_state)
+      saveAccount({
+        shop: shopData,
+        phone: businessPhone.trim(),
+      });
+      const currentSavedState = loadSavedState();
+      if (currentSavedState) {
+        saveState({
+          ...currentSavedState,
+          shop: {
+            ...currentSavedState.shop,
+            ...shopData,
+          },
+        });
+      }
+
+      // 2. Synchronize with Flow A AdvertiserContext for backward compatibility
       const bData = {
         businessName: businessName.trim(),
         ownerName: businessOwnerName.trim(),
-        businessCategory: businessCategory.trim(),
+        businessCategory: categoryLabel,
         phone: businessPhone.trim(),
         email: businessEmail.trim(),
         businessLogoUrl,
         storeAddress: storeAddress.trim(),
         pincode: pincode.trim(),
-        idNumberRaw: businessAadhaar.trim(),
-        idNumberMasked: maskedAadhaar,
-        hasGstin,
-        gstin: hasGstin ? gstin.trim() : '',
+        city: cityName,
       };
       if (updateBusinessProfile) {
         updateBusinessProfile(bData);
       }
-      updateDraftCampaign(bData);
-      // Only mark business profile as complete when Aadhaar (12 digits) is provided.
-      // isBusinessProfileSaved = true via a 4-digit OTP (ProfileScreen) must NOT bypass
-      // the AdvertiserLocationTaxScreen which is the real identity-verification step.
-      if (businessAadhaar.trim().length === 12) {
+      if (updateDraftCampaign) {
+        updateDraftCampaign(bData);
+      }
+      if (setIsBusinessProfileSaved) {
         setIsBusinessProfileSaved(true);
       }
-      // IMPORTANT: Do NOT call setAdvertiserAuth here.
-      // Advertiser auth (isAuthenticated + otpVerified) is exclusively set by the
-      // dedicated 6-digit OTP flow in AdvertiserOtpScreen. The 4-digit OTP here
-      // only authorises the user to save their own profile data.
     }
 
     setIsPhoneVerified(true);
@@ -377,7 +471,7 @@ export default function ProfileScreen() {
     setToastMessage(
       profileType === 'user'
         ? 'उपयोगकर्ता प्रोफाइल सफलतापूर्वक अपडेट हो गई'
-        : 'बिज़नेस प्रोफाइल सफलतापूर्वक अपडेट हो गई'
+        : 'दुकान की जानकारी सफलतापूर्वक सेव हो गई'
     );
 
     setTimeout(() => {
@@ -459,7 +553,12 @@ export default function ProfileScreen() {
     const previousRoute = location.state?.previousRoute;
 
     if (from === 'menu') {
-      navigate('/menu');
+      navigate('/menu', {
+        state: {
+          from: location.state?.originPath || '/feed',
+          returnedFromChild: true,
+        },
+      });
     } else if (from === 'tab') {
       navigate(previousRoute || '/feed');
     } else {
@@ -861,18 +960,18 @@ export default function ProfileScreen() {
           </>
         )}
 
-        {/* ================= BUSINESS PROFILE VIEW ================= */}
+        {/* ================= BUSINESS PROFILE VIEW (FLOW B) ================= */}
         {profileType === 'business' && (
           <>
             {/* Introductory Subtext */}
             <div className="pt-2 pb-1 px-6 text-center shrink-0">
               <p className="text-[13px] font-normal text-[#6B7280] leading-relaxed">
-                अपने व्यापार की जानकारी भरें ताकि आपके विज्ञापन<br />
-                सही ग्राहकों तक पहुँचें
+                अपनी दुकान या व्यवसाय का विवरण भरें ताकि ग्राहक<br />
+                आपकी दुकान को आसानी से खोज और पहचान सकें
               </p>
             </div>
 
-            {/* Business Logo Stack */}
+            {/* Shop Logo / Store Photo Stack */}
             <div className="flex flex-col items-center justify-center shrink-0">
               <div className="w-[110px] h-[110px] rounded-full p-1 ring-8 ring-[#F5B55C]/25 bg-gradient-to-b from-[#F5B55C]/40 to-[#F5B55C]/10 relative flex items-center justify-center shadow-inner">
                 <div
@@ -882,37 +981,48 @@ export default function ProfileScreen() {
                   {businessLogoUrl ? (
                     <img
                       src={businessLogoUrl}
-                      alt="Business Logo"
+                      alt="Shop Logo"
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <div className="flex flex-col items-center justify-center text-white">
-                      <Shop size={34} color="#FFFFFF" variant="Bold" />
-                      <span className="text-[10px] font-bold text-[#F5B55C] mt-0.5 max-w-[80px] truncate text-center">
-                        {businessName ? businessName.slice(0, 8) : 'लोगो'}
+                    <div className="flex flex-col items-center justify-center text-white px-2">
+                      <Shop size={32} color="#FFFFFF" variant="Bold" />
+                      <span className="text-[10px] font-bold text-[#F5B55C] mt-1 truncate max-w-[80px] text-center">
+                        {businessName.trim() ? businessName.slice(0, 10) : 'दुकान का लोगो'}
                       </span>
                     </div>
                   )}
                 </div>
 
-                {/* Camera Action Badge */}
+                {/* Camera / Action Badge */}
                 <button
                   type="button"
                   onClick={() => businessFileInputRef.current?.click()}
                   className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#F5B55C] text-[#2B2437] flex items-center justify-center border-2 border-white shadow-md cursor-pointer active:scale-95 z-10"
-                  title="बिज़नेस लोगो बदलें"
+                  title="दुकान का लोगो / फ़ोटो बदलें"
                 >
                   <Camera size={16} color="#FFFFFF" variant="Bold" />
                 </button>
               </div>
 
-              <button
-                type="button"
-                onClick={() => businessFileInputRef.current?.click()}
-                className="text-[13px] font-bold text-[#2B2437] mt-2.5 cursor-pointer hover:underline"
-              >
-                दुकान / बिज़नेस लोगो अपलोड करें
-              </button>
+              <div className="flex items-center gap-3 mt-2.5">
+                <button
+                  type="button"
+                  onClick={() => businessFileInputRef.current?.click()}
+                  className="text-[13px] font-bold text-[#2B2437] cursor-pointer hover:underline"
+                >
+                  {businessLogoUrl ? 'लोगो बदलें' : 'दुकान का लोगो अपलोड करें'}
+                </button>
+                {businessLogoUrl && (
+                  <button
+                    type="button"
+                    onClick={() => setBusinessLogoUrl(null)}
+                    className="text-[12px] font-semibold text-[#EF4444] hover:underline cursor-pointer"
+                  >
+                    हटाएं
+                  </button>
+                )}
+              </div>
 
               <input
                 type="file"
@@ -923,37 +1033,55 @@ export default function ProfileScreen() {
               />
             </div>
 
-            {/* Business Card 1: बिज़नेस की जानकारी */}
+            {/* Master Card 1: आपकी दुकान की जानकारी */}
             <div className="mx-4 bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm p-4">
               <div className="flex items-center gap-2.5 mb-3.5">
-                <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
+                <div className="w-8 h-8 rounded-[10px] bg-[#FFF3DC] border border-[#F5B55C]/50 flex items-center justify-center text-[#F5B55C] shrink-0">
                   <Shop size={16} color="#F5B55C" variant="Bold" />
                 </div>
-                <h2 className="text-[16px] font-bold text-[#2B2437]">बिज़नेस की जानकारी</h2>
+                <div>
+                  <h2 className="text-[16px] font-bold text-[#2B2437]">दुकान का विवरण</h2>
+                  <p className="text-[11px] text-[#6B7280]">मुख्य जानकारी जो विज्ञापनों में दिखेगी</p>
+                </div>
               </div>
 
               <div className="bg-[#F9FAFB] rounded-[20px] p-4 space-y-4 border border-[#F1F3F5]">
-                {/* व्यापार / दुकान का नाम */}
+                {/* 1. दुकान / व्यापार का नाम */}
                 <div>
                   <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
-                    व्यापार / दुकान का नाम *
+                    दुकान / व्यापार का नाम *
                   </label>
-                  <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center gap-2.5 shadow-2xs transition-all ${
+                  <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center justify-between shadow-2xs transition-all ${
                     errors.businessName
                       ? 'border-[#EF4444] bg-[#FEF2F2]/40 focus-within:border-[#EF4444] focus-within:ring-2 focus-within:ring-[#EF4444]/20'
                       : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
                   }`}>
-                    <Shop size={18} color={errors.businessName ? '#EF4444' : '#9CA3AF'} />
-                    <input
-                      type="text"
-                      placeholder="उदा. शर्मा किराना एवं जनरल स्टोर"
-                      value={businessName}
-                      onChange={(e) => {
-                        setBusinessName(e.target.value);
-                        if (errors.businessName) setErrors((prev) => ({ ...prev, businessName: null }));
-                      }}
-                      className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
-                    />
+                    <div className="flex items-center gap-2.5 flex-1 mr-2">
+                      <Shop size={18} color={errors.businessName ? '#EF4444' : '#9CA3AF'} />
+                      <input
+                        type="text"
+                        placeholder="उदा. शर्मा किराना एवं जनरल स्टोर"
+                        value={businessName}
+                        maxLength={40}
+                        onChange={(e) => {
+                          setBusinessName(e.target.value);
+                          if (errors.businessName) setErrors((prev) => ({ ...prev, businessName: null }));
+                        }}
+                        className="text-[14px] font-semibold text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF] placeholder:font-normal"
+                      />
+                    </div>
+                    {businessName && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setBusinessName('');
+                          if (errors.businessName) setErrors((prev) => ({ ...prev, businessName: null }));
+                        }}
+                        className="text-[#9CA3AF] hover:text-[#4B5563] cursor-pointer p-1"
+                      >
+                        <CloseCircle size={16} color="#9CA3AF" />
+                      </button>
+                    )}
                   </div>
                   {errors.businessName && (
                     <p className="text-[11.5px] font-semibold text-[#DC2626] mt-1 pl-1 flex items-center gap-1">
@@ -963,60 +1091,37 @@ export default function ProfileScreen() {
                   )}
                 </div>
 
-                {/* व्यापारी / मालिक का नाम */}
+                {/* 2. दुकान की श्रेणी (CategorySheet selector) */}
                 <div>
                   <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
-                    व्यापारी / प्रोपराइटर का नाम
+                    दुकान की श्रेणी *
                   </label>
-                  <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center gap-2.5 shadow-2xs transition-all ${
-                    errors.businessOwnerName
-                      ? 'border-[#EF4444] bg-[#FEF2F2]/40 focus-within:border-[#EF4444] focus-within:ring-2 focus-within:ring-[#EF4444]/20'
-                      : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
-                  }`}>
-                    <User size={18} color={errors.businessOwnerName ? '#EF4444' : '#9CA3AF'} />
-                    <input
-                      type="text"
-                      placeholder="मालिक का पूरा नाम दर्ज करें"
-                      value={businessOwnerName}
-                      onChange={(e) => {
-                        setBusinessOwnerName(e.target.value);
-                        if (errors.businessOwnerName) setErrors((prev) => ({ ...prev, businessOwnerName: null }));
-                      }}
-                      className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
-                    />
-                  </div>
-                  {errors.businessOwnerName && (
-                    <p className="text-[11.5px] font-semibold text-[#DC2626] mt-1 pl-1 flex items-center gap-1">
-                      <span>⚠️</span>
-                      <span>{errors.businessOwnerName}</span>
-                    </p>
-                  )}
-                </div>
-                {/* व्यापार की श्रेणी */}
-                <div>
-                  <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
-                    व्यापार की श्रेणी *
-                  </label>
-                  <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center gap-2.5 shadow-2xs transition-all ${
-                    errors.businessCategory
-                      ? 'border-[#EF4444] bg-[#FEF2F2]/40 focus-within:border-[#EF4444] focus-within:ring-2 focus-within:ring-[#EF4444]/20'
-                      : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
-                  }`}>
-                    <Shop size={18} color={errors.businessCategory ? '#EF4444' : '#9CA3AF'} />
-                    <select
-                      value={businessCategory}
-                      onChange={(e) => {
-                        setBusinessCategory(e.target.value);
-                        if (errors.businessCategory) setErrors((prev) => ({ ...prev, businessCategory: null }));
-                      }}
-                      className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent appearance-none cursor-pointer pr-4"
-                    >
-                      <option value="">श्रेणी चुनें</option>
-                      {['किराना / जनरल स्टोर','कपड़े / फैशन','इलेक्ट्रॉनिक्स','रेस्टोरंट / खान-पान','मेडिकल / दवाई','शिक्षा / कोचिंग','हार्डवेयर / निर्माण','ज्वेलरी / सोना-चाँदी','मोबाइल / टेलीकॉम','ब्यूटी / सैलून','ऑटो / गाड़ी','कृषि / बीज-खाद','अन्य'].map((cat) => (
-                        <option key={cat} value={cat}>{cat}</option>
-                      ))}
-                    </select>
-                  </div>
+                  {(() => {
+                    const selCat = getCategoryById(businessCategory);
+                    const CatIcon = (selCat?.icon && CATEGORY_ICON_MAP[selCat.icon]) || Store;
+                    return (
+                      <button
+                        type="button"
+                        onClick={() => setIsCategorySheetOpen(true)}
+                        className={`w-full h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center justify-between shadow-2xs cursor-pointer hover:border-[#2B2437]/40 active:scale-[0.99] transition-all text-left ${
+                          errors.businessCategory ? 'border-[#EF4444]' : 'border-[#E5E7EB]'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-7 h-7 rounded-[8px] bg-[#FFF3DC] flex items-center justify-center text-[#D97706] shrink-0">
+                            <CatIcon className="w-4 h-4 text-[#D97706]" />
+                          </div>
+                          <span className="text-[14px] font-bold text-[#2B2437]">
+                            {selCat?.label || 'श्रेणी चुनें'}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 text-[12px] font-bold text-[#D97706]">
+                          <span>बदलें</span>
+                          <ArrowDown2 size={14} color="#D97706" />
+                        </div>
+                      </button>
+                    );
+                  })()}
                   {errors.businessCategory && (
                     <p className="text-[11.5px] font-semibold text-[#DC2626] mt-1 pl-1 flex items-center gap-1">
                       <span>⚠️</span>
@@ -1025,10 +1130,134 @@ export default function ProfileScreen() {
                   )}
                 </div>
 
+                {/* 3. पिनकोड एवं स्वतः शहर चयन */}
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <label className="text-[13px] font-bold text-[#2B2437]">
+                      दुकान का पिनकोड *
+                    </label>
+                    <span className="text-[11px] font-medium text-[#6B7280]">
+                      6-अंक डालते ही शहर स्वतः सेट होगा
+                    </span>
+                  </div>
+                  <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center justify-between shadow-2xs transition-all ${
+                    errors.pincode
+                      ? 'border-[#EF4444] bg-[#FEF2F2]/40 focus-within:border-[#EF4444] focus-within:ring-2 focus-within:ring-[#EF4444]/20'
+                      : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
+                  }`}>
+                    <div className="flex items-center gap-2.5 flex-1 mr-2">
+                      <Location size={18} color={errors.pincode ? '#EF4444' : '#9CA3AF'} />
+                      <input
+                        type="text"
+                        maxLength={6}
+                        placeholder="पिनकोड दर्ज करें (उदा. 462001)"
+                        value={pincode}
+                        onChange={handlePincodeChange}
+                        className="text-[14px] font-bold tracking-wider text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF] placeholder:font-normal placeholder:tracking-normal"
+                      />
+                    </div>
+                    {pincode && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPincode('');
+                          setResolvedCity(null);
+                          setPincodeNotFound(false);
+                          if (errors.pincode) setErrors((prev) => ({ ...prev, pincode: null }));
+                        }}
+                        className="text-[#9CA3AF] hover:text-[#4B5563] cursor-pointer p-1"
+                      >
+                        <CloseCircle size={16} color="#9CA3AF" />
+                      </button>
+                    )}
+                  </div>
+                  {errors.pincode && (
+                    <p className="text-[11.5px] font-semibold text-[#DC2626] mt-1 pl-1 flex items-center gap-1">
+                      <span>⚠️</span>
+                      <span>{errors.pincode}</span>
+                    </p>
+                  )}
+
+                  {/* Detected City Badge or Manual City Selector */}
+                  {resolvedCity ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-2.5 bg-white border border-[#10B981]/30 rounded-[14px] p-2.5 flex items-center justify-between shadow-2xs"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full bg-[#ECFDF5] flex items-center justify-center text-[#059669] shrink-0">
+                          <TickCircle size={16} color="#059669" variant="Bold" />
+                        </div>
+                        <div>
+                          <p className="text-[13px] font-bold text-[#1F2937]">
+                            {resolvedCity.name || resolvedCity.nameHi}
+                          </p>
+                          <p className="text-[11px] text-[#6B7280]">
+                            {resolvedCity.state || 'मध्य प्रदेश'} • स्थानीय लक्षित क्षेत्र
+                          </p>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setIsShopCitySheetOpen(true)}
+                        className="text-[12px] font-bold text-[#D97706] hover:underline px-2 py-1 cursor-pointer"
+                      >
+                        बदलें
+                      </button>
+                    </motion.div>
+                  ) : pincodeNotFound ? (
+                    <div className="mt-2 bg-[#FFFBEB] border border-[#FDE68A] rounded-[12px] p-2.5 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Warning2 size={16} color="#D97706" variant="Bold" />
+                        <span className="text-[12px] font-semibold text-[#92400E]">
+                          पिनकोड से शहर नहीं मिला
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setIsShopCitySheetOpen(true)}
+                        className="text-[12px] font-bold text-[#D97706] underline cursor-pointer"
+                      >
+                        शहर चुनें
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="mt-2 flex items-center justify-between px-1">
+                      <span className="text-[11.5px] text-[#6B7280]">
+                        पिनकोड याद नहीं?
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setIsShopCitySheetOpen(true)}
+                        className="text-[12px] font-bold text-[#2B2437] hover:underline cursor-pointer flex items-center gap-1"
+                      >
+                        <span>सूची से शहर चुनें</span>
+                        <span>›</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Master Card 2: संपर्क एवं अतिरिक्त पता */}
+            <div className="mx-4 bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm p-4">
+              <div className="flex items-center gap-2.5 mb-3.5">
+                <div className="w-8 h-8 rounded-[10px] bg-[#FFF3DC] border border-[#F5B55C]/50 flex items-center justify-center text-[#F5B55C] shrink-0">
+                  <Call size={16} color="#F5B55C" variant="Bold" />
+                </div>
+                <div>
+                  <h2 className="text-[16px] font-bold text-[#2B2437]">संपर्क एवं पता</h2>
+                  <p className="text-[11px] text-[#6B7280]">ग्राहकों के संपर्क हेतु विवरण</p>
+                </div>
+              </div>
+
+              <div className="bg-[#F9FAFB] rounded-[20px] p-4 space-y-4 border border-[#F1F3F5]">
                 {/* संपर्क मोबाइल नंबर */}
                 <div>
                   <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
-                    बिज़नेस संपर्क मोबाइल नंबर *
+                    संपर्क मोबाइल नंबर *
                   </label>
                   <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center gap-2.5 shadow-2xs transition-all ${
                     errors.businessPhone
@@ -1036,7 +1265,7 @@ export default function ProfileScreen() {
                       : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
                   }`}>
                     <Call size={18} color={errors.businessPhone ? '#EF4444' : '#9CA3AF'} />
-                    <span className="text-[14px] font-semibold text-[#6B7280] select-none">+91</span>
+                    <span className="text-[14px] font-bold text-[#6B7280] select-none">+91</span>
                     <input
                       type="tel"
                       placeholder="10-अंकों का नंबर"
@@ -1047,7 +1276,7 @@ export default function ProfileScreen() {
                         setBusinessPhone(digits);
                         if (errors.businessPhone) setErrors((prev) => ({ ...prev, businessPhone: null }));
                       }}
-                      className="text-[14px] font-semibold text-[#2B2437] outline-none bg-transparent flex-1 placeholder:text-[#9CA3AF]"
+                      className="text-[14px] font-bold text-[#2B2437] outline-none bg-transparent flex-1 placeholder:text-[#9CA3AF] placeholder:font-normal"
                     />
                   </div>
                   {errors.businessPhone && (
@@ -1058,10 +1287,44 @@ export default function ProfileScreen() {
                   )}
                 </div>
 
+                {/* दुकान / कार्यालय का पूरा पता */}
+                <div>
+                  <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
+                    दुकान / कार्यालय का पता (वैकल्पिक)
+                  </label>
+                  <div className="bg-white rounded-[14px] border border-[#E5E7EB] p-3 flex items-start gap-2.5 shadow-2xs focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10 transition-all">
+                    <Location size={18} color="#9CA3AF" className="mt-0.5 shrink-0" />
+                    <textarea
+                      rows={2}
+                      placeholder="दुकान नं., बाज़ार का नाम, इलाका या मुख्य लैंडमार्क"
+                      value={storeAddress}
+                      onChange={(e) => setStoreAddress(e.target.value)}
+                      className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF] resize-none"
+                    />
+                  </div>
+                </div>
+
+                {/* व्यापारी / मालिक का नाम */}
+                <div>
+                  <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
+                    व्यापारी / प्रोपराइटर का नाम (वैकल्पिक)
+                  </label>
+                  <div className="h-[52px] bg-white rounded-[14px] border border-[#E5E7EB] px-3.5 flex items-center gap-2.5 shadow-2xs focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10 transition-all">
+                    <User size={18} color="#9CA3AF" />
+                    <input
+                      type="text"
+                      placeholder="मालिक का पूरा नाम दर्ज करें"
+                      value={businessOwnerName}
+                      onChange={(e) => setBusinessOwnerName(e.target.value)}
+                      className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF]"
+                    />
+                  </div>
+                </div>
+
                 {/* बिज़नेस ईमेल आईडी */}
                 <div>
                   <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
-                    बिज़नेस ईमेल आईडी (वैकल्पिक)
+                    ईमेल आईडी (वैकल्पिक)
                   </label>
                   <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center gap-2.5 shadow-2xs transition-all ${
                     errors.businessEmail
@@ -1090,238 +1353,28 @@ export default function ProfileScreen() {
               </div>
             </div>
 
-            {/* Business Card 2: दुकान का पता एवं स्थान */}
-            <div className="mx-4 bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm p-4">
-              <div className="flex items-center gap-2.5 mb-3.5">
-                <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
-                  <Location size={16} color="#F5B55C" variant="Bold" />
+            {/* Direct Flow B Advertiser Banner */}
+            <div className="mx-4 bg-gradient-to-br from-[#2B2437] to-[#1C1724] rounded-[24px] p-4 text-white shadow-md border border-[#3D334E] flex items-center justify-between">
+              <div className="space-y-1 pr-3">
+                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#FFF3DC]/15 border border-[#F5B55C]/30 text-[#F5B55C] text-[10.5px] font-bold">
+                  <span>⚡ 2 मिनट में विज्ञापन</span>
                 </div>
-                <h2 className="text-[16px] font-bold text-[#2B2437]">दुकान का पता एवं स्थान</h2>
-              </div>
-
-              <div className="bg-[#F9FAFB] rounded-[20px] p-4 space-y-4 border border-[#F1F3F5]">
-                {/* दुकान / कार्यालय का पूरा पता */}
-                <div>
-                  <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
-                    दुकान / कार्यालय का पूरा पता
-                  </label>
-                  <div className={`bg-white rounded-[14px] border p-3 flex items-start gap-2.5 shadow-2xs transition-all ${
-                    errors.storeAddress
-                      ? 'border-[#EF4444] bg-[#FEF2F2]/40 focus-within:border-[#EF4444] focus-within:ring-2 focus-within:ring-[#EF4444]/20'
-                      : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
-                  }`}>
-                    <Location size={18} color={errors.storeAddress ? '#EF4444' : '#9CA3AF'} className="mt-0.5 shrink-0" />
-                    <textarea
-                      rows={2}
-                      placeholder="दुकान नं., बाज़ार का नाम, इलाका या लैंडमार्क"
-                      value={storeAddress}
-                      onChange={(e) => {
-                        setStoreAddress(e.target.value);
-                        if (errors.storeAddress) setErrors((prev) => ({ ...prev, storeAddress: null }));
-                      }}
-                      className="text-[14px] font-medium text-[#2B2437] outline-none flex-1 bg-transparent placeholder:text-[#9CA3AF] resize-none"
-                    />
-                  </div>
-                  {errors.storeAddress && (
-                    <p className="text-[11.5px] font-semibold text-[#DC2626] mt-1 pl-1 flex items-center gap-1">
-                      <span>⚠️</span>
-                      <span>{errors.storeAddress}</span>
-                    </p>
-                  )}
-                </div>
-
-                {/* पिनकोड */}
-                <div>
-                  <label className="text-[13px] font-bold text-[#2B2437] block mb-1.5">
-                    पिनकोड
-                  </label>
-                  <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center gap-2.5 shadow-2xs transition-all ${
-                    errors.pincode
-                      ? 'border-[#EF4444] bg-[#FEF2F2]/40 focus-within:border-[#EF4444] focus-within:ring-2 focus-within:ring-[#EF4444]/20'
-                      : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
-                  }`}>
-                    <Location size={18} color={errors.pincode ? '#EF4444' : '#9CA3AF'} />
-                    <input
-                      type="text"
-                      maxLength={6}
-                      placeholder="6-अंकों का पिनकोड (उदा. 462001)"
-                      value={pincode}
-                      onChange={(e) => {
-                        const digits = e.target.value.replace(/\D/g, '').slice(0, 6);
-                        setPincode(digits);
-                        if (errors.pincode) setErrors((prev) => ({ ...prev, pincode: null }));
-                      }}
-                      className="text-[14px] font-semibold text-[#2B2437] outline-none bg-transparent flex-1 placeholder:text-[#9CA3AF]"
-                    />
-                  </div>
-                  {errors.pincode && (
-                    <p className="text-[11.5px] font-semibold text-[#DC2626] mt-1 pl-1 flex items-center gap-1">
-                      <span>⚠️</span>
-                      <span>{errors.pincode}</span>
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Business Card 3: पहचान एवं कर विवरण */}
-            <div className="mx-4 bg-white rounded-[24px] border border-[#E5E7EB] shadow-sm p-4">
-              <div className="flex items-center gap-2.5 mb-3.5">
-                <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
-                  <ShieldSecurity size={16} color="#F5B55C" variant="Bold" />
-                </div>
-                <h2 className="text-[16px] font-bold text-[#2B2437]">पहचान एवं कर विवरण</h2>
-              </div>
-
-              <div className="bg-[#F9FAFB] rounded-[20px] p-4 space-y-4 border border-[#F1F3F5]">
-                {/* आधार नंबर */}
-                <div>
-                  <div className="flex items-center justify-between mb-1.5">
-                    <label className="text-[13px] font-bold text-[#2B2437]">
-                      आधार नंबर (सुरक्षित एवं एनक्रिप्टेड)
-                    </label>
-                    <button
-                      type="button"
-                      onClick={() => setShowAadhaar(!showAadhaar)}
-                      className="text-[12px] font-bold text-[#F5B55C] flex items-center gap-1 cursor-pointer"
-                    >
-                      {showAadhaar ? (
-                        <>
-                          <EyeSlash size={14} color="#F5B55C" />
-                          <span>छुपाएं</span>
-                        </>
-                      ) : (
-                        <>
-                          <Eye size={14} color="#F5B55C" />
-                          <span>देखें</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                  <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center justify-between shadow-2xs transition-all ${
-                    errors.businessAadhaar
-                      ? 'border-[#EF4444] bg-[#FEF2F2]/40 focus-within:border-[#EF4444] focus-within:ring-2 focus-within:ring-[#EF4444]/20'
-                      : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
-                  }`}>
-                    <div className="flex items-center gap-2.5 flex-1">
-                      <ShieldSecurity size={18} color={errors.businessAadhaar ? '#EF4444' : '#9CA3AF'} />
-                      <input
-                        type={showAadhaar ? 'text' : 'password'}
-                        maxLength={14}
-                        placeholder="•••• •••• ••••"
-                        value={showAadhaar ? formatAadhaar(businessAadhaar) : (businessAadhaar ? `•••• •••• ${businessAadhaar.slice(-4)}` : '')}
-                        onChange={(e) => {
-                          const digits = e.target.value.replace(/\D/g, '').slice(0, 12);
-                          setBusinessAadhaar(digits);
-                          if (errors.businessAadhaar) setErrors((prev) => ({ ...prev, businessAadhaar: null }));
-                        }}
-                        className="text-[14px] font-semibold text-[#2B2437] tracking-wider outline-none bg-transparent flex-1 placeholder:text-[#9CA3AF]"
-                      />
-                    </div>
-                  </div>
-                  {errors.businessAadhaar ? (
-                    <p className="text-[11.5px] font-semibold text-[#DC2626] mt-1 pl-1 flex items-center gap-1">
-                      <span>⚠️</span>
-                      <span>{errors.businessAadhaar}</span>
-                    </p>
-                  ) : (
-                    <p className="text-[11px] text-[#6B7280] mt-1">
-                      आपका आधार डेटा सुरक्षित रहेगा एवं इसका उपयोग केवल खाता सत्यापन हेतु होगा
-                    </p>
-                  )}
-                </div>
-
-                {/* GSTIN Toggle & Input */}
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <label className="text-[13px] font-bold text-[#2B2437]">
-                      क्या आपके पास GSTIN नंबर है?
-                    </label>
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setHasGstin(true)}
-                        className={`px-3 py-1 rounded-[10px] text-[12px] font-bold cursor-pointer transition-all ${
-                          hasGstin
-                            ? 'bg-[#2B2437] text-white'
-                            : 'bg-white text-[#6B7280] border border-[#E5E7EB]'
-                        }`}
-                      >
-                        हाँ
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setHasGstin(false);
-                          if (errors.gstin) setErrors((prev) => ({ ...prev, gstin: null }));
-                        }}
-                        className={`px-3 py-1 rounded-[10px] text-[12px] font-bold cursor-pointer transition-all ${
-                          !hasGstin
-                            ? 'bg-[#2B2437] text-white'
-                            : 'bg-white text-[#6B7280] border border-[#E5E7EB]'
-                        }`}
-                      >
-                        नहीं
-                      </button>
-                    </div>
-                  </div>
-
-                  {hasGstin && (
-                    <>
-                      <div className={`h-[52px] bg-white rounded-[14px] border px-3.5 flex items-center gap-2.5 shadow-2xs transition-all mt-2 ${
-                        errors.gstin
-                          ? 'border-[#EF4444] bg-[#FEF2F2]/40 focus-within:border-[#EF4444] focus-within:ring-2 focus-within:ring-[#EF4444]/20'
-                          : 'border-[#E5E7EB] focus-within:border-[#2B2437] focus-within:ring-2 focus-within:ring-[#2B2437]/10'
-                      }`}>
-                        <TickCircle size={18} color={errors.gstin ? '#EF4444' : '#9CA3AF'} />
-                        <input
-                          type="text"
-                          maxLength={15}
-                          placeholder="15-अक्षरों का GSTIN (उदा. 23AAAAA0000A1Z5)"
-                          value={gstin}
-                          onChange={(e) => {
-                            const val = e.target.value.toUpperCase().replace(/[^0-9A-Z]/g, '').slice(0, 15);
-                            setGstin(val);
-                            if (errors.gstin) setErrors((prev) => ({ ...prev, gstin: null }));
-                          }}
-                          className="text-[14px] font-semibold text-[#2B2437] outline-none bg-transparent flex-1 placeholder:text-[#9CA3AF] uppercase"
-                        />
-                      </div>
-                      {errors.gstin && (
-                        <p className="text-[11.5px] font-semibold text-[#DC2626] mt-1 pl-1 flex items-center gap-1">
-                          <span>⚠️</span>
-                          <span>{errors.gstin}</span>
-                        </p>
-                      )}
-                    </>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Direct Advertiser Actions in Business Profile Tab */}
-            <div className="mx-4 bg-white rounded-[22px] border border-[#E5E7EB] p-4 shadow-sm flex items-center justify-between">
-              <div>
-                <h3 className="text-[14.5px] font-bold text-[#2B2437]">
-                  नवभारत ऐड्स अभियान
+                <h3 className="text-[15px] font-bold text-white tracking-tight">
+                  नवभारत पर विज्ञापन चलाएं
                 </h3>
-                <span className="text-[11.5px] text-[#6B7280]">
-                  डैशबोर्ड से नए विज्ञापन बनाएं या बजट बदलें
-                </span>
+                <p className="text-[11.5px] text-[#D1D5DB] leading-snug">
+                  बिना किसी झंझट के अपने शहर के लाखों पाठकों तक पहुंचें
+                </p>
               </div>
               <button
                 type="button"
                 onClick={() => {
-                  if (advertiserAuth?.isAuthenticated && advertiserAuth?.otpVerified) {
-                    navigate('/advertise/dashboard');
-                  } else {
-                    navigate('/advertise/intro');
-                  }
+                  window.location.href = '/?flow=b';
                 }}
-                className="h-9 px-3.5 rounded-[12px] bg-[#2B2437] text-white text-[12px] font-bold flex items-center gap-1 active:scale-95 transition-transform cursor-pointer hover:bg-[#3D334E]"
+                className="h-[42px] px-4 rounded-[14px] bg-[#F5B55C] hover:bg-[#E5A74E] text-[#2B2437] text-[13px] font-bold flex items-center gap-1.5 shrink-0 active:scale-95 transition-all shadow-sm cursor-pointer"
               >
-                <span>डैशबोर्ड</span>
-                <span>↗</span>
+                <span>शुरू करें</span>
+                <span>›</span>
               </button>
             </div>
           </>
@@ -1764,6 +1817,27 @@ export default function ProfileScreen() {
           </div>
         )}
       </AnimatePresence>
+
+      {/* Category Bottom Sheet (Flow B) */}
+      <CategorySheet
+        isOpen={isCategorySheetOpen}
+        onClose={() => setIsCategorySheetOpen(false)}
+        selectedCategoryId={businessCategory}
+        onSelectCategory={(catId) => {
+          setBusinessCategory(catId);
+          if (errors.businessCategory) {
+            setErrors((prev) => ({ ...prev, businessCategory: null }));
+          }
+        }}
+      />
+
+      {/* City Bottom Sheet for Flow B Shop (Single Selection) */}
+      <CitySheet
+        isOpen={isShopCitySheetOpen}
+        onClose={() => setIsShopCitySheetOpen(false)}
+        singleSelect={true}
+        onSelectSingleCity={handleSingleCityPick}
+      />
     </div>
   );
 }

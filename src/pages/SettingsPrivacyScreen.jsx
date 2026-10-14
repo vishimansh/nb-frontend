@@ -1,55 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import BackButton from '../components/common/BackButton';
 import {
   ArrowRight2,
   Monitor,
   Sun1,
-  VolumeHigh,
   ShieldSecurity,
-  InfoCircle,
   Lock,
   DocumentText,
-  Star1,
   Star,
   Trash,
-  TickCircle,
 } from 'iconsax-react';
-import { Palette } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
 
 export default function SettingsPrivacyScreen() {
   const navigate = useNavigate();
-  const { primaryColor, accentColor, setIsCustomizerOpen } = useTheme();
+  const location = useLocation();
 
   // Component local states
-  const [personalizedAdsEnabled, setPersonalizedAdsEnabled] = useState(true);
   const [selectedAppMode] = useState('system'); // non-functional visual state
   const [fontSize] = useState('सामान्य'); // non-functional visual state
-
-  // Toast feedback state
-  const [toastMessage, setToastMessage] = useState(null);
 
   // Delete account confirmation modal state
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  // Auto-dismiss toast after 2s
-  useEffect(() => {
-    if (toastMessage) {
-      const timer = setTimeout(() => {
-        setToastMessage(null);
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, [toastMessage]);
-
   const handleBack = () => {
-    navigate('/menu');
-  };
-
-  const handleRateApp = () => {
-    setToastMessage('रेटिंग के लिए धन्यवाद!');
+    navigate('/menu', {
+      state: {
+        from: location.state?.originPath || '/feed',
+        returnedFromChild: true,
+      },
+    });
   };
 
   const handleConfirmDelete = () => {
@@ -61,24 +42,6 @@ export default function SettingsPrivacyScreen() {
     <div className="w-full h-full bg-[#F7F7F4] flex flex-col relative select-none overflow-hidden font-sans">
       {/* 54px Light status bar clearance */}
       <div className="h-[54px] w-full shrink-0 bg-[#F7F7F4]" />
-
-      {/* Floating Feedback Toast: Centered vertically and horizontally */}
-      <AnimatePresence>
-        {toastMessage && (
-          <div className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none px-6">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.2 }}
-              className="bg-[#2B2437] text-white text-[13px] font-bold px-5 py-2.5 rounded-full shadow-2xl flex items-center gap-2 border border-white/10 pointer-events-auto"
-            >
-              <TickCircle size={17} color="#F5B55C" variant="Bold" />
-              <span className="leading-normal">{toastMessage}</span>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
       {/* Step 1: Fixed Header Bar */}
       <header className="px-4 py-3 bg-[#F7F7F4] flex items-center justify-between border-b border-[#E5E7EB]/80 shrink-0 sticky top-[54px] z-20">
@@ -184,35 +147,6 @@ export default function SettingsPrivacyScreen() {
               </div>
             </div>
 
-            {/* 3. Color Picker Tile */}
-            <div
-              onClick={() => setIsCustomizerOpen(true)}
-              className="h-[64px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
-            >
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
-                  <Palette size={18} color="#FFFFFF" strokeWidth={2.2} />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug">Color Picker</span>
-                  <span className="text-[11px] text-[#6B7280] leading-tight">Change Primary & Accent colors in real time</span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="flex items-center">
-                  <span
-                    className="w-3.5 h-3.5 rounded-full border border-white shadow-2xs inline-block"
-                    style={{ backgroundColor: primaryColor }}
-                  />
-                  <span
-                    className="w-3.5 h-3.5 rounded-full border border-white shadow-2xs inline-block -ml-1.5"
-                    style={{ backgroundColor: accentColor }}
-                  />
-                </span>
-                <ArrowRight2 size={14} color="#9CA3AF" />
-              </div>
-            </div>
           </div>
         </div>
 
@@ -228,51 +162,7 @@ export default function SettingsPrivacyScreen() {
 
           {/* Inner Stack */}
           <div className="space-y-2.5">
-            {/* 1. Personalized Ads Tile (Interactive Toggle) */}
-            <div className="h-[64px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between">
-              <div className="flex items-center flex-1 mr-3">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
-                  <VolumeHigh size={18} color="#FFFFFF" variant="Bold" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug">व्यक्तिगत विज्ञापन</span>
-                  <span className="text-[11px] text-[#6B7280] leading-tight">आपकी रुचि के अनुसार प्रासंगिक विज्ञापन दिखाएं</span>
-                </div>
-              </div>
-
-              {/* Right Toggle Switch */}
-              <button
-                type="button"
-                role="switch"
-                aria-checked={personalizedAdsEnabled}
-                onClick={() => setPersonalizedAdsEnabled((prev) => !prev)}
-                className={`w-12 h-7 rounded-full transition-colors duration-200 ease-in-out cursor-pointer p-0.5 flex items-center shrink-0 ${
-                  personalizedAdsEnabled ? 'bg-[#2B2437] justify-end' : 'bg-[#D1D5DB] justify-start'
-                }`}
-              >
-                <motion.div
-                  layout
-                  transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-                  className="w-6 h-6 rounded-full bg-white shadow-md"
-                />
-              </button>
-            </div>
-
-            {/* 2. "हमारे बारे में" (About Us) */}
-            <div
-              onClick={() => navigate('/about')}
-              className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
-            >
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
-                  <InfoCircle size={18} color="#FFFFFF" variant="Bold" />
-                </div>
-                <span className="text-[14px] font-semibold text-[#2B2437] leading-none">हमारे बारे में</span>
-              </div>
-              <ArrowRight2 size={14} color="#9CA3AF" />
-            </div>
-
-            {/* 3. "प्राइवेसी पॉलिसी" (Privacy Policy) */}
+            {/* 1. "प्राइवेसी पॉलिसी" (Privacy Policy) */}
             <div
               onClick={() => navigate('/privacy')}
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
@@ -286,7 +176,7 @@ export default function SettingsPrivacyScreen() {
               <ArrowRight2 size={14} color="#9CA3AF" />
             </div>
 
-            {/* 4. "नियम एवं शर्तें" (Terms & Conditions) */}
+            {/* 2. "नियम एवं शर्तें" (Terms & Conditions) */}
             <div
               onClick={() => navigate('/terms')}
               className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
@@ -300,21 +190,7 @@ export default function SettingsPrivacyScreen() {
               <ArrowRight2 size={14} color="#9CA3AF" />
             </div>
 
-            {/* 5. "ऐप को रेट करें" (Rate App) */}
-            <div
-              onClick={handleRateApp}
-              className="h-[56px] bg-[#F9FAFB] rounded-[16px] border border-[#F1F3F5] px-3.5 flex items-center justify-between cursor-pointer hover:bg-gray-100 active:scale-[0.99] transition-all"
-            >
-              <div className="flex items-center">
-                <div className="w-10 h-10 rounded-xl bg-[#2B2437]/[0.86] text-white flex items-center justify-center mr-3 flex-shrink-0 shadow-2xs">
-                  <Star1 size={18} color="#FFFFFF" variant="Bold" />
-                </div>
-                <span className="text-[14px] font-semibold text-[#2B2437] leading-none">ऐप को रेट करें</span>
-              </div>
-              <ArrowRight2 size={14} color="#9CA3AF" />
-            </div>
-
-            {/* 6. "खाता हटाएं" (Delete Account — Destructive Action) */}
+            {/* 3. "खाता हटाएं" (Delete Account — Destructive Action) */}
             <div
               onClick={() => setIsDeleteModalOpen(true)}
               className="h-[56px] bg-[#FFF5F5] rounded-[16px] border border-[#FECACA] px-3.5 flex items-center justify-between cursor-pointer active:scale-[0.99] transition-all hover:bg-[#FEE2E2]/60"

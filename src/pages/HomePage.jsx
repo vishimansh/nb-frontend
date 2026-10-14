@@ -122,6 +122,9 @@ export default function HomePage() {
     const diffY = e.changedTouches[0].clientY - (edgeTouchStartY.current || 0);
     // Swiped right by > 50px predominantly horizontally
     if (diffX > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      try {
+        sessionStorage.removeItem('nb_menu_subscreen_active');
+      } catch {}
       navigate('/menu');
     }
     edgeTouchStartX.current = null;

@@ -72,7 +72,7 @@ export default function EditStateSelectionPage() {
       {/* Subtitle */}
       <div className="px-6 pt-3 pb-1 shrink-0">
         <p className="text-[13px] font-normal text-[#6B7280] leading-[1.4]">
-          अपना पसंदीदा राज्य चुनें ताकि हम आपको बेहतर स्थानीय खबरें दिखा सकें
+          चुनें अपना राज्य, अपनी खबर, हर अपडेट पर रखें नजर
         </p>
       </div>
 

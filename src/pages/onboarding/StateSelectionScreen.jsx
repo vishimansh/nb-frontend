@@ -61,11 +61,14 @@ export default function StateSelectionScreen() {
         </button>
       </div>
 
-      {/* Subtitle: 13px, Regular 400, #6B7280, leading-[1.4] */}
-      <div className="px-6 pt-3 pb-1 flex-shrink-0">
-        <p className="text-[13px] font-normal text-[#6B7280] leading-[1.4] whitespace-pre-line">
-          {"अपना पसंदीदा राज्य चुनें ताकि हम आपको बेहतर\nस्थानीय खबरें दिखा सकें"}
+      {/* Subtitle & Selection Badge */}
+      <div className="px-6 pt-3 pb-1 flex-shrink-0 flex items-center justify-between gap-3">
+        <p className="text-[13px] font-normal text-[#6B7280] leading-[1.4] whitespace-pre-line flex-1">
+          {"चुनें अपना राज्य, अपनी खबर, हर अपडेट पर रखें नजर"}
         </p>
+        <span className="text-[12px] font-semibold text-[#2B2437] bg-[#2B2437]/6 border border-[#2B2437]/12 px-2.5 py-1 rounded-full whitespace-nowrap shrink-0">
+          {selectedStates.length > 0 ? `${selectedStates.length} राज्य चुने गए` : '1 या अधिक चुनें'}
+        </span>
       </div>
 
       {/* 2-Column State Grid: px-6 py-4 grid grid-cols-2 gap-x-4 gap-y-5 */}
@@ -93,7 +96,7 @@ export default function StateSelectionScreen() {
           onClick={handleSave}
           className="w-full h-[56px] rounded-[16px] bg-[#2B2437] text-white text-[20px] font-medium shadow-md active:scale-[0.99] flex items-center justify-center cursor-pointer hover:bg-[#3D334E] transition-colors"
         >
-          सेव करें
+          आगे बढ़ें
         </button>
       </div>
     </div>

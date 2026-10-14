@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Warning2 } from 'iconsax-react';
 import NavaBharatLogo from '../../components/common/NavaBharatLogo';
@@ -39,26 +39,32 @@ export default function LoginScreen() {
     setTimeout(() => setShake(false), 500);
   };
 
+  const inputRef = React.useRef(null);
+
   const handleProceed = () => {
     const trimmed = phone.trim();
     if (!trimmed) {
       setError('कृपया अपना 10 अंकों का मोबाइल नंबर दर्ज करें');
       triggerShake();
+      inputRef.current?.focus();
       return;
     }
     if (!/^[6-9]/.test(trimmed)) {
       setError('मोबाइल नंबर 6, 7, 8 या 9 से शुरू होना चाहिए');
       triggerShake();
+      inputRef.current?.focus();
       return;
     }
     if (trimmed.length < 10) {
       setError(`${10 - trimmed.length} अंक और दर्ज करें`);
       triggerShake();
+      inputRef.current?.focus();
       return;
     }
     if (!isValidIndianMobile(trimmed)) {
       setError('कृपया मान्य भारतीय मोबाइल नंबर दर्ज करें');
       triggerShake();
+      inputRef.current?.focus();
       return;
     }
     setError('');
@@ -98,8 +104,8 @@ export default function LoginScreen() {
         </h1>
 
         <p className="mt-2 text-[16px] font-medium text-center leading-relaxed whitespace-pre-line px-2">
-          <span className="text-[#F5B55C]">अपने शहर,</span>{" "}
-          <span className="text-[#6B7280]">{"अपनी पसंद की खबरें\nसबसे पहले पाएं"}</span>
+          <span className="text-[#F5B55C]">आपके शहर की बात,</span>{" "}
+          <span className="text-[#6B7280]">सबसे पहले आपके साथ</span>
         </p>
 
         <div className="mt-8">
@@ -119,11 +125,12 @@ export default function LoginScreen() {
             </span>
             <div className={`h-5 w-[1px] mx-3 ${error ? 'bg-[#EF4444]/40' : 'bg-[#B0B7C3]'}`} />
             <input
+              ref={inputRef}
               type="tel"
               inputMode="numeric"
               value={phone}
               onChange={handlePhoneChange}
-              onKeyDown={(e) => e.key === 'Enter' && isComplete && handleProceed()}
+              onKeyDown={(e) => e.key === 'Enter' && handleProceed()}
               placeholder="मोबाइल नंबर डालें"
               maxLength={10}
               autoFocus
@@ -158,11 +165,10 @@ export default function LoginScreen() {
 
           <button
             onClick={handleProceed}
-            disabled={!isComplete}
-            className={`w-full h-[56px] rounded-[16px] text-[20px] font-medium flex items-center justify-center transition-all duration-200 ${
+            className={`w-full h-[56px] rounded-[16px] text-[20px] font-medium flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-[0.99] ${
               isComplete
-                ? 'bg-[#2B2437] text-white shadow-md active:scale-[0.99] cursor-pointer hover:bg-[#3D334E]'
-                : 'bg-[#2B2437]/40 text-white/60 cursor-not-allowed'
+                ? 'bg-[#2B2437] text-white shadow-md hover:bg-[#3D334E]'
+                : 'bg-[#2B2437]/75 text-white/90 hover:bg-[#2B2437]/85 shadow-xs'
             }`}
           >
             आगे बढ़ें

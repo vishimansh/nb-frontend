@@ -100,7 +100,7 @@ export default function CitySelectionPage() {
       {/* Subtitle */}
       <div className="px-6 pt-3 pb-2 shrink-0">
         <p className="text-[13px] font-normal text-[#6B7280] leading-[1.4]">
-          अपने चुने गए राज्यों से अपने पसंदीदा शहर चुनें
+          अपने शहर की हर खबर पर रखें नज़र
         </p>
       </div>
 

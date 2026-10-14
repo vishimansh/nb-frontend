@@ -62,7 +62,12 @@ export default function CategorySelectionScreen() {
     if (isOnboarding) {
       navigate('/onboarding/select-city');
     } else {
-      navigate('/menu');
+      navigate('/menu', {
+        state: {
+          from: location.state?.originPath || '/feed',
+          returnedFromChild: true,
+        },
+      });
     }
   };
 
@@ -89,7 +94,13 @@ export default function CategorySelectionScreen() {
     if (isOnboarding) {
       navigate('/feed', { replace: true });
     } else {
-      navigate('/menu', { replace: true });
+      navigate('/menu', {
+        replace: true,
+        state: {
+          from: location.state?.originPath || '/feed',
+          returnedFromChild: true,
+        },
+      });
     }
   };
 
@@ -130,7 +141,10 @@ export default function CategorySelectionScreen() {
   const isMinMet = count >= 3;
 
   return (
-    <div className="w-full h-full bg-[#F7F7F4] flex flex-col pt-[54px] relative overflow-hidden select-none">
+    <div className="w-full h-full bg-[#F7F7F4] flex flex-col relative overflow-hidden select-none">
+      {/* 54px Status Bar Clearance */}
+      <div className="h-[54px] w-full shrink-0 bg-[#F7F7F4]" />
+
       {/* Floating Toast Alert */}
       <AnimatePresence>
         {toastMessage && (
@@ -149,9 +163,9 @@ export default function CategorySelectionScreen() {
         )}
       </AnimatePresence>
 
-      {/* Top Header Bar */}
-      <div className="px-4 py-3 border-b border-[#EBECEF] flex items-center justify-between bg-[#F7F7F4]/92 backdrop-blur-md sticky top-0 z-30 shrink-0">
-        <div className="flex items-center gap-2.5">
+      {/* Top Header Bar: Clean & Aligned */}
+      <header className="px-5 py-2.5 border-b border-[#E5E7EB]/80 flex items-center justify-between bg-[#F7F7F4] shrink-0 z-30">
+        <div className="flex items-center gap-3">
           <BackButton onClick={handleBack} ariaLabel="वापस जाएं" />
           <h1 className="text-[20px] font-bold text-[#2B2437] tracking-tight">
             श्रेणियां चुनें
@@ -162,118 +176,116 @@ export default function CategorySelectionScreen() {
           <button
             type="button"
             onClick={handleSkip}
-            className="px-3.5 py-1 rounded-full bg-white border border-[#E2E6EE] text-[13px] font-semibold text-[#6B7280] hover:text-[#2B2437] hover:border-neutral-300 active:scale-95 transition-all shadow-2xs cursor-pointer"
+            className="text-[14px] font-bold text-[#6B7280] hover:text-[#2B2437] px-2.5 py-1.5 rounded-full hover:bg-black/5 active:scale-95 transition-all cursor-pointer"
           >
             स्किप
           </button>
         ) : (
-          <div className="w-[44px]" />
+          <div className="w-[46px]" />
         )}
-      </div>
+      </header>
 
-      {/* Minimal Context Header & Counter Badge */}
-      <div className="px-4 pt-3 pb-2 flex-shrink-0 flex flex-col items-center text-center gap-1.5">
-        <p className="text-[13px] text-[#6B7280] leading-relaxed max-w-[320px]">
-          होम स्क्रीन के लिए पसंदीदा श्रेणियां चुनें ताकि आपकी पसंद की खबरें पहले दिखें।
+      {/* Context Subtitle & Refined Counter Badge Row */}
+      <div className="px-5 pt-2.5 pb-1.5 shrink-0 flex items-center justify-between gap-3">
+        <p className="text-[12.5px] font-medium text-[#6B7280] leading-snug flex-1">
+          हर विषय की खबर, आपकी रुचि के अनुसार।
         </p>
 
-        {/* Minimal Selection Counter Pill (Menu-inspired #FDF5E8 & #F5B55C) */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FDF5E8] border border-[#F5B55C]/50 shadow-2xs mt-0.5">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#F5B55C]" />
-          <span className="text-[12.5px] font-bold text-[#2B2437]">
-            {count}/7 श्रेणियां चुनी गईं
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFF3DC] border border-[#F5B55C]/40 shadow-xs shrink-0">
+          <span className={`w-1.5 h-1.5 rounded-full ${isMinMet ? 'bg-[#10B981]' : 'bg-[#F59E0B]'}`} />
+          <span className="text-[12px] font-bold text-[#2B2437]">
+            {count}/7 चुनी गईं
           </span>
-          <span className="text-[11px] font-medium text-[#6B7280]">
-            (3 से 7 चुनें)
+          <span className="text-[10px] font-semibold text-[#8C6D38]">
+            {isMinMet ? '✓' : '(न्यूनतम 3)'}
           </span>
         </div>
       </div>
 
-      {/* Category Grid (Covers vertical space generously with 82px card height) */}
-      <div className="px-4 py-2 grid grid-cols-2 gap-3 overflow-y-auto scrollbar-none pb-36 flex-1 content-start">
-        {SCREENSHOT_CATEGORY_ORDER.map((catId) => {
-          const meta = CATEGORY_METADATA[catId];
-          if (!meta) return null;
+      {/* Category Grid: 2-Column Layout with 20% reduced sleek card height (70px) */}
+      <div className="px-4 py-2 flex-1 min-h-0 overflow-y-auto scrollbar-none pb-2">
+        <div className="grid grid-cols-2 gap-2.5">
+          {SCREENSHOT_CATEGORY_ORDER.map((catId) => {
+            const meta = CATEGORY_METADATA[catId];
+            if (!meta) return null;
 
-          const isSelected = draftCategories.includes(catId);
-          const IconComp = meta.iconComponent;
+            const isSelected = draftCategories.includes(catId);
+            const IconComp = meta.iconComponent;
 
-          return (
-            <div
-              key={catId}
-              onClick={() => handleToggleCategory(catId)}
-              className={`h-[82px] rounded-[18px] px-3.5 flex items-center justify-between transition-all duration-150 cursor-pointer select-none active:scale-[0.98] ${
-                isSelected
-                  ? 'bg-white border border-[#2B2437] shadow-xs'
-                  : 'bg-[#F9FAFB] border border-[#F0F1F3] hover:border-[#E2E6EE] shadow-2xs'
-              }`}
-            >
-              {/* Left Group: Icon + Label */}
-              <div className="flex items-center gap-3 min-w-0 flex-1 pr-1">
-                {/* 40px Icon Container: 86% opacity of primary brand color #2B2437 */}
-                <div
-                  className={`w-10 h-10 rounded-[12px] bg-[#2B2437]/[0.86] flex items-center justify-center shrink-0 transition-all shadow-2xs ${
-                    isSelected
-                      ? 'text-white'
-                      : 'text-white/85'
-                  }`}
-                  style={{ backgroundColor: 'rgba(43, 36, 55, 0.86)' }}
-                >
-                  {IconComp && (
-                    <IconComp
-                      size={20}
-                      color="#FFFFFF"
-                      variant={isSelected ? 'Bold' : 'Linear'}
-                    />
-                  )}
+            return (
+              <motion.div
+                key={catId}
+                whileTap={{ scale: 0.98 }}
+                onClick={() => handleToggleCategory(catId)}
+                className={`h-[70px] rounded-[20px] px-3.5 flex items-center justify-between transition-all duration-200 cursor-pointer select-none group relative bg-white ${
+                  isSelected
+                    ? 'border-[0.5px] border-[#2B2437] shadow-[0_2px_8px_rgba(43,36,55,0.06)]'
+                    : 'border-[0.25px] border-[#D1D5DB] hover:border-[#9CA3AF] shadow-[0_1px_3px_rgba(0,0,0,0.02)]'
+                }`}
+              >
+                {/* Left Section: Rounded Squircle Icon Box + Category Label */}
+                <div className="flex items-center gap-3 min-w-0 flex-1 pr-1.5">
+                  {/* Squircle Icon Box: Solid dark on selected, soft neutral slate on unselected */}
+                  <div
+                    className={`w-[42px] h-[42px] rounded-[14px] flex items-center justify-center shrink-0 transition-all duration-200 ${
+                      isSelected
+                        ? 'bg-[#2B2437] text-white shadow-xs'
+                        : 'bg-[#ECEEF2] text-[#2B2437]'
+                    }`}
+                  >
+                    {IconComp && (
+                      <IconComp
+                        size={21}
+                        color={isSelected ? '#FFFFFF' : '#2B2437'}
+                        variant={isSelected ? 'Bold' : 'Linear'}
+                      />
+                    )}
+                  </div>
+
+                  {/* Category Label (Vertically aligned with icon box) */}
+                  <span
+                    className={`text-[15px] truncate tracking-tight leading-tight ${
+                      isSelected
+                        ? 'font-bold text-[#2B2437]'
+                        : 'font-semibold text-[#1F2937]'
+                    }`}
+                  >
+                    {meta.label}
+                  </span>
                 </div>
 
-                {/* Category Label */}
-                <span
-                  className={`text-[14.5px] truncate leading-tight ${
-                    isSelected
-                      ? 'font-bold text-[#2B2437]'
-                      : 'font-semibold text-[#4B5563]'
-                  }`}
-                >
-                  {meta.label}
-                </span>
-              </div>
-
-              {/* Trailing Check Indicator */}
-              {isSelected ? (
-                <div className="w-5 h-5 rounded-full bg-[#2B2437] flex items-center justify-center shrink-0 shadow-2xs">
-                  <TickCircle size={13} color="#FFFFFF" variant="Bold" />
-                </div>
-              ) : (
-                <div className="w-5 h-5 rounded-full border border-[#D1D5DB] shrink-0 bg-white" />
-              )}
-            </div>
-          );
-        })}
+                {/* Right Selection Indicator */}
+                {isSelected ? (
+                  <div className="w-[20px] h-[20px] rounded-full bg-[#2B2437] text-white flex items-center justify-center shrink-0 shadow-xs">
+                    <TickCircle size={13} color="#FFFFFF" variant="Bold" />
+                  </div>
+                ) : (
+                  <div className="w-[20px] h-[20px] rounded-full border-[1.25px] border-[#9CA3AF] shrink-0 bg-transparent group-hover:border-[#6B7280] transition-colors" />
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Sticky Bottom Bar */}
-      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-[#F7F7F4] via-[#F7F7F4]/98 to-transparent pt-3 pb-8 px-4 z-20 flex flex-col gap-2">
-        {/* Low-Emphasis Reassurance Strip (Menu #FDF5E8 Style) */}
-        <div className="py-1.5 px-3 rounded-[12px] bg-[#FDF5E8] border border-[#F5B55C]/40 flex items-center justify-center gap-2 text-[11.5px] font-medium text-[#2B2437] shadow-2xs">
-          <Bookmark size={13} color="#F5B55C" variant="Bold" className="shrink-0" />
-          <span>फ़िक्र न करें, मेन्यू से आप जब चाहें अपनी प्राथमिकताएं बदल सकते हैं</span>
-        </div>
-
-        {/* Primary Action Button */}
+      {/* Sticky Bottom Actions Bar */}
+      <div className="shrink-0 bg-white/95 backdrop-blur-md border-t border-[#E5E7EB] pt-3 pb-8 px-5 z-20 shadow-[0_-4px_16px_rgba(0,0,0,0.03)] flex flex-col gap-2">
         <button
           type="button"
           onClick={handleSave}
-          disabled={!isMinMet}
-          className={`w-full h-[52px] rounded-[16px] text-white text-[16px] font-bold shadow-sm active:scale-[0.99] flex items-center justify-center gap-2 transition-all cursor-pointer ${
+          className={`w-full h-[54px] rounded-[16px] text-white text-[18px] font-bold shadow-md active:scale-[0.99] flex items-center justify-center gap-2 transition-all cursor-pointer ${
             isMinMet
               ? 'bg-[#2B2437] hover:bg-[#3D334E]'
-              : 'bg-[#2B2437]/50 cursor-not-allowed opacity-60'
+              : 'bg-[#2B2437]/75 hover:bg-[#2B2437]/85 opacity-90'
           }`}
         >
           {isOnboarding ? 'होम स्क्रीन पर जाएं' : 'सेव करें'}
         </button>
+
+        {/* Discreet reassurance subtext */}
+        <p className="text-[11.5px] text-center font-medium text-[#6B7280]">
+          मेन्यू से आप बाद में भी श्रेणियां बदल सकते हैं
+        </p>
       </div>
     </div>
   );

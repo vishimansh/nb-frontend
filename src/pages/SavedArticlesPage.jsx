@@ -21,7 +21,7 @@ export default function SavedArticlesPage() {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
-      navigate('/menu');
+      navigate('/menu', { state: { returnedFromChild: true } });
     }
   };
 

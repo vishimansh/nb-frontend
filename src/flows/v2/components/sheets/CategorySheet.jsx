@@ -19,7 +19,7 @@ import {
   Check,
 } from 'lucide-react';
 
-const ICON_MAP = {
+export const CATEGORY_ICON_MAP = {
   ShoppingBag,
   Shirt,
   Tv,
@@ -34,6 +34,8 @@ const ICON_MAP = {
   Sprout,
   Store,
 };
+
+const ICON_MAP = CATEGORY_ICON_MAP;
 
 export default function CategorySheet({
   isOpen,

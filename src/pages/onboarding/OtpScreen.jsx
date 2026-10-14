@@ -16,7 +16,13 @@ export default function OtpScreen() {
 
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timer, setTimer] = useState(30);
+  const [shake, setShake] = useState(false);
   const inputRefs = useRef([]);
+
+  const triggerShake = () => {
+    setShake(true);
+    setTimeout(() => setShake(false), 500);
+  };
 
   const displayPhone = phoneNumber || '+91 98XXXXXXXX';
 
@@ -29,6 +35,18 @@ export default function OtpScreen() {
       }));
     }
     navigate('/onboarding/select-state');
+  };
+
+  const handleVerify = () => {
+    if (isComplete) {
+      completeVerification();
+    } else {
+      triggerShake();
+      const firstEmptyIdx = otp.findIndex((d) => d === '');
+      if (firstEmptyIdx !== -1) {
+        inputRefs.current[firstEmptyIdx]?.focus();
+      }
+    }
   };
 
   useEffect(() => {
@@ -113,14 +131,21 @@ export default function OtpScreen() {
 
   const isComplete = otp.every((d) => d !== '');
 
-  const handleVerify = () => {
-    if (isComplete) {
-      completeVerification();
-    }
-  };
-
   return (
     <div className="w-full h-full bg-[#F7F7F4] flex flex-col justify-between pt-[64px] pb-6 px-6 select-none relative">
+      <style>{`
+        @keyframes nb-shake {
+          0%,100%{transform:translateX(0)}
+          15%{transform:translateX(-6px)}
+          30%{transform:translateX(6px)}
+          45%{transform:translateX(-4px)}
+          60%{transform:translateX(4px)}
+          75%{transform:translateX(-2px)}
+          90%{transform:translateX(2px)}
+        }
+        .nb-shake { animation: nb-shake 0.45s ease; }
+      `}</style>
+
       {/* Top Header Row with Back Navigation */}
       <div className="w-full py-1">
         <BackButton onClick={() => navigate('/onboarding/login')} ariaLabel="वापस जाएं" />
@@ -138,18 +163,25 @@ export default function OtpScreen() {
           OTP दर्ज करें
         </h1>
 
-        {/* Confirmation Copy */}
-        <p className="mt-2 text-[14px] text-center leading-[1.5] text-[#6B7280] whitespace-pre-line px-2">
-          {"आपके नंबर "}
-          <span className="text-[#F5B55C] font-semibold">{displayPhone}</span>
-          {" पर "}
-          <span className="text-[#F5B55C] font-semibold">6 अंकों</span>
-          {" का\nOTP भेजा गया है"}
-        </p>
+        {/* Confirmation Copy with inline Edit link */}
+        <div className="mt-2 text-center text-[14px] text-[#6B7280] leading-[1.5] px-2 flex flex-col items-center">
+          <p>
+            {"आपके नंबर "}
+            <span className="text-[#2B2437] font-bold">{displayPhone}</span>
+            {" पर 6 अंकों का OTP भेजा गया है"}
+          </p>
+          <button
+            type="button"
+            onClick={() => navigate('/onboarding/login')}
+            className="mt-1 text-[13px] font-semibold text-[#E39026] hover:underline cursor-pointer inline-flex items-center gap-1 active:scale-95 transition-transform"
+          >
+            गलत नंबर? बदलें
+          </button>
+        </div>
 
         {/* 6-Cell OTP Input Group: w-[48px] h-[64px], rounded-[12px] */}
         <div 
-          className="mt-7 flex justify-center gap-2.5 w-full max-w-[340px]" 
+          className={`mt-6 flex justify-center gap-2.5 w-full max-w-[340px] ${shake ? 'nb-shake' : ''}`} 
           onPaste={handlePaste}
         >
           {otp.map((digit, idx) => (
@@ -194,15 +226,14 @@ export default function OtpScreen() {
           )}
         </div>
 
-        {/* Primary Action Button: matching notifications permission button dimensions */}
+        {/* Primary Action Button */}
         <div className="w-full mt-8">
           <button
             onClick={handleVerify}
-            disabled={!isComplete}
-            className={`w-full h-[56px] rounded-[16px] text-[20px] font-medium flex items-center justify-center transition-all duration-200 ${
+            className={`w-full h-[56px] rounded-[16px] text-[20px] font-medium flex items-center justify-center transition-all duration-200 cursor-pointer active:scale-[0.99] ${
               isComplete
-                ? 'bg-[#2B2437] text-white shadow-md active:scale-[0.99] cursor-pointer hover:bg-[#3D334E]'
-                : 'bg-[#2B2437]/40 text-white/60 cursor-not-allowed'
+                ? 'bg-[#2B2437] text-white shadow-md hover:bg-[#3D334E]'
+                : 'bg-[#2B2437]/75 text-white/90 hover:bg-[#2B2437]/85 shadow-xs'
             }`}
           >
             वेरिफ़ाई करें
