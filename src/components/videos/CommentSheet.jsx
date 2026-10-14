@@ -99,7 +99,7 @@ export default function CommentSheet({
 
             {/* Title */}
             <h2 className="text-[16px] font-bold text-[#2B2437] mt-2">
-              {propTitle || 'टिप्पणियाँ'} · {commentCount}
+              {propTitle || 'कमेंट्स'} · {commentCount}
             </h2>
 
             {/* Close Button */}

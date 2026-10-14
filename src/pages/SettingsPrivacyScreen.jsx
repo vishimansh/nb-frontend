@@ -78,10 +78,7 @@ export default function SettingsPrivacyScreen() {
                   Aa
                 </div>
                 {/* Text Block */}
-                <div className="flex flex-col">
-                  <span className="text-[14px] font-bold text-[#2B2437] leading-snug">फ़ॉन्ट साइज़</span>
-                  <span className="text-[11px] text-[#6B7280] leading-tight">खबरों का टेक्स्ट आकार बदलें</span>
-                </div>
+                <span className="text-[14px] font-bold text-[#2B2437] leading-snug">फ़ॉन्ट साइज़</span>
               </div>
 
               {/* Right Stack */}

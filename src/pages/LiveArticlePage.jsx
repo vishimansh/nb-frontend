@@ -576,7 +576,7 @@ export default function LiveArticlePage() {
       <CommentSheet
         isOpen={isCommentsOpen}
         onClose={() => setIsCommentsOpen(false)}
-        title={article.headline || "पाठकों की प्रतिक्रियाएं"}
+        title={article.headline || "कमेंट्स"}
         comments={
           article.readerStance?.previewComments?.map((c, i) => ({
             id: c.id || `c-${i}`,

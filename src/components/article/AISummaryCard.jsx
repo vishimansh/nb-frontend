@@ -40,10 +40,10 @@ export default function AISummaryCard({ points = [], aiSummary, className = "" }
         अब तक की मुख्य बातें
       </h2>
 
-      {/* 2. Subtitle: ✦ AI सारांश • नवभारत द्वारा समीक्षित */}
+      {/* 2. Subtitle: ✦ AI सारांश */}
       <div className="text-[12px] font-medium text-[#64748B] flex items-center gap-1.5 mt-1.5 mb-4">
         <span className="text-[#F5B55C] text-[13px] leading-none">✦</span>
-        <span>AI सारांश • नवभारत द्वारा समीक्षित</span>
+        <span>AI सारांश</span>
       </div>
 
       {/* 3. Hairline Divider */}

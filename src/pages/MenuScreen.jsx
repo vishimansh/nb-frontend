@@ -214,7 +214,7 @@ export default function MenuScreen() {
         >
           <Crown size={20} color="#F5B55C" variant="Bold" className="absolute left-4" />
           <span className="text-[15px] font-bold text-[#F5B55C]">
-            प्रीमियम सदस्यता
+            प्रीमियम सब्सक्रिप्शन
           </span>
           <ArrowRight2 size={18} color="#F5B55C" className="absolute right-4" />
         </button>
@@ -366,7 +366,7 @@ export default function MenuScreen() {
           </div>
         </div>
 
-        {/* 4. "चयनित श्रेणियां" (Selected Categories) Section Card */}
+        {/* 4. "चुने गए विषय" (Selected Topics/Categories) Section Card */}
         <div className="bg-white rounded-[24px] border border-[#EBECEF] p-4 shadow-sm">
           {selectedCategories.length === 0 ? (
             /* Empty State: Prompt Row inside card */
@@ -375,7 +375,7 @@ export default function MenuScreen() {
                 <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
                   <TickSquare size={16} color="#F5B55C" variant="Bold" />
                 </div>
-                <h2 className="text-[16px] font-bold text-[#2B2437]">चयनित श्रेणियां</h2>
+                <h2 className="text-[16px] font-bold text-[#2B2437]">चुने गए विषय</h2>
               </div>
 
               <div
@@ -401,7 +401,7 @@ export default function MenuScreen() {
                   <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
                     <TickSquare size={16} color="#F5B55C" variant="Bold" />
                   </div>
-                  <h2 className="text-[16px] font-bold text-[#2B2437]">चयनित श्रेणियां</h2>
+                  <h2 className="text-[16px] font-bold text-[#2B2437]">चुने गए विषय</h2>
                 </div>
                 <button
                   type="button"

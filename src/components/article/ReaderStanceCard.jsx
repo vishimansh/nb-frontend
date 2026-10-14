@@ -70,7 +70,7 @@ export default function ReaderStanceCard({ readerStance, onOpenComments, classNa
           className="bg-[#2B2437] hover:bg-[#3D334E] text-white text-[12px] font-medium px-3 py-1 rounded-full flex items-center gap-1.5 shadow-xs active:scale-95 transition-transform"
         >
           <Messages1 size={13} color="#FFFFFF" variant="Bold" />
-          {responseCount} प्रतिक्रियाएं
+          {responseCount} कमेंट्स
         </button>
       </div>
 
@@ -115,10 +115,10 @@ export default function ReaderStanceCard({ readerStance, onOpenComments, classNa
         </div>
       </div>
 
-      {/* AI Review Banner: ✨ AI सारांश • नवभारत द्वारा समीक्षित */}
+      {/* AI Review Banner: ✦ AI सारांश */}
       <div className="flex items-center justify-center gap-1.5 text-[12px] text-[#64748B] font-medium my-4">
         <span className="text-[#F5B55C] text-sm">✦</span>
-        <span>AI सारांश • नवभारत द्वारा समीक्षित</span>
+        <span>AI सारांश</span>
       </div>
 
       {/* Top Comment Previews (4 exact cards matching Screenshots 2 & 3) */}
