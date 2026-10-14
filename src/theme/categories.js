@@ -89,7 +89,7 @@ export const NOTIFICATION_CATEGORIES = {
   },
   astro: {
     id: 'astro',
-    label: 'ज्योतिष',
+    label: 'ज्योतिषी',
     color: '#74648F',
     icon: MoonStarIcon,
   },

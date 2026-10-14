@@ -1522,7 +1522,7 @@ function normalizeCategoryKey(rawCategory = '', categoryId = '') {
   if (combined.includes('biz') || combined.includes('बिज़') || combined.includes('व्यापार') || combined.includes('अर्थ')) return 'business';
   if (combined.includes('tech') || combined.includes('टेक') || combined.includes('प्रौद्योगिकी')) return 'tech';
   if (combined.includes('edu') || combined.includes('शिक्षा') || combined.includes('छात्र')) return 'education';
-  if (combined.includes('ast') || combined.includes('ज्योतिष') || combined.includes('राशि')) return 'astro';
+  if (combined.includes('ast') || combined.includes('ज्योतिष') || combined.includes('ज्योतिषी') || combined.includes('राशि')) return 'astro';
   if (combined.includes('hlt') || combined.includes('health') || combined.includes('स्वा')) return 'health';
   if (combined.includes('lst') || combined.includes('life') || combined.includes('लाइफ')) return 'lifestyle';
   if (combined.includes('aut') || combined.includes('कार') || combined.includes('ऑटो')) return 'auto';
