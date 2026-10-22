@@ -64,7 +64,13 @@ export default function EditStateSelectionPage() {
           </h1>
         </div>
 
-        <span className="text-[13px] font-medium text-[#2B2437]/70 bg-[#2B2437]/5 px-2.5 py-1 rounded-full">
+        <span
+          className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap shrink-0 transition-all ${
+            currentStates.length > 0
+              ? 'bg-[#2B2437] text-white shadow-xs'
+              : 'bg-[#2B2437]/8 text-[#2B2437] border border-[#2B2437]/15'
+          }`}
+        >
           {currentStates.length} चुने गए
         </span>
       </div>

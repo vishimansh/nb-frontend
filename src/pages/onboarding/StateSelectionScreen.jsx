@@ -66,7 +66,13 @@ export default function StateSelectionScreen() {
         <p className="text-[13px] font-normal text-[#6B7280] leading-[1.4] whitespace-pre-line flex-1">
           {"चुनें अपना राज्य, अपनी खबर, हर अपडेट पर रखें नजर"}
         </p>
-        <span className="text-[12px] font-semibold text-[#2B2437] bg-[#2B2437]/6 border border-[#2B2437]/12 px-2.5 py-1 rounded-full whitespace-nowrap shrink-0">
+        <span
+          className={`text-[12px] font-bold px-3 py-1 rounded-full whitespace-nowrap shrink-0 transition-all ${
+            selectedStates.length > 0
+              ? 'bg-[#2B2437] text-white shadow-xs'
+              : 'bg-[#2B2437]/8 text-[#2B2437] border border-[#2B2437]/15'
+          }`}
+        >
           {selectedStates.length > 0 ? `${selectedStates.length} राज्य चुने गए` : '1 या अधिक चुनें'}
         </span>
       </div>
