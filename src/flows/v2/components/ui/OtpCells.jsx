@@ -7,8 +7,10 @@ export default function OtpCells({
   error = null,
   setError = null,
   disabled = false,
+  onChange = null,
 }) {
   const [digits, setDigits] = useState(['', '', '', '', '', '']);
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const [shaking, setShaking] = useState(false);
   const inputRefs = useRef([]);
 
@@ -19,6 +21,12 @@ export default function OtpCells({
     }
   }, [disabled]);
 
+  const notifyChange = (nextDigits) => {
+    if (onChange) {
+      onChange(nextDigits.join(''));
+    }
+  };
+
   const handleChange = (index, value) => {
     // Only accept numeric digit
     const cleaned = value.replace(/\D/g, '');
@@ -26,6 +34,7 @@ export default function OtpCells({
       const next = [...digits];
       next[index] = '';
       setDigits(next);
+      notifyChange(next);
       return;
     }
 
@@ -37,6 +46,7 @@ export default function OtpCells({
         if (i < 6) next[i] = ch;
       });
       setDigits(next);
+      notifyChange(next);
       const nextFocus = Math.min(chars.length, 5);
       inputRefs.current[nextFocus]?.focus();
       checkFullCode(next);
@@ -45,6 +55,7 @@ export default function OtpCells({
 
     next[index] = cleaned[0];
     setDigits(next);
+    notifyChange(next);
 
     // Auto-advance to next cell
     if (index < 5 && cleaned[0]) {
@@ -70,7 +81,9 @@ export default function OtpCells({
         setShaking(true);
         if (setError) setError(STRINGS.login.otpError);
         setTimeout(() => {
-          setDigits(['', '', '', '', '', '']);
+          const cleared = ['', '', '', '', '', ''];
+          setDigits(cleared);
+          notifyChange(cleared);
           setShaking(false);
           inputRefs.current[0]?.focus();
         }, 500);
@@ -85,31 +98,43 @@ export default function OtpCells({
     <div className="w-full flex flex-col items-center gap-3">
       {/* 6 Cells */}
       <div
-        className={`flex items-center justify-between gap-2 w-full max-w-[320px] ${
+        className={`flex items-center justify-center gap-2 sm:gap-2.5 w-full ${
           shaking ? 'nb2-shake-anim' : ''
         }`}
       >
-        {digits.map((digit, i) => (
-          <input
-            key={i}
-            ref={(el) => (inputRefs.current[i] = el)}
-            type="text"
-            inputMode="numeric"
-            autoComplete={i === 0 ? 'one-time-code' : 'off'}
-            maxLength={1}
-            disabled={disabled}
-            value={digit}
-            onChange={(e) => handleChange(i, e.target.value)}
-            onKeyDown={(e) => handleKeyDown(i, e)}
-            className={`w-[45px] h-[58px] rounded-[14px] text-center text-[22px] font-bold outline-none transition-all border ${
-              error
-                ? 'border-[#DC2626] bg-[#FEF2F2] text-[#DC2626]'
-                : digit
-                ? 'border-[#2B2437] bg-white text-[#2B2437] shadow-sm'
-                : 'border-[#E5E7EB] bg-white text-[#2B2437] focus:border-[#2B2437] focus:ring-4 focus:ring-[#FFF9EE]'
-            }`}
-          />
-        ))}
+        {digits.map((digit, i) => {
+          const isFocused = focusedIndex === i;
+          return (
+            <div key={i} className="relative flex items-center justify-center">
+              <input
+                ref={(el) => (inputRefs.current[i] = el)}
+                type="text"
+                inputMode="numeric"
+                autoComplete={i === 0 ? 'one-time-code' : 'off'}
+                maxLength={1}
+                disabled={disabled}
+                value={digit}
+                onFocus={() => setFocusedIndex(i)}
+                onBlur={() => setFocusedIndex(-1)}
+                onChange={(e) => handleChange(i, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(i, e)}
+                className={`w-[45px] h-[56px] sm:w-[48px] sm:h-[60px] rounded-[16px] text-center text-[22px] font-black outline-none transition-all border-[1.5px] caret-[#2B2437] ${
+                  error
+                    ? 'border-[#DC2626] bg-[#FEF2F2] text-[#DC2626]'
+                    : digit
+                    ? 'border-[#2B2437] bg-white text-[#2B2437] shadow-xs'
+                    : isFocused
+                    ? 'border-[#E39026] bg-white text-[#2B2437] ring-4 ring-[#FFF9EE]'
+                    : 'border-[#E5E7EB] bg-[#FAF9F6] text-[#2B2437] hover:border-[#D1D5DB]'
+                }`}
+              />
+              {/* Clean placeholder indicator if empty and not focused */}
+              {!digit && !isFocused && (
+                <span className="pointer-events-none absolute w-2.5 h-0.5 rounded-full bg-[#CBD5E1]" />
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* Error line */}

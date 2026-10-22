@@ -16,6 +16,7 @@ import { checkBlockedWords, checkClaimWords } from '../data/policyWords';
 import { isValidPhone, isValidUrl } from '../utils/validators';
 import { STRINGS } from '../strings/hi';
 import { AlertTriangle, Sparkles, Link2 } from 'lucide-react';
+import { Edit2 } from 'iconsax-react';
 import exampleGridReel from '../assets/examples/example_grid_reel.png';
 import exampleCarouselReel from '../assets/examples/example_carousel_reel.png';
 import exampleFeedBanner from '../assets/examples/example_feed_banner.png';
@@ -266,9 +267,12 @@ export default function S05_YourAd({ onOpenFacilitator }) {
         ref={scrollContainerRef}
         className="flex-1 overflow-y-auto px-4 py-3 flex flex-col gap-3.5 scrollbar-none"
       >
-        {/* Minimal Screen Title */}
-        <div className="flex flex-col items-center text-center pt-0.5 pb-0.5">
-          <h2 className="text-[17px] font-extrabold text-[#2B2437] tracking-tight">
+        {/* Screen Title & Icon */}
+        <div className="flex flex-col items-center text-center pt-1 pb-1">
+          <div className="w-[64px] h-[64px] rounded-[20px] bg-gradient-to-br from-[#FFF9EE] to-[#FFF1DE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] shadow-xs mb-2">
+            <Edit2 size={40} color="#E39026" className="w-[40px] h-[40px] text-[#E39026]" />
+          </div>
+          <h2 className="text-[20px] sm:text-[22px] font-black text-[#2B2437] tracking-tight">
             {STRINGS.ad.title}
           </h2>
         </div>

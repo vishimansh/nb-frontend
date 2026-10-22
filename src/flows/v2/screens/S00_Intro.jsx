@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import V2Header from '../components/chrome/V2Header';
 import StickyCTA from '../components/chrome/StickyCTA';
-import SampleAdSheet from '../components/ad/SampleAdSheet';
 import HelpSheet from '../components/sheets/HelpSheet';
 import { useAdvertiserV2 } from '../context/AdvertiserV2Context';
 import { CONFIG } from '../config';
@@ -11,7 +10,6 @@ import { MapPin, Clock, ShieldCheck } from 'lucide-react';
 
 export default function S00_Intro({ onOpenFacilitator }) {
   const { state, navigateTo, resetDraft } = useAdvertiserV2();
-  const [showSampleSheet, setShowSampleSheet] = useState(false);
   const [showHelpSheet, setShowHelpSheet] = useState(false);
 
   const isLoggedIn = state.auth?.otpVerified;
@@ -65,10 +63,15 @@ export default function S00_Intro({ onOpenFacilitator }) {
       {/* Scrollable Intro Body */}
       <div className="flex-1 overflow-y-auto px-5 pt-2 pb-3 flex flex-col items-center justify-between gap-3.5 scrollbar-none">
         {/* Title & Subtitle */}
-        <div className="text-center pt-0.5 px-2">
-          <h1 className="text-[26px] font-extrabold text-[#2B2437] tracking-tight leading-tight">
+        <div className="text-center pt-1 px-1">
+          <h1 className="text-[25px] font-black text-[#221B2D] tracking-tight leading-[1.25]">
             {STRINGS.intro.title}
           </h1>
+          {STRINGS.intro.subtitle && (
+            <p className="text-[14px] font-medium text-[#655E70] mt-1.5 leading-[1.4] max-w-[320px] mx-auto">
+              {STRINGS.intro.subtitle}
+            </p>
+          )}
         </div>
 
         {/* Hero Illustration - Transparent natural blend */}
@@ -82,40 +85,40 @@ export default function S00_Intro({ onOpenFacilitator }) {
 
         {/* Three Value Micro-Cards */}
         <div className="grid grid-cols-3 gap-2.5 w-full max-w-[350px] shrink-0">
-          {/* Badge 1: Local */}
-          <div className="bg-white rounded-[16px] border border-[#EBECEF] py-3 px-2 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
-            <div className="w-9 h-9 rounded-[12px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] mb-1.5 shadow-2xs">
-              <MapPin className="w-4 h-4 text-[#E39026]" />
+          {/* Badge 1: Local / Placement */}
+          <div className="bg-white rounded-[18px] border border-[#E9E8E4] py-3 px-2 flex flex-col items-center justify-between text-center min-h-[114px] shadow-[0_2px_8px_rgba(43,36,55,0.04)] hover:border-[#F5B55C]/60 hover:shadow-xs transition-all">
+            <div className="w-10 h-10 rounded-[13px] bg-gradient-to-br from-[#FFF9EE] to-[#FFF1DE] border border-[#FDE68A] flex items-center justify-center text-[#D97706] mb-1.5 shadow-2xs shrink-0">
+              <MapPin className="w-[18px] h-[18px] text-[#D97706]" />
             </div>
-            <p className="text-[12px] font-bold text-[#2B2437] leading-tight">
+            <p className="text-[11.5px] font-bold text-[#2B2437] leading-[1.3] flex-1 flex items-center justify-center">
               {STRINGS.intro.badge1}
             </p>
           </div>
 
           {/* Badge 2: Budget */}
-          <div className="bg-white rounded-[16px] border border-[#EBECEF] py-3 px-2 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
-            <div className="w-9 h-9 rounded-[12px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] font-bold text-[17px] leading-none mb-1.5 shadow-2xs">
+          <div className="bg-white rounded-[18px] border border-[#E9E8E4] py-3 px-2 flex flex-col items-center justify-between text-center min-h-[114px] shadow-[0_2px_8px_rgba(43,36,55,0.04)] hover:border-[#F5B55C]/60 hover:shadow-xs transition-all">
+            <div className="w-10 h-10 rounded-[13px] bg-gradient-to-br from-[#FFF9EE] to-[#FFF1DE] border border-[#FDE68A] flex items-center justify-center text-[#D97706] font-extrabold text-[19px] leading-none mb-1.5 shadow-2xs shrink-0">
               ₹
             </div>
-            <p className="text-[12px] font-bold text-[#2B2437] leading-tight">
+            <p className="text-[11.5px] font-bold text-[#2B2437] leading-[1.3] flex-1 flex items-center justify-center">
               {STRINGS.intro.badge2}
             </p>
           </div>
 
           {/* Badge 3: Fast & Easy */}
-          <div className="bg-white rounded-[16px] border border-[#EBECEF] py-3 px-2 flex flex-col items-center text-center shadow-2xs hover:border-[#F5B55C]/40 transition-colors">
-            <div className="w-9 h-9 rounded-[12px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] mb-1.5 shadow-2xs">
-              <Clock className="w-4 h-4 text-[#E39026]" />
+          <div className="bg-white rounded-[18px] border border-[#E9E8E4] py-3 px-2 flex flex-col items-center justify-between text-center min-h-[114px] shadow-[0_2px_8px_rgba(43,36,55,0.04)] hover:border-[#F5B55C]/60 hover:shadow-xs transition-all">
+            <div className="w-10 h-10 rounded-[13px] bg-gradient-to-br from-[#FFF9EE] to-[#FFF1DE] border border-[#FDE68A] flex items-center justify-center text-[#D97706] mb-1.5 shadow-2xs shrink-0">
+              <Clock className="w-[18px] h-[18px] text-[#D97706]" />
             </div>
-            <p className="text-[12px] font-bold text-[#2B2437] leading-tight">
+            <p className="text-[11.5px] font-bold text-[#2B2437] leading-[1.3] flex-1 flex items-center justify-center">
               {STRINGS.intro.badge3}
             </p>
           </div>
         </div>
 
-        {/* Sleek Minimal Reassurance Strip */}
-        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FDF5E8] border border-[#F5B55C]/50 shadow-2xs text-[11.5px] font-semibold text-[#2B2437]">
-          <ShieldCheck className="w-3.5 h-3.5 text-[#10B981] shrink-0" />
+        {/* Sleek Reassurance Strip */}
+        <div className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-[#ECFDF5] border border-[#10B981]/30 shadow-2xs text-[12px] font-semibold text-[#065F46] max-w-[94%] text-center leading-snug">
+          <ShieldCheck className="w-4 h-4 text-[#10B981] shrink-0" />
           <span>{STRINGS.intro.reassurance}</span>
         </div>
       </div>
@@ -126,70 +129,41 @@ export default function S00_Intro({ onOpenFacilitator }) {
         onClick={handleCtaClick}
         showArrow
         subAction={
-          <div className="flex flex-col items-center gap-1.5">
-            <div className="flex items-center gap-3">
+          <div className="flex flex-col items-center gap-2 pt-0.5">
+            {isLoggedIn && isShopComplete && (
+              <button
+                type="button"
+                onClick={handleStartNewAd}
+                className="text-[13px] text-[#4A4358] font-bold hover:underline cursor-pointer"
+              >
+                {STRINGS.intro.newAdSecondary}
+              </button>
+            )}
+
+            {!isLoggedIn && !hasPhone && (
               <button
                 type="button"
                 onClick={() => {
-                  track('sample_open');
-                  setShowSampleSheet(true);
+                  track('login_link_tap');
+                  navigateTo('login');
                 }}
-                className="text-[12.5px] font-bold text-[#E39026] hover:underline cursor-pointer"
+                className="text-[13px] text-[#6B7280] font-medium hover:text-[#2B2437] hover:underline cursor-pointer transition-colors"
               >
-                {STRINGS.intro.viewSample}
+                {STRINGS.intro.hasAccountLogin}
               </button>
-
-              {isLoggedIn && isShopComplete && (
-                <>
-                  <span className="text-[#D1D5DB]">•</span>
-                  <button
-                    type="button"
-                    onClick={handleStartNewAd}
-                    className="text-[12.5px] text-[#4A4358] font-bold hover:underline cursor-pointer"
-                  >
-                    {STRINGS.intro.newAdSecondary}
-                  </button>
-                </>
-              )}
-
-              {!isLoggedIn && !hasPhone && (
-                <>
-                  <span className="text-[#D1D5DB]">•</span>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      track('login_link_tap');
-                      navigateTo('login');
-                    }}
-                    className="text-[12.5px] text-[#6B7280] font-medium hover:underline cursor-pointer"
-                  >
-                    {STRINGS.intro.hasAccountLogin}
-                  </button>
-                </>
-              )}
-            </div>
+            )}
 
             <button
               type="button"
               onClick={() => {
                 window.location.href = '/feed';
               }}
-              className="text-[11.5px] text-[#9CA3AF] hover:text-[#2B2437] transition-colors cursor-pointer"
+              className="text-[12px] font-medium text-[#9CA3AF] hover:text-[#4A4358] transition-colors cursor-pointer"
             >
               ← मुख्य ऐप पर जाएँ
             </button>
           </div>
         }
-      />
-
-      {/* Sample Ad Sheet */}
-      <SampleAdSheet
-        isOpen={showSampleSheet}
-        onClose={() => setShowSampleSheet(false)}
-        onStartCreating={() => {
-          setShowSampleSheet(false);
-          handleCtaClick();
-        }}
       />
 
       {/* Help WhatsApp Sheet */}

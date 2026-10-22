@@ -209,7 +209,7 @@ export default function PodcastCard({
       {/* 4. Right-Side Interaction Rail (48px above bottom of screen, 16px right margin) */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="absolute right-[16px] bottom-[48px] z-30 flex flex-col items-center gap-[24px] pointer-events-auto"
+        className="absolute right-[16px] bottom-[48px] z-30 flex flex-col items-center gap-[16px] pointer-events-auto"
       >
         {/* Like Button */}
         <div className="flex flex-col items-center">

@@ -7,6 +7,7 @@ import {
   ExportSquare,
   Speaker as SpeakerIcon,
   Bank as BankIcon,
+  ArrowLeft2,
 } from 'iconsax-react';
 import { MdSportsCricket } from 'react-icons/md';
 import {
@@ -362,45 +363,55 @@ export default function AdPreview({
     return (
       <div className={`w-full max-w-[320px] mx-auto flex flex-col items-center gap-2.5 select-none ${className}`}>
         {/* Phone Chassis Container */}
-        <div className="w-[280px] h-[498px] max-w-full rounded-[28px] overflow-hidden bg-black relative flex flex-col justify-between shadow-2xl border-[3.5px] border-[#1C1C1E] mx-auto text-white shrink-0 group">
-          {/* Dynamic Island Mock */}
-          <div className="w-18 h-2.5 rounded-full bg-black mx-auto mt-1.5 z-30 shrink-0 border border-white/10 shadow-sm" />
+        <div className="w-[280px] h-[498px] max-w-full rounded-[30px] overflow-hidden bg-black relative shadow-[0_16px_48px_rgba(0,0,0,0.35)] border-[4px] border-[#1C1C1E] mx-auto text-white shrink-0 group select-none">
+          {/* Top Status Bar & Navigation Header (Exact replica of VideosPage top bar) */}
+          <div className="absolute top-0 inset-x-0 z-30 pt-2 px-3 flex flex-col items-center gap-1.5 pointer-events-none">
+            {/* Dynamic Island Mock */}
+            <div className="w-18 h-2.5 rounded-full bg-black mx-auto border border-white/10 shadow-sm shrink-0" />
 
-          {/* Carousel Story Segmented Progress Dashes */}
-          {isCarousel && (
-            <div className="absolute top-5 left-3.5 right-3.5 z-40 flex items-center gap-1 pointer-events-none">
-              {carouselSlides.map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`flex-1 h-[2.5px] rounded-full transition-all duration-300 ${
-                    idx === activeSlide
-                      ? 'bg-white shadow-[0_1px_4px_rgba(0,0,0,0.5)]'
-                      : 'bg-white/40'
-                  }`}
-                />
-              ))}
+            {/* Carousel Story Segmented Progress Dashes */}
+            {isCarousel && (
+              <div className="w-full flex items-center gap-1 pt-0.5">
+                {carouselSlides.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className={`flex-1 h-[2.5px] rounded-full transition-all duration-300 ${
+                      idx === activeSlide
+                        ? 'bg-white shadow-[0_1px_4px_rgba(0,0,0,0.5)]'
+                        : 'bg-white/40'
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Top Navigation Row matching VideosPage layout */}
+            <div className="relative w-full h-[32px] flex items-center justify-between pointer-events-none">
+              {/* Left Action: Standardized back button */}
+              <button
+                type="button"
+                onClick={() => showToast('रील बंद हो रही है...')}
+                aria-label="वापस जाएं"
+                className="w-[30px] h-[30px] rounded-[10px] bg-black/60 backdrop-blur-md border border-white/25 flex items-center justify-center text-white pointer-events-auto shadow-md active:scale-95 transition-transform cursor-pointer"
+              >
+                <ArrowLeft2 size={15} color="#FFFFFF" variant="Linear" />
+              </button>
+
+              {/* Center Action: Dual-Mode Capsule [ वीडियो | पॉडकास्ट ] */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="pointer-events-auto h-[30px] flex items-center bg-black/60 backdrop-blur-md border border-white/25 rounded-full p-[2.5px] shadow-xl">
+                  <span className="h-full px-3 rounded-full text-[11px] font-bold bg-white text-[#2B2437] shadow-md flex items-center justify-center">
+                    वीडियो
+                  </span>
+                  <span className="h-full px-2.5 rounded-full text-[11px] font-semibold text-white/85 flex items-center justify-center">
+                    पॉडकास्ट
+                  </span>
+                </div>
+              </div>
+
+              {/* Symmetrical Spacer */}
+              <div className="w-[30px] h-[30px] shrink-0 pointer-events-none" />
             </div>
-          )}
-
-          {/* Top Navigation Mock matching VideosPage */}
-          <div
-            className={`w-full px-3 z-30 flex items-center justify-between ${
-              isCarousel ? 'pt-4' : 'pt-1.5'
-            }`}
-          >
-            <div className="w-6 h-6 rounded-full bg-black/40 backdrop-blur-md border border-white/15 flex items-center justify-center text-[11px] text-white">
-              ‹
-            </div>
-
-            {/* Centered [ वीडियो | पॉडकास्ट ] Pill Toggle */}
-            <div className="px-1.5 py-0.2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-[9px] font-bold flex items-center gap-1 shadow-sm">
-              <span className="px-1.5 py-0.2 rounded-full bg-white text-[#1C1C1E] shadow-2xs">
-                वीडियो
-              </span>
-              <span className="text-white/80 px-0.5">पॉडकास्ट</span>
-            </div>
-
-            <div className="w-6" />
           </div>
 
           {/* Central Ad Media Surface */}
@@ -419,15 +430,25 @@ export default function AdPreview({
                   autoPlay
                   loop
                   playsInline
+                  onPlay={() => setIsPlaying(true)}
+                  onPause={() => setIsPlaying(false)}
                   className="w-full h-full object-cover"
                 />
 
-                {/* Play Pause Button Overlay */}
+                {/* Play Pause Button Overlay (replicated from VideoAdMedia) */}
                 {!isPlaying && (
                   <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-auto bg-black/25">
-                    <div className="w-13 h-13 rounded-full bg-black/65 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-xl active:scale-95 transition-transform">
-                      <Play className="w-6 h-6 text-white fill-white ml-0.5" />
-                    </div>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTogglePlayPause();
+                      }}
+                      aria-label="चलाएं (Play)"
+                      className="w-[56px] h-[56px] rounded-full bg-black/65 backdrop-blur-md border border-white/30 flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.6)] active:scale-90 hover:scale-105 transition-transform cursor-pointer"
+                    >
+                      <div className="w-0 h-0 border-t-[9px] border-t-transparent border-l-[16px] border-l-white border-b-[9px] border-b-transparent ml-1 drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" />
+                    </button>
                   </div>
                 )}
               </div>
@@ -494,26 +515,30 @@ export default function AdPreview({
             )}
 
             {/* Top and Bottom Ambient Vignette Gradients */}
-            <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/85 via-black/30 to-transparent pointer-events-none z-10" />
-            <div className="absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-black/95 via-black/75 to-transparent pointer-events-none z-10" />
+            <div className="absolute top-0 inset-x-0 h-28 bg-gradient-to-b from-black/85 via-black/35 to-transparent pointer-events-none z-10" />
+            <div className="absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-black/95 via-black/70 to-transparent pointer-events-none z-10" />
           </div>
 
-          {/* Right-Side Interaction Rail */}
-          <div className="absolute right-2.5 bottom-36 z-20 flex flex-col items-center gap-3 pointer-events-auto">
+          {/* Right-Side Interaction Rail (Exact replica of AdReelOverlay.jsx) */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="absolute right-[12px] bottom-[36px] z-30 flex flex-col items-center gap-[16px] pointer-events-auto"
+          >
             {/* Like Button */}
             <div className="flex flex-col items-center">
               <button
                 type="button"
                 onClick={handleLike}
-                className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform shadow-lg cursor-pointer"
+                aria-label="लाइक करें"
+                className="w-[38px] h-[38px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform cursor-pointer shadow-lg text-white"
               >
                 <HeartIcon
-                  size={18}
+                  size={20}
                   color={isLiked ? '#EF4444' : '#FFFFFF'}
                   variant={isLiked ? 'Bold' : 'Linear'}
                 />
               </button>
-              <span className="text-[10px] font-semibold text-white drop-shadow mt-0.5">
+              <span className="text-[10.5px] font-semibold text-white drop-shadow mt-1">
                 {likeCount}
               </span>
             </div>
@@ -523,71 +548,85 @@ export default function AdPreview({
               <button
                 type="button"
                 onClick={handleShare}
-                className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-95 transition-transform shadow-lg text-white cursor-pointer"
+                aria-label="व्हाट्सएप पर शेयर करें"
+                className="w-[38px] h-[38px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-95 transition-transform cursor-pointer shadow-lg text-white"
               >
-                <WhatsappIcon size={18} color="#FFFFFF" variant="Bold" />
+                <WhatsappIcon size={20} color="#FFFFFF" variant="Bold" />
               </button>
-              <span className="text-[9px] font-medium text-white drop-shadow mt-0.5">
+              <span className="text-[10px] font-medium text-white mt-1 drop-shadow">
                 शेयर
               </span>
             </div>
 
-            {/* Sound Toggle */}
+            {/* Sound Toggle Button */}
             {isVideo && (
               <button
                 type="button"
                 onClick={handleSoundToggle}
-                className="w-8.5 h-8.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform shadow-lg text-white cursor-pointer"
+                aria-label={isMuted ? 'आवाज़ चालू करें' : 'म्यूट करें'}
+                className="w-[38px] h-[38px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform cursor-pointer shadow-lg text-white"
               >
                 {isMuted ? (
-                  <VolumeCross size={16} color="#FFFFFF" />
+                  <VolumeCross size={20} color="#FFFFFF" />
                 ) : (
-                  <VolumeHigh size={16} color="#FFFFFF" />
+                  <VolumeHigh size={20} color="#FFFFFF" />
                 )}
               </button>
             )}
           </div>
 
-          {/* Bottom-Left Overlay Stack */}
-          <div className="absolute bottom-0 left-0 right-0 p-3 pb-4 z-20 flex flex-col gap-1.5 text-left pr-[52px] pointer-events-auto">
-            {/* Attribution */}
-            <div className="flex items-center gap-1.5">
-              <div className="w-7 h-7 rounded-full overflow-hidden border border-white/40 bg-white shrink-0 shadow-sm flex items-center justify-center text-[#2B2437] font-bold text-[10.5px]">
+          {/* Bottom-Left Attribution, Headline & CTA Stack (Exact replica of AdReelOverlay.jsx) */}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="absolute bottom-[36px] left-[14px] right-[62px] z-30 flex flex-col gap-[12px] pointer-events-auto text-left"
+          >
+            {/* Attribution Row: 28px Circular brand logo + Company Name */}
+            <div className="flex items-center gap-2">
+              <div className="w-[28px] h-[28px] rounded-full overflow-hidden border border-white/40 bg-white shrink-0 shadow-sm flex items-center justify-center text-[#2B2437] font-bold text-[11px]">
                 {logoUrl ? (
-                  <img src={logoUrl} alt="" className="w-full h-full object-cover" />
+                  <img
+                    src={logoUrl}
+                    alt={resolvedBrandName}
+                    className="w-full h-full object-cover"
+                  />
                 ) : (
-                  resolvedBrandName.charAt(0)
+                  (resolvedBrandName.charAt(0) || 'T').toUpperCase()
                 )}
               </div>
-              <span className="text-[13px] font-bold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] leading-[1.5] truncate">
+              <button
+                type="button"
+                onClick={handleCtaClick}
+                className="text-[14px] font-bold text-white/95 drop-shadow tracking-wide leading-none cursor-pointer hover:underline text-left truncate"
+              >
                 {resolvedBrandName}
-              </span>
+              </button>
             </div>
 
-            {/* Headline with protected leading */}
+            {/* Ad Headline & Underlined Vigyapan Tag (Matching AdReelOverlay.jsx) */}
             <div className="flex flex-col gap-1">
-              <p className="text-[13px] font-semibold text-white leading-[20px] pt-[2px] pb-[2px] drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] line-clamp-2">
+              <p className="text-[14px] font-normal text-white leading-snug drop-shadow-md line-clamp-2">
                 {resolvedHeadline}
               </p>
               <button
                 type="button"
                 onClick={handleCtaClick}
-                className="text-[10.5px] font-medium text-white/85 underline decoration-white/60 hover:text-white cursor-pointer w-fit text-left tracking-wide drop-shadow-[0_1px_2px_rgba(0,0,0,0.9)] leading-[1.5]"
+                className="text-[11.5px] font-medium text-white/80 underline decoration-white/60 hover:text-white cursor-pointer w-fit text-left tracking-wide"
               >
                 विज्ञापन
               </button>
             </div>
 
-            {/* Action Button: "और जानें ↗" */}
+            {/* Action Button: "और जानें ↗" below description in bottom-left corner */}
             <button
               type="button"
               onClick={handleCtaClick}
-              className="px-3.5 py-1.5 bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-1.5 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
+              aria-label={resolvedCtaLabel}
+              className="py-[9px] px-3.5 bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
             >
-              <span className="text-[12px] font-semibold text-white tracking-wide leading-[1.4]">
+              <span className="text-[13.5px] font-medium text-white tracking-wide leading-none">
                 {resolvedCtaLabel}
               </span>
-              <ExportSquare size={12} color="#FFFFFF" variant="Linear" />
+              <ExportSquare size={14} color="#FFFFFF" variant="Linear" />
             </button>
           </div>
         </div>
@@ -603,10 +642,10 @@ export default function AdPreview({
               type="button"
               onClick={handleDownloadPrototype}
               className="px-2.5 py-1 rounded-full bg-[#2B2437] hover:bg-[#3D334E] text-white text-[11px] font-bold flex items-center gap-1 shadow-2xs active:scale-95 transition-all cursor-pointer shrink-0"
-              title="प्रोटोटाइप इमेज डाउनलोड करें"
+              title={isVideo ? 'वीडियो रील प्रीव्यू डाउनलोड करें' : 'प्रोटोटाइप इमेज डाउनलोड करें'}
             >
               <Download className="w-3 h-3" />
-              <span>इमेज डाउनलोड करें</span>
+              <span>{isVideo ? 'मॉकअप डाउनलोड करें' : 'इमेज डाउनलोड करें'}</span>
             </button>
           </div>
         )}

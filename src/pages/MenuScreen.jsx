@@ -227,7 +227,7 @@ export default function MenuScreen() {
               <Shop size={16} color="#E39026" variant="Bold" />
             </div>
             <div>
-              <h2 className="text-[15px] font-bold text-[#2B2437] leading-snug">विज्ञापन दें</h2>
+              <h2 className="text-[15px] font-bold text-[#2B2437] leading-snug">अपना विज्ञापन स्वयं अपलोड करें</h2>
               <p className="text-[11px] text-[#9CA3AF] font-medium leading-none mt-0.5">अपने कारोबार को पाठकों तक पहुँचाएं</p>
             </div>
           </div>
@@ -437,11 +437,11 @@ export default function MenuScreen() {
           )}
         </div>
 
-        {/* 5. "अन्य श्रेणियां" (Unselected Categories) Separate Section Card */}
+        {/* 5. "अन्य विषय" (Unselected Categories) Separate Section Card */}
         {selectedCategories.length > 0 && sortedUnselected.length > 0 && (
           <div className="bg-white rounded-[24px] border border-[#EBECEF] p-4 shadow-sm">
             <div className="mb-3.5">
-              <h2 className="text-[16px] font-bold text-[#2B2437]">अन्य श्रेणियां</h2>
+              <h2 className="text-[16px] font-bold text-[#2B2437]">अन्य विषय</h2>
             </div>
             <div className="grid grid-cols-2 gap-2.5">
               {sortedUnselected.map((catId) => {

@@ -31,6 +31,7 @@ import {
   Clock,
   RotateCcw,
   Download,
+  Users,
 } from 'lucide-react';
 import { triggerPrototypeDownload } from '../components/ad/AdPreview';
 
@@ -66,11 +67,13 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
 
   // Cities string & list
   const cityList = useMemo(() => {
-    const ids = draft.area?.manualCityIds?.length
-      ? draft.area.manualCityIds
-      : [shop.cityId || 'indore'];
-    return ids.map((id) => getCityById(id)?.name || id);
-  }, [draft.area, shop.cityId]);
+    if (draft.area?.manualCityIds?.length) {
+      return draft.area.manualCityIds.map((id) => getCityById(id)?.name || id);
+    }
+    if (shop.city) return [shop.city];
+    if (shop.cityId) return [getCityById(shop.cityId)?.name || shop.cityId];
+    return ['इंदौर'];
+  }, [draft.area, shop.city, shop.cityId]);
 
   const cityNamesText = useMemo(() => {
     if (cityList.length <= 2) return cityList.join(', ');
@@ -186,22 +189,69 @@ export default function S08_ReviewPay({ onOpenFacilitator }) {
           </h1>
         </div>
 
-        {/* 1. Hero summary banner */}
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#FFF8E7] via-[#FFF3D1] to-[#FDE9B8] border border-[#F6DFA8] shadow-[0_4px_14px_rgba(227,144,38,0.12)] px-4 py-3">
-          <div className="absolute -right-6 -top-6 w-20 h-20 rounded-full bg-[#E39026]/10" />
-          <div className="flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-wider text-[#B45309]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A] animate-pulse shrink-0" />
-            आपका विज्ञापन इतने लोगों तक पहुँचेगा
-          </div>
-          <div className="flex items-baseline gap-1.5 mt-1">
-            <span className="text-[26px] font-black text-[#2B2437] tabular-nums leading-none">
-              ~{formatIN(reachablePeople)}
+        {/* 1. Hero Reach & Impact Card: "आपका विज्ञापन इतने लोगों तक पहुँचेगा" */}
+        <div className="relative overflow-hidden rounded-[22px] bg-gradient-to-br from-[#FFF9EE] via-[#FFF3D6] to-[#FDE8B3] border border-[#F6DFA8] shadow-[0_4px_16px_rgba(227,144,38,0.12)] p-4 flex flex-col gap-3">
+          {/* Subtle Ambient Glow Watermarks */}
+          <div className="absolute -right-6 -top-6 w-24 h-24 rounded-full bg-[#E39026]/12 pointer-events-none blur-sm" />
+          <div className="absolute right-12 -bottom-8 w-20 h-20 rounded-full bg-[#F59E0B]/10 pointer-events-none blur-md" />
+
+          {/* Header Row: Live Pulse Pill & Badge */}
+          <div className="flex items-center justify-between z-10 gap-2">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-xs border border-[#F6DFA8] text-[11px] font-bold text-[#854D0E] shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#16A34A] animate-pulse shrink-0" />
+              <span>आपका विज्ञापन इतने लोगों तक पहुँचेगा</span>
+            </div>
+            <span className="text-[10.5px] font-bold text-[#B45309] bg-[#E39026]/15 px-2 py-0.5 rounded-full shrink-0">
+              अनुमानित पहुँच
             </span>
-            <span className="text-[13px] font-bold text-[#854D0E]">पाठक</span>
           </div>
-          <p className="text-[12px] font-medium text-[#78350F] mt-1.5 truncate">
-            {cityNamesText} · {draft.area?.radiusKm || 10} किमी · {money.days} दिन तक
-          </p>
+
+          {/* Hero Numbers Row */}
+          <div className="flex items-baseline justify-between z-10 pt-0.5">
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-[32px] sm:text-[34px] font-black text-[#2B2437] tabular-nums tracking-tight leading-none">
+                ~{formatIN(reachablePeople)}
+              </span>
+              <span className="text-[14px] font-bold text-[#854D0E]">
+                पाठक
+              </span>
+            </div>
+            <div className="text-right flex flex-col items-end">
+              <span className="text-[10.5px] font-semibold text-[#8C8C94] leading-tight">प्रतिदिन लगभग</span>
+              <span className="text-[13px] font-bold text-[#2B2437] tabular-nums leading-snug">
+                ~{formatIN(Math.round(reachablePeople / (money.days || 1)))} पाठक
+              </span>
+            </div>
+          </div>
+
+          {/* Parameters / Target Breakdown Grid */}
+          <div className="grid grid-cols-2 gap-2 pt-1.5 border-t border-[#F6DFA8]/60 z-10">
+            {/* Target Location */}
+            <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs rounded-xl px-2.5 py-2 border border-[#F6DFA8]/60 shadow-2xs">
+              <div className="w-6 h-6 rounded-lg bg-[#E39026]/15 flex items-center justify-center text-[#D97706] shrink-0">
+                <MapPin className="w-3.5 h-3.5" />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-[10px] font-semibold text-[#8C8C94] leading-tight">इलाका व दायरा</span>
+                <span className="text-[12px] font-bold text-[#2B2437] truncate leading-tight mt-0.5">
+                  {cityNamesText} ({draft.area?.radiusKm || 10} किमी)
+                </span>
+              </div>
+            </div>
+
+            {/* Duration & Daily Budget */}
+            <div className="flex items-center gap-2 bg-white/70 backdrop-blur-xs rounded-xl px-2.5 py-2 border border-[#F6DFA8]/60 shadow-2xs">
+              <div className="w-6 h-6 rounded-lg bg-[#E39026]/15 flex items-center justify-center text-[#D97706] shrink-0">
+                <Clock className="w-3.5 h-3.5" />
+              </div>
+              <div className="flex flex-col min-w-0">
+                <span className="text-[10px] font-semibold text-[#8C8C94] leading-tight">अवधि व बजट</span>
+                <span className="text-[12px] font-bold text-[#2B2437] truncate leading-tight mt-0.5">
+                  {money.days} दिन · ₹{formatIN(money.daily)}/दिन
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* 2. Interactive Ad Preview Card */}

@@ -46,7 +46,7 @@ export const STATES_DATA = [
   {
     id: "assam",
     name: "असम",
-    landmark: "कामाख्या / काजीरंगा",
+    landmark: "कामाख्या मंदिर",
     defaultPriority: null,
   },
   {

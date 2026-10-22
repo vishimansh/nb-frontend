@@ -13,7 +13,6 @@ import { isValidEmail } from '../utils/validators';
 import { processImageFile } from '../utils/imageTools';
 import { saveAccount } from '../utils/autosave';
 import { STRINGS } from '../strings/hi';
-import profileSkyline from '../../../assets/illustrations/profile_skyline_bhopal.png';
 import {
   Camera,
   Trash2,
@@ -239,67 +238,70 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
           </h1>
         </div>
 
-        {/* 1. Signature Profile Card with Heritage Skyline Silhouette (MenuScreen signature) */}
-        <div className="p-3.5 rounded-[22px] bg-white border border-[#E2E6EE] shadow-sm relative overflow-hidden flex items-center justify-between">
-          {/* Heritage Cityscape Artwork */}
-          <img
-            src={profileSkyline}
-            alt="Heritage Cityscape"
-            className="pointer-events-none absolute right-0 bottom-0 h-full w-auto max-w-[80%] object-contain object-right-bottom select-none z-0 opacity-35 mix-blend-multiply -translate-x-[15%]"
-          />
-
-          {/* Left Identity Stack */}
-          <div className="flex items-center relative z-10">
-            <div
-              onClick={() => logoInputRef.current?.click()}
-              className="w-14 h-14 rounded-full ring-[2.5px] ring-[#F5B55C] ring-offset-2 overflow-hidden bg-gradient-to-br from-[#2B2437] to-[#1E1927] shrink-0 mr-3.5 flex items-center justify-center shadow-xs cursor-pointer active:scale-95 transition-transform"
-              title="दुकान की फ़ोटो जोड़ें"
-            >
-              {logoUrl ? (
-                <img src={logoUrl} alt="Shop Logo" className="w-full h-full object-cover" />
-              ) : displayInitial ? (
-                <span className="text-[22px] font-black text-[#F5B55C]">{displayInitial}</span>
-              ) : (
-                <Shop size={24} color="#F5B55C" variant="Bold" />
-              )}
-            </div>
-
-            <div>
-              <span className="text-[17px] font-bold text-[#2B2437] block leading-tight">
-                {name.trim() || 'आपकी दुकान की जानकारी'}
-              </span>
-              <span className="text-[12.5px] text-[#059669] font-medium mt-1 flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>+91 {phone} · वेरिफाइड</span>
-              </span>
-            </div>
+        {/* 1. Verified Phone Capsule & Circular Avatar Stack (Using App Prototype Brand Colors) */}
+        <div className="flex flex-col items-center justify-center pt-1 pb-1 shrink-0 gap-3">
+          {/* Verified Phone Pill with Prototype Success Token */}
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#EEF8F2] border border-[#2F8F5B]/30 text-[#2F8F5B] text-[13.5px] font-semibold tracking-wide shadow-2xs">
+            <span>+91 {phone} • वेरिफाइड</span>
           </div>
 
-          {/* Right Action Button */}
-          <div className="flex items-center gap-1.5 relative z-10 shrink-0">
-            <button
-              type="button"
-              onClick={() => logoInputRef.current?.click()}
-              className="w-10 h-10 rounded-[12px] bg-[#2B2437]/[0.86] hover:bg-[#2B2437] text-white flex items-center justify-center cursor-pointer active:scale-95 shadow-xs transition-all"
-              title="फ़ोटो जोड़ें या बदलें"
-            >
-              <Camera className="w-4 h-4 text-white" />
-            </button>
-            {logoUrl && (
+          {/* Avatar Upload Stack with Signature Prototype Amber (#E39026) and Brand Ink (#2B2437) */}
+          <div className="flex flex-col items-center justify-center">
+            <div className="w-[110px] h-[110px] rounded-full p-1 ring-8 ring-[#E39026]/20 bg-gradient-to-b from-[#E39026]/30 to-[#E39026]/05 relative flex items-center justify-center shadow-inner">
+              <div
+                onClick={() => logoInputRef.current?.click()}
+                className="w-[96px] h-[96px] rounded-full bg-[#2B2437] border-2 border-[#E39026] overflow-hidden flex items-center justify-center relative cursor-pointer active:scale-95 transition-transform"
+              >
+                {logoUrl ? (
+                  <img
+                    src={logoUrl}
+                    alt="दुकान की फ़ोटो"
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-[42px] font-black text-white tracking-wider">
+                    {displayInitial || 'S'}
+                  </span>
+                )}
+              </div>
+
+              {/* Camera Action Badge (at 4 o'clock) with Prototype Amber */}
               <button
                 type="button"
-                onClick={handleRemoveLogo}
-                className="w-9 h-9 rounded-[10px] bg-red-50 hover:bg-red-100 text-[#DC2626] flex items-center justify-center cursor-pointer active:scale-95 transition-all"
-                title="हटाएँ"
+                onClick={() => logoInputRef.current?.click()}
+                className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[#E39026] hover:bg-[#C97F1E] border-2 border-white text-white flex items-center justify-center shadow-md cursor-pointer active:scale-95 z-10 transition-colors"
+                title="फ़ोटो बदलें"
               >
-                <Trash2 className="w-4 h-4 text-[#DC2626]" />
+                <Camera className="w-4 h-4 text-white" />
               </button>
-            )}
+            </div>
+
+            <div className="flex items-center gap-2 mt-2.5">
+              <button
+                type="button"
+                onClick={() => logoInputRef.current?.click()}
+                className="text-[14px] font-bold text-[#2B2437] hover:underline cursor-pointer"
+              >
+                फ़ोटो बदलें
+              </button>
+              {logoUrl && (
+                <>
+                  <span className="text-[#D1D5DB]">•</span>
+                  <button
+                    type="button"
+                    onClick={handleRemoveLogo}
+                    className="text-[12.5px] font-semibold text-[#DC2626] hover:underline cursor-pointer"
+                  >
+                    हटाएँ
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
         {logoError && (
-          <span className="text-[11.5px] font-bold text-[#DC2626] px-1 animate-fadeIn">
+          <span className="text-[11.5px] font-bold text-[#DC2626] px-1 animate-fadeIn text-center">
             {logoError}
           </span>
         )}
@@ -308,7 +310,7 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
         <div className="bg-white rounded-[24px] border border-[#EBECEF] p-4 shadow-sm flex flex-col gap-3.5">
           {/* Section Header with Golden Badge */}
           <div className="flex items-center gap-2.5 pb-1 border-b border-[#F5F5F4]">
-            <div className="w-8 h-8 rounded-[10px] bg-[#FFF3DC] border border-[#F5B55C]/50 flex items-center justify-center text-[#E39026] shrink-0">
+            <div className="w-8 h-8 rounded-[10px] bg-[#FFF9EE] border border-[#FDE68A] flex items-center justify-center text-[#E39026] shrink-0">
               <Shop size={16} color="#E39026" variant="Bold" />
             </div>
             <div>
@@ -420,22 +422,13 @@ export default function S02_ShopDetails({ onOpenFacilitator }) {
 
             {/* Resolved City Card (Signature Menu amber featured row style) */}
             {resolvedCity && (
-              <div className="h-[54px] px-3.5 bg-[#FFFBF0] rounded-[14px] border border-[#FDE68A] flex items-center justify-between mt-1 animate-fadeIn">
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-8 h-8 rounded-[8px] bg-[#E39026] text-white flex items-center justify-center shrink-0 shadow-2xs">
-                    <Location size={16} color="#FFFFFF" variant="Bold" />
-                  </div>
-                  <span className="text-[13.5px] font-bold text-[#2B2437] truncate">
-                    {resolvedCity.name}, {resolvedCity.state}
-                  </span>
+              <div className="h-[54px] px-3.5 bg-[#FFFBF0] rounded-[14px] border border-[#FDE68A] flex items-center gap-2.5 mt-1 animate-fadeIn">
+                <div className="w-8 h-8 rounded-[8px] bg-[#E39026] text-white flex items-center justify-center shrink-0 shadow-2xs">
+                  <Location size={16} color="#FFFFFF" variant="Bold" />
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setShowCitySheet(true)}
-                  className="text-[12px] font-bold text-[#E39026] hover:underline px-2.5 py-1 rounded-md bg-white border border-[#FDE68A] cursor-pointer shadow-2xs"
-                >
-                  बदलें
-                </button>
+                <span className="text-[13.5px] font-bold text-[#2B2437] truncate">
+                  {resolvedCity.name}, {resolvedCity.state}
+                </span>
               </div>
             )}
 

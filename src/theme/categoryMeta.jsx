@@ -122,7 +122,7 @@ export const CATEGORY_METADATA = {
   },
   astro: {
     id: 'astro',
-    label: 'ज्योतिषी',
+    label: 'ज्योतिष दर्पण',
     color: '#74648F',
     iconComponent: AstroCelestialIcon,
   },
