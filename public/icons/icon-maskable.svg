@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGradM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3D334E" />
+      <stop offset="50%" stop-color="#2B2437" />
+      <stop offset="100%" stop-color="#1A1522" />
+    </linearGradient>
+    <linearGradient id="goldGradM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="redGradM" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+  </defs>
+
+  <!-- Full-bleed background for maskable (no border radius) -->
+  <rect width="512" height="512" fill="url(#bgGradM)" />
+
+  <!-- Center Content within safe circle (diameter ~380px) -->
+  <g transform="translate(256, 200)">
+    <circle r="68" fill="url(#redGradM)" />
+    <!-- Flame Symbol -->
+    <path d="M 0 -48 C 20 -20, 34 6, 24 30 C 16 42, -16 42, -24 30 C -34 6, -20 -20, 0 -48 Z" fill="url(#goldGradM)" />
+    <circle cx="0" cy="16" r="12" fill="#FFFFFF" fill-opacity="0.9" />
+  </g>
+
+  <!-- Brand Typography -->
+  <text x="256" y="345" font-family="'Noto Sans Devanagari', -apple-system, sans-serif" font-size="56" font-weight="900" fill="#FFFFFF" text-anchor="middle">नवभारत</text>
+
+  <!-- Subtext Pill -->
+  <rect x="196" y="375" width="120" height="28" rx="14" fill="url(#goldGradM)" />
+  <text x="256" y="394" font-family="'Noto Sans Devanagari', -apple-system, sans-serif" font-size="13" font-weight="800" fill="#2B2437" text-anchor="middle" letter-spacing="1.2">NEWS</text>
+</svg>

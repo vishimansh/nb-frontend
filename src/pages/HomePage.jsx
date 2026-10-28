@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useMemo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { Camera, ArrowRight2, Location } from 'iconsax-react';
 import homeFeedData from '../data/homeFeedData.json';
 import categoryFeedData from '../data/categoryFeedData.json';
 import TopNavShell from '../components/home/TopNavShell';
@@ -15,6 +16,8 @@ import CityFeedContent from '../components/city/CityFeedContent';
 import { useFeed } from '../context/FeedContext';
 import { useOnboarding } from '../context/OnboardingContext';
 import { useAdvertiser } from '../context/AdvertiserContext';
+import { useCity } from '../context/CityContext';
+import { useVideo } from '../context/VideoContext';
 import { CANONICAL_CATEGORY_ORDER } from '../theme/categoryMeta';
 
 export default function HomePage() {
@@ -33,6 +36,16 @@ export default function HomePage() {
 
   const { heroStory, topStories, categories, ads } = homeFeedData;
   const { campaigns = [] } = useAdvertiser();
+  const { currentCityData } = useCity();
+  const {
+    citizenReels = [],
+    switchMediaMode,
+    setCitizenCityFilter,
+    setCitizenCurrentIndex,
+    setIsUploadSheetOpen,
+  } = useVideo();
+  const currentCityName = currentCityData?.name || 'भोपाल';
+  const homeCitizenReports = citizenReels.filter((r) => r.city === currentCityName);
 
   const urlSearch = new URLSearchParams(location.search);
   const adParamId = urlSearch.get('ad');

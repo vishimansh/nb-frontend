@@ -14,9 +14,11 @@ import {
   Logout,
   SearchNormal1,
   Shop,
+  Camera,
 } from 'iconsax-react';
 import { useOnboarding } from '../context/OnboardingContext';
 import { useAdvertiser } from '../context/AdvertiserContext';
+import { useVideo } from '../context/VideoContext';
 import {
   CANONICAL_CATEGORY_ORDER,
   CATEGORY_METADATA,
@@ -31,6 +33,8 @@ export default function MenuScreen() {
   const location = useLocation();
   const { selectedCategories = [], userProfile = {} } = useOnboarding();
   const { campaigns = [], advertiserAuth = {}, isBusinessProfileSaved } = useAdvertiser();
+  const { citizenReels = [], switchMediaMode } = useVideo();
+  const userReportsCount = citizenReels.filter((r) => r.isUserSubmitted).length;
   const [isExiting, setIsExiting] = useState(false);
   const touchStartX = useRef(null);
   const touchStartY = useRef(null);
@@ -358,6 +362,30 @@ export default function MenuScreen() {
                   </span>
                   <span className="text-[11px] text-[#64748B] font-medium block">
                     ऑफलाइन कभी भी पढ़ें
+                  </span>
+                </div>
+              </div>
+              <ArrowRight2 size={16} color="#9CA3AF" />
+            </div>
+
+            {/* Row 3: मेरी नागरिक रिपोर्टें */}
+            <div
+              onClick={() => {
+                switchMediaMode('citizen');
+                navigate('/videos');
+              }}
+              className="h-[56px] px-3.5 bg-[#F9FAFB] rounded-[14px] border border-[#F0F1F3] flex items-center justify-between hover:bg-gray-100/80 active:scale-[0.99] transition-all cursor-pointer"
+            >
+              <div className="flex items-center gap-3 flex-1 mr-2">
+                <div className="w-9 h-9 rounded-[10px] bg-[#2B2437]/[0.86] flex items-center justify-center text-white shrink-0 shadow-2xs">
+                  <Camera size={18} color="#F5B55C" variant="Bold" />
+                </div>
+                <div>
+                  <span className="text-[14px] font-semibold text-[#2B2437] block leading-tight">
+                    मेरी नागरिक रिपोर्टें
+                  </span>
+                  <span className="text-[11px] text-[#64748B] font-medium block">
+                    {userReportsCount > 0 ? `${userReportsCount} रिपोर्ट दर्ज · स्थिति देखें` : 'अपने वार्ड की खबर भेजें'}
                   </span>
                 </div>
               </div>

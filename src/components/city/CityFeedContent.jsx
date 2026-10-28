@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   DocumentText,
   Buildings,
@@ -8,8 +9,13 @@ import {
   MagicStar,
   TrendUp,
   VideoPlay,
+  Camera,
+  Add,
+  ArrowRight2,
+  Location,
 } from 'iconsax-react';
 import { useCity } from '../../context/CityContext';
+import { useVideo } from '../../context/VideoContext';
 import FeedCard, { CATEGORY_PALETTES, LABEL_MAP } from '../home/FeedCard';
 
 // Extended palettes for hyperlocal-specific categories
@@ -22,11 +28,8 @@ const EXTENDED_PALETTES = {
   'संस्कृति': { label: 'संस्कृति', color: '#805D76', icon: VideoPlay },
 };
 
-/**
- * CityFeedContent
- * Uses the exact master FeedCard template as Home and Category screens.
- */
 export default function CityFeedContent({ onCategoryClick }) {
+  const navigate = useNavigate();
   const {
     activeCityId,
     activeZone,
@@ -35,6 +38,21 @@ export default function CityFeedContent({ onCategoryClick }) {
     setZoneFilter,
   } = useCity();
 
+  const {
+    citizenReels = [],
+    switchMediaMode,
+    setCitizenCityFilter,
+    setCitizenCurrentIndex,
+    setIsUploadSheetOpen,
+  } = useVideo();
+
+  const cityName = currentCityData?.name || 'भोपाल';
+
+  // Filter citizen reports for this city
+  const cityCitizenReports = citizenReels.filter(
+    (r) => r.city === cityName
+  );
+
   // Filter articles for this city and zone
   let filteredArticles = articles.filter((art) => {
     if (art.cityId !== activeCityId) return false;
@@ -42,9 +60,7 @@ export default function CityFeedContent({ onCategoryClick }) {
     return art.zoneId === activeZone;
   });
 
-  const cityName = currentCityData?.name || 'भोपाल';
-
-  // Dynamic fallback: if no direct articles exist for this city, create authentic localized articles using cityName
+  // Dynamic fallback
   if (filteredArticles.length === 0) {
     filteredArticles = [
       {
@@ -77,20 +93,9 @@ export default function CityFeedContent({ onCategoryClick }) {
         readTime: '3 मिनट पढ़ें',
         imageUrl: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=400&q=80',
       },
-      {
-        id: `city-gen-${activeCityId}-4`,
-        cityId: activeCityId,
-        category: 'यातायात',
-        categoryColor: '#EA580C',
-        title: `${cityName} में रिंग रोड और प्रमुख चौराहों पर ट्रैफिक सिग्नल आधुनिकीकरण का कार्य तेज़ी से जारी`,
-        publishedAt: '2 घंटे पहले',
-        readTime: '2 मिनट पढ़ें',
-        imageUrl: 'https://images.unsplash.com/photo-1506521781263-d8422e82f27a?auto=format&fit=crop&w=400&q=80',
-      },
     ];
   }
 
-  // Find active zone display name if filtered
   const allZones = [
     ...(currentCityData?.urbanZones || []),
     ...(currentCityData?.ruralZones || []),
@@ -98,8 +103,111 @@ export default function CityFeedContent({ onCategoryClick }) {
   const activeZoneObj = allZones.find((z) => z.id === activeZone);
   const activeZoneName = activeZoneObj ? activeZoneObj.name : activeZone;
 
+  // Open Citizen Reel
+  const handleOpenCitizenReel = (reelId) => {
+    switchMediaMode('citizen');
+    setCitizenCityFilter(cityName);
+    const targetIdx = cityCitizenReports.findIndex((r) => r.id === reelId);
+    if (targetIdx !== -1) {
+      setCitizenCurrentIndex(targetIdx);
+    }
+    navigate('/videos');
+  };
+
+  // Open Reporter Studio
+  const handleOpenStudio = () => {
+    switchMediaMode('citizen');
+    setCitizenCityFilter(cityName);
+    setIsUploadSheetOpen(true);
+    navigate('/videos');
+  };
+
   return (
-    <div className="w-full flex flex-col items-center pb-24 pt-2">
+    <div className="w-full flex flex-col items-center pb-24 pt-1">
+      {/* 1. Hyperlocal Citizen Dispatches Carousel: "नागरिकों की नज़र से" */}
+      <section aria-label="नागरिक ग्राउंड रिपोर्ट" className="w-[386px] mb-3 select-none">
+        <div className="flex items-center justify-between mb-2 px-1">
+          <div className="flex items-center gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse shrink-0" />
+            <h2 className="text-[15px] font-bold text-[#2B2437] tracking-tight">
+              नागरिकों की नज़र से : {cityName}
+            </h2>
+          </div>
+          <button
+            type="button"
+            onClick={() => {
+              switchMediaMode('citizen');
+              setCitizenCityFilter(cityName);
+              navigate('/videos');
+            }}
+            className="text-[12px] font-semibold text-[#C05621] hover:underline flex items-center gap-0.5 cursor-pointer"
+          >
+            <span>सभी देखें</span>
+            <ArrowRight2 size={13} color="#C05621" />
+          </button>
+        </div>
+
+        {/* Horizontal Story Reel Strip */}
+        <div className="w-full flex items-center gap-2.5 overflow-x-auto scrollbar-none py-1">
+          {/* Create Report Action Card */}
+          <button
+            type="button"
+            onClick={handleOpenStudio}
+            className="w-[115px] h-[175px] rounded-[18px] bg-gradient-to-b from-[#FFF6ED] to-[#FFEDD5] border-2 border-dashed border-[#FDBA74] flex flex-col items-center justify-center p-3 text-center shrink-0 cursor-pointer active:scale-95 transition-all shadow-2xs group"
+          >
+            <div className="w-10 h-10 rounded-full bg-[#F5B55C] flex items-center justify-center text-[#2B2437] shadow-sm mb-2 group-hover:scale-105 transition-transform">
+              <Camera size={20} color="#2B2437" variant="Bold" />
+            </div>
+            <span className="text-[13px] font-bold text-[#2B2437] leading-tight">
+              खबर भेजें
+            </span>
+            <span className="text-[10px] text-[#C05621] mt-1 font-medium">
+              60s वीडियो
+            </span>
+          </button>
+
+          {/* Citizen Reports Cards */}
+          {cityCitizenReports.map((report) => (
+            <div
+              key={report.id}
+              onClick={() => handleOpenCitizenReel(report.id)}
+              className="w-[115px] h-[175px] rounded-[18px] bg-black relative overflow-hidden shrink-0 cursor-pointer shadow-md active:scale-95 transition-transform group"
+            >
+              {/* Thumbnail / Video poster */}
+              <img
+                src={report.posterThumbnail || 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80'}
+                alt={report.headline}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+
+              {/* Scrim */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+
+              {/* Top Live Badge */}
+              <div className="absolute top-2 left-2 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-full border border-white/20">
+                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                <span className="text-[9px] font-bold text-white tracking-wide">ग्राउंड</span>
+              </div>
+
+              {/* Bottom Metadata */}
+              <div className="absolute bottom-2 inset-x-2 z-10 text-left">
+                <div className="flex items-center gap-1 text-[9.5px] font-semibold text-[#F5B55C] mb-0.5 truncate">
+                  <Location size={10} color="#F5B55C" variant="Bold" className="shrink-0" />
+                  <span className="truncate">{report.locality || cityName}</span>
+                </div>
+                <p className="text-[11px] font-bold text-white leading-tight line-clamp-2 drop-shadow">
+                  {report.headline}
+                </p>
+                <span className="text-[9px] text-white/70 block mt-0.5 truncate">
+                  👤 {report.reporterName || 'नागरिक रिपोर्टर'}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 2. City Articles Feed */}
       {filteredArticles.length > 0 ? (
         <section aria-label="शहर समाचार" className="space-y-2 w-full flex flex-col items-center">
           {filteredArticles.map((article) => {

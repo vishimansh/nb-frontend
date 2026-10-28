@@ -17,6 +17,7 @@ export default function CommentSheet({
     closeCommentSheet = () => {},
     reels = [],
     podcasts = [],
+    citizenReels = [],
     addComment = () => {},
     toggleCommentLike = () => {},
   } = videoContext || {};
@@ -32,7 +33,8 @@ export default function CommentSheet({
 
   const activeReel =
     reels.find((r) => r.id === activeCommentReelId) ||
-    (podcasts || []).find((p) => p.id === activeCommentReelId);
+    (podcasts || []).find((p) => p.id === activeCommentReelId) ||
+    (citizenReels || []).find((c) => c.id === activeCommentReelId);
 
   const activeComments = isControlled
     ? (localComments || propComments || [])

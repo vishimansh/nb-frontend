@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchNormal1, TickCircle } from 'iconsax-react';
 import BackButton from '../components/common/BackButton';
@@ -9,6 +9,8 @@ import { CITIES_BY_STATE, STATES_DATA, CITY_NAME_TO_ID } from '../data/onboardin
 
 export default function CitySelectionPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const returnTo = location.state?.returnTo;
   const { updateSavedCities } = useCity();
   const {
     selectedStates,
@@ -55,11 +57,19 @@ export default function CitySelectionPage() {
     });
 
     updateSavedCities(newSavedCities);
-    navigate('/city');
+    if (returnTo) {
+      navigate(returnTo);
+    } else {
+      navigate('/city');
+    }
   };
 
   const handleBack = () => {
-    navigate('/city');
+    if (returnTo) {
+      navigate(returnTo);
+    } else {
+      navigate('/city');
+    }
   };
 
   return (

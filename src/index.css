@@ -21,6 +21,16 @@
   }
 }
 
+/* Real mobile app overscroll prevention & tap highlight cleanup */
+@media (max-width: 500px), (display-mode: standalone) {
+  html, body {
+    background-color: #F7F7F4;
+    overscroll-behavior-y: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar,
 .scrollbar-none::-webkit-scrollbar {

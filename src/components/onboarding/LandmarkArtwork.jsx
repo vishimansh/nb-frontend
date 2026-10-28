@@ -4,7 +4,7 @@ import cgBhoramdeo from '../../assets/illustrations/cg-bhoramdeo.jpg';
 import rjHawa from '../../assets/illustrations/rj-hawamahal.jpg';
 import mhGateway from '../../assets/illustrations/mh-gateway.jpg';
 import gjStatue from '../../assets/illustrations/gj-statue.jpg';
-import upTaj from '../../assets/illustrations/up-tajmahal.jpg';
+import upVaranasi from '../../assets/illustrations/up-varanasi.jpg';
 import ncrGate from '../../assets/illustrations/ncr-indiagate.jpg';
 import assamKamakhya from '../../assets/illustrations/assam-kamakhya.jpg';
 import odishaKonark from '../../assets/illustrations/odisha-konark.jpg';
@@ -15,7 +15,7 @@ const LANDMARK_IMAGES = {
   rj: rjHawa,
   mh: mhGateway,
   gj: gjStatue,
-  up: upTaj,
+  up: upVaranasi,
   ncr: ncrGate,
   assam: assamKamakhya,
   odisha: odishaKonark,

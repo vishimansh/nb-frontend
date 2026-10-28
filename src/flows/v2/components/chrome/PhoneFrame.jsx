@@ -55,12 +55,37 @@ function HomeIndicator() {
  * Self-contained device frame with Dynamic Island status bar and Home Indicator
  * so Flow B matches Flow A's high-fidelity mobile presentation with 0 coupling.
  */
+function checkIsMobile() {
+  if (typeof window === 'undefined') return false;
+  const urlParams = new URLSearchParams(window.location.search);
+  const modeParam = urlParams.get('mode') || urlParams.get('view');
+  if (modeParam === 'desktop' || modeParam === 'frame') return false;
+  if (modeParam === 'mobile' || modeParam === 'app') return true;
+
+  // Running as installed PWA or iOS Home Screen Web App
+  const isStandalone =
+    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+    window.navigator.standalone === true;
+  if (isStandalone) return true;
+
+  // Smartphone portrait width threshold or mobile device
+  const isSmallWidth = window.innerWidth <= 500;
+  const isTouchMobile =
+    /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+    window.innerWidth <= 768;
+
+  return isSmallWidth || isTouchMobile;
+}
+
 export default function PhoneFrame({ children }) {
   const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(checkIsMobile);
 
   // Automatically compute ideal scale to fit window height AND width seamlessly
   useEffect(() => {
     const updateScale = () => {
+      setIsMobile(checkIsMobile());
+
       const availableHeight = window.innerHeight - 48;
       const availableWidth = window.innerWidth - 32;
       const scaleByHeight = availableHeight / 886;
@@ -74,6 +99,23 @@ export default function PhoneFrame({ children }) {
     return () => window.removeEventListener('resize', updateScale);
   }, []);
 
+  // When viewed on an actual mobile device or installed as a standalone PWA,
+  // render full-screen edge-to-edge without the outer faux desktop chassis
+  if (isMobile) {
+    return (
+      <div
+        id="iphone-screen"
+        className="w-full h-full min-h-[100dvh] max-h-[100dvh] bg-[#F7F7F4] overflow-hidden relative flex flex-col font-sans select-none nb2-root"
+        lang="hi"
+      >
+        <div className="w-full h-full relative flex flex-col overflow-hidden">
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+  // Original desktop chassis presentation (100% untouched)
   return (
     <div className="h-screen w-screen bg-[#E5E7EB] flex flex-col items-center justify-center select-none font-sans overflow-hidden nb2-root" lang="hi">
       {/* Sized Container: adapts to scaled phone dimensions */}

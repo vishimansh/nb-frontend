@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3D334E" />
+      <stop offset="50%" stop-color="#2B2437" />
+      <stop offset="100%" stop-color="#1A1522" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCD34D" />
+      <stop offset="50%" stop-color="#F59E0B" />
+      <stop offset="100%" stop-color="#D97706" />
+    </linearGradient>
+    <linearGradient id="redGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+  <rect x="8" y="8" width="496" height="496" rx="104" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-opacity="0.4" />
+
+  <!-- Center Emblem Group -->
+  <g transform="translate(256, 195)" filter="url(#shadow)">
+    <!-- Sun rays circle -->
+    <circle r="92" fill="#FFFFFF" fill-opacity="0.06" />
+    <circle r="72" fill="url(#redGrad)" />
+    <!-- Golden Flame / Torch Symbol -->
+    <path d="M 0 -52 C 22 -22, 38 6, 26 34 C 18 46, -18 46, -26 34 C -38 6, -22 -22, 0 -52 Z" fill="url(#goldGrad)" />
+    <circle cx="0" cy="18" r="14" fill="#FFFFFF" fill-opacity="0.9" />
+  </g>
+
+  <!-- Brand Typography -->
+  <text x="256" y="360" font-family="'Noto Sans Devanagari', -apple-system, sans-serif" font-size="64" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">नवभारत</text>
+
+  <!-- Brand Subtext / Badge -->
+  <rect x="186" y="390" width="140" height="32" rx="16" fill="url(#goldGrad)" />
+  <text x="256" y="411" font-family="'Noto Sans Devanagari', -apple-system, sans-serif" font-size="16" font-weight="800" fill="#2B2437" text-anchor="middle" letter-spacing="1.5">HYPERLOCAL</text>
+</svg>

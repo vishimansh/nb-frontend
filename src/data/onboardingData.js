@@ -34,7 +34,7 @@ export const STATES_DATA = [
   {
     id: "up",
     name: "उत्तर प्रदेश",
-    landmark: "ताज महल",
+    landmark: "काशी विश्वनाथ मंदिर",
     defaultPriority: null,
   },
   {

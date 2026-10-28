@@ -9,12 +9,37 @@ import HomeIndicator from './HomeIndicator';
  * is always 100% visible with comfortable desktop padding and zero vertical scrolling.
  * Internal rendering canvas is locked to authentic 402px × 874px resolution.
  */
+function checkIsMobile() {
+  if (typeof window === 'undefined') return false;
+  const urlParams = new URLSearchParams(window.location.search);
+  const modeParam = urlParams.get('mode') || urlParams.get('view');
+  if (modeParam === 'desktop' || modeParam === 'frame') return false;
+  if (modeParam === 'mobile' || modeParam === 'app') return true;
+
+  // Running as installed PWA or iOS Home Screen Web App
+  const isStandalone =
+    (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) ||
+    window.navigator.standalone === true;
+  if (isStandalone) return true;
+
+  // Smartphone portrait width threshold or mobile device
+  const isSmallWidth = window.innerWidth <= 500;
+  const isTouchMobile =
+    /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) &&
+    window.innerWidth <= 768;
+
+  return isSmallWidth || isTouchMobile;
+}
+
 export default function DeviceFrame({ children }) {
   const [scale, setScale] = useState(1);
+  const [isMobile, setIsMobile] = useState(checkIsMobile);
 
-  // Automatically compute the ideal scale to fit the viewport height
+  // Automatically compute ideal scale on desktop and track mobile viewport changes
   useEffect(() => {
-    const updateScale = () => {
+    const handleResize = () => {
+      setIsMobile(checkIsMobile());
+
       // Reserve 48px for top and bottom desktop breathing room
       const availableHeight = window.innerHeight - 48;
       // 882px is total chassis height including 4px titanium bezel
@@ -23,11 +48,27 @@ export default function DeviceFrame({ children }) {
       setScale(Math.min(1, Math.max(0.45, Number(calculatedScale.toFixed(3)))));
     };
 
-    updateScale();
-    window.addEventListener('resize', updateScale);
-    return () => window.removeEventListener('resize', updateScale);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // When viewed on an actual mobile device or installed as a standalone PWA,
+  // render full-screen edge-to-edge without the outer faux desktop chassis
+  if (isMobile) {
+    return (
+      <div
+        id="iphone-screen"
+        className="w-full h-full min-h-[100dvh] max-h-[100dvh] bg-[#F7F7F4] overflow-hidden relative flex flex-col font-sans select-none"
+      >
+        <div className="w-full h-full relative flex flex-col overflow-hidden">
+          {children}
+        </div>
+      </div>
+    );
+  }
+
+  // Original desktop chassis presentation (100% untouched)
   return (
     <div className="h-screen w-screen bg-[#E5E7EB] flex flex-col items-center justify-center select-none font-sans overflow-hidden">
       {/* Sized Container: adapts to scaled phone dimensions */}
