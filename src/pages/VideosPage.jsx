@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useMemo } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { TickCircle, Add, Location, Camera, Edit } from 'iconsax-react';
@@ -17,6 +17,15 @@ import PodcastCard from '../components/videos/PodcastCard';
 import CommentSheet from '../components/videos/CommentSheet';
 import TranscriptOverlay from '../components/videos/TranscriptOverlay';
 
+/** Match any city query against savedCities by either Hindi name or English id (case & whitespace insensitive) */
+const findSavedCity = (query, cities) => {
+  if (!query || !cities) return null;
+  const q = String(query).trim().toLowerCase();
+  return cities.find(
+    (c) => c.name?.trim().toLowerCase() === q || c.id?.trim().toLowerCase() === q
+  );
+};
+
 /** Last snap card in the citizen feed — doubles as the empty state. */
 function CitizenFeedEndCard({ isEmpty, cityLabel, onCreate }) {
   return (
@@ -25,18 +34,18 @@ function CitizenFeedEndCard({ isEmpty, cityLabel, onCreate }) {
         <Camera size={30} color="#F5B55C" variant="Bold" />
       </div>
       <h3 className="text-[20px] font-bold text-white mt-5 leading-snug">
-        {isEmpty ? `${cityLabel} से अभी कोई नागरिक रिपोर्ट नहीं` : 'आपके इलाके में क्या चल रहा है?'}
+        {isEmpty ? `${cityLabel} से अभी कोई रिपोर्ट नहीं है` : 'आपके इलाके में क्या चल रहा है?'}
       </h3>
       <p className="text-[14px] text-white/70 mt-2 leading-relaxed max-w-[290px]">
         {isEmpty
-          ? `पहली रिपोर्ट आप भेजें। नवभारत डेस्क सत्यापन के बाद इसे ${cityLabel} के सभी पाठकों को दिखाएगा।`
-          : 'सड़क, पानी, बिजली या कोई स्थानीय आयोजन — 60 सेकंड का वीडियो भेजें और अपने शहर की आवाज़ बनें।'}
+          ? `पहली रिपोर्ट आप भेजें। नवभारत टीम की जांच के बाद यह ${cityLabel} के सभी पाठकों को दिखेगी।`
+          : 'सड़क, पानी, बिजली या कोई स्थानीय मुद्दा — 60 सेकंड का वीडियो भेजें और अपने शहर की आवाज़ बनें।'}
       </p>
       <div className="mt-6 flex flex-col items-center gap-3">
         <button
           type="button"
           onClick={onCreate}
-          className="h-[50px] px-7 rounded-full bg-gradient-to-r from-[#F5B55C] to-[#E39026] text-[#2B2437] text-[15px] font-bold flex items-center gap-2 active:scale-95 transition-transform cursor-pointer shadow-lg shadow-[#F5B55C]/20 border border-[#F5B55C]/50"
+          className="h-[50px] px-7 rounded-full bg-[#F5B55C] hover:bg-[#E39026] text-[#2B2437] text-[15px] font-bold flex items-center gap-2 active:scale-95 transition-all cursor-pointer shadow-md border border-[#F5B55C]"
         >
           <Add size={20} color="#2B2437" />
           अपनी खबर भेजें
@@ -83,8 +92,9 @@ export default function VideosPage() {
   // Strict City Filter: only allows cities currently present in savedCities or 'all_saved'
   const activeCityFilter = useMemo(() => {
     if (citizenCityFilter === 'all_saved') return 'all_saved';
-    if (citizenCityFilter && savedCities.some((c) => c.name === citizenCityFilter)) {
-      return citizenCityFilter;
+    const found = findSavedCity(citizenCityFilter, savedCities);
+    if (found) {
+      return found.name;
     }
     return currentSavedCity.name;
   }, [citizenCityFilter, savedCities, currentSavedCity]);
@@ -94,19 +104,31 @@ export default function VideosPage() {
     if (
       citizenCityFilter &&
       citizenCityFilter !== 'all_saved' &&
-      !savedCities.some((c) => c.name === citizenCityFilter)
+      !findSavedCity(citizenCityFilter, savedCities)
     ) {
       setCitizenCityFilter(currentSavedCity.name);
     }
   }, [citizenCityFilter, savedCities, currentSavedCity.name, setCitizenCityFilter]);
 
-  // Filter citizen reels strictly by user's selected cities
+  // Filter citizen reels strictly by user's selected cities (resilient to name/id matching)
   const filteredCitizenReels = useMemo(() => {
     if (activeCityFilter === 'all_saved') {
-      const savedCityNames = savedCities.map((sc) => sc.name);
-      return citizenReels.filter((r) => savedCityNames.includes(r.city));
+      return citizenReels.filter((r) => {
+        if (!r.city) return false;
+        return Boolean(findSavedCity(r.city, savedCities));
+      });
     }
-    return citizenReels.filter((r) => r.city === activeCityFilter);
+    const targetCity = findSavedCity(activeCityFilter, savedCities);
+    return citizenReels.filter((r) => {
+      if (!r.city) return false;
+      const cleanReelCity = r.city.trim().toLowerCase();
+      if (cleanReelCity === activeCityFilter.trim().toLowerCase()) return true;
+      if (targetCity) {
+        if (targetCity.name?.trim().toLowerCase() === cleanReelCity) return true;
+        if (targetCity.id?.trim().toLowerCase() === cleanReelCity) return true;
+      }
+      return false;
+    });
   }, [citizenReels, activeCityFilter, savedCities]);
 
   const mergedFeed = useMemo(() => {
@@ -193,17 +215,38 @@ export default function VideosPage() {
     }
     setCitizenCurrentIndex(0);
     lastIndexRef.current = 0;
-    containerRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 0;
+    }
   };
+
+  // When activeCityFilter changes in citizen mode, guarantee scroll reset to top reel (index 0)
+  useLayoutEffect(() => {
+    if (mediaMode === 'citizen') {
+      lastIndexRef.current = 0;
+      setCitizenCurrentIndex(0);
+      if (containerRef.current) {
+        containerRef.current.scrollTop = 0;
+      }
+      const rafId = requestAnimationFrame(() => {
+        if (containerRef.current) {
+          containerRef.current.scrollTop = 0;
+        }
+      });
+      return () => cancelAnimationFrame(rafId);
+    }
+  }, [activeCityFilter, mediaMode]);
 
   // After a submission, reset index to 0 and scroll container to top
   useEffect(() => {
     if (mediaMode === 'citizen') {
       lastIndexRef.current = 0;
       setCitizenCurrentIndex(0);
-      containerRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+      if (containerRef.current) {
+        containerRef.current.scrollTop = 0;
+      }
     }
-  }, [citizenReels.length]);
+  }, [citizenReels.length, mediaMode]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -245,9 +288,11 @@ export default function VideosPage() {
       ? 'pt-[76px]'
       : 'pt-[59px]';
 
-  const modeBtn = (mode, label) =>
-    `h-full px-3.5 rounded-full text-[13px] font-semibold transition-all duration-200 cursor-pointer flex items-center justify-center whitespace-nowrap ${
-      mediaMode === mode ? 'bg-white text-[#2B2437] font-bold shadow-md' : 'text-white/85 hover:text-white'
+  const modeBtn = (mode) =>
+    `h-full px-3 sm:px-3.5 rounded-full text-[12.5px] font-semibold transition-all duration-150 cursor-pointer flex items-center justify-center whitespace-nowrap select-none ${
+      mediaMode === mode
+        ? 'bg-white text-[#1E1926] font-bold shadow-sm'
+        : 'text-white/75 hover:text-white'
     }`;
 
   return (
@@ -271,50 +316,65 @@ export default function VideosPage() {
       </AnimatePresence>
 
       {/* Top Navigation Overlay */}
-      <div className={`absolute top-0 inset-x-0 w-full z-30 ${topNavPt} px-3.5 sm:px-4 pointer-events-none transition-all duration-200`}>
-        <div className="relative w-full h-[40px] flex items-center justify-between pointer-events-none">
+      <div className={`absolute top-0 inset-x-0 w-full z-30 ${topNavPt} px-4 pointer-events-none transition-all duration-200`}>
+        {/* Navigation Bar: Pure flexbox layout with guaranteed spacing and zero collision */}
+        <div className="w-full min-h-[46px] flex items-center justify-between gap-3 pointer-events-none">
+          {/* Left: Standard App Back Button (matches MenuScreen, Notifications, etc.) */}
           <BackButton
             onClick={handleBack}
             ariaLabel="वापस जाएं"
-            className="!w-[40px] !h-[40px] !rounded-[13px] pointer-events-auto shadow-md relative z-10"
-            iconSize={19}
+            className="pointer-events-auto shadow-sm shrink-0"
           />
 
-          {/* 3-mode toggle */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="pointer-events-auto h-[40px] flex items-center bg-black/60 backdrop-blur-md border border-white/25 rounded-full p-[3px] shadow-xl">
-              <button type="button" onClick={() => switchMediaMode('video')} aria-label="वीडियो मोड" className={modeBtn('video', 'वीडियो')}>
-                वीडियो
-              </button>
-              <button type="button" onClick={() => switchMediaMode('podcast')} aria-label="पॉडकास्ट मोड" className={modeBtn('podcast', 'पॉडकास्ट')}>
-                पॉडकास्ट
-              </button>
-              <button type="button" onClick={() => switchMediaMode('citizen')} aria-label="नागरिक रिपोर्ट मोड" className={modeBtn('citizen', 'नागरिक रिपोर्ट')}>
-                नागरिक रिपोर्ट
-              </button>
-            </div>
+          {/* Center: 3-Mode Segmented Control (Flex centered, breathing room) */}
+          <div className="pointer-events-auto h-[42px] flex items-center bg-black/65 backdrop-blur-md border border-white/15 rounded-full p-[3px] shrink-0">
+            <button
+              type="button"
+              onClick={() => switchMediaMode('video')}
+              aria-label="वीडियो मोड"
+              className={modeBtn('video')}
+            >
+              वीडियो
+            </button>
+            <button
+              type="button"
+              onClick={() => switchMediaMode('podcast')}
+              aria-label="पॉडकास्ट मोड"
+              className={modeBtn('podcast')}
+            >
+              पॉडकास्ट
+            </button>
+            <button
+              type="button"
+              onClick={() => switchMediaMode('citizen')}
+              aria-label="नागरिक रिपोर्ट मोड"
+              className={modeBtn('citizen')}
+            >
+              नागरिक रिपोर्ट
+            </button>
           </div>
 
-          {/* Right slot: create button in citizen mode */}
-          {mediaMode === 'citizen' ? (
-            <div className="relative z-10 pointer-events-auto">
+          {/* Right: Camera / Add Report Trigger (46px footprint and rounded-[14px] matching BackButton for symmetry) */}
+          <div className="w-[46px] h-[46px] shrink-0 flex items-center justify-end">
+            {mediaMode === 'citizen' ? (
               <button
                 type="button"
                 onClick={openUpload}
                 aria-label="अपनी खबर भेजें"
-                className="w-[40px] h-[40px] rounded-[13px] bg-[#F5B55C] flex items-center justify-center shadow-md active:scale-90 transition-transform cursor-pointer"
+                title="खबर भेजें"
+                className="w-[46px] h-[46px] rounded-[14px] bg-[#F5B55C] hover:bg-[#E59C39] text-[#1E1926] flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer border border-[#E59C39] pointer-events-auto"
               >
-                <Add size={24} color="#2B2437" />
+                <Camera size={20} color="#1E1926" variant="Bold" />
               </button>
-            </div>
-          ) : (
-            <div className="w-[40px] h-[40px] shrink-0 pointer-events-none relative z-10" />
-          )}
+            ) : (
+              <div className="w-[46px] h-[46px] pointer-events-none" />
+            )}
+          </div>
         </div>
 
-        {/* Hyperlocal City Chips: Strictly bound to user's savedCities from CityContext (No Add City) */}
+        {/* Minimal Hyperlocal City Chips: strictly bound to user's savedCities from CityContext */}
         {mediaMode === 'citizen' && (
-          <div className="mt-3 -mx-3.5 px-3.5 flex items-center gap-2 overflow-x-auto scrollbar-none pointer-events-auto">
+          <div className="mt-4 -mx-4 px-4 flex items-center gap-2 overflow-x-auto scrollbar-none pointer-events-auto pb-1">
             {/* 1. User's saved cities */}
             {savedCities.map((city) => {
               const isActive = activeCityFilter === city.name;
@@ -323,30 +383,31 @@ export default function VideosPage() {
                   key={city.id}
                   type="button"
                   onClick={() => handleSelectCityChip(city)}
-                  className={`h-[32px] px-3.5 rounded-full flex items-center gap-1.5 shrink-0 text-[13px] transition-all cursor-pointer active:scale-95 ${
+                  className={`h-[32px] px-3.5 rounded-full flex items-center gap-1.5 shrink-0 text-[12.5px] transition-all cursor-pointer active:scale-95 ${
                     isActive
-                      ? 'bg-[#F5B55C] text-[#2B2437] font-bold shadow-md shadow-[#F5B55C]/20 border border-[#F5B55C]'
-                      : 'bg-black/55 backdrop-blur-md border border-white/20 text-white font-medium hover:border-white/40'
+                      ? 'bg-[#F5B55C] border border-[#F5B55C] text-white font-bold shadow-sm'
+                      : 'bg-black/60 backdrop-blur-md border border-white/15 text-white/80 font-medium hover:border-white/30 hover:text-white shadow-sm'
                   }`}
                 >
-                  <Location size={13} color={isActive ? '#2B2437' : '#FFFFFF'} variant="Bold" />
+                  {isActive && <Location size={12} color="#FFFFFF" variant="Bold" />}
                   <span>{city.name}</span>
                 </button>
               );
             })}
 
-            {/* 2. "सभी चुने शहर" (Show all user's cities together) if user selected > 1 city */}
+            {/* 2. "सभी चुने शहर" */}
             {savedCities.length > 1 && (
               <button
                 type="button"
                 onClick={() => handleSelectCityChip('all_saved')}
-                className={`h-[32px] px-3.5 rounded-full flex items-center shrink-0 text-[13px] transition-all cursor-pointer active:scale-95 ${
+                className={`h-[32px] px-3.5 rounded-full flex items-center shrink-0 text-[12.5px] transition-all cursor-pointer active:scale-95 ${
                   activeCityFilter === 'all_saved'
-                    ? 'bg-[#F5B55C] text-[#2B2437] font-bold shadow-md shadow-[#F5B55C]/20 border border-[#F5B55C]'
-                    : 'bg-black/55 backdrop-blur-md border border-white/20 text-white font-medium hover:border-white/40'
+                    ? 'bg-[#F5B55C] border border-[#F5B55C] text-white font-bold shadow-sm'
+                    : 'bg-black/60 backdrop-blur-md border border-white/15 text-white/80 font-medium hover:border-white/30 hover:text-white shadow-sm'
                 }`}
               >
-                सभी {savedCities.length} शहर
+                {activeCityFilter === 'all_saved' && <Location size={12} color="#FFFFFF" variant="Bold" className="mr-1" />}
+                <span>सभी {savedCities.length} शहर</span>
               </button>
             )}
           </div>
@@ -354,7 +415,11 @@ export default function VideosPage() {
       </div>
 
       {/* Feed Container */}
-      <div ref={containerRef} className="flex-1 overflow-y-scroll snap-y snap-mandatory h-full w-full scrollbar-none relative">
+      <div
+        ref={containerRef}
+        style={{ overflowAnchor: 'none' }}
+        className="flex-1 overflow-y-scroll snap-y snap-mandatory h-full w-full scrollbar-none relative"
+      >
         {mediaMode === 'video' &&
           mergedFeed.map((item, index) => {
             const isCurrent = index === videoCurrentIndex;
@@ -382,6 +447,7 @@ export default function VideosPage() {
                 reel={report}
                 isActive={index === citizenCurrentIndex && !isUploadSheetOpen}
                 onShareToast={showToast}
+                onOpenUpload={openUpload}
               />
             ))}
             <CitizenFeedEndCard

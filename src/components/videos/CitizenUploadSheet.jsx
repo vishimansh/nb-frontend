@@ -44,13 +44,17 @@ const CITY_LOCALITY_SUGGESTIONS = {
   'रायपुर': ['तेलीबांधा', 'पंडरी', 'शंकर नगर', 'घड़ी चौक'],
   'बिलासपुर': ['व्यापार विहार', 'सिविल लाइन्स', 'गोल बाजार', 'तारबाहर'],
   'जयपुर': ['वैशाली नगर', 'मालवीय नगर', 'राजा पार्क', 'मानसरोवर'],
+  'जोधपुर': ['सरदारपुरा', 'रातानाडा', 'शास्त्री नगर', 'चौपासनी हाउसिंग बोर्ड', 'मंडोर'],
   'नागपुर': ['सीताबर्डी', 'धरमपेठ', 'रामदासपेठ', 'सदर'],
   'मुंबई': ['बांद्रा', 'अंधेरी', 'दादर', 'बोरीवली', 'कुर्ला'],
+  'पुणे': ['कोथरुड', 'शिवाजी नगर', 'विमान नगर', 'हिंजेवाड़ी', 'एफसी रोड'],
+  'सूरत': ['वेसू', 'अठवा लाइन्स', 'अडजान', 'वरच्छा', 'पाल'],
+  'अहमदाबाद': ['बोडकदेव', 'आश्रम रोड', 'मणिनगर', 'नवरंगपुरा', 'एसजी हाईवे'],
   'नई दिल्ली': ['कनॉट प्लेस', 'करोल बाग', 'लाजपत नगर', 'रोहिणी'],
 };
 
 export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) {
-  const { submitCitizenReport } = useVideo();
+  const { submitCitizenReport, citizenCityFilter } = useVideo();
   const { userProfile = {} } = useOnboarding();
   const { savedCities = [], activeCityId } = useCity();
 
@@ -61,6 +65,27 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
   }, [savedCities, activeCityId]);
 
   const [selectedCityName, setSelectedCityName] = useState(initialCityName);
+
+  // Synchronize selectedCityName whenever the sheet opens to match the active city filter or active city
+  useEffect(() => {
+    if (isOpen) {
+      if (citizenCityFilter && citizenCityFilter !== 'all_saved') {
+        const foundFilter = savedCities.find(
+          (c) => c.name === citizenCityFilter || c.id === citizenCityFilter
+        );
+        if (foundFilter) {
+          setSelectedCityName(foundFilter.name);
+          return;
+        }
+      }
+      const foundActive = savedCities.find((c) => c.id === activeCityId);
+      if (foundActive) {
+        setSelectedCityName(foundActive.name);
+      } else if (initialCityName) {
+        setSelectedCityName(initialCityName);
+      }
+    }
+  }, [isOpen, citizenCityFilter, activeCityId, savedCities, initialCityName]);
 
   // Guarantee selected city is always strictly one of the user's savedCities
   useEffect(() => {
@@ -98,10 +123,10 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
 
   // Missing requirement validation helper
   const missing = useMemo(() => {
-    if (isTooLong) return 'वीडियो 60 सेकंड से लंबा है, छोटा वीडियो चुनें';
-    if (!categoryId) return 'बताएं कि खबर किस बारे में है';
+    if (isTooLong) return 'वीडियो 60s से बड़ा है, छोटा चुनें';
+    if (!categoryId) return 'कैटेगरी चुनें';
     if (trimmedHeadline.length < CITIZEN_RULES.minHeadlineChars) return 'एक लाइन में बताएं क्या हुआ';
-    if (!consent) return 'वीडियो की सच्चाई और कानूनी जिम्मेदारी की पुष्टि करें';
+    if (!consent) return 'नियम व ज़िम्मेदारी कन्फर्म करें';
     return null;
   }, [isTooLong, categoryId, trimmedHeadline, consent]);
 
@@ -168,7 +193,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
     e.target.value = '';
     if (!file) return;
     if (file.size > CITIZEN_RULES.maxVideoMB * 1024 * 1024) {
-      setFileError(`वीडियो ${CITIZEN_RULES.maxVideoMB}MB से बड़ा है`);
+      setFileError(`वीडियो ${CITIZEN_RULES.maxVideoMB}MB से बड़ा है, छोटा वीडियो लें`);
       return;
     }
     setFileError('');
@@ -193,7 +218,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
     setPosterThumbnail(getCategoryPoster(demoCat));
     setVideoUrl(getCategoryVideo(demoCat));
     setLocality((prev) => prev || 'एमपी नगर ज़ोन-2');
-    setHeadline((prev) => prev || 'सीवरेज पाइपलाइन फटने से मुख्य सड़क पर जलभराव');
+    setHeadline((prev) => prev || 'सीवर की पाइपलाइन फटने से सड़क पर पानी भरा, जाम');
     setStage('details');
   };
 
@@ -201,7 +226,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) {
       setFileError('');
-      setHeadline((h) => h || 'यहाँ तीन दिन से सड़क पर पानी भरा है, आना-जाना मुश्किल');
+      setHeadline((h) => h || 'यहाँ सड़क पर पानी भरा है, आना-जाना मुश्किल');
       return;
     }
     try {
@@ -246,14 +271,14 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
         setTimeout(() => {
           resetAll(true);
           onClose();
-          onSuccessToast?.('बधाई! आपकी नागरिक रिपोर्ट लाइव हो गई है 🎉');
+          onSuccessToast?.('बधाई! आपकी रिपोर्ट लाइव हो गई 🎉');
         }, 140);
       }
     }, 45);
   };
 
   const shareOnWhatsApp = () => {
-    const text = `मैंने नवभारत पर अपने इलाके (${[combinedLocality, selectedCityName].filter(Boolean).join(', ')}) की खबर भेजी है: "${trimmedHeadline}"`;
+    const text = `*नवभारत नागरिक रिपोर्टर* 🔴\nस्थान: ${[combinedLocality, selectedCityName].filter(Boolean).join(', ')}\nखबर: ${trimmedHeadline}\n\nपूरी वीडियो रिपोर्ट यहाँ देखें:`;
     if (navigator.share) navigator.share({ text }).catch(() => {});
     else window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   };
@@ -301,51 +326,69 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
 
         {/* ───────── Stage 1: Pick ───────── */}
         {stage === 'pick' && (
-          <div className="px-5 pt-4 pb-8 overflow-y-auto scrollbar-none">
-            <p className="text-[14px] text-[#4B5563] leading-relaxed">
-              अपने इलाके की घटना का 60 सेकंड का वीडियो भेजें। नवभारत डेस्क सत्यापन के बाद इसे आपके शहर के पाठकों के लिए प्रकाशित करेगा।
+          <div className="px-5 pt-3 pb-8 overflow-y-auto scrollbar-none">
+            {/* Editorial Civic Badge */}
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#FFF6ED] border border-[#FDBA74] text-[#C05621] text-[11.5px] font-bold">
+              <span className="w-2 h-2 rounded-full bg-[#EF4444] animate-pulse" />
+              <span>नवभारत नागरिक रिपोर्टर</span>
+            </div>
+
+            <h3 className="text-[19px] font-bold text-[#1E1926] mt-2 leading-tight">
+              शहर की आवाज़ बनें
+            </h3>
+            <p className="text-[13.5px] text-[#4B5563] mt-1 leading-relaxed">
+              सड़क, पानी या जनसमस्या का 60s वीडियो भेजें। जांच के बाद यह पूरे शहर को दिखेगी।
             </p>
 
             <div className="grid grid-cols-2 gap-3 mt-4">
               <button
                 type="button"
                 onClick={() => cameraInputRef.current?.click()}
-                className="h-[118px] rounded-[20px] bg-[#2B2437] text-white flex flex-col items-center justify-center gap-2.5 active:scale-[0.97] transition-transform cursor-pointer shadow-md"
+                className="h-[120px] rounded-[20px] bg-[#2B2437] hover:bg-[#352D42] text-white flex flex-col items-center justify-center gap-2 active:scale-[0.97] transition-all cursor-pointer shadow-lg border border-white/10 group"
               >
-                <div className="w-11 h-11 rounded-full bg-white/10 flex items-center justify-center">
-                  <Camera size={24} color="#F5B55C" variant="Bold" />
+                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Camera size={26} color="#F5B55C" variant="Bold" />
                 </div>
-                <span className="text-[15px] font-semibold">अभी रिकॉर्ड करें</span>
+                <div className="text-center">
+                  <span className="text-[14px] font-bold block leading-tight">रिकॉर्ड करें</span>
+                  <span className="text-[11px] text-white/60 block mt-0.5">अधिकतम 60s</span>
+                </div>
               </button>
               <button
                 type="button"
                 onClick={() => galleryInputRef.current?.click()}
-                className="h-[118px] rounded-[20px] bg-white border border-[#D1D5DB] text-[#2B2437] flex flex-col items-center justify-center gap-2.5 active:scale-[0.97] transition-transform cursor-pointer hover:border-[#2B2437]"
+                className="h-[120px] rounded-[20px] bg-[#F9FAFB] border border-[#E5E7EB] text-[#2B2437] flex flex-col items-center justify-center gap-2 active:scale-[0.97] transition-all cursor-pointer hover:border-[#2B2437] shadow-xs group"
               >
-                <div className="w-11 h-11 rounded-full bg-[#F7F7F4] flex items-center justify-center">
-                  <Gallery size={24} color="#2B2437" variant="Bold" />
+                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                  <Gallery size={26} color="#2B2437" variant="Bold" />
                 </div>
-                <span className="text-[15px] font-semibold">गैलरी से चुनें</span>
+                <div className="text-center">
+                  <span className="text-[14px] font-bold block leading-tight">गैलरी से चुनें</span>
+                  <span className="text-[11px] text-[#6B7280] block mt-0.5">फ़ोन का वीडियो</span>
+                </div>
               </button>
             </div>
 
             {fileError && (
-              <div className="mt-3 flex items-center gap-2 text-[13px] text-[#B42318]">
-                <Warning2 size={15} color="#B42318" variant="Bold" />
-                {fileError}
+              <div className="mt-3 flex items-center gap-2 text-[13px] text-[#B42318] bg-[#FEF3F2] p-2.5 rounded-xl border border-[#FECDCA]">
+                <Warning2 size={16} color="#B42318" variant="Bold" />
+                <span className="font-medium">{fileError}</span>
               </div>
             )}
 
-            <div className="mt-5 rounded-[16px] bg-[#F7F7F4] p-4 space-y-2.5">
-              <p className="text-[13px] font-semibold text-[#2B2437]">सत्यापित रिपोर्टिंग के दिशानिर्देश</p>
+            <div className="mt-4 rounded-[16px] bg-[#F7F7F4] p-3.5 space-y-2 border border-[#E5E7EB]/60">
+              <p className="text-[12.5px] font-bold text-[#2B2437] flex items-center gap-1.5">
+                <ShieldTick size={15} color="#4F7A55" variant="Bold" />
+                <span>वीडियो भेजने के नियम</span>
+              </p>
               {[
-                'घटनास्थल पर स्वयं रिकॉर्ड किया गया वीडियो (अधिकतम 60 सेकंड)',
-                'मोबाइल सीधा (वर्टिकल) रखें ताकि खबर स्पष्ट दिखे',
-                'व्यक्तिगत आक्षेप, अफवाह या पारिवारिक विवाद स्वीकार नहीं होंगे',
+                'मौके का खुद का वीडियो (अधिकतम 60s)',
+                'मोबाइल सीधा रखें ताकि साफ़ दिखे',
+                'खबर सच हो — कोई अफवाह या झूठा आरोप न हो',
               ].map((t) => (
                 <div key={t} className="flex items-start gap-2">
-                  <TickCircle size={16} color="#4F7A55" variant="Bold" className="shrink-0 mt-[1px]" />
-                  <span className="text-[13px] text-[#4B5563] leading-snug">{t}</span>
+                  <TickCircle size={15} color="#4F7A55" variant="Bold" className="shrink-0 mt-[1px]" />
+                  <span className="text-[12.5px] text-[#4B5563] leading-snug">{t}</span>
                 </div>
               ))}
             </div>
@@ -353,9 +396,9 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
             <button
               type="button"
               onClick={useDemoVideo}
-              className="mt-4 w-full text-center text-[13px] font-medium text-[#C05621] cursor-pointer hover:underline"
+              className="mt-4 w-full py-2.5 rounded-xl bg-[#FFF6ED] border border-[#FDBA74] text-center text-[13px] font-bold text-[#C05621] cursor-pointer hover:bg-[#FFEDD5] active:scale-98 transition-all flex items-center justify-center gap-1.5 shadow-2xs"
             >
-              डेमो वीडियो से आज़माएं
+              <span>💡 डेमो वीडियो देखें</span>
             </button>
           </div>
         )}
@@ -403,7 +446,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
 
                 <div className="flex-1 min-w-0 flex flex-col">
                   <label className="text-[13px] font-semibold text-[#2B2437] mb-1.5 flex items-center justify-between">
-                    <span>कहाँ की घटना है?</span>
+                    <span>घटना कहाँ की है?</span>
                     {savedCities.length > 1 && (
                       <span className="text-[11.5px] text-[#6B7280]">शहर चुनें</span>
                     )}
@@ -445,7 +488,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                       value={locality}
                       maxLength={35}
                       onChange={(e) => setLocality(e.target.value)}
-                      placeholder="इलाका / क्षेत्र (जैसे: एमपी नगर)"
+                      placeholder="इलाका / कॉलोनी (जैसे: एमपी नगर)"
                       className="h-10 w-full rounded-[10px] border border-[#D1D5DB] bg-white px-3 text-[13px] text-[#2B2437] placeholder-[#9CA3AF] outline-none focus:border-[#2B2437] transition-colors"
                     />
 
@@ -476,14 +519,14 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                     className="mt-2 pt-1 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[#2B2437] cursor-pointer w-fit"
                   >
                     <Eye size={15} color="#2B2437" />
-                    <span className="underline underline-offset-2">फ़ीड में कैसी दिखेगी (प्रीव्यू)</span>
+                    <span className="underline underline-offset-2">प्रीव्यू देखें (Preview)</span>
                   </button>
                 </div>
               </div>
 
               {/* Category Picker */}
               <div>
-                <label className="text-[13px] font-semibold text-[#2B2437]">किस बारे में है?</label>
+                <label className="text-[13px] font-semibold text-[#2B2437]">खबर किस बारे में है?</label>
                 <div className="mt-2 grid grid-cols-4 gap-2">
                   {CITIZEN_CATEGORIES.map((c) => {
                     const Icon = c.icon;
@@ -501,7 +544,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                         }}
                         aria-pressed={active}
                         className={`h-[68px] rounded-[14px] flex flex-col items-center justify-center gap-1.5 border transition-all cursor-pointer active:scale-95 ${
-                          active ? 'border-[#2B2437] border-2 bg-[#F7F7F4]' : 'border-[#E5E7EB] bg-white hover:border-[#9CA3AF]'
+                          active ? 'border-[#F5B55C] border-2 bg-[#FFFBEB] shadow-xs' : 'border-[#E5E7EB] bg-white hover:border-[#D1D5DB]'
                         }`}
                       >
                         <div
@@ -519,24 +562,24 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                 </div>
 
                 {/* Legal Advisory Friction Strip */}
-                <div className="mt-2.5 p-2 rounded-[10px] bg-[#FFFBEB] border border-[#FDE68A] flex items-start gap-2 text-[11.5px] text-[#92400E] leading-snug">
-                  <span className="text-[13px] shrink-0">⚠️</span>
+                <div className="mt-2.5 p-2 rounded-[10px] bg-[#FFFBEB] border border-[#FDE68A] flex items-start gap-2 text-[12px] text-[#92400E] leading-snug">
+                  <span className="text-[14px] shrink-0">⚠️</span>
                   <span>
-                    <strong>कानूनी दिशानिर्देश:</strong> व्यक्तिगत विवाद, पारिवारिक मामले, धर्म/जाति पर टिप्पणी या बिना साक्ष्य के आरोप पूरी तरह प्रतिबंधित हैं।
+                    <strong>ज़रूरी नियम:</strong> आपसी झगड़े, धर्म/जाति पर टिप्पणी या बिना सबूत के आरोप लगाना मना है।
                   </span>
                 </div>
               </div>
 
               {/* Headline Input & Hindi Voice Dictation */}
               <div>
-                <label className="text-[13px] font-semibold text-[#2B2437]">एक लाइन में बताएं, क्या हुआ?</label>
+                <label className="text-[13px] font-semibold text-[#2B2437]">क्या हुआ? एक लाइन में लिखें</label>
                 <div className="mt-2 relative">
                   <textarea
                     rows={2}
                     value={headline}
                     maxLength={CITIZEN_RULES.maxHeadlineChars}
                     onChange={(e) => setHeadline(e.target.value)}
-                    placeholder="जैसे: कोलार मुख्य मार्ग पर पाइपलाइन फटने से भारी जलभराव, आवागमन ठप"
+                    placeholder="जैसे: एमपी नगर में पाइपलाइन फटने से सड़क पर पानी भरा, जाम लगा"
                     className="w-full rounded-[14px] border border-[#D1D5DB] bg-white p-3 pr-14 text-[14px] text-[#2B2437] placeholder-[#9CA3AF] leading-relaxed outline-none focus:border-[#2B2437] resize-none"
                   />
                   <button
@@ -552,7 +595,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                 </div>
                 <div className="flex items-center justify-between mt-1">
                   <span className="text-[12px] text-[#6B7280]">
-                    {isListening ? 'सुन रहे हैं... हिंदी में बोलें' : 'टाइप करें या माइक दबाकर बोलें'}
+                    {isListening ? 'सुन रहे हैं...' : 'टाइप करें या माइक से बोलें'}
                   </span>
                   <span className="text-[11.5px] text-[#9CA3AF]">{headline.length}/{CITIZEN_RULES.maxHeadlineChars}</span>
                 </div>
@@ -562,9 +605,9 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                   <div className="mt-2 flex items-center gap-1.5 flex-wrap">
                     {[
                       category?.suggestion,
-                      'सड़क पर गड्ढों से हादसों का खतरा',
-                      'सीवरेज लाइन फटने से भारी जलभराव',
-                      'चौराहे पर लंबा जाम, वाहन रेंगते रहे',
+                      'सड़क पर गड्ढों से हादसे का डर',
+                      'सड़क पर सीवर का पानी भरा',
+                      'चौराहे पर जाम, गाड़ियां फंसीं',
                     ]
                       .filter(Boolean)
                       .slice(0, 3)
@@ -588,7 +631,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                     onClick={() => setShowDetails(true)}
                     className="mt-2.5 inline-flex items-center gap-1 text-[12.5px] font-semibold text-[#2B2437] cursor-pointer"
                   >
-                    अतिरिक्त जानकारी जोड़ें <span className="text-[#9CA3AF] font-normal">(वैकल्पिक)</span>
+                    और जानकारी जोड़ें <span className="text-[#9CA3AF] font-normal">(वैकल्पिक)</span>
                     <ArrowDown2 size={13} color="#2B2437" />
                   </button>
                 ) : (
@@ -597,7 +640,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                     value={details}
                     maxLength={300}
                     onChange={(e) => setDetails(e.target.value)}
-                    placeholder="कब से हो रहा है, क्या किसी अधिकारी को शिकायत की गई है..."
+                    placeholder="समस्या कब से है या किसी को शिकायत की? यहाँ लिखें..."
                     className="mt-2.5 w-full rounded-[12px] border border-[#D1D5DB] bg-white p-2.5 text-[13px] text-[#2B2437] placeholder-[#9CA3AF] leading-relaxed outline-none focus:border-[#2B2437] resize-none"
                   />
                 )}
@@ -607,9 +650,9 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               <div className="rounded-[14px] border border-[#E5E7EB] divide-y divide-[#F1F3F5] bg-white">
                 <label className="flex items-start justify-between gap-3 p-3.5 cursor-pointer">
                   <div>
-                    <span className="block text-[13.5px] font-semibold text-[#2B2437]">मेरा नाम न दिखाएं</span>
+                    <span className="block text-[13.5px] font-semibold text-[#2B2437]">मेरा नाम छुपाएं</span>
                     <span className="block text-[12px] text-[#6B7280] mt-0.5 leading-snug">
-                      रिपोर्ट "नागरिक रिपोर्टर (गोपनीय)" के साथ दिखेगी।
+                      नाम नहीं दिखेगा, सिर्फ 'नागरिक रिपोर्टर' लिखा होगा।
                     </span>
                   </div>
                   <input type="checkbox" checked={isAnonymous} onChange={(e) => setIsAnonymous(e.target.checked)} className="sr-only peer" />
@@ -623,7 +666,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                     className="mt-0.5 w-5 h-5 shrink-0 accent-[#2B2437] cursor-pointer"
                   />
                   <span className="text-[12.5px] text-[#374151] leading-snug font-medium">
-                    मैं पुष्टि करता/करती हूँ कि यह वीडियो वास्तविक है, किसी की मानहानि नहीं करता और इसकी कानूनी ज़िम्मेदारी मेरी है।
+                    मैं पुष्टि करता/करती हूँ कि वीडियो असली है, खबर सच है और ज़िम्मेदारी मेरी है।
                   </span>
                 </label>
               </div>
@@ -634,7 +677,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               {uploadProgress != null ? (
                 <div>
                   <div className="flex items-center justify-between text-[13px] text-[#2B2437] font-semibold mb-2">
-                    <span>{uploadProgress < 50 ? 'वीडियो प्रोसेस हो रहा है...' : 'नवभारत डेस्क को सुरक्षित भेजा जा रहा है...'}</span>
+                    <span>{uploadProgress < 50 ? 'वीडियो प्रोसेस हो रहा है...' : 'टीम को भेजा जा रहा है...'}</span>
                     <span>{uploadProgress}%</span>
                   </div>
                   <div className="h-2 w-full rounded-full bg-[#F1F3F5] overflow-hidden">
@@ -644,16 +687,16 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               ) : (
                 <>
                   <p className={`text-[12px] mb-2 text-center font-medium ${isTooLong ? 'text-[#B42318]' : 'text-[#6B7280]'}`}>
-                    {missing || `सब तैयार है। आपकी रिपोर्ट तुरंत लाइव प्रसारित हो जाएगी।`}
+                    {missing || `सब तैयार है! अब लाइव कर सकते हैं।`}
                   </p>
                   <button
                     type="button"
                     disabled={Boolean(missing)}
                     onClick={handleSubmit}
-                    className="w-full h-[50px] rounded-full bg-[#2B2437] text-white text-[15px] font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:bg-[#E5E7EB] disabled:text-[#9CA3AF] cursor-pointer disabled:cursor-not-allowed shadow-md"
+                    className="w-full h-[50px] rounded-full bg-[#2B2437] hover:bg-[#1E1926] text-white text-[15px] font-bold flex items-center justify-center gap-2 transition-all active:scale-[0.98] disabled:bg-[#E5E7EB] disabled:text-[#9CA3AF] cursor-pointer disabled:cursor-not-allowed shadow-md border border-white/10"
                   >
                     <Send2 size={18} color={missing ? '#9CA3AF' : '#F5B55C'} variant="Bold" />
-                    सीधे लाइव करें
+                    <span>सीधे लाइव करें</span>
                   </button>
                 </>
               )}
@@ -673,18 +716,18 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               >
                 <TickCircle size={40} color="#4F7A55" variant="Bold" />
               </motion.div>
-              <h3 className="text-[19px] font-bold text-[#2B2437] mt-3">बधाई! आपकी रिपोर्ट लाइव हो गई है</h3>
-              <p className="text-[13.5px] text-[#4B5563] mt-1.5 leading-relaxed max-w-[300px]">
-                आपकी नागरिक रिपोर्ट स्वीकृत होकर अब {selectedCityName} और सभी पाठकों के फ़ीड में लाइव प्रसारित है।
+              <h3 className="text-[19px] font-bold text-[#2B2437] mt-3">बधाई! रिपोर्ट लाइव हो गई 🎉</h3>
+              <p className="text-[13.5px] text-[#4B5563] mt-1.5 leading-relaxed max-w-[310px]">
+                आपकी रिपोर्ट अब {selectedCityName} के पाठकों को दिख रही है।
               </p>
             </div>
 
             {/* Status Timeline */}
             <div className="mt-5 rounded-[16px] bg-[#F7F7F4] p-4">
               {[
-                { icon: TickCircle, color: '#4F7A55', title: 'रिपोर्ट प्राप्त हुई', sub: 'सफलतापूर्वक अपलोड', state: 'done' },
-                { icon: TickCircle, color: '#4F7A55', title: 'डेस्क सत्यापन पूरा', sub: `वीडियो व स्थान (${selectedCityName}) स्वीकृत`, state: 'done' },
-                { icon: ShieldTick, color: '#4F7A55', title: 'सार्वजनिक प्रसारण लाइव', sub: 'नागरिक रिपोर्टर फ़ीड में अब लाइव है', state: 'done' },
+                { icon: TickCircle, color: '#4F7A55', title: 'रिपोर्ट मिली', sub: 'वीडियो और डिटेल दर्ज', state: 'done' },
+                { icon: TickCircle, color: '#4F7A55', title: 'जांच पूरी', sub: `${selectedCityName} और वीडियो चेक`, state: 'done' },
+                { icon: ShieldTick, color: '#4F7A55', title: 'लाइव प्रसारित', sub: 'नागरिक रिपोर्टर में लाइव', state: 'done' },
               ].map((s, i, arr) => {
                 const Icon = s.icon;
                 return (
@@ -710,7 +753,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               }}
               className="mt-5 w-full h-[50px] rounded-full bg-[#2B2437] text-white text-[15px] font-bold active:scale-[0.98] transition-transform cursor-pointer shadow-md"
             >
-              मेरी लाइव रिपोर्ट देखें
+              लाइव रिपोर्ट देखें
             </button>
             <button
               type="button"
@@ -718,7 +761,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               className="mt-2.5 w-full h-[46px] rounded-full border border-[#D1D5DB] text-[#2B2437] text-[14px] font-semibold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform cursor-pointer"
             >
               <Whatsapp size={18} color="#25D366" variant="Bold" />
-              व्हाट्सएप पर स्थानीय लोगों को बताएं
+              व्हाट्सएप पर शेयर करें
             </button>
           </div>
         )}
@@ -739,14 +782,14 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               className="w-full rounded-[20px] bg-white p-5 text-center shadow-2xl"
             >
               <p className="text-[16px] font-bold text-[#2B2437]">रिपोर्ट छोड़ दें?</p>
-              <p className="text-[13px] text-[#6B7280] mt-1">आपका वीडियो और लिखी जानकारी हट जाएगी।</p>
+              <p className="text-[13px] text-[#6B7280] mt-1">बाहर जाने पर वीडियो और लिखी जानकारी हट जाएगी।</p>
               <div className="mt-4 grid grid-cols-2 gap-2.5">
                 <button
                   type="button"
                   onClick={() => setConfirmDiscard(false)}
                   className="h-11 rounded-full bg-[#2B2437] text-white text-[14px] font-semibold cursor-pointer"
                 >
-                  जारी रखें
+                  लिखते रहें
                 </button>
                 <button
                   type="button"
@@ -756,7 +799,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                   }}
                   className="h-11 rounded-full border border-[#D1D5DB] text-[#B42318] text-[14px] font-semibold cursor-pointer"
                 >
-                  छोड़ें
+                  हटाएं
                 </button>
               </div>
             </motion.div>

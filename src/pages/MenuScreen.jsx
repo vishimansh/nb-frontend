@@ -385,7 +385,7 @@ export default function MenuScreen() {
                     मेरी नागरिक रिपोर्टें
                   </span>
                   <span className="text-[11px] text-[#64748B] font-medium block">
-                    {userReportsCount > 0 ? `${userReportsCount} रिपोर्ट दर्ज · स्थिति देखें` : 'अपने वार्ड की खबर भेजें'}
+                    {userReportsCount > 0 ? `${userReportsCount} रिपोर्ट दर्ज · स्थिति देखें` : 'अपने इलाके की खबर भेजें'}
                   </span>
                 </div>
               </div>

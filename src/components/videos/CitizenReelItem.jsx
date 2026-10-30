@@ -7,22 +7,43 @@ import {
   VolumeHigh,
   VolumeCross,
   Location,
-  Profile,
+  Camera,
 } from 'iconsax-react';
 import { useVideo } from '../../context/VideoContext';
 import { getCitizenCategory, getCategoryVideo, getCategoryPoster } from '../../data/citizenReportConfig';
 
-export default function CitizenReelItem({ reel, isActive, onShareToast, isPreview = false }) {
-  const { isMuted, toggleMuted, isCommentSheetOpen, openCommentSheet, toggleCitizenLike } = useVideo();
+function getCollapsedExcerpt(hookOrDesc, headline) {
+  if (!hookOrDesc) return '';
+  const clean = hookOrDesc.replace(/\.+$/, '').trim();
+  const headlineLen = (headline || '').length;
+  const budget = Math.max(12, 54 - headlineLen);
+  if (clean.length <= budget) return clean;
+  return clean.slice(0, budget).trim();
+}
+
+export default function CitizenReelItem({
+  reel,
+  isActive,
+  onShareToast,
+  onOpenUpload,
+  isPreview = false,
+}) {
+  const {
+    isMuted,
+    toggleMuted,
+    isCommentSheetOpen,
+    openCommentSheet,
+    toggleCitizenLike,
+  } = useVideo();
 
   const videoRef = useRef(null);
-  const lastTapRef = useRef(0);
-  const singleTapRef = useRef(null);
   const [isPausedByUser, setIsPausedByUser] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showHeart, setShowHeart] = useState(false);
-  const [showMuteHint, setShowMuteHint] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const [showHeartAnimation, setShowHeartAnimation] = useState(false);
   const [showPlayFlash, setShowPlayFlash] = useState(false);
+  const [showBottomContent, setShowBottomContent] = useState(false);
+  const lastTapRef = useRef(0);
+  const singleTapTimeoutRef = useRef(null);
 
   const category = getCitizenCategory(reel.categoryId);
   const CategoryIcon = category.icon;
@@ -37,6 +58,62 @@ export default function CitizenReelItem({ reel, isActive, onShareToast, isPrevie
   useEffect(() => {
     setCurrentVideoSrc(reel.videoUrl || defaultVideo);
   }, [reel.videoUrl, defaultVideo]);
+
+  // Synchronize video playback with active snap-scroll state and user pause
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isActive && !isPausedByUser && !isCommentSheetOpen) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Fallback if browser autoplay restrictions apply
+          if (videoRef.current && !videoRef.current.muted) {
+            videoRef.current.muted = true;
+            videoRef.current.play().catch(() => {});
+          }
+        });
+      }
+    } else {
+      video.pause();
+    }
+  }, [isActive, isPausedByUser, isCommentSheetOpen, currentVideoSrc]);
+
+  // Show bottom-left action button after 7 seconds from becoming active (matching ReelItem & PodcastCard)
+  useEffect(() => {
+    if (!isActive) {
+      setShowBottomContent(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setShowBottomContent(true);
+    }, 7000);
+
+    return () => clearTimeout(timer);
+  }, [isActive]);
+
+  // Keep muted state synced
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+    }
+  }, [isMuted]);
+
+  // Reset state cleanly when swiped away
+  useEffect(() => {
+    if (!isActive) {
+      setIsPausedByUser(false);
+      setShowPlayFlash(false);
+      setIsDescriptionExpanded(false);
+      setShowBottomContent(false);
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.currentTime = 0;
+      }
+    }
+  }, [isActive]);
 
   const togglePlayPause = () => {
     const video = videoRef.current;
@@ -69,85 +146,70 @@ export default function CitizenReelItem({ reel, isActive, onShareToast, isPrevie
     }
   };
 
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (isActive && !isPausedByUser && !isCommentSheetOpen) {
-      const p = video.play();
-      if (p !== undefined) {
-        p.catch(() => {
-          // If unmuted playback was blocked by browser autoplay policy, mute and retry
-          if (videoRef.current && !videoRef.current.muted) {
-            videoRef.current.muted = true;
-            videoRef.current.play().catch(() => {});
-          }
-        });
-      }
-      if (isMuted) {
-        setShowMuteHint(true);
-        const timer = setTimeout(() => setShowMuteHint(false), 2800);
-        return () => clearTimeout(timer);
-      }
-    } else {
-      video.pause();
-    }
-  }, [isActive, isPausedByUser, isCommentSheetOpen, currentVideoSrc]);
-
-  useEffect(() => {
-    if (videoRef.current) videoRef.current.muted = isMuted;
-    if (!isMuted) setShowMuteHint(false);
-  }, [isMuted]);
-
-  useEffect(() => {
-    if (!isActive) {
-      setIsPausedByUser(false);
-      setIsExpanded(false);
-      setShowMuteHint(false);
-      setShowPlayFlash(false);
-      if (videoRef.current) videoRef.current.currentTime = 0;
-    }
-  }, [isActive]);
-
   const handleMediaTap = (e) => {
     e.stopPropagation();
     if (isCommentSheetOpen) return;
+
     const now = Date.now();
     if (now - lastTapRef.current < 300) {
-      clearTimeout(singleTapRef.current);
-      singleTapRef.current = null;
-      if (!isPreview && !reel.isLiked) toggleCitizenLike(reel.id);
-      setShowHeart(true);
-      setTimeout(() => setShowHeart(false), 700);
+      // Double-tap detected: cancel pending pause and toggle like
+      if (singleTapTimeoutRef.current) {
+        clearTimeout(singleTapTimeoutRef.current);
+        singleTapTimeoutRef.current = null;
+      }
+      if (!isPreview && !reel.isLiked) {
+        toggleCitizenLike(reel.id);
+      }
+      setShowHeartAnimation(true);
+      setTimeout(() => setShowHeartAnimation(false), 700);
     } else {
-      singleTapRef.current = setTimeout(() => {
+      // Single tap: toggle play / pause
+      singleTapTimeoutRef.current = setTimeout(() => {
         togglePlayPause();
-        singleTapRef.current = null;
+        singleTapTimeoutRef.current = null;
       }, 280);
     }
     lastTapRef.current = now;
   };
 
-  const handleShare = (e) => {
+  const handleShareClick = (e) => {
     e.stopPropagation();
-    const text = `*नवभारत नागरिक रिपोर्ट* 🔴\nस्थान: ${placeLabel}\nखबर: ${reel.headline}\n\nपूरी ग्राउंड रिपोर्ट नवभारत ऐप पर देखें:`;
+    const text = `*नवभारत नागरिक रिपोर्टर* 🔴\n📍 स्थान: ${placeLabel}\n📢 मुख्य खबर: ${reel.headline}\n\nपूरी ग्राउंड रिपोर्ट नवभारत ऐप पर देखें:`;
     if (navigator.share) {
       navigator.share({ title: reel.headline, text }).catch(() => {});
     } else {
       navigator.clipboard?.writeText(text).catch(() => {});
-      onShareToast?.('व्हाट्सएप शेयर लिंक कॉपी हो गया!');
+      onShareToast?.('शेयर लिंक सफलतापूर्वक कॉपी हो गया!');
     }
+  };
+
+  const handleLikeClick = (e) => {
+    e.stopPropagation();
+    if (!isPreview) {
+      toggleCitizenLike(reel.id);
+    }
+  };
+
+  const handleCommentClick = (e) => {
+    e.stopPropagation();
+    openCommentSheet(reel.id);
+  };
+
+  const handleSoundClick = (e) => {
+    e.stopPropagation();
+    toggleMuted();
   };
 
   const railDisabled = isPreview ? 'pointer-events-none opacity-70' : '';
 
   return (
     <div className="h-full w-full snap-start relative flex-shrink-0 flex items-center justify-center overflow-hidden bg-black select-none">
-      {/* 1. Full-Bleed Video Surface (Edge-to-Edge like standard reels) */}
+      {/* 1. Fast-Loading Video/Image Surface */}
       <div
         onClick={handleMediaTap}
         className="w-full h-full absolute inset-0 cursor-pointer z-0 bg-black"
       >
-        {/* Crisp Poster Image Layer (Always visible underneath so there is never a void or blank screen) */}
+        {/* Crisp Poster Image Layer */}
         <img
           src={posterSrc}
           alt={reel.headline}
@@ -175,26 +237,7 @@ export default function CitizenReelItem({ reel, isActive, onShareToast, isPrevie
         />
       </div>
 
-      {/* Unmute Prompt Hint */}
-      <AnimatePresence>
-        {showMuteHint && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleMuted();
-            }}
-            className="absolute top-[150px] left-1/2 -translate-x-1/2 z-30 px-3.5 py-1.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[12px] font-semibold flex items-center gap-1.5 shadow-2xl cursor-pointer"
-          >
-            <VolumeCross size={14} color="#F5B55C" variant="Bold" />
-            <span>आवाज़ सुनने के लिए टैप करें</span>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Center Play/Pause Button when Paused - Dead Center */}
+      {/* Center Play/Pause Option: prominent interactive button when paused */}
       <AnimatePresence>
         {isPausedByUser && (
           <motion.div
@@ -236,154 +279,220 @@ export default function CitizenReelItem({ reel, isActive, onShareToast, isPrevie
         )}
       </AnimatePresence>
 
-      {/* Top and Bottom Gradient Scrims (Matched with standard ReelItem) */}
+      {/* 2. Top and Bottom Gradient Scrims (Curated for authentic contrast) */}
       <div className="absolute top-0 inset-x-0 h-32 bg-gradient-to-b from-black/85 via-black/30 to-transparent pointer-events-none z-10" />
       <div className="absolute bottom-0 inset-x-0 h-80 bg-gradient-to-t from-black/95 via-black/60 via-45% to-transparent pointer-events-none z-10" />
 
-      {/* Double-tap heart */}
+      {/* Center Double-Tap Like Heart Animation */}
       <AnimatePresence>
-        {showHeart && (
+        {showHeartAnimation && (
           <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1.25 }}
             exit={{ opacity: 0, scale: 1.4 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
             className="absolute inset-0 flex items-center justify-center pointer-events-none z-20"
           >
-            <Heart size={80} color="#EF4444" variant="Bold" />
+            <Heart
+              size={80}
+              color="#EF4444"
+              variant="Bold"
+              className="drop-shadow-[0_4px_24px_rgba(239,68,68,0.7)]"
+            />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Right Rail */}
+      {/* 4. Right-Side Interaction Rail (48px above bottom of screen, 16px right margin — strictly replicating ReelItem & PodcastCard) */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`absolute right-[16px] bottom-[48px] z-30 flex flex-col items-center gap-[16px] ${railDisabled}`}
+        className={`absolute right-[16px] bottom-[48px] z-30 flex flex-col items-center gap-[16px] pointer-events-auto ${railDisabled}`}
       >
-        {/* Support / Like */}
+        {/* Like Button */}
         <div className="flex flex-col items-center">
           <button
             type="button"
-            onClick={() => toggleCitizenLike(reel.id)}
-            aria-label="समर्थन करें"
+            onClick={handleLikeClick}
+            aria-label="लाइक करें"
             className="w-[48px] h-[48px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform cursor-pointer shadow-lg"
           >
-            <motion.div animate={reel.isLiked ? { scale: [1, 1.35, 1] } : { scale: 1 }} transition={{ duration: 0.25 }}>
-              <Heart size={28} color={reel.isLiked ? '#EF4444' : '#FFFFFF'} variant={reel.isLiked ? 'Bold' : 'Linear'} />
+            <motion.div
+              animate={reel.isLiked ? { scale: [1, 1.35, 1] } : { scale: 1 }}
+              transition={{ duration: 0.25 }}
+            >
+              <Heart
+                size={28}
+                color={reel.isLiked ? '#EF4444' : '#FFFFFF'}
+                variant={reel.isLiked ? 'Bold' : 'Linear'}
+              />
             </motion.div>
           </button>
-          <span className="text-[13px] font-semibold text-white drop-shadow mt-1">{reel.likeCount}</span>
+          <span className="text-[13px] font-semibold text-white drop-shadow mt-1">
+            {reel.likeCount}
+          </span>
         </div>
 
-        {/* Discussion / Comments */}
+        {/* Comment Button */}
         <div className="flex flex-col items-center">
           <button
             type="button"
-            onClick={() => openCommentSheet(reel.id)}
+            onClick={handleCommentClick}
             aria-label="कमेंट्स देखें"
-            className="w-[48px] h-[48px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform cursor-pointer shadow-lg"
+            className="w-[48px] h-[48px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform cursor-pointer shadow-lg text-white"
           >
             <Messages1 size={26} color="#FFFFFF" variant="Linear" />
           </button>
-          <span className="text-[13px] font-semibold text-white drop-shadow mt-1">{reel.commentCount || 0}</span>
+          <span className="text-[13px] font-semibold text-white drop-shadow mt-1">
+            {reel.commentCount || 0}
+          </span>
         </div>
 
-        {/* WhatsApp Share */}
+        {/* WhatsApp Share Button */}
         <div className="flex flex-col items-center">
           <button
             type="button"
-            onClick={handleShare}
+            onClick={handleShareClick}
             aria-label="व्हाट्सएप पर शेयर करें"
-            className="w-[48px] h-[48px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-95 transition-transform cursor-pointer shadow-lg"
+            className="w-[48px] h-[48px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-95 transition-transform cursor-pointer shadow-lg text-white"
           >
             <Whatsapp size={28} color="#FFFFFF" variant="Bold" />
           </button>
-          <span className="text-[13px] font-medium text-white mt-1 drop-shadow">शेयर</span>
+          <span className="text-[13px] font-medium text-white mt-1 drop-shadow">
+            शेयर
+          </span>
         </div>
 
-        {/* Mute Toggle */}
+        {/* Sound Toggle Button */}
         <button
           type="button"
-          onClick={() => {
-            toggleMuted();
-            onShareToast?.(isMuted ? 'आवाज़ चालू' : 'म्यूट');
-          }}
+          onClick={handleSoundClick}
           aria-label={isMuted ? 'आवाज़ चालू करें' : 'म्यूट करें'}
-          className="w-[48px] h-[48px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform cursor-pointer shadow-lg"
+          className="w-[48px] h-[48px] rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex items-center justify-center active:scale-90 transition-transform cursor-pointer shadow-lg text-white"
         >
-          {isMuted ? <VolumeCross size={28} color="#FFFFFF" /> : <VolumeHigh size={28} color="#FFFFFF" />}
+          {isMuted ? (
+            <VolumeCross size={28} color="#FFFFFF" />
+          ) : (
+            <VolumeHigh size={28} color="#FFFFFF" />
+          )}
         </button>
       </div>
 
-      {/* Bottom-left Content Stack */}
+      {/* 5. Bottom-Left Metadata Overlay Stack (48px above bottom of screen, 16px left margin — strictly replicating ReelItem & PodcastCard) */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="absolute bottom-[48px] left-[16px] right-[80px] z-30 flex flex-col gap-[11px] text-left"
+        className="absolute bottom-[48px] left-[16px] right-20 z-30 flex flex-col gap-[16px] pointer-events-auto text-left"
       >
-        {/* 1. Byline & Reporter Credit */}
-        <div className="flex items-center justify-between gap-2 min-w-0">
-          <div className="flex items-center gap-2 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-[#2B2437] border border-white/30 flex items-center justify-center shrink-0 text-[13px] font-bold text-[#F5B55C]">
-              {reel.isAnonymous || !reel.reporterName ? (
-                <Profile size={16} color="#F5B55C" variant="Bold" />
-              ) : (
-                reel.reporterName.charAt(0)
-              )}
-            </div>
-            <div className="min-w-0 flex flex-col">
-              <span className="text-[14px] font-semibold text-white truncate">
-                {reel.isAnonymous ? 'नागरिक रिपोर्टर (गोपनीय)' : reel.reporterName}
-              </span>
-              <span className="text-[11.5px] text-white/70 leading-tight">नागरिक रिपोर्टर · {reel.timeAgo}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* 2. Category & Place Tags */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <div className="bg-white rounded-full p-[5px] pr-[9px] flex items-center gap-[5px] shadow-md w-fit shrink-0">
-            <div
-              style={{ backgroundColor: category.color }}
-              className="w-[19px] h-[19px] rounded-full flex items-center justify-center shrink-0"
-            >
-              <CategoryIcon size={12} color="#FFFFFF" variant="Bold" />
-            </div>
-            <span style={{ color: category.color }} className="text-[14px] font-semibold leading-none">
-              {category.label}
-            </span>
-          </div>
-
-          {placeLabel && (
-            <div className="flex items-center gap-1 min-w-0 drop-shadow">
-              <Location size={14} color="#FFFFFF" variant="Bold" className="shrink-0" />
-              <span className="text-[14px] font-medium leading-none text-white truncate">{placeLabel}</span>
-            </div>
-          )}
-        </div>
-
-        {/* 3. Headline & Limited Description */}
-        <div onClick={() => setIsExpanded((p) => !p)} className="cursor-pointer">
-          <p className={`text-[15.5px] font-medium text-white leading-[1.4] drop-shadow ${isExpanded ? '' : 'line-clamp-2'}`}>
-            {reel.headline}
-          </p>
-          {!isExpanded && reel.fullDescription && (
-            <span className="text-[13px] text-[#F5B55C] font-normal">...और पढ़ें</span>
-          )}
-          <AnimatePresence>
-            {isExpanded && reel.fullDescription && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
+        {/* Content Box (Tags + Headline & Description): animates position in sync with button */}
+        <motion.div
+          layout="position"
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col gap-[16px]"
+        >
+          {/* Tag Row: Category Pill + Location */}
+          <div className="flex items-center gap-2.5 flex-wrap">
+            {/* Category Tag Pill: 6px padding all sides, 6px gap, hug content, icon inside 20x20px circle, 16px medium label */}
+            <div className="bg-white rounded-full p-[6px] flex items-center gap-[6px] shadow-md w-fit shrink-0">
+              <div
+                style={{ backgroundColor: category.color }}
+                className="w-[20px] h-[20px] min-w-[20px] min-h-[20px] rounded-full flex items-center justify-center shrink-0"
               >
-                <p className="text-[13.5px] text-white/90 leading-[1.4] mt-1.5 line-clamp-2">
-                  {reel.fullDescription}
-                </p>
-              </motion.div>
+                <CategoryIcon size={12} color="#FFFFFF" variant="Bold" />
+              </div>
+              <span
+                style={{ color: category.color }}
+                className="text-[16px] font-medium leading-none"
+              >
+                {category.label}
+              </span>
+            </div>
+
+            {/* Location Indicator: icon 16px and text 16px medium */}
+            {placeLabel && (
+              <div className="flex items-center gap-1 text-white/90 drop-shadow">
+                <Location size={16} color="#FFFFFF" variant="Bold" />
+                <span className="text-[16px] font-medium leading-none text-white">
+                  {placeLabel}
+                </span>
+              </div>
             )}
-          </AnimatePresence>
-        </div>
+          </div>
+
+          {/* Description & Headline Stack: description completely 16px regular */}
+          <div className="transition-all duration-200 ease-out">
+            {!isDescriptionExpanded ? (
+              /* Collapsed State (confined strictly to 2 lines, completely regular) */
+              <p
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsDescriptionExpanded(true);
+                }}
+                className="text-[16px] font-normal text-white/95 leading-[1.4] drop-shadow line-clamp-2 cursor-pointer select-none"
+              >
+                <span className="font-normal text-white mr-1.5">
+                  {reel.headline}
+                </span>
+                <span className="font-normal">
+                  {getCollapsedExcerpt(reel.fullDescription, reel.headline)}
+                </span>
+                <span
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsDescriptionExpanded(true);
+                  }}
+                  className="text-[#F5B55C] font-normal cursor-pointer hover:underline ml-1 inline-block"
+                >
+                  ...और पढ़ें
+                </span>
+              </p>
+            ) : (
+              /* Expanded State (completely regular) */
+              <p
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsDescriptionExpanded(false);
+                }}
+                className="text-[16px] font-normal text-white/95 leading-[1.5] drop-shadow cursor-pointer select-text"
+                title="संक्षेप में देखने के लिए टैप करें"
+              >
+                <span className="font-normal text-white block mb-0.5">
+                  {reel.headline}
+                </span>
+                <span className="font-normal">{reel.fullDescription}</span>
+                {(reel.reporterName || reel.timeAgo) && (
+                  <span className="font-normal text-white/80 block mt-1 text-[14px]">
+                    रिपोर्टर: {reel.isAnonymous ? 'नागरिक रिपोर्टर' : (reel.reporterName || 'नागरिक')} · {reel.timeAgo}
+                  </span>
+                )}
+              </p>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Action Button: "अपनी खबर भेजें" — slides up from bottom after 7s in sync with content box */}
+        <AnimatePresence>
+          {showBottomContent && (
+            <motion.button
+              key={`citizen-action-btn-${reel.id}`}
+              layout="position"
+              type="button"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenUpload?.();
+              }}
+              aria-label="अपनी खबर भेजें"
+              className="p-[12px] bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
+            >
+              <Camera size={16} color="#F5B55C" variant="Bold" />
+              <span className="text-[16px] font-medium text-white tracking-wide leading-none">
+                अपनी खबर भेजें
+              </span>
+            </motion.button>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

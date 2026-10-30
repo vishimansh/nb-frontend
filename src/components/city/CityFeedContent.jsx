@@ -125,11 +125,11 @@ export default function CityFeedContent({ onCategoryClick }) {
   return (
     <div className="w-full flex flex-col items-center pb-24 pt-1">
       {/* 1. Hyperlocal Citizen Dispatches Carousel: "नागरिकों की नज़र से" */}
-      <section aria-label="नागरिक ग्राउंड रिपोर्ट" className="w-[386px] mb-3 select-none">
-        <div className="flex items-center justify-between mb-2 px-1">
+      <section aria-label="नागरिक ग्राउंड रिपोर्ट" className="w-[386px] mb-2.5 select-none">
+        <div className="flex items-center justify-between mb-1.5 px-1">
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse shrink-0" />
-            <h2 className="text-[15px] font-bold text-[#2B2437] tracking-tight">
+            <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse shrink-0" />
+            <h2 className="text-[14px] font-bold text-[#2B2437] tracking-tight">
               नागरिकों की नज़र से : {cityName}
             </h2>
           </div>
@@ -140,70 +140,74 @@ export default function CityFeedContent({ onCategoryClick }) {
               setCitizenCityFilter(cityName);
               navigate('/videos');
             }}
-            className="text-[12px] font-semibold text-[#C05621] hover:underline flex items-center gap-0.5 cursor-pointer"
+            className="text-[11.5px] font-medium text-[#C05621] hover:underline flex items-center gap-0.5 cursor-pointer"
           >
             <span>सभी देखें</span>
-            <ArrowRight2 size={13} color="#C05621" />
+            <ArrowRight2 size={12} color="#C05621" />
           </button>
         </div>
 
         {/* Horizontal Story Reel Strip */}
-        <div className="w-full flex items-center gap-2.5 overflow-x-auto scrollbar-none py-1">
+        <div className="w-full flex items-center gap-2 overflow-x-auto scrollbar-none py-0.5">
           {/* Create Report Action Card */}
           <button
             type="button"
             onClick={handleOpenStudio}
-            className="w-[115px] h-[175px] rounded-[18px] bg-gradient-to-b from-[#FFF6ED] to-[#FFEDD5] border-2 border-dashed border-[#FDBA74] flex flex-col items-center justify-center p-3 text-center shrink-0 cursor-pointer active:scale-95 transition-all shadow-2xs group"
+            className="w-[92px] h-[140px] rounded-[14px] bg-neutral-50/90 hover:bg-neutral-100/90 border border-neutral-200/90 flex flex-col items-center justify-center p-2.5 text-center shrink-0 cursor-pointer active:scale-95 transition-all shadow-2xs group"
           >
-            <div className="w-10 h-10 rounded-full bg-[#F5B55C] flex items-center justify-center text-[#2B2437] shadow-sm mb-2 group-hover:scale-105 transition-transform">
-              <Camera size={20} color="#2B2437" variant="Bold" />
+            <div className="relative mb-2">
+              <div className="w-8 h-8 rounded-full bg-[#2B2437] text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                <Camera size={15} color="#FFFFFF" variant="Bold" />
+              </div>
+              <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#C05621] text-white flex items-center justify-center text-[10px] font-bold border border-white leading-none">
+                +
+              </span>
             </div>
-            <span className="text-[13px] font-bold text-[#2B2437] leading-tight">
-              खबर भेजें
+            <span className="text-[11px] font-semibold text-[#2B2437] leading-tight">
+              रिपोर्ट भेजें
             </span>
-            <span className="text-[10px] text-[#C05621] mt-1 font-medium">
+            <span className="text-[8.5px] text-neutral-400 mt-0.5 font-normal">
               60s वीडियो
             </span>
           </button>
 
           {/* Citizen Reports Cards */}
-          {cityCitizenReports.map((report) => (
-            <div
-              key={report.id}
-              onClick={() => handleOpenCitizenReel(report.id)}
-              className="w-[115px] h-[175px] rounded-[18px] bg-black relative overflow-hidden shrink-0 cursor-pointer shadow-md active:scale-95 transition-transform group"
-            >
-              {/* Thumbnail / Video poster */}
-              <img
-                src={report.posterThumbnail || 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80'}
-                alt={report.headline}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
+          {cityCitizenReports.map((report) => {
+            const hasLocality =
+              report.locality &&
+              report.locality.trim() !== '' &&
+              report.locality.trim().toLowerCase() !== cityName.trim().toLowerCase();
 
-              {/* Scrim */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+            return (
+              <div
+                key={report.id}
+                onClick={() => handleOpenCitizenReel(report.id)}
+                className="w-[92px] h-[140px] rounded-[14px] bg-neutral-900 relative overflow-hidden shrink-0 cursor-pointer shadow-xs active:scale-95 transition-transform group"
+              >
+                {/* Thumbnail / Video poster */}
+                <img
+                  src={report.posterThumbnail || 'https://images.unsplash.com/photo-1541872703-74c5e44368f9?auto=format&fit=crop&w=400&q=80'}
+                  alt={report.headline}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
 
-              {/* Top Live Badge */}
-              <div className="absolute top-2 left-2 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded-full border border-white/20">
-                <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
-                <span className="text-[9px] font-bold text-white tracking-wide">ग्राउंड</span>
-              </div>
+                {/* Smooth Scrim */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
 
-              {/* Bottom Metadata */}
-              <div className="absolute bottom-2 inset-x-2 z-10 text-left">
-                <div className="flex items-center gap-1 text-[9.5px] font-semibold text-[#F5B55C] mb-0.5 truncate">
-                  <Location size={10} color="#F5B55C" variant="Bold" className="shrink-0" />
-                  <span className="truncate">{report.locality || cityName}</span>
+                {/* Minimal Bottom Metadata */}
+                <div className="absolute bottom-2 inset-x-2 z-10 text-left">
+                  {hasLocality && (
+                    <span className="block text-[8px] font-medium text-amber-300/90 mb-0.5 truncate tracking-tight">
+                      {report.locality}
+                    </span>
+                  )}
+                  <p className="text-[9.5px] font-medium text-white leading-[1.3] line-clamp-2 drop-shadow-xs">
+                    {report.headline}
+                  </p>
                 </div>
-                <p className="text-[11px] font-bold text-white leading-tight line-clamp-2 drop-shadow">
-                  {report.headline}
-                </p>
-                <span className="text-[9px] text-white/70 block mt-0.5 truncate">
-                  👤 {report.reporterName || 'नागरिक रिपोर्टर'}
-                </span>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
