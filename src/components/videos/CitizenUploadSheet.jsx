@@ -421,8 +421,8 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                 {/* Section Header */}
                 <div className="flex items-center justify-between mb-3.5">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
-                      <Location size={16} color="#F5B55C" variant="Bold" />
+                    <div className="w-9 h-9 rounded-[12px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#E39026] shrink-0">
+                      <Location size={19} color="#E39026" variant="Bold" />
                     </div>
                     <div>
                       <h3 className="text-[15px] font-bold text-[#2B2437] leading-tight">स्थान और वीडियो</h3>
@@ -560,8 +560,8 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               {/* Card 2: Category Picker */}
               <div className="bg-white rounded-[22px] border border-[#E5E7EB] shadow-2xs p-4">
                 <div className="flex items-center gap-2.5 mb-3.5">
-                  <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
-                    <Category2 size={16} color="#F5B55C" variant="Bold" />
+                  <div className="w-9 h-9 rounded-[12px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#E39026] shrink-0">
+                    <Category2 size={19} color="#E39026" variant="Bold" />
                   </div>
                   <div>
                     <h3 className="text-[15px] font-bold text-[#2B2437] leading-tight">खबर किस बारे में है?</h3>
@@ -569,7 +569,7 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                   </div>
                 </div>
 
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-4 gap-2.5">
                   {CITIZEN_CATEGORIES.map((c) => {
                     const Icon = c.icon;
                     const active = categoryId === c.id;
@@ -585,22 +585,31 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                           }
                         }}
                         aria-pressed={active}
-                        className={`h-[70px] rounded-[14px] flex flex-col items-center justify-center gap-1.5 transition-all cursor-pointer active:scale-95 ${
+                        className={`h-[78px] rounded-[18px] flex flex-col items-center justify-center p-1.5 transition-all cursor-pointer active:scale-95 ${
                           active
-                            ? 'border-2 border-[#F5B55C] bg-[#FFFBF0] shadow-2xs'
-                            : 'border border-[#E5E7EB] bg-[#F9FAFB] hover:bg-white hover:border-[#D1D5DB]'
+                            ? 'border-2 border-[#E39026] bg-[#FFF9EE] shadow-xs'
+                            : 'border border-[#E5E7EB] bg-white hover:border-[#D1D5DB] shadow-2xs'
                         }`}
                       >
                         <div
-                          className="w-7.5 h-7.5 rounded-full flex items-center justify-center transition-transform"
+                          className={`w-9 h-9 rounded-full flex items-center justify-center mb-1.5 transition-all ${
+                            active ? 'shadow-xs scale-105' : ''
+                          }`}
                           style={{
-                            backgroundColor: active ? c.color : '#FFFFFF',
-                            border: active ? 'none' : '1px solid #E5E7EB',
+                            backgroundColor: active ? c.color : (c.bg || '#F3F4F6'),
                           }}
                         >
-                          <Icon size={15} color={active ? '#FFFFFF' : c.color} variant="Bold" />
+                          <Icon
+                            size={20}
+                            color={active ? '#FFFFFF' : c.color}
+                            variant="Bold"
+                          />
                         </div>
-                        <span className={`text-[12px] leading-none ${active ? 'font-bold text-[#2B2437]' : 'text-[#6B7280] font-medium'}`}>
+                        <span
+                          className={`text-[12px] leading-tight text-center ${
+                            active ? 'font-bold text-[#2B2437]' : 'text-[#4B5563] font-semibold'
+                          }`}
+                        >
                           {c.label}
                         </span>
                       </button>
@@ -609,10 +618,10 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
                 </div>
 
                 {/* Legal Advisory Friction Strip */}
-                <div className="mt-3 p-2.5 rounded-[12px] bg-[#FFFBF0] border border-[#FDE68A] flex items-start gap-2 text-[11.5px] text-[#92400E] leading-snug">
-                  <ShieldTick size={15} color="#D97706" variant="Bold" className="shrink-0 mt-0.5" />
+                <div className="mt-3.5 p-3 rounded-[14px] bg-[#FFFBF0] border border-[#FDE68A] flex items-start gap-2.5 text-[12px] text-[#92400E] leading-snug">
+                  <ShieldTick size={17} color="#D97706" variant="Bold" className="shrink-0 mt-0.5" />
                   <span>
-                    <strong>ज़रूरी नियम:</strong> आपसी झगड़े, धर्म/जाति पर टिप्पणी या बिना सबूत के आरोप लगाना सख्त मना है।
+                    <strong className="font-bold">ज़रूरी नियम:</strong> आपसी झगड़े, धर्म/जाति पर टिप्पणी या बिना सबूत के आरोप लगाना सख्त मना है।
                   </span>
                 </div>
               </div>
@@ -621,8 +630,8 @@ export default function CitizenUploadSheet({ isOpen, onClose, onSuccessToast }) 
               <div className="bg-white rounded-[22px] border border-[#E5E7EB] shadow-2xs p-4">
                 <div className="flex items-center justify-between mb-3.5">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded-[10px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#F5B55C] shrink-0">
-                      <Edit2 size={16} color="#F5B55C" variant="Bold" />
+                    <div className="w-9 h-9 rounded-[12px] bg-[#FDF5E8] border border-[#F5B55C]/60 flex items-center justify-center text-[#E39026] shrink-0">
+                      <Edit2 size={19} color="#E39026" variant="Bold" />
                     </div>
                     <div>
                       <h3 className="text-[15px] font-bold text-[#2B2437] leading-tight">क्या हुआ? एक लाइन में लिखें</h3>

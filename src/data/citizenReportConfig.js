@@ -7,14 +7,14 @@ import { Map, Drop, Flash, Trash, Car, Danger, Star, More } from 'iconsax-react'
  * - Colours follow the muted editorial palette used by CATEGORY_PALETTES.
  */
 export const CITIZEN_CATEGORIES = [
-  { id: 'road', label: 'सड़क', icon: Map, color: '#8A5A3B', suggestion: 'सड़क पर गड्ढों से हादसे का डर, मरम्मत की मांग' },
-  { id: 'water', label: 'पानी', icon: Drop, color: '#3E6E8E', suggestion: 'पाइपलाइन फटने से पानी भरा, बर्बादी जारी' },
-  { id: 'power', label: 'बिजली', icon: Flash, color: '#B7791F', suggestion: 'बिना बताए घंटों बिजली गुल, लोग परेशान' },
-  { id: 'clean', label: 'सफ़ाई', icon: Trash, color: '#4F7A55', suggestion: 'कचरा नहीं उठा, गंदगी व बदबू से परेशानी' },
-  { id: 'traffic', label: 'ट्रैफिक', icon: Car, color: '#596776', suggestion: 'चौराहे पर जाम, गाड़ियां फंसी रहीं' },
-  { id: 'safety', label: 'सुरक्षा', icon: Danger, color: '#A23B3B', suggestion: 'स्ट्रीट लाइट बंद, सुरक्षा का खतरा' },
-  { id: 'event', label: 'आयोजन', icon: Star, color: '#805D76', suggestion: 'इलाके में बड़ा आयोजन, भारी भीड़' },
-  { id: 'other', label: 'अन्य', icon: More, color: '#2B2437', suggestion: 'अन्य समस्या या खबर' },
+  { id: 'road', label: 'सड़क', icon: Map, color: '#8A5A3B', bg: '#FBF5EE', suggestion: 'सड़क पर गड्ढों से हादसे का डर, मरम्मत की मांग' },
+  { id: 'water', label: 'पानी', icon: Drop, color: '#2563EB', bg: '#EFF6FF', suggestion: 'पाइपलाइन फटने से पानी भरा, बर्बादी जारी' },
+  { id: 'power', label: 'बिजली', icon: Flash, color: '#D97706', bg: '#FEF9EE', suggestion: 'बिना बताए घंटों बिजली गुल, लोग परेशान' },
+  { id: 'clean', label: 'सफ़ाई', icon: Trash, color: '#059669', bg: '#ECFDF5', suggestion: 'कचरा नहीं उठा, गंदगी व बदबू से परेशानी' },
+  { id: 'traffic', label: 'ट्रैफिक', icon: Car, color: '#475569', bg: '#F1F5F9', suggestion: 'चौराहे पर जाम, गाड़ियां फंसी रहीं' },
+  { id: 'safety', label: 'सुरक्षा', icon: Danger, color: '#DC2626', bg: '#FEF2F2', suggestion: 'स्ट्रीट लाइट बंद, सुरक्षा का खतरा' },
+  { id: 'event', label: 'आयोजन', icon: Star, color: '#7C3AED', bg: '#FAF5FF', suggestion: 'इलाके में बड़ा आयोजन, भारी भीड़' },
+  { id: 'other', label: 'अन्य', icon: More, color: '#2B2437', bg: '#F3F4F6', suggestion: 'अन्य समस्या या खबर' },
 ];
 
 export const getCitizenCategory = (id) =>
