@@ -156,7 +156,7 @@ export default function S00_Intro({ onOpenFacilitator }) {
             <button
               type="button"
               onClick={() => {
-                window.location.href = '/feed';
+                window.location.href = '/feed?skip_reset=1';
               }}
               className="text-[12px] font-medium text-[#9CA3AF] hover:text-[#4A4358] transition-colors cursor-pointer"
             >

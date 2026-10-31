@@ -124,14 +124,24 @@ export default function CityFeedContent({ onCategoryClick }) {
 
   return (
     <div className="w-full flex flex-col items-center pb-24 pt-1">
-      {/* 1. Hyperlocal Citizen Dispatches Carousel: "नागरिकों की नज़र से" */}
-      <section aria-label="नागरिक ग्राउंड रिपोर्ट" className="w-[386px] mb-2.5 select-none">
-        <div className="flex items-center justify-between mb-1.5 px-1">
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse shrink-0" />
-            <h2 className="text-[14px] font-bold text-[#2B2437] tracking-tight">
-              नागरिकों की नज़र से : {cityName}
-            </h2>
+      {/* 1. Hyperlocal Citizen Dispatches Carousel: "नागरिकों की नज़र से" (Structured Single Surface Frame) */}
+      <section
+        aria-label="नागरिक ग्राउंड रिपोर्ट"
+        className="w-[386px] min-w-[386px] max-w-[386px] bg-white border border-[#E5E7EB] rounded-[22px] p-3.5 shadow-2xs mb-3 select-none overflow-hidden"
+      >
+        {/* Section Header with Micro-Badge & City Pill */}
+        <div className="flex items-center justify-between mb-3 px-0.5">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-[9px] bg-[#FFF4ED] border border-[#FDBA74] flex items-center justify-center text-[#C05621] shrink-0 shadow-2xs">
+              <VideoPlay size={14} color="#C05621" variant="Bold" />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <h2 className="text-[14.5px] font-bold text-[#2B2437] tracking-tight">
+                नागरिकों की नज़र से
+              </h2>
+              <span className="text-[13px] font-semibold text-[#8C7A9E]">· {cityName}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse ml-0.5" />
+            </div>
           </div>
           <button
             type="button"
@@ -140,33 +150,33 @@ export default function CityFeedContent({ onCategoryClick }) {
               setCitizenCityFilter(cityName);
               navigate('/videos');
             }}
-            className="text-[11.5px] font-medium text-[#C05621] hover:underline flex items-center gap-0.5 cursor-pointer"
+            className="h-[26px] px-2.5 rounded-full bg-[#FFF6ED] hover:bg-[#FFEDD5] border border-[#FDBA74]/70 text-[#C05621] text-[11px] font-bold flex items-center gap-1 active:scale-95 transition-all cursor-pointer shadow-2xs"
           >
             <span>सभी देखें</span>
-            <ArrowRight2 size={12} color="#C05621" />
+            <ArrowRight2 size={11} color="#C05621" />
           </button>
         </div>
 
         {/* Horizontal Story Reel Strip */}
-        <div className="w-full flex items-center gap-2 overflow-x-auto scrollbar-none py-0.5">
+        <div className="w-full flex items-center gap-2.5 overflow-x-auto scrollbar-none py-0.5">
           {/* Create Report Action Card */}
           <button
             type="button"
             onClick={handleOpenStudio}
-            className="w-[92px] h-[140px] rounded-[14px] bg-neutral-50/90 hover:bg-neutral-100/90 border border-neutral-200/90 flex flex-col items-center justify-center p-2.5 text-center shrink-0 cursor-pointer active:scale-95 transition-all shadow-2xs group"
+            className="w-[96px] h-[148px] rounded-[16px] bg-[#F9FAFB] hover:bg-[#F3F4F6] border border-[#E5E7EB] hover:border-[#2B2437] flex flex-col items-center justify-center p-2 text-center shrink-0 cursor-pointer active:scale-95 transition-all shadow-2xs group"
           >
-            <div className="relative mb-2">
-              <div className="w-8 h-8 rounded-full bg-[#2B2437] text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                <Camera size={15} color="#FFFFFF" variant="Bold" />
+            <div className="relative mb-2.5">
+              <div className="w-9 h-9 rounded-full bg-[#2B2437] group-hover:bg-[#1E1926] text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                <Camera size={16} color="#FFFFFF" variant="Bold" />
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#C05621] text-white flex items-center justify-center text-[10px] font-bold border border-white leading-none">
+              <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-[#E39026] text-white flex items-center justify-center text-[10px] font-bold border-2 border-white leading-none shadow-2xs">
                 +
               </span>
             </div>
-            <span className="text-[11px] font-semibold text-[#2B2437] leading-tight">
+            <span className="text-[12px] font-bold text-[#2B2437] leading-tight block">
               रिपोर्ट भेजें
             </span>
-            <span className="text-[8.5px] text-neutral-400 mt-0.5 font-normal">
+            <span className="mt-1 px-1.5 py-0.5 rounded-full bg-[#FFF6ED] border border-[#FDBA74]/60 text-[#C05621] text-[9px] font-semibold leading-none">
               60s वीडियो
             </span>
           </button>
@@ -182,7 +192,7 @@ export default function CityFeedContent({ onCategoryClick }) {
               <div
                 key={report.id}
                 onClick={() => handleOpenCitizenReel(report.id)}
-                className="w-[92px] h-[140px] rounded-[14px] bg-neutral-900 relative overflow-hidden shrink-0 cursor-pointer shadow-xs active:scale-95 transition-transform group"
+                className="w-[96px] h-[148px] rounded-[16px] bg-neutral-950 relative overflow-hidden shrink-0 cursor-pointer shadow-xs active:scale-95 transition-transform group border border-black/10"
               >
                 {/* Thumbnail / Video poster */}
                 <img
@@ -191,17 +201,31 @@ export default function CityFeedContent({ onCategoryClick }) {
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
 
+                {/* Top Ground Live Badge */}
+                <div className="absolute top-1.5 left-1.5 z-10 flex items-center gap-1 bg-black/60 backdrop-blur-xs px-1.5 py-0.5 rounded-full border border-white/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-[8.5px] font-bold text-white tracking-wide">ग्राउंड</span>
+                </div>
+
+                {/* Subtle Play Overlay on Hover */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="w-7 h-7 rounded-full bg-black/50 backdrop-blur-xs border border-white/30 flex items-center justify-center text-white">
+                    <VideoPlay size={13} color="#FFFFFF" variant="Bold" className="ml-0.5" />
+                  </div>
+                </div>
+
                 {/* Smooth Scrim */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-black/10" />
 
                 {/* Minimal Bottom Metadata */}
                 <div className="absolute bottom-2 inset-x-2 z-10 text-left">
                   {hasLocality && (
-                    <span className="block text-[8px] font-medium text-amber-300/90 mb-0.5 truncate tracking-tight">
-                      {report.locality}
-                    </span>
+                    <div className="flex items-center gap-0.5 text-[8.5px] font-bold text-[#F5B55C] mb-0.5 truncate drop-shadow">
+                      <Location size={9} color="#F5B55C" variant="Bold" className="shrink-0" />
+                      <span className="truncate">{report.locality}</span>
+                    </div>
                   )}
-                  <p className="text-[9.5px] font-medium text-white leading-[1.3] line-clamp-2 drop-shadow-xs">
+                  <p className="text-[10px] font-semibold text-white leading-[1.3] line-clamp-2 drop-shadow">
                     {report.headline}
                   </p>
                 </div>

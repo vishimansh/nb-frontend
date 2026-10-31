@@ -362,9 +362,9 @@ export default function VideosPage() {
                 onClick={openUpload}
                 aria-label="अपनी खबर भेजें"
                 title="खबर भेजें"
-                className="w-[46px] h-[46px] rounded-[14px] bg-[#F5B55C] hover:bg-[#E59C39] text-[#1E1926] flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer border border-[#E59C39] pointer-events-auto"
+                className="w-[46px] h-[46px] rounded-[14px] bg-[#F5B55C] hover:bg-[#E59C39] text-white flex items-center justify-center shadow-sm active:scale-95 transition-all cursor-pointer border border-[#E59C39] pointer-events-auto"
               >
-                <Camera size={20} color="#1E1926" variant="Bold" />
+                <Camera size={20} color="#FFFFFF" variant="Bold" />
               </button>
             ) : (
               <div className="w-[46px] h-[46px] pointer-events-none" />

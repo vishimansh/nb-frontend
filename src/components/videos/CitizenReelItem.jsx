@@ -486,7 +486,7 @@ export default function CitizenReelItem({
               aria-label="अपनी खबर भेजें"
               className="p-[12px] bg-[#2B2437] border border-white/20 rounded-full flex items-center gap-2 shadow-md active:scale-95 cursor-pointer text-white hover:bg-[#3D334E] transition-all w-fit"
             >
-              <Camera size={16} color="#F5B55C" variant="Bold" />
+              <Camera size={16} color="#FFFFFF" variant="Bold" />
               <span className="text-[16px] font-medium text-white tracking-wide leading-none">
                 अपनी खबर भेजें
               </span>
